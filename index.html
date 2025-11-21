@@ -1,5 +1,71 @@
 <div id="tokyo-fare-container">
 <style>
+
+    /* --- 匯率與計算機樣式 --- */
+    #utility-bar {
+        background: #F0F4C3; /* 淺黃綠色背景 */
+        padding: 20px 15px;
+        margin-top: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .rate-display {
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: bold;
+        color: #689F38; /* 深綠色 */
+    }
+    .calculator-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+    .calc-input {
+        grid-column: 1 / -1;
+        background: #FFF;
+        border: 2px solid #DCE775;
+        font-size: 2em;
+        padding: 10px;
+        text-align: right;
+        border-radius: 6px;
+        color: #3E2723;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .calc-btn {
+        background: #DCEDC8; /* 淺綠色按鈕 */
+        color: #3E2723;
+        border: none;
+        padding: 15px 0;
+        font-size: 1.2em;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.1s;
+    }
+    .calc-btn:active { background: #C5E1A5; }
+    .calc-btn.operator { background: #9CCC65; color: white; }
+    .calc-btn.equals { background: #8BC34A; color: white; font-weight: bold; }
+    .calc-btn.clear { background: #FFCDD2; }
+    
+    .conversion-output {
+        grid-column: 1 / -1;
+        margin-top: 10px;
+        padding: 10px;
+        background: #E8F5E9;
+        border-radius: 6px;
+        border: 1px solid #C8E6C9;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #2E7D32;
+    }
+    .conversion-output span {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.9em;
+        font-weight: normal;
+        color: #555;
+    }
+    
     /* --- 核心樣式 --- */
     #tokyo-fare-container {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -668,5 +734,198 @@
 
     render();
 })();
+    // === 匯率與計算機功能 ===
+    let currentRate = 4.50; // 備用匯率：1 TWD = 4.50 JPY
+    let displayValue = '0';
+    let firstOperand = null;
+    let operator = null;
+    let waitingForSecondOperand = false;
+
+    const displayElement = document.getElementById('display');
+    const rateElement = document.getElementById('exchange-rate-value');
+    const jpyResultElement = document.getElementById('jpy-result');
+    const twdResultElement = document.getElementById('twd-result');
+    const calculator = document.querySelector('.calculator-grid');
+
+    // --- 1. 匯率獲取 ---
+    function fetchExchangeRate() {
+        // 使用公共 API 嘗試獲取匯率 (注意：此公共 API 可能隨時失效或有頻率限制)
+        const apiUrl = 'https://api.exchangerate-api.com/v4/latest/TWD'; 
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.rates && data.rates.JPY) {
+                    currentRate = data.rates.JPY;
+                    rateElement.textContent = currentRate.toFixed(4);
+                }
+            })
+            .catch(() => {
+                console.warn("無法獲取即時匯率，使用備用值: " + currentRate.toFixed(4));
+                rateElement.textContent = currentRate.toFixed(4);
+            })
+            .finally(() => {
+                // 首次加載完成後，執行一次換算（確保顯示0）
+                updateConversions(0); 
+            });
+    }
+
+    // --- 2. 轉換邏輯 ---
+    function updateConversions(amountTWD) {
+        if (isNaN(amountTWD)) {
+            jpyResultElement.textContent = '0';
+            twdResultElement.textContent = '0';
+            return;
+        }
+
+        // TWD -> JPY 
+        const amountJPY = amountTWD * currentRate;
+        jpyResultElement.textContent = amountJPY.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 日幣不取小數點
+        
+        // 顯示台幣 (用於將 JPY 換算結果回填到 TWD 欄位時使用)
+        twdResultElement.textContent = amountTWD.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    // --- 3. 計算機邏輯 ---
+
+    function inputDigit(digit) {
+        if (waitingForSecondOperand === true) {
+            displayValue = digit;
+            waitingForSecondOperand = false;
+        } else {
+            displayValue = displayValue === '0' ? digit : displayValue + digit;
+        }
+    }
+
+    function inputDecimal(dot) {
+        if (waitingForSecondOperand === true) {
+            displayValue = '0.';
+            waitingForSecondOperand = false;
+            return;
+        }
+        if (!displayValue.includes(dot)) {
+            displayValue += dot;
+        }
+    }
+
+    function resetCalculator() {
+        displayValue = '0';
+        firstOperand = null;
+        operator = null;
+        waitingForSecondOperand = false;
+    }
+
+    function handleOperator(nextOperator) {
+        const inputValue = parseFloat(displayValue);
+
+        if (operator && waitingForSecondOperand) {
+            operator = nextOperator;
+            return;
+        }
+
+        if (firstOperand === null) {
+            firstOperand = inputValue;
+        } else if (operator) {
+            const result = performCalculation(firstOperand, inputValue, operator);
+            displayValue = String(parseFloat(result.toFixed(5)));
+            firstOperand = result;
+        }
+
+        waitingForSecondOperand = true;
+        operator = nextOperator;
+    }
+
+    function performCalculation(first, second, op) {
+        if (op === '+') return first + second;
+        if (op === '-') return first - second;
+        if (op === '*') return first * second;
+        if (op === '/') return first / second;
+        return second;
+    }
+
+    function updateDisplay() {
+        displayElement.textContent = displayValue;
+    }
+
+    // --- 4. 綁定事件 ---
+    calculator.addEventListener('click', (event) => {
+        const { target } = event;
+        const value = target.dataset.num || target.dataset.op;
+
+        if (!target.matches('button')) return;
+
+        if (target.classList.contains('clear')) {
+            resetCalculator();
+        } else if (target.classList.contains('operator')) {
+            if (value === '±') { // +/- 符號處理
+                displayValue = String(parseFloat(displayValue) * -1);
+            } else {
+                handleOperator(value);
+            }
+        } else if (target.classList.contains('equals')) {
+            handleOperator(operator);
+        } else if (value === '.') {
+            inputDecimal(value);
+        } else if (target.id === 'convert-btn') {
+            // "換算" 按鈕點擊時，將目前顯示值視為台幣進行轉換
+            updateConversions(parseFloat(displayValue));
+            return; // 轉換不影響計算狀態
+        } else if (target.dataset.num) {
+            inputDigit(value);
+        }
+
+        updateDisplay();
+        // 任何數字或計算結果變動時，更新換算顯示
+        if (!waitingForSecondOperand && !operator && !target.classList.contains('clear')) {
+             updateConversions(parseFloat(displayValue));
+        } else if (target.classList.contains('clear')) {
+             updateConversions(0);
+        }
+    });
+
+    // 啟動所有功能
+    fetchExchangeRate();
+    updateDisplay();
 </script>
+    <div id="utility-bar">
+    <div class="rate-display">
+        💡 今日即時匯率：1 TWD = <span id="exchange-rate-value">4.50</span> JPY (備用值)
+    </div>
+    
+    <div class="calculator-grid">
+        <div class="calc-input" id="display">0</div>
+        
+        <button class="calc-btn clear">AC</button>
+        <button class="calc-btn operator" data-op="±">+/-</button>
+        <button class="calc-btn operator" data-op="/">÷</button>
+        <button class="calc-btn operator" data-op="*">×</button>
+        
+        <button class="calc-btn" data-num="7">7</button>
+        <button class="calc-btn" data-num="8">8</button>
+        <button class="calc-btn" data-num="9">9</button>
+        <button class="calc-btn operator" data-op="-">-</button>
+        
+        <button class="calc-btn" data-num="4">4</button>
+        <button class="calc-btn" data-num="5">5</button>
+        <button class="calc-btn" data-num="6">6</button>
+        <button class="calc-btn operator" data-op="+">+</button>
+        
+        <button class="calc-btn" data-num="1">1</button>
+        <button class="calc-btn" data-num="2">2</button>
+        <button class="calc-btn" data-num="3">3</button>
+        <button class="calc-btn equals" data-op="=">=</button>
+        
+        <button class="calc-btn" data-num="0" style="grid-column: 1 / 3;">0</button>
+        <button class="calc-btn" data-num=".">.</button>
+        <button class="calc-btn" id="convert-btn" style="grid-column: 4 / 5; background:#81D4FA;">換算</button>
+        
+        <div class="conversion-output" id="jpy-output">
+            日幣 (JPY)：<span id="jpy-result">0</span>
+        </div>
+        <div class="conversion-output" id="twd-output">
+            台幣 (TWD)：<span id="twd-result">0</span>
+        </div>
+    </div>
 </div>
+</div>
+
