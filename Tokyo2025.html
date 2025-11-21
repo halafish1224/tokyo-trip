@@ -1,0 +1,535 @@
+<meta name="robots" content="noindex, nofollow">
+
+<div id="tokyo-fare-container">
+<style>
+    /* --- 樣式封裝 --- */
+    #tokyo-fare-container {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: #FFFBF0;
+        color: #3E2723;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-bottom: 60px;
+        border-radius: 8px;
+        line-height: 1.6;
+        box-sizing: border-box;
+    }
+
+    #tokyo-fare-container header {
+        background: linear-gradient(135deg, #C62828, #B71C1C);
+        color: #FFF;
+        padding: 20px 15px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+    }
+
+    #tokyo-fare-container .weather-box {
+        background: #FFF;
+        margin: 15px;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 5px solid #2E7D32;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .weather-link { color: #1565C0; text-decoration: underline; font-weight: bold; }
+
+    /* 日期導航 */
+    #tokyo-fare-container .date-nav {
+        padding: 5px 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+    
+    #tokyo-fare-container .date-btn {
+        flex: 0 0 auto;
+        padding: 10px 5px;
+        border-radius: 6px;
+        border: 1px solid #E0E0E0;
+        background: #FFFFFF;
+        color: #555;
+        font-size: 13px;
+        cursor: pointer;
+        width: calc(20% - 6px);
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    @media (max-width: 400px) { #tokyo-fare-container .date-btn { width: calc(25% - 6px); } }
+
+    #tokyo-fare-container .date-btn.active {
+        background: #C62828;
+        color: white;
+        border-color: #C62828;
+    }
+
+    #tokyo-fare-container .timeline { padding: 10px 15px; }
+
+    /* 卡片樣式 */
+    #tokyo-fare-container .card {
+        background: #FFF;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        border-left: 5px solid #999;
+        overflow: hidden;
+    }
+
+    .type-base { border-left-color: #C62828 !important; } 
+    .type-food { border-left-color: #F9A825 !important; } 
+    .type-shop { border-left-color: #6A1B9A !important; } 
+    .type-move { border-left-color: #2E7D32 !important; background-color: #E8F5E9 !important; }
+    .type-rec { border-left-color: #009688 !important; background-color: #E0F2F1 !important; } /* 推薦景點 */
+
+    .card-header {
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        flex-wrap: wrap;
+    }
+
+    .time-box {
+        font-weight: bold;
+        background: #EEE;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-right: 8px;
+        min-width: 40px;
+        text-align: center;
+    }
+    
+    .type-move .time-box { background: #2E7D32; color: white; }
+
+    .fare-badge {
+        font-size: 11px;
+        color: #555;
+        background: #FFF9C4;
+        padding: 2px 6px;
+        border-radius: 10px;
+        border: 1px solid #FBC02D;
+        margin-left: auto; /* 靠右對齊 */
+        white-space: nowrap;
+    }
+
+    .card-title { flex-grow: 1; font-weight: bold; font-size: 15px; margin-right: 10px; }
+    .toggle-icon { font-size: 12px; color: #999; margin-left: 5px; }
+
+    .card-details {
+        display: none;
+        padding: 15px;
+        border-top: 1px solid #EEE;
+        background-color: #FAFAFA;
+    }
+    .card.open .card-details { display: block; }
+
+    .desc { font-size: 14px; margin-bottom: 10px; color: #444; }
+    
+    .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .nav-btn {
+        display: block; text-align: center; padding: 10px; border-radius: 6px;
+        text-decoration: none; font-weight: bold; font-size: 14px;
+    }
+    .btn-google { background-color: #4285F4; color: white !important; }
+    .btn-cheap { background-color: #2E7D32; color: white !important; }
+    .btn-easy { background-color: #FF8F00; color: white !important; }
+
+</style>
+
+<header>
+    <h2 style="margin:0;">2025 東京 14 天深度旅 🎄</h2>
+    <p style="margin:5px 0 0; font-size:13px; opacity:0.9;">車資預估 & 順路景點版</p>
+</header>
+
+<div class="weather-box">
+    <div id="weather-text" style="font-weight:bold;"></div>
+    <a href="https://tenki.jp/forecast/3/16/4410/13101/" target="_blank" class="weather-link">查看東京即時氣象 (Tenki.jp) ↗</a>
+</div>
+
+<div class="date-nav" id="date-nav"></div>
+<div class="timeline" id="event-list"></div>
+
+<script>
+(function() {
+    const tripData = [
+        {
+            date: "12/14 (日)",
+            avgTemp: "12°C / 5°C",
+            events: [
+                { 
+                    time: "13:00", title: "抵達東京 (JX800)", type: "move", fare: "💴 約 1,100~1,350円",
+                    desc: "搭乘「京成 Access 特急」直達淺草橋，或「京成本線」至青砥轉車。", 
+                    tips: "【最省錢】京成本線特急 (約1100円)。<br>【最方便】Access 特急直通都營淺草線 (約1350円)。",
+                    buttons: [{ text: "🚇 Google 規劃：最省錢路線", url: "https://maps.google.com/?cid=15133757769088164000&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ7" }]
+                },
+                { 
+                    time: "16:00", title: "Check-in 淺草橋", type: "base", 
+                    desc: "Tabist Hotel Mercury Asakusabashi。", 
+                    buttons: [{ text: "📍 導航至飯店", url: "Tabist Hotel Mercury Asakusabashi" }]
+                },
+                { 
+                    time: "晚餐", title: "中華食堂 一番館", type: "food", fare: "💴 徒步 0円",
+                    desc: "周邊平價晚餐。", 
+                    buttons: [{ text: "🍴 導航至餐廳", url: "Ichi-ban-kan Asakusabashi" }]
+                }
+            ]
+        },
+        {
+            date: "12/15 (一)",
+            avgTemp: "11°C / 4°C",
+            events: [
+                { 
+                    time: "交通", title: "移動至豪德寺", type: "move", fare: "💴 約 450円",
+                    desc: "淺草橋 -> 澀谷 (購買東急一日券) -> 豪德寺。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 澀谷", url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Shibuya+Station&travelmode=transit" }]
+                },
+                { 
+                    time: "09:00", title: "豪徳寺 & 松陰神社", type: "base", fare: "💴 一日券",
+                    desc: "利用世田谷線一日券遊覽。", 
+                    buttons: [{ text: "📍 導航至豪德寺", url: "Gotokuji Temple" }]
+                },
+                { 
+                    time: "13:00", title: "世田谷ボロ市", type: "base", fare: "💴 一日券",
+                    desc: "一年兩次的舊物市集。", 
+                    buttons: [{ text: "📍 導航至市集", url: "Setagaya Daikan Yashiki" }]
+                }
+            ]
+        },
+        {
+            date: "12/16 (二)",
+            avgTemp: "10°C / 3°C",
+            events: [
+                { 
+                    time: "交通", title: "前往北鎌倉", type: "move", fare: "💴 約 940円",
+                    desc: "JR 總武線快速/橫須賀線直達。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 北鎌倉", url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Kita-Kamakura+Station&travelmode=transit" }]
+                },
+                { 
+                    time: "09:00", title: "北鎌倉：明月院", type: "base", fare: "💴 徒步",
+                    desc: "圓窗景點。", 
+                    buttons: [{ text: "📍 導航至明月院", url: "Meigetsuin" }]
+                },
+                { 
+                    time: "推薦", title: "順遊：円覺寺", type: "rec", fare: "💴 徒步",
+                    desc: "就在北鎌倉車站旁，非常壯觀的禪寺，若時間允許建議加入。", 
+                    buttons: [{ text: "📍 導航至円覺寺", url: "Engakuji" }]
+                },
+                { 
+                    time: "13:00", title: "鶴岡八幡宮", type: "base", fare: "💴 徒步/電車140円",
+                    desc: "參拜後逛小町通商店街。", 
+                    buttons: [{ text: "📍 導航至八幡宮", url: "Tsurugaoka Hachimangu" }]
+                }
+            ]
+        },
+        {
+            date: "12/17 (三)",
+            avgTemp: "12°C / 4°C",
+            events: [
+                { 
+                    time: "09:00", title: "淺草 Pelican 麵包", type: "food", fare: "💴 約 180円",
+                    desc: "搭地鐵一站或走路去田原町。", 
+                    buttons: [{ text: "📍 導航至麵包店", url: "Pelican Bread Asakusa" }]
+                },
+                { 
+                    time: "14:00", title: "淺草寺：歲之市", type: "base", fare: "💴 徒步",
+                    desc: "羽子板市集。", 
+                    buttons: [{ text: "📍 導航至淺草寺", url: "Sensoji" }]
+                },
+                { 
+                    time: "推薦", title: "順遊：淺草文化觀光中心", type: "rec", fare: "💴 免費",
+                    desc: "雷門對面的 8 樓展望台，免費俯瞰仲見世通與晴空塔，景色絕佳。", 
+                    buttons: [{ text: "📍 導航至觀光中心", url: "Asakusa Culture Tourist Information Center" }]
+                }
+            ]
+        },
+        {
+            date: "12/18 (四)",
+            avgTemp: "11°C / 4°C",
+            events: [
+                { 
+                    time: "10:00", title: "神樂坂 散策", type: "base", fare: "💴 約 170円",
+                    desc: "淺草橋搭 JR 至飯田橋。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 飯田橋", url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Iidabashi+Station&travelmode=transit" }]
+                },
+                { 
+                    time: "推薦", title: "順遊：赤城神社", type: "rec", fare: "💴 徒步",
+                    desc: "由隈研吾設計的現代化神社，位於神樂坂街尾，非常特別。", 
+                    buttons: [{ text: "📍 導航至赤城神社", url: "Akagi Shrine Kagurazaka" }]
+                }
+            ]
+        },
+        {
+            date: "12/19 (五)",
+            avgTemp: "10°C / 2°C",
+            events: [
+                { 
+                    time: "10:00", title: "高圓寺", type: "base", fare: "💴 約 220円",
+                    desc: "日劇巡禮。淺草橋搭 JR 直達。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 高圓寺", url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Koenji+Station&travelmode=transit" }]
+                },
+                { 
+                    time: "14:00", title: "荻窪：大田黑公園", type: "base", fare: "💴 約 160円",
+                    desc: "日式庭園。", 
+                    buttons: [{ text: "📍 導航至公園", url: "Otaguro Park" }]
+                }
+            ]
+        },
+        {
+            date: "12/20 (六)",
+            avgTemp: "11°C / 3°C",
+            events: [
+                { 
+                    time: "09:00", title: "神田志乃多壽司", type: "food", fare: "💴 徒步/140円",
+                    desc: "買外帶壽司。", 
+                    buttons: [{ text: "📍 導航至店舖", url: "Kanda Shinoda Sushi" }]
+                },
+                { 
+                    time: "10:00", title: "皇居外苑", type: "base", fare: "💴 徒步",
+                    desc: "從神田慢慢走到大手門/皇居外苑。", 
+                    buttons: [{ text: "📍 導航至皇居", url: "Imperial Palace Outer Garden" }]
+                },
+                { 
+                    time: "14:00", title: "日本橋三越", type: "shop", fare: "💴 免費巡迴巴士",
+                    desc: "可搭乘免費的「Metrolink 日本橋」巡迴巴士移動。", 
+                    buttons: [{ text: "📍 導航至三越", url: "Nihombashi Mitsukoshi" }]
+                }
+            ]
+        },
+        {
+            date: "12/21 (日)",
+            avgTemp: "10°C / 3°C",
+            events: [
+                { 
+                    time: "10:00", title: "飯店大移動 🧳", type: "move", fare: "💴 計程車約 1,200円",
+                    desc: "淺草橋 -> 田原町。推薦搭計程車省力。", 
+                    buttons: [{ text: "🚕 導航：Henn na Hotel", url: "Henn na Hotel Tokyo Asakusa Tawaramachi" }]
+                },
+                { 
+                    time: "14:00", title: "大江戶古董市", type: "base", fare: "💴 約 200円",
+                    desc: "位於有樂町(東京國際論壇)。", 
+                    buttons: [{ text: "📍 導航至市集", url: "Tokyo International Forum" }]
+                }
+            ]
+        },
+        {
+            date: "12/22 (一)",
+            avgTemp: "11°C / 4°C",
+            events: [
+                { 
+                    time: "交通", title: "前往鎌倉/江之島", type: "move", fare: "💴 約 950円",
+                    desc: "田原町->新橋->大船。建議購買【鎌倉/江之島通票】。", 
+                    buttons: [{ text: "🚇 導航：田原町 -> 大船", url: "https://www.google.com/maps/dir/?api=1&origin=Tawaramachi+Station&destination=Ofuna+Station&travelmode=transit" }]
+                },
+                { 
+                    time: "09:00", title: "1. 大船觀音寺", type: "base", fare: "💴 徒步",
+                    desc: "出站即可看到巨大觀音，祈求旅途平安。", 
+                    buttons: [{ text: "📍 導航至觀音寺", url: "Ofuna Kannonji" }]
+                },
+                { 
+                    time: "10:00", title: "2. 湘南江之島", type: "base", fare: "💴 單軌電車 320円",
+                    desc: "搭乘懸掛式單軌電車至江之島。", 
+                    buttons: [{ text: "📍 導航至江之島", url: "Enoshima" }]
+                },
+                { 
+                    time: "12:00", title: "3. 午餐：Recette", type: "food", fare: "💴 江之電 (通票)",
+                    desc: "搭江之電至「長谷站」，步行至餐廳。", 
+                    buttons: [{ text: "📍 導航至餐廳", url: "cafe recette Kamakura" }]
+                },
+                { 
+                    time: "14:00", title: "4. 長谷寺 & 大佛", type: "base", fare: "💴 徒步",
+                    desc: "長谷站周邊景點。", 
+                    buttons: [{ text: "📍 導航至大佛", url: "Kotoku-in" }]
+                },
+                { 
+                    time: "16:00", title: "5. 鶴岡八幡宮", type: "base", fare: "💴 江之電 (通票)",
+                    desc: "搭江之電至「鎌倉站」，走小町通至八幡宮 (留意博物館約16:30關，神社開較晚)。", 
+                    buttons: [{ text: "📍 導航至八幡宮", url: "Tsurugaoka Hachimangu" }]
+                }
+            ]
+        },
+        {
+            date: "12/23 (二)",
+            avgTemp: "12°C / 4°C",
+            events: [
+                { 
+                    time: "09:00", title: "雷門", type: "base", fare: "💴 徒步",
+                    desc: "飯店走路去雷門。", 
+                    buttons: [{ text: "📍 導航至雷門", url: "Kaminarimon" }]
+                },
+                { 
+                    time: "13:00", title: "AEON LakeTown", type: "shop", fare: "💴 約 500円",
+                    desc: "上野 -> 越谷LakeTown。", 
+                    buttons: [{ text: "🚇 導航：上野 -> 越谷LakeTown", url: "https://www.google.com/maps/dir/?api=1&origin=Ueno+Station&destination=Koshigaya+Laketown+Station&travelmode=transit" }]
+                },
+                { 
+                    time: "19:00", title: "二木菓子 (上野)", type: "shop", fare: "💴 約 500円",
+                    desc: "回程在上野下車，去阿美橫丁大採購。", 
+                    buttons: [{ text: "📍 導航至二木菓子", url: "Niki no Kashi" }]
+                }
+            ]
+        },
+        {
+            date: "12/24 (三)",
+            avgTemp: "11°C / 3°C",
+            events: [
+                { 
+                    time: "12:00", title: "午餐：敘敘苑", type: "food", fare: "💴 約 580円",
+                    desc: "【預約】橫濱 Sky Building 28F (橫濱站旁)。", 
+                    buttons: [{ text: "📍 導航至敘敘苑(橫濱)", url: "Jojoen Yokohama Sky Building" }]
+                },
+                { 
+                    time: "14:30", title: "紅磚倉庫 (聖誕市集)", type: "base", fare: "💴 纜車 1000円",
+                    desc: "【少走路推薦】從櫻木町搭乘「Air Cabin 空中纜車」直達紅磚倉庫區，景色美且不用走。", 
+                    buttons: [{ text: "📍 導航至纜車站", url: "Yokohama Air Cabin" }, { text: "📍 導航至紅磚倉庫", url: "Yokohama Red Brick Warehouse" }]
+                },
+                { 
+                    time: "推薦", title: "順遊：Marine & Walk", type: "rec", fare: "💴 徒步",
+                    desc: "就在紅磚倉庫旁，有著名的「天使翅膀」牆可以拍照。", 
+                    buttons: [{ text: "📍 導航至 Marine & Walk", url: "MARINE & WALK YOKOHAMA" }]
+                }
+            ]
+        },
+        {
+            date: "12/25 (四)",
+            avgTemp: "10°C / 2°C",
+            events: [
+                { 
+                    time: "09:00", title: "築地 & 銀座", type: "base", fare: "💴 約 200円",
+                    desc: "田原町 -> 築地/銀座。", 
+                    buttons: [{ text: "📍 導航至 GINZA SIX", url: "GINZA SIX" }]
+                },
+                { 
+                    time: "必買", title: "白金や 稻荷壽司", type: "food", fare: "💴 徒步",
+                    desc: "東銀座歌舞伎座旁。", 
+                    buttons: [{ text: "📍 導航至店舖", url: "Platinumya Ginza" }]
+                },
+                { 
+                    time: "16:00", title: "合羽橋道具街", type: "shop", fare: "💴 約 200円",
+                    desc: "回田原町，步行至道具街。", 
+                    buttons: [{ text: "📍 導航至合羽橋", url: "Kappabashi Street" }]
+                }
+            ]
+        },
+        {
+            date: "12/26 (五)",
+            avgTemp: "9°C / 2°C",
+            events: [
+                { 
+                    time: "12:00", title: "午餐：敘敘苑", type: "food", fare: "💴 約 300円",
+                    desc: "【預約】新宿 Opera City 53F (初台站)。", 
+                    buttons: [{ text: "📍 導航至敘敘苑(新宿)", url: "Jojoen Tokyo Opera City" }]
+                },
+                { 
+                    time: "推薦", title: "順遊：東京都廳", type: "rec", fare: "💴 徒步",
+                    desc: "就在附近，可免費上展望台看東京全景。", 
+                    buttons: [{ text: "📍 導航至都廳", url: "Tokyo Metropolitan Government Building" }]
+                },
+                { 
+                    time: "15:00", title: "下島包裝 (Shimojima)", type: "shop", fare: "💴 約 180円",
+                    desc: "總武線至淺草橋補貨。", 
+                    buttons: [{ text: "📍 導航至下島", url: "Shimojima Asakusabashi" }]
+                }
+            ]
+        },
+        {
+            date: "12/27 (六)",
+            avgTemp: "10°C / 2°C",
+            events: [
+                { 
+                    time: "10:00", title: "前往成田機場", type: "move", fare: "💴 約 1,050~2,500円",
+                    desc: "前往京成上野站。", 
+                    tips: "【最省錢】京成本線特急 (約1050円，時間較長)。<br>【最推薦】Skyliner (約2570円，最快且舒適)。",
+                    buttons: [
+                        { text: "🚇 Google 規劃：最省錢路線", url: "https://www.google.com/maps/dir/?api=1&origin=Keisei+Ueno+Station&destination=Narita+Airport+Terminal+2&travelmode=transit&routing_preference=fewer_transfers" },
+                        { text: "🚇 Google 規劃：Skyliner", url: "https://maps.google.com/?cid=15133757769088164000&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ8" }
+                    ]
+                },
+                { 
+                    time: "15:35", title: "航班 JX803", type: "move", 
+                    desc: "成田 T2 起飛。", 
+                    buttons: [{ text: "✈️ 導航至成田T2", url: "Narita Airport Terminal 2" }]
+                }
+            ]
+        }
+    ];
+
+    const navContainer = document.getElementById('date-nav');
+    const listContainer = document.getElementById('event-list');
+    const weatherText = document.getElementById('weather-text');
+
+    function render() {
+        tripData.forEach((day, index) => {
+            const btn = document.createElement('div');
+            btn.className = `date-btn ${index === 0 ? 'active' : ''}`;
+            btn.textContent = day.date.split(' ')[0]; 
+            btn.onclick = () => switchDay(index, btn);
+            navContainer.appendChild(btn);
+        });
+        showEvents(0);
+    }
+
+    function switchDay(index, btnElement) {
+        document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+        btnElement.classList.add('active');
+        showEvents(index);
+    }
+
+    function showEvents(index) {
+        const data = tripData[index];
+        weatherText.innerHTML = `📅 ${data.date} • 歷史均溫 ${data.avgTemp}`;
+        listContainer.innerHTML = ''; 
+        
+        data.events.forEach(evt => {
+            let typeClass = 'type-base';
+            if (evt.type === 'food') typeClass = 'type-food';
+            if (evt.type === 'shop') typeClass = 'type-shop';
+            if (evt.type === 'move') typeClass = 'type-move';
+            if (evt.type === 'rec') typeClass = 'type-rec';
+
+            const card = document.createElement('div');
+            card.className = `card ${typeClass}`;
+
+            let btnsHtml = '';
+            if(evt.buttons) {
+                btnsHtml = '<div class="btn-group">';
+                evt.buttons.forEach(b => {
+                    let btnClass = 'btn-google';
+                    let linkUrl = b.url;
+                    if (!linkUrl.startsWith('http')) {
+                        linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.url)}`;
+                    }
+                    if(b.text.includes('省錢')) btnClass = 'btn-cheap';
+                    if(b.text.includes('直達') || b.text.includes('計程車')) btnClass = 'btn-easy';
+                    btnsHtml += `<a href="https://www.google.com/maps/dir/?api=1&origin=Start&destination=End&travelmode=transit{linkUrl}" target="_blank" class="nav-btn ${btnClass}">${b.text}</a>`;
+                });
+                btnsHtml += '</div>';
+            }
+
+            let tipsHtml = evt.tips ? `<div style="background:#E0F2F1; padding:10px; border-radius:6px; font-size:13px; color:#00695C; margin-top:8px; border:1px solid #B2DFDB;">💡 ${evt.tips}</div>` : '';
+            let fareHtml = evt.fare ? `<span class="fare-badge">${evt.fare}</span>` : '';
+
+            card.innerHTML = `
+                <div class="card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="time-box">${evt.time}</span>
+                    <span class="card-title">${evt.title}</span>
+                    ${fareHtml}
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="card-details">
+                    <div class="desc">${evt.desc}</div>
+                    ${tipsHtml}
+                    ${btnsHtml}
+                </div>
+            `;
+            listContainer.appendChild(card);
+        });
+    }
+
+    render();
+})();
+</script>
+</div>
