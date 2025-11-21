@@ -113,7 +113,7 @@
         background-color: #FAFAFA;
     }
     .card.open .card-details { display: block; }
-    .card.open .card-header .toggle-icon { transform: rotate(180deg); } /* 旋轉箭頭 */
+    .card.open .card-header .toggle-icon { transform: rotate(180deg); } 
 
     .desc { font-size: 14px; margin-bottom: 10px; color: #444; }
     
@@ -126,20 +126,20 @@
     .btn-cheap { background-color: #2E7D32; color: white !important; }
     .btn-easy { background-color: #FF8F00; color: white !important; }
     .btn-weather { 
-        background-color: #00BCD4; /* 淺藍色 */
+        background-color: #00BCD4; 
         color: white !important; 
         border: 1px solid #00ACC1;
     }
 
-    /* --- 會話手冊樣式 --- */
-    #phrasebook-container {
+    /* --- 翻譯強化樣式 --- */
+    #translator-container {
         margin: 15px;
-        border: 1px solid #C62828;
+        border: 1px solid #4285F4;
         border-radius: 8px;
         overflow: hidden;
     }
-    .phrase-header {
-        background: #C62828;
+    .translator-header {
+        background: #4285F4;
         color: white;
         padding: 15px;
         cursor: pointer;
@@ -148,102 +148,71 @@
         justify-content: space-between;
         align-items: center;
     }
-    .phrase-content {
+    .translator-content {
         padding: 15px;
         background: white;
         display: none;
     }
-    #phrasebook-container.open .phrase-content { display: block; }
-    .phrase-item {
-        margin-bottom: 12px;
-        padding: 8px;
-        border-left: 4px solid #F9A825;
-        background-color: #FFFDE7;
-    }
-    .phrase-item h4 { margin: 0 0 5px 0; font-size: 15px; color: #3E2723; }
-    .chinese-text { font-size: 14px; color: #555; margin-bottom: 2px; }
-    .japanese-text { 
-        font-size: 16px; 
-        font-weight: bold; 
-        color: #C62828;
-        display: block;
-        margin-top: 4px;
-        padding: 5px;
-        border: 1px dashed #FFCCBC;
+    #translator-container.open .translator-content { display: block; }
+    
+    #translation-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #DDD;
         border-radius: 4px;
+        box-sizing: border-box;
     }
-
+    #translate-button {
+        background-color: #DB4437; /* Google 紅色 */
+        color: white;
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 </style>
 
 <header>
     <h2 style="margin:0;">2025 東京 14 天深度旅 🎄</h2>
-    <p style="margin:5px 0 0; font-size:13px; opacity:0.9;">中日文會話與多地點天氣整合版</p>
+    <p style="margin:5px 0 0; font-size:13px; opacity:0.9;">行程互動與即時翻譯功能</p>
 </header>
 
 <div class="date-nav" id="date-nav"></div>
 
-<div id="phrasebook-container">
-    <div class="phrase-header">
-        實用中日文會話手冊 (點擊展開) <span class="toggle-icon">▼</span>
+<div id="translator-container">
+    <div class="translator-header">
+        🌐 快速中日文翻譯 (點擊展開) <span class="toggle-icon">▼</span>
     </div>
-    <div class="phrase-content">
-        <p style="font-size:13px; color:#555;">請直接將日文部分出示給服務人員觀看。</p>
-        
-        <div class="phrase-item">
-            <h4>📍 問路與地點確認</h4>
-            <span class="chinese-text">請問這個地址怎麼走？</span>
-            <span class="japanese-text">この住所への行き方を教えてください。 (Kono jūsho e no ikikata o oshiete kudasai.)</span>
-        </div>
-        
-        <div class="phrase-item">
-            <h4>🚇 交通：詢問最近的車站/購票</h4>
-            <span class="chinese-text">請問這裡最近的車站是哪一個？</span>
-            <span class="japanese-text">ここから一番近い駅はどこですか？ (Koko kara ichiban chikai eki wa doko desu ka?)</span>
-        </div>
-
-        <div class="phrase-item">
-            <h4>🍴 點餐與飲食限制</h4>
-            <span class="chinese-text">我不吃牛/海鮮，可以幫我推薦嗎？</span>
-            <span class="japanese-text">牛肉/魚介類が食べられません。お勧めはありますか？ (Gyūniku/Gyokairui ga taberaremasen. Osusume wa arimasu ka?)</span>
-        </div>
-
-        <div class="phrase-item">
-            <h4>🛍️ 購物：退稅與結帳</h4>
-            <span class="chinese-text">請問這裡可以辦理退稅嗎？</span>
-            <span class="japanese-text">ここで免税手続きはできますか？ (Koko de menzei tetsuzuki wa dekimasu ka?)</span>
-        </div>
-
-        <div class="phrase-item">
-            <h4>🆘 緊急狀況</h4>
-            <span class="chinese-text">我需要協助/我迷路了。</span>
-            <span class="japanese-text">助けてください/道に迷いました。 (Tasukete kudasai / Michi ni mayoimashita.)</span>
-        </div>
+    <div class="translator-content">
+        <p style="font-size:13px; color:#555; margin-bottom:10px;">請輸入中文，然後點擊按鈕跳轉至 Google 翻譯頁面，出示日文給服務人員看。</p>
+        <input type="text" id="translation-input" placeholder="請輸入您想翻譯的中文句子..." />
+        <button id="translate-button">點此跳轉並查看日文翻譯 🚀</button>
     </div>
 </div>
 <div class="timeline" id="event-list"></div>
 
 <script>
 (function() {
-    // === 行程資料 (已整合所有資訊) ===
-    // 💡 提示：所有 weatherLinkUrl 使用 Tenki.jp 區域連結，請自行精確調整。
+    // === 行程資料 (已加入所有日期，並整合地點天氣連結範例) ===
     const tripData = [
         {
             date: "12/14 (日)",
             avgTemp: "12°C / 5°C",
             events: [
                 { 
-                    time: "13:00", title: "抵達東京 (JX800)", type: "move", fare: "✈️ T2",
-                    desc: "搭乘「京成 Access 特急」或「京成本線特急」。", 
+                    time: "13:00", title: "抵達東京 (JX800)", type: "move", fare: "💴 約 1,100~1,350円",
+                    desc: "搭乘「京成 Access 特急」直達淺草橋，或「京成本線」至青砥轉車。", 
                     tips: "【最省錢】京成本線特急 (約1100円)。",
-                    buttons: [{ text: "🚇 Google 規劃", url: "Narita Airport Terminal 2 to Asakusabashi Station" }],
-                    weatherLinkText: "☁️ 成田機場天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4510/12211/"
+                    buttons: [{ text: "🚇 Google 規劃：最省錢路線", url: "https://www.google.com/maps/dir/Narita+International+Airport+(NRT),+1-1+Furugome,+Narita,+Chiba+286-0105,+Japan/Asakusabashi+Station,+1+Chome+Kandaizumich%C5%8D,+Chiyoda+City,+Tokyo+101-0024,+Japan/" }]
                 },
                 { 
                     time: "16:00", title: "Check-in 淺草橋", type: "base", 
                     desc: "Tabist Hotel Mercury Asakusabashi。", 
                     buttons: [{ text: "📍 導航至飯店", url: "Tabist Hotel Mercury Asakusabashi" }],
-                    weatherLinkText: "☁️ 淺草橋天氣",
+                    weatherLinkText: "☁️ 淺草橋天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13106/"
                 },
                 { 
@@ -258,26 +227,21 @@
             avgTemp: "11°C / 4°C",
             events: [
                 { 
-                    time: "交通", title: "移動至澀谷", type: "move", fare: "💴 約 450円",
-                    desc: "購買東急線一日券。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 澀谷", url: "Asakusabashi Station to Shibuya Station" }]
+                    time: "交通", title: "移動至豪德寺", type: "move", fare: "💴 約 450円",
+                    desc: "淺草橋 -> 澀谷 (購買東急一日券) -> 豪德寺。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 澀谷", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+1+Chome+Kandaizumich%C5%8D,+Chiyoda+City,+Tokyo+101-0024,+Japan/Shibuya+Station,+2+Chome+Shibuya,+Shibuya+City,+Tokyo+150-0002,+Japan/" }]
                 },
                 { 
-                    time: "09:00", title: "豪徳寺 & 松陰神社", type: "base", fare: "💴 東急一日券",
-                    desc: "招財貓與神社巡禮。", 
+                    time: "09:00", title: "豪徳寺 & 松陰神社", type: "base", fare: "💴 一日券",
+                    desc: "利用世田谷線一日券遊覽。", 
                     buttons: [{ text: "📍 導航至豪德寺", url: "Gotokuji Temple" }],
-                    weatherLinkText: "☁️ 豪德寺天氣",
+                    weatherLinkText: "☁️ 豪德寺天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13112/"
                 },
                 { 
-                    time: "13:00", title: "世田谷ボロ市 (舊物市集)", type: "base", fare: "💴 東急一日券",
-                    desc: "一年兩次的舊物市集。", 
-                    buttons: [{ text: "📍 導航至市集", url: "Setagaya Boroichi Market" }]
-                },
-                { 
-                    time: "18:00", title: "三軒茶屋周邊美食", type: "food", fare: "💴 一日券",
-                    desc: "三軒茶屋站周邊晚餐。", 
-                    buttons: [{ text: "🍴 搜尋周邊美食", url: "Sangen-jaya Station Restaurants" }]
+                    time: "13:00", title: "世田谷ボロ市 (舊物市集)", type: "base", fare: "💴 一日券",
+                    desc: "一年兩次的舊物市集，需確認時間。", 
+                    buttons: [{ text: "📍 導航至市集", url: "Setagaya Daikan Yashiki" }]
                 }
             ]
         },
@@ -287,25 +251,25 @@
             events: [
                 { 
                     time: "交通", title: "前往北鎌倉", type: "move", fare: "💴 約 940円",
-                    desc: "JR 總武線直通橫須賀線。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 北鎌倉", url: "Asakusabashi Station to Kita-Kamakura Station" }]
+                    desc: "JR 總武線快速/橫須賀線直達。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 北鎌倉", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+1+Chome+Kandaizumich%C5%8D,+Chiyoda+City,+Tokyo+101-0024,+Japan/Kita-Kamakura+Station,+392+Yamanouchi,+Kamakura,+Kanagawa+247-0062,+Japan/" }]
                 },
                 { 
-                    time: "09:00", title: "明月院 (圓窗) & 円覺寺", type: "base", fare: "💴 徒步",
-                    desc: "北鎌倉站周邊禪寺散策。", 
-                    buttons: [{ text: "📍 導航至明月院", url: "Meigetsuin Temple" }],
-                    weatherLinkText: "☁️ 北鎌倉天氣",
+                    time: "09:00", title: "北鎌倉：明月院 (圓窗)", type: "base", fare: "💴 徒步",
+                    desc: "繡球花季已過，以枯山水與圓窗為重點。", 
+                    buttons: [{ text: "📍 導航至明月院", url: "Meigetsuin" }],
+                    weatherLinkText: "☁️ 北鎌倉天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4620/14204/"
                 },
                 { 
-                    time: "13:00", title: "鶴岡八幡宮 & 小町通", type: "base", fare: "💴 徒步/電車",
-                    desc: "參拜後逛街。", 
-                    buttons: [{ text: "📍 導航至八幡宮", url: "Tsurugaoka Hachimangu Shrine" }]
+                    time: "推薦", title: "順遊：円覺寺", type: "rec", fare: "💴 徒步",
+                    desc: "北鎌倉站旁的禪寺。", 
+                    buttons: [{ text: "📍 導航至円覺寺", url: "Engakuji" }]
                 },
                 { 
-                    time: "晚餐", title: "鎌倉周邊美食", type: "food", fare: "💴 回程",
-                    desc: "紅虎餃子房或當地特色料理。", 
-                    buttons: [{ text: "🍴 導航至鎌倉美食", url: "Kamakura Station Restaurants" }]
+                    time: "13:00", title: "鶴岡八幡宮 & 小町通", type: "base", fare: "💴 徒步/電車140円",
+                    desc: "參拜後逛小町通商店街。", 
+                    buttons: [{ text: "📍 導航至八幡宮", url: "Tsurugaoka Hachimangu" }]
                 }
             ]
         },
@@ -314,77 +278,67 @@
             avgTemp: "12°C / 4°C",
             events: [
                 { 
-                    time: "09:00", title: "淺草 Pelican 麵包 (預約)", type: "food", fare: "💴 約 180円",
-                    desc: "需事先預約。", 
+                    time: "09:00", title: "淺草 Pelican 麵包", type: "food", fare: "💴 約 180円",
+                    desc: "需預約，地鐵一站至田原町。", 
                     buttons: [{ text: "📍 導航至麵包店", url: "Pelican Bread Asakusa" }]
                 },
                 { 
-                    time: "10:30", title: "今戶神社 (招財貓/良緣)", type: "base", fare: "💴 徒步",
-                    desc: "淺草地區神社。", 
+                    time: "10:30", title: "今戶神社", type: "base", fare: "💴 徒步",
+                    desc: "招財貓發源地，求良緣。", 
                     buttons: [{ text: "📍 導航至神社", url: "Imado Shrine" }]
                 },
                 { 
-                    time: "14:00", title: "淺草寺：歲之市 (羽子板市)", type: "base", fare: "💴 徒步",
-                    desc: "年底特色市集。", 
-                    buttons: [{ text: "📍 導航至淺草寺", url: "Sensoji Temple" }],
-                    weatherLinkText: "☁️ 淺草天氣",
+                    time: "14:00", title: "淺草寺：歲之市 (羽子板市集)", type: "base", fare: "💴 徒步",
+                    desc: "東京年終重要市集。", 
+                    buttons: [{ text: "📍 導航至淺草寺", url: "Sensoji" }],
+                    weatherLinkText: "☁️ 淺草寺天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13106/"
-                },
-                { 
-                    time: "推薦", title: "淺草文化觀光中心 (展望台)", type: "rec", fare: "💴 免費",
-                    desc: "免費展望台，俯瞰雷門與晴空塔。", 
-                    buttons: [{ text: "📍 導航至觀光中心", url: "Asakusa Culture Tourist Information Center" }]
                 }
             ]
         },
         {
             date: "12/18 (四)",
-            avgTemp: "11°C / 4°C",
+            avgTemp: "11°C / 3°C",
             events: [
                 { 
-                    time: "交通", title: "神樂坂散策", type: "move", fare: "💴 約 170円",
-                    desc: "搭 JR 總武線直達飯田橋站。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 飯田橋", url: "Asakusabashi Station to Iidabashi Station" }],
-                    weatherLinkText: "☁️ 神樂坂天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13104/"
+                    time: "10:00", title: "神樂坂散策", type: "base", fare: "💴 約 170円",
+                    desc: "搭 JR 總武線至飯田橋站。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 飯田橋", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+1+Chome+Kandaizumich%C5%8D,+Chiyoda+City,+Tokyo+101-0024,+Japan/Iidabashi+Station,+4+Chome+K%C5%8Draku,+Bunkyo+City,+Tokyo+112-0004,+Japan/" }]
                 },
                 { 
-                    time: "10:00", title: "円福寺 骨董市", type: "base", fare: "💴 徒步",
-                    desc: "神樂坂區域的古董市集。", 
-                    buttons: [{ text: "📍 導航至円福寺", url: "Enpukuji Temple Kagurazaka" }]
+                    time: "活動", title: "円福寺 骨董市 (古董市集)", type: "base", fare: "💴 徒步",
+                    desc: "若遇市集時間，可順道參觀。", 
+                    buttons: [{ text: "📍 導航至円福寺", url: "Enpukuji Temple" }]
                 },
                 { 
-                    time: "推薦", title: "順遊：赤城神社 (隈研吾)", type: "rec", fare: "💴 徒步",
-                    desc: "知名建築師隈研吾設計的現代神社。", 
-                    buttons: [{ text: "📍 導航至赤城神社", url: "Akagi Shrine" }]
-                },
-                { 
-                    time: "晚餐", title: "鳥茶屋 別亭 (親子丼)", type: "food", fare: "💴 徒步",
-                    desc: "神樂坂地區知名美食。", 
-                    buttons: [{ text: "🍴 導航至鳥茶屋", url: "Torijaya Bettei Kagurazaka" }]
+                    time: "晚餐", title: "鳥茶屋 別亭 (親子丼)", type: "food", 
+                    desc: "米其林推薦。", 
+                    buttons: [{ text: "🍴 導航至鳥茶屋", url: "Torichaya Bekkan" }],
+                    weatherLinkText: "☁️ 神樂坂天氣預報",
+                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13105/"
                 }
             ]
         },
         {
             date: "12/19 (五)",
-            avgTemp: "10°C / 3°C",
+            avgTemp: "10°C / 2°C",
             events: [
                 { 
-                    time: "10:00", title: "高圓寺 (日劇巡禮)", type: "base", fare: "💴 約 220円",
-                    desc: "文青與古著店區。", 
-                    buttons: [{ text: "📍 導航至高圓寺站", url: "Koenji Station" }],
-                    weatherLinkText: "☁️ 高圓寺天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13115/"
+                    time: "10:00", title: "高圓寺散策", type: "base", fare: "💴 約 220円",
+                    desc: "日劇巡禮、二手衣店。", 
+                    buttons: [{ text: "🚇 導航：淺草橋 -> 高圓寺", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+1+Chome+Kandaizumich%C5%8D,+Chiyoda+City,+Tokyo+101-0024,+Japan/K%C5%8Denji+Station,+2+Chome+K%C5%8Denjiminami,+Suginami+City,+Tokyo+166-0003,+Japan/" }]
                 },
                 { 
                     time: "14:00", title: "荻窪：大田黑公園", type: "base", fare: "💴 約 160円",
-                    desc: "日式庭園，晚間可能有夜間點燈。", 
-                    buttons: [{ text: "📍 導航至公園", url: "Otaguro Park" }]
+                    desc: "日式庭園。", 
+                    buttons: [{ text: "📍 導航至大田黑公園", url: "Otaguro Park" }],
+                    weatherLinkText: "☁️ 荻窪天氣預報",
+                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13115/"
                 },
                 { 
-                    time: "晚餐", title: "中華料理 さいころ", type: "food", fare: "💴 徒步",
-                    desc: "當地知名中華料理。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "Saikoro Ogikubo" }]
+                    time: "晚餐", title: "中華料理 さいころ", type: "food", 
+                    desc: "拉麵店。", 
+                    buttons: [{ text: "🍴 導航至餐廳", url: "Chuka Sairou" }]
                 }
             ]
         },
@@ -393,26 +347,26 @@
             avgTemp: "12°C / 5°C",
             events: [
                 { 
-                    time: "09:00", title: "神田志乃多壽司 (外帶)", type: "food", fare: "💴 徒步/電車",
-                    desc: "購買壽司作為午餐或點心。", 
-                    buttons: [{ text: "📍 導航至壽司店", url: "Kanda Shinoda Sushi" }]
+                    time: "09:00", title: "神田志乃多壽司", type: "food", fare: "💴 約 140円",
+                    desc: "購買外帶。", 
+                    buttons: [{ text: "📍 導航至壽司店", url: "Shinomurasaki Sushi" }]
                 },
                 { 
-                    time: "10:00", title: "皇居外苑 (二重橋散步)", type: "base", fare: "💴 徒步",
-                    desc: "悠閒散步，感受東京中心綠地。", 
-                    buttons: [{ text: "📍 導航至二重橋", url: "Nijubashi Bridge" }],
-                    weatherLinkText: "☁️ 皇居天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13101/"
+                    time: "10:00", title: "皇居外苑 (二重橋)", type: "base", fare: "💴 徒步",
+                    desc: "散步、拍照。", 
+                    buttons: [{ text: "📍 導航至二重橋", url: "Nijubashi" }]
                 },
                 { 
-                    time: "14:00", title: "日本橋三越", type: "shop", fare: "🚌 免費巴士",
-                    desc: "歷史悠久的高級百貨。", 
-                    buttons: [{ text: "📍 導航至三越", url: "Mitsukoshi Nihombashi Main Store" }]
+                    time: "14:00", title: "日本橋三越", type: "shop", 
+                    desc: "百年百貨。", 
+                    buttons: [{ text: "🚌 免費巡迴巴士", url: "Mitsukoshi Nihombashi Main Store" }],
+                    weatherLinkText: "☁️ 日本橋天氣預報",
+                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13103/"
                 },
                 { 
-                    time: "晚餐", title: "AFURI 拉麵 (惠比壽)", type: "food", fare: "💴 約 250円",
+                    time: "晚餐", title: "AFURI (惠比壽)", type: "food", fare: "💴 約 250円",
                     desc: "柚子鹽味拉麵。", 
-                    buttons: [{ text: "🍴 導航至 AFURI 惠比壽", url: "Afuri Ebisu" }]
+                    buttons: [{ text: "🍴 導航至 AFURI", url: "AFURI Ebisu" }]
                 }
             ]
         },
@@ -421,22 +375,22 @@
             avgTemp: "11°C / 4°C",
             events: [
                 { 
-                    time: "10:00", title: "飯店大移動", type: "move", fare: "🚕 計程車 1,200円",
-                    desc: "從淺草橋移動到田原町飯店 (Henn na Hotel)。", 
-                    tips: "行李多建議搭計程車最省力。",
-                    buttons: [{ text: "🚕 叫車導航", url: "Asakusabashi to Henn na Hotel Tokyo Asakusa Tawaramachi" }]
+                    time: "10:00", title: "飯店大移動", type: "move", fare: "🚕 約 1,200円",
+                    desc: "淺草橋 -> 田原町 (Henn na Hotel)。", 
+                    tips: "推薦搭乘計程車，省力且快速。",
+                    buttons: [{ text: "📍 導航至新飯店", url: "Henn na Hotel Tokyo Asakusa Tawaramachi" }]
                 },
                 { 
-                    time: "14:00", title: "大江戶古董市 (東京國際論壇)", type: "base", fare: "💴 約 200円",
-                    desc: "日本最大的戶外古董市集之一。", 
-                    buttons: [{ text: "📍 導航至市集", url: "Oedo Antique Market" }],
-                    weatherLinkText: "☁️ 有樂町天氣",
+                    time: "14:00", title: "大江戶古董市", type: "base", fare: "💴 約 200円",
+                    desc: "東京國際論壇。", 
+                    buttons: [{ text: "📍 導航至論壇", url: "Tokyo International Forum" }],
+                    weatherLinkText: "☁️ 有樂町天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13102/"
                 },
                 { 
-                    time: "晚餐", title: "樂宴 或 駒形どぜう", type: "food", fare: "💴 徒步",
-                    desc: "淺草周邊晚餐，可嘗試泥鰍鍋。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "Komagata Dozeu Asakusa" }]
+                    time: "晚餐", title: "駒形どぜう (泥鰍鍋)", type: "food", 
+                    desc: "淺草特色美食。", 
+                    buttons: [{ text: "🍴 導航至餐廳", url: "Komagata Dozeu" }]
                 }
             ]
         },
@@ -445,128 +399,118 @@
             avgTemp: "10°C / 3°C",
             events: [
                 { 
-                    time: "交通", title: "前往大船/鎌倉 (通票)", type: "move", fare: "💴 約 950円",
-                    desc: "購買鎌倉江之島通票 (推薦)。", 
-                    buttons: [{ text: "🚇 導航：田原町 -> 大船", url: "Tawaramachi Station to Ofuna Station" }]
+                    time: "交通", title: "前往大船 (鎌倉一日遊起點)", type: "move", fare: "💴 約 950円",
+                    desc: "建議購買鎌倉/江之島通票。", 
+                    buttons: [{ text: "🚇 導航：田原町 -> 大船", url: "https://www.google.com/maps/dir/Tawaramachi+Station,+3+Chome+Kaminarimon,+Taito+City,+Tokyo+111-0034,+Japan/%C5%8Cfuna+Station,+1+Chome+Ofuna,+Kamakura,+Kanagawa+247-0056,+Japan/" }]
                 },
                 { 
-                    time: "09:00", title: "大船觀音寺 & 湘南江之島", type: "base", fare: "🚋 通票",
-                    desc: "體驗單軌電車，參觀觀音寺。", 
-                    buttons: [{ text: "📍 導航至江之島", url: "Enoshima" }],
-                    weatherLinkText: "☁️ 江之島天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4610/14205/"
+                    time: "09:00", title: "大船觀音寺", type: "base", fare: "💴 徒步",
+                    desc: "巨大的和平觀音像。", 
+                    buttons: [{ text: "📍 導航至觀音寺", url: "Ofuna Kannonji Temple" }],
+                    weatherLinkText: "☁️ 大船天氣預報",
+                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4620/14204/"
                 },
                 { 
-                    time: "12:00", title: "午餐：Café Recette (長谷站)", type: "food", fare: "🚋 通票",
-                    desc: "長谷站周邊海景咖啡店。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "Café Recette" }]
+                    time: "10:00", title: "湘南江之島 (單軌電車體驗)", type: "move", fare: "🚋 單軌電車 (通票)",
+                    desc: "懸掛式單軌電車。", 
+                    buttons: [{ text: "🚋 導航：大船 -> 江之島", url: "https://www.google.com/maps/dir/Ofuna+Station,+1+Chome+Ofuna,+Kamakura,+Kanagawa+247-0056,+Japan/Enoshima+Station,+2+Chome+Katase,+Fujisawa,+Kanagawa+251-0032,+Japan/" }]
                 },
                 { 
-                    time: "14:00", title: "長谷寺 & 高德院大佛", type: "base", fare: "🚋 通票",
-                    desc: "鎌倉最著名景點。", 
-                    buttons: [{ text: "📍 導航至大佛", url: "Kotoku-in Temple" }]
+                    time: "14:00", title: "長谷寺 & 高德院大佛", type: "base", fare: "🚋 江之電 (通票)",
+                    desc: "鎌倉重要景點。", 
+                    buttons: [{ text: "📍 導航至長谷寺", url: "Hasedera Temple" }]
                 }
             ]
         },
         {
             date: "12/23 (二)",
-            avgTemp: "12°C / 5°C",
+            avgTemp: "12°C / 4°C",
             events: [
                 { 
                     time: "09:00", title: "雷門 (清晨拍攝)", type: "base", fare: "💴 徒步",
-                    desc: "避開人潮拍攝淺草寺雷門。", 
-                    buttons: [{ text: "📍 導航至雷門", url: "Kaminarimon Gate" }]
+                    desc: "避開人潮。", 
+                    buttons: [{ text: "📍 導航至雷門", url: "Kaminarimon" }]
                 },
                 { 
                     time: "13:00", title: "AEON LakeTown OUTLET", type: "shop", fare: "💴 約 500円",
-                    desc: "越谷的大型購物中心。", 
-                    buttons: [{ text: "🚇 導航：上野 -> LakeTown", url: "Ueno Station to Koshigaya Lake Town Station" }],
-                    weatherLinkText: "☁️ 越谷天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/14/4110/11222/"
+                    desc: "越谷購物中心。", 
+                    buttons: [{ text: "🚇 導航：上野 -> LakeTown", url: "https://www.google.com/maps/dir/Ueno+Station,+7+Chome+Ueno,+Taito+City,+Tokyo+110-0005,+Japan/Aeon+LakeTown+OutLet,+4+Chome+Azuma,+Koshigaya,+Saitama+343-0826,+Japan/" }],
+                    weatherLinkText: "☁️ 越谷天氣預報",
+                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/13/4310/11222/"
                 },
                 { 
-                    time: "19:00", title: "二木菓子 (上野)", type: "shop", fare: "💴 回程",
-                    desc: "大型零食批發店，在上野下車。", 
-                    buttons: [{ text: "📍 導航至二木菓子", url: "Niki No Kashi Ueno" }]
-                },
-                { 
-                    time: "晚餐", title: "阿美橫丁周邊美食", type: "food", fare: "💴 徒步",
-                    desc: "上野阿美橫丁區域晚餐。", 
-                    buttons: [{ text: "🍴 搜尋周邊美食", url: "Ameya Yokocho Restaurants" }]
+                    time: "19:00", title: "二木菓子 (上野)", type: "shop", fare: "💴 約 500円",
+                    desc: "採購伴手禮。", 
+                    buttons: [{ text: "📍 導航至二木菓子", url: "Niki no Kashi Ueno" }]
                 }
             ]
         },
         {
             date: "12/24 (三)",
-            avgTemp: "11°C / 4°C",
+            avgTemp: "11°C / 3°C",
             events: [
                 { 
                     time: "交通", title: "前往橫濱", type: "move", fare: "💴 約 580円",
-                    desc: "聖誕夜在橫濱度過。", 
-                    buttons: [{ text: "🚇 導航：田原町 -> 橫濱", url: "Tawaramachi Station to Yokohama Station" }]
+                    desc: "前往橫濱櫻木町或未來港區。", 
+                    buttons: [{ text: "🚇 導航：田原町 -> 橫濱", url: "https://www.google.com/maps/dir/Tawaramachi+Station,+3+Chome+Kaminarimon,+Taito+City,+Tokyo+111-0034,+Japan/Yokohama+Station,+2+Chome+Takashima,+Nishi+Ward,+Yokohama,+Kanagawa+220-0011,+Japan/" }]
                 },
                 { 
-                    time: "12:00", title: "午餐：敘敘苑 (橫濱 Sky Building)", type: "food", fare: "🍴 預約",
-                    desc: "28 樓高空景觀燒肉。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "Jojoen Yokohama Sky Building" }]
+                    time: "12:00", title: "敘敘苑 (橫濱 Sky Building 28F)", type: "food", 
+                    desc: "午間套餐，享受景觀。", 
+                    buttons: [{ text: "🍴 導航至敘敘苑", url: "Jojoen Sky Building" }],
+                    weatherLinkText: "☁️ 橫濱天氣預報",
+                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4610/14104/"
                 },
                 { 
-                    time: "14:30", title: "紅磚倉庫 (聖誕市集)", type: "base", fare: "🚠 纜車/徒步",
-                    desc: "聖誕市集及海邊散步。", 
-                    buttons: [{ text: "📍 導航至紅磚倉庫", url: "Yokohama Red Brick Warehouse" }],
-                    weatherLinkText: "☁️ 橫濱天氣",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4610/14100/"
-                },
-                { 
-                    time: "晚餐", title: "橫濱家系拉麵/周邊", type: "food", fare: "💴 回程",
-                    desc: "嘗試當地特色拉麵。", 
-                    buttons: [{ text: "🍴 搜尋周邊美食", url: "Yokohama Ie-kei Ramen" }]
+                    time: "14:30", title: "紅磚倉庫 (聖誕市集)", type: "base", fare: "纜車/地鐵",
+                    desc: "聖誕夜活動。", 
+                    buttons: [{ text: "📍 導航至紅磚倉庫", url: "Yokohama Red Brick Warehouse" }]
                 }
             ]
         },
         {
             date: "12/25 (四)",
-            avgTemp: "10°C / 3°C",
+            avgTemp: "10°C / 2°C",
             events: [
                 { 
-                    time: "09:00", title: "築地場外市場 & 銀座", type: "base", fare: "💴 約 200円",
-                    desc: "早晨在築地，白天在銀座購物。", 
-                    buttons: [{ text: "📍 導航至築地市場", url: "Tsukiji Outer Market" }],
-                    weatherLinkText: "☁️ 築地天氣",
+                    time: "09:00", title: "築地場外市場", type: "base", fare: "💴 約 200円",
+                    desc: "逛市場、吃小吃。", 
+                    buttons: [{ text: "📍 導航至築地", url: "Tsukiji Outer Market" }],
+                    weatherLinkText: "☁️ 築地天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13104/"
                 },
                 { 
-                    time: "必買", title: "白金や 稻荷壽司", type: "food", fare: "💴 徒步",
-                    desc: "東銀座必買小吃。", 
-                    buttons: [{ text: "📍 導航至壽司店", url: "Shiroganeya Higashi-Ginza" }]
+                    time: "12:00", title: "銀座 SIX / Uniqlo", type: "shop", fare: "💴 徒步",
+                    desc: "銀座購物。", 
+                    buttons: [{ text: "📍 導航至 GINZA SIX", url: "Ginza Six" }]
                 },
                 { 
                     time: "16:00", title: "合羽橋道具街", type: "shop", fare: "💴 約 200円",
-                    desc: "採購餐具、廚房用品等。", 
-                    buttons: [{ text: "📍 導航至合羽橋", url: "Kappabashi Street" }]
+                    desc: "採購餐具與廚房用品。", 
+                    buttons: [{ text: "📍 導航至合羽橋", url: "Kappabashi-dori" }]
                 }
             ]
         },
         {
             date: "12/26 (五)",
-            avgTemp: "12°C / 5°C",
+            avgTemp: "11°C / 3°C",
             events: [
                 { 
-                    time: "12:00", title: "午餐：敘敘苑 (新宿 Opera City)", type: "food", fare: "💴 約 300円",
-                    desc: "53 樓高空景觀午餐。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "Jojoen Shinjuku Opera City" }]
-                },
-                { 
-                    time: "推薦", title: "東京都廳 (免費展望台)", type: "rec", fare: "💴 徒步",
-                    desc: "免費俯瞰新宿市區。", 
-                    buttons: [{ text: "📍 導航至都廳", url: "Tokyo Metropolitan Government Building" }],
-                    weatherLinkText: "☁️ 新宿天氣",
+                    time: "12:00", title: "敘敘苑 (新宿 Opera City 53F)", type: "food", fare: "💴 約 300円",
+                    desc: "午間套餐。", 
+                    buttons: [{ text: "🍴 導航至敘敘苑", url: "Jojoen Shinjuku Opera City" }],
+                    weatherLinkText: "☁️ 新宿天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13104/"
                 },
                 { 
+                    time: "推薦", title: "順遊：東京都廳", type: "rec", fare: "💴 免費",
+                    desc: "免費展望台。", 
+                    buttons: [{ text: "📍 導航至東京都廳", url: "Tokyo Metropolitan Government Building" }]
+                },
+                { 
                     time: "15:00", title: "下島包裝 (淺草橋本店)", type: "shop", fare: "💴 約 180円",
-                    desc: "大型包裝與雜貨用品店。", 
-                    buttons: [{ text: "📍 導航至下島", url: "Shimojima Asakusabashi" }]
+                    desc: "包裝材料採購。", 
+                    buttons: [{ text: "📍 導航至下島包裝", url: "Shimo-jima Asakusabashi" }]
                 }
             ]
         },
@@ -576,34 +520,49 @@
             events: [
                 { 
                     time: "10:00", title: "前往京成上野站", type: "move", fare: "💴 約 180円",
-                    desc: "準備搭乘 Skytliner 或 京成本線。", 
-                    buttons: [{ text: "🚇 導航：田原町 -> 上野", url: "Tawaramachi Station to Keisei Ueno Station" }]
+                    desc: "搭車至上野。", 
+                    buttons: [{ text: "🚇 導航：田原町 -> 上野", url: "https://www.google.com/maps/dir/Tawaramachi+Station,+3+Chome+Kaminarimon,+Taito+City,+Tokyo+111-0034,+Japan/Keisei+Ueno+Station,+3+Chome+Ueno,+Taito+City,+Tokyo+110-0007,+Japan/" }]
                 },
                 { 
-                    time: "交通", title: "前往成田機場 (T2)", type: "move", fare: "✈️ T2",
-                    desc: "搭乘 Skytliner (約 2570円) 或 京成本線特急 (約 1050円)。", 
-                    tips: "請預留充足時間，提早 3 小時抵達機場。",
+                    time: "11:00", title: "前往成田機場 (T2)", type: "move", fare: "💴 約 1,050円",
+                    desc: "京成本線特急。", 
                     buttons: [{ text: "✈️ 導航至成田T2", url: "Narita Airport Terminal 2" }],
-                    weatherLinkText: "☁️ 成田機場天氣",
+                    weatherLinkText: "☁️ 成田機場天氣預報",
                     weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4510/12211/"
                 },
                 { 
                     time: "15:35", title: "航班 JX803", type: "move", 
-                    desc: "啟程返國，結束愉快旅程！", 
-                    buttons: []
+                    desc: "搭機回程。", 
                 }
             ]
-        }
+        },
     ];
 
     const navContainer = document.getElementById('date-nav');
     const listContainer = document.getElementById('event-list');
-    const phrasebookContainer = document.getElementById('phrasebook-container'); // 獲取會話手冊容器
+    const translatorContainer = document.getElementById('translator-container'); 
+    const inputField = document.getElementById('translation-input');
+    const translateButton = document.getElementById('translate-button');
 
-    // ***新增：會話手冊開關事件***
-    phrasebookContainer.querySelector('.phrase-header').addEventListener('click', function() {
-        phrasebookContainer.classList.toggle('open');
+
+    // ***翻譯工具啟動函數***
+    function launchTranslator() {
+        const chineseText = inputField.value.trim();
+        if (chineseText) {
+            // Google Translate URL 格式：hl=目標語言, sl=來源語言, text=內容
+            const url = `https://translate.google.com/?hl=ja&sl=zh-TW&tl=ja&text=${encodeURIComponent(chineseText)}`;
+            window.open(url, '_blank');
+        } else {
+            alert("請先輸入您想翻譯的中文句子！");
+        }
+    }
+
+    // ***新增：翻譯工具開關事件與按鈕事件***
+    translatorContainer.querySelector('.translator-header').addEventListener('click', function() {
+        translatorContainer.classList.toggle('open');
     });
+    translateButton.addEventListener('click', launchTranslator);
+
 
     // **新的事件綁定函數**
     function bindEventListeners() {
@@ -644,7 +603,7 @@
                         let btnClass = 'btn-google';
                         let linkUrl = b.url;
                         if (!linkUrl.startsWith('http')) {
-                            // 預設為 Google Maps Search API 查詢
+                            // 預設為 Google Maps Search
                             linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.url)}`;
                         }
                         if(b.text.includes('省錢')) btnClass = 'btn-cheap';
@@ -653,7 +612,7 @@
                     });
                 }
 
-                // 🔥 新增：處理天氣按鈕
+                // 🔥 處理天氣按鈕
                 if (evt.weatherLinkUrl) {
                     btnsHtml += `<a href="${evt.weatherLinkUrl}" target="_blank" class="nav-btn btn-weather">${evt.weatherLinkText || '查看天氣預報'}</a>`;
                 }
