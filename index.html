@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTigre Travel Collection</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Noto+Serif+TC:wght@900&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        /* --- 基礎設定 --- */
+        :root {
+            --text-color: #e0e0e0;
+            --bg-color: #0a0a0a;
+            --accent-color: #c5a059; /* 金色點綴 */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* 禁止捲動，打造全屏體驗 */
+            background-color: var(--bg-color);
+            font-family: 'Playfair Display', serif;
+            cursor: none; /* 隱藏預設滑鼠，使用自定義游標 */
+        }
+
+        /* --- 背景圖片層 --- */
+        .bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3; /* 預設暗度 */
+            transition: opacity 0.8s ease;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.1s linear;
+            filter: grayscale(30%) contrast(120%); /* 藝術濾鏡 */
+        }
+
+        .bg-image.active {
+            opacity: 1;
+        }
+
+        /* --- 雜訊紋理 (增加底片感) --- */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.07;
+            background: url('https://cdnjs.cloudflare.com/ajax/libs/shiny/0.0.1/image/noise.png');
+        }
+
+        /* --- 內容容器 --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            mix-blend-mode: exclusion; /* 讓文字與背景產生藝術融合 */
+        }
+
+        /* --- 導覽列表 --- */
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .nav-item {
+            margin: 2vh 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 9vw; /* 超大文字 */
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            transition: color 0.5s ease;
+            font-family: 'Playfair Display', 'Noto Serif TC', serif;
+            -webkit-text-stroke: 1px rgba(255,255,255,0);
+        }
+
+        /* 懸停效果 */
+        .nav-link:hover {
+            -webkit-text-stroke: 1px #fff;
+            color: transparent; /* 變成鏤空字體 */
+        }
+
+        .nav-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            color: var(--accent-color);
+            display: block;
+            margin-top: -10px;
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .nav-item:hover .nav-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 自定義游標 --- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hovered {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-color: transparent;
+        }
+
+        /* --- 裝飾線條 --- */
+        .line {
+            width: 1px;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            position: absolute;
+            left: 50%;
+            top: 10%;
+            transition: height 1.5s ease-in-out;
+        }
+
+        /* RWD 手機適配 */
+        @media (max-width: 768px) {
+            .nav-link { font-size: 15vw; }
+            .nav-subtitle { font-size: 1rem; }
+            .cursor { display: none; } /* 手機不顯示游標 */
+            body { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container" id="bgContainer"></div>
+    
+    <div class="noise"></div>
+
+    <div class="line"></div>
+
+    <div class="content-wrapper">
+        <ul class="nav-list" id="navList">
+            </ul>
+    </div>
+
+    <div class="cursor"></div>
+
+    <script>
+        // ==========================================
+        // 1. 資料設定區 (在此處更新你的連結與內容)
+        // ==========================================
+        const destinations = [
+            {
+                name: "Tokyo",
+                chinese: "東京 . 霓虹",
+                url: "http://travel.itigre.com/Tokyo.html",
+                // 這裡使用 Unsplash 的高畫質圖當範例，實際可換成你自己的圖片連結
+                image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1920&auto=format&fit=crop"
+            },
+            {
+                name: "Okinawa",
+                chinese: "沖繩 . 碧海",
+                url: "http://travel.itigre.com/Okinawa.html",
+                image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c78?q=80&w=1920&auto=format&fit=crop"
+            }
+        ];
+
+        // ==========================================
+        // 2. 程式邏輯區 (自動生成與動畫)
+        // ==========================================
+        
+        const navList = document.getElementById('navList');
+        const bgContainer = document.getElementById('bgContainer');
+        const cursor = document.querySelector('.cursor');
+        
+        // 初始化：生成 HTML
+        destinations.forEach((dest, index) => {
+            // 1. 建立列表項目
+            const li = document.createElement('li');
+            li.className = 'nav-item';
+            
+            const link = document.createElement('a');
+            link.className = 'nav-link';
+            link.href = dest.url;
+            link.innerHTML = `${dest.name} <span class="nav-subtitle">${dest.chinese}</span>`;
+            
+            // 綁定事件
+            link.addEventListener('mouseenter', () => setActive(index));
+            link.addEventListener('mouseleave', () => clearActive());
+            
+            li.appendChild(link);
+            navList.appendChild(li);
+
+            // 2. 建立背景圖片
+            const bgDiv = document.createElement('div');
+            bgDiv.className = 'bg-image';
+            bgDiv.style.backgroundImage = `url(${dest.image})`;
+            bgContainer.appendChild(bgDiv);
+        });
+
+        const bgImages = document.querySelectorAll('.bg-image');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // 游標跟隨邏輯 (使用 GSAP 讓移動更滑順)
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1
+            });
+
+            // 背景視差效果 (Parallax)
+            const xMove = (e.clientX / window.innerWidth - 0.5) * 20; // 移動範圍
+            const yMove = (e.clientY / window.innerHeight - 0.5) * 20;
+
+            gsap.to('.bg-image.active', {
+                x: xMove,
+                y: yMove,
+                scale: 1.05, // 微微放大
+                duration: 1
+            });
+        });
+
+        // 互動狀態切換
+        function setActive(index) {
+            // 顯示對應背景
+            bgImages.forEach((img, i) => {
+                if (i === index) img.classList.add('active');
+                else img.classList.remove('active');
+            });
+
+            // 游標變大
+            cursor.classList.add('hovered');
+            
+            // 文字其餘變淡
+            navLinks.forEach((link, i) => {
+                if (i !== index) link.style.opacity = '0.2';
+            });
+        }
+
+        function clearActive() {
+            // 隱藏所有背景
+            bgImages.forEach(img => img.classList.remove('active'));
+            
+            // 游標恢復
+            cursor.classList.remove('hovered');
+
+            // 文字恢復
+            navLinks.forEach(link => link.style.opacity = '1');
+        }
+
+        // 入場動畫
+        window.onload = () => {
+            document.querySelector('.line').style.height = '80%'; // 裝飾線拉長
+            
+            gsap.from('.nav-item', {
+                y: 100,
+                opacity: 0,
+                duration: 1.5,
+                stagger: 0.2,
+                ease: "power4.out"
+            });
+        };
+
+    </script>
+</body>
+</html>
