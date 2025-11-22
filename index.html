@@ -283,8 +283,16 @@
             dates: [
                 { id: "d1", date: "12/14 (日)", title: "抵達與安頓 - 淺草橋", dayMonth: "12/14",
                     events: [
-                        { time: "12:30", loc: "抵達東京 (成田T2)", addr: "千葉縣成田市", map: "成田空港第2ターミナル", weather: "https://tenki.jp/forecast/3/15/4510/12211/", desc: "【背景】成田機場是日本最大的門戶。搭乘 **京成 Access 特急** 直達淺草橋，最為快速省力。", fare: "約 1,350 円 / 京成Access特急" },
-                        { time: "15:00", loc: "Tabist Hotel Mercury Check-in", addr: "東京都台東區淺草橋2-29-12", map: "Tabist Hotel Mercury Asakusabashi", weather: "https://tenki.jp/forecast/3/16/4410/13106/", desc: "【背景】淺草橋為昔日江戶人形批發街，現在是手作材料聖地。" },
+                        { time: "12:30", loc: "抵達東京 (成田T2)", addr: "千葉縣成田市", map: "成田空港第2ターミナル", weather: "https://tenki.jp/forecast/3/15/4510/12211/", 
+                            desc: "【背景】成田機場至淺草橋：搭乘京成 Access 特急（直通運轉，無須轉乘，最快且便宜）", 
+                            fare: "約 1,350 円 / 京成Access特急" 
+                        },
+                        { time: "15:00", loc: "Tabist Hotel Mercury Check-in", 
+                            addr: "東京都台東區淺草橋2-29-12", 
+                            map: "Tabist Hotel Mercury Asakusabashi", 
+                            weather: "https://tenki.jp/forecast/3/16/4410/13106/", 
+                            desc: "【背景】淺草橋為昔日江戶人形批發街，現在是手作材料聖地。" 
+                        },
                         { time: "19:00", loc: "中華食堂 一番館 (晚餐)", addr: "東京都台東區淺草橋1-28-1", map: "中華食堂 一番館 浅草橋店", weather: "https://tenki.jp/forecast/3/16/4410/13106/", desc: "【背景】日本在地化中華料理，口味偏重，簡單方便。" }
                     ]
                 },
@@ -341,7 +349,17 @@
             dates: [
                 { id: "d8", date: "12/21 (日)", title: "家人會合與古董市", dayMonth: "12/21",
                     events: [
-                        { time: "10:00", loc: "移動至田原町新住所", addr: "田原町周邊", map: "田原町駅", weather: "https://tenki.jp/forecast/3/16/4410/13106/", desc: "【背景】建議搭乘計程車搬運行李，家人搭 Sky Access 抵達淺草站。", fare: "約 1,200 円 / 計程車 (淺草橋->田原町)" },
+                        // NEW: 飯店資訊與交通
+                        { time: "10:00", loc: "Henn na Hotel Premier Check-in", 
+                            addr: "東京都台東區西淺草1-19-8", 
+                            map: "変なホテルプレミア 浅草田原町", 
+                            weather: "https://tenki.jp/forecast/3/16/4410/13106/", 
+                            desc: "【背景】移動至新住宿：田原町站附近的機器人主題飯店。" 
+                        },
+                        { time: "12:00", loc: "家人抵達 (成田T2)", addr: "千葉縣成田市", map: "成田空港第2ターミナル", weather: "https://tenki.jp/forecast/3/15/4510/12211/", 
+                            desc: "【背景】家人搭乘京成 Access 特急（直通運轉，無須轉乘，最快且便宜）直達淺草站。", 
+                            fare: "約 1,350 円 / 京成Access特急" 
+                        },
                         { time: "14:00", loc: "大江戶古董市 (東京國際論壇)", addr: "東京都千代田區丸之內3-5-1", map: "東京国際フォーラム", weather: "https://tenki.jp/forecast/3/16/4410/13101/", desc: "【背景】日本最大規模的戶外古董市集，每月舉辦。" },
                         { time: "19:00", loc: "駒形どぜう (泥鰍鍋晚餐)", addr: "東京都台東區駒形1-6-8", map: "駒形どぜう 本店", weather: "https://tenki.jp/forecast/3/16/4410/13106/", desc: "【背景】江戶時代流傳至今的泥鰍鍋老店，大膽嘗試日本傳統滋味。" }
                     ]
@@ -382,8 +400,10 @@
                 },
                 { id: "d14", date: "12/27 (六)", title: "返程日 (最便宜/不轉車方案)", dayMonth: "12/27",
                     events: [
-                        // NEW: 更改交通建議
-                        { time: "10:00", loc: "前往機場", addr: "京成淺草站", map: "京成浅草駅", weather: "https://tenki.jp/forecast/3/15/4510/12211/", desc: "【背景】**最便宜/不轉車方案**：在淺草站搭乘 **京成 Access 特急**，直達成田機場，方便性高。", fare: "約 1,350 円 / 京成Access特急" },
+                        { time: "10:00", loc: "前往機場", addr: "京成淺草站", map: "京成浅草駅", weather: "https://tenki.jp/forecast/3/15/4510/12211/", 
+                            desc: "【背景】最便宜/不轉車方案：在淺草站搭乘 京成 Access 特急，直達成田機場，方便性高。", 
+                            fare: "約 1,350 円 / 京成Access特急" 
+                        },
                         { time: "15:35", loc: "航班 JX803 啟程", addr: "成田國際機場 第二航廈", map: "成田国際空港 第二ターミナル", weather: "https://tenki.jp/forecast/3/15/4510/12211/", desc: "【背景】星宇航空，預計 18:45 抵達桃園機場。" }
                     ]
                 }
@@ -397,9 +417,6 @@
         const month = parseInt(parts[0]) - 1; 
         const day = parseInt(parts[1]);
         const date = new Date(NOW.getFullYear(), month, day);
-        // 修正：若當前月份是 11月，但行程月份是 12月，則使用當前年份。
-        // 若當前是 12/22，行程是 12/14，則 12/14 應視為已過。
-        // 由於我們只有一個月的行程，可以直接比較 Date 物件。
         return date;
     }
 
@@ -476,7 +493,8 @@
                 let eventsHtml = '';
 
                 day.events.forEach(evt => {
-                    let fareInfo = evt.fare ? `<div class="card-fare" style="background:#FFFBEA; border: 1px solid var(--edo-gold); padding: 8px; border-radius: 4px;">💵 **車資/路線：** ${evt.fare}</div>` : '';
+                    // 移除文字中的 **
+                    let fareInfo = evt.fare ? `<div class="card-fare" style="background:#FFFBEA; border: 1px solid var(--edo-gold); padding: 8px; border-radius: 4px;">💵 車資/路線： ${evt.fare.replace(/\*\*/g, '')}</div>` : '';
                     let descMatch = evt.desc.match(/【背景】(.*)/);
                     let backgroundInfo = descMatch ? descMatch[1] : ''; 
                     let desc = evt.desc.replace(/【背景】.*$/, ''); 
@@ -484,11 +502,11 @@
                     eventsHtml += `
                         <div class="info-card ${chapterItem.accentClass}">
                             <span class="card-time">${evt.time}</span>
-                            <div class="card-title">${evt.loc}</div>
-                            <div class="card-meta-addr" style="color:${chapterItem.accentClass};">📍 **地址：** ${evt.addr}</div>
-                            <div class="card-desc">${desc}</div>
+                            <div class="card-title">${evt.loc.replace(/\*\*/g, '')}</div>
+                            <div class="card-meta-addr" style="color:${chapterItem.accentClass};">📍 地址： ${evt.addr}</div>
+                            <div class="card-desc">${desc.replace(/\*\*/g, '')}</div>
                             ${fareInfo}
-                            <div class="card-meta" style="color:#555;">💡 **背景：** ${backgroundInfo}</div>
+                            <div class="card-meta" style="color:#555;">💡 背景： ${backgroundInfo.replace(/\*\*/g, '')}</div>
                             <div class="btn-group">
                                 <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map)}" target="_blank" class="action-btn btn-map">
                                     🗺️ Google導航
