@@ -779,4 +779,1694 @@
       padding: 3px 8px;
       border-radius: var(--radius-pill);
       background: rgba(250, 204, 21, 0.12);
-      border: 1px solid rgba(250, 204
+      border: 1px solid rgba(250, 204, 21, 0.65);
+      color: #fefce8;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .toggle-icon {
+      font-size: 11px;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+
+    .timeline-card-body {
+      display: none;
+      padding: 10px 12px 12px;
+      border-top: 1px solid rgba(31, 41, 55, 0.95);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), #020617);
+    }
+
+    .timeline-card.open .timeline-card-body {
+      display: block;
+    }
+
+    .timeline-card .desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 6px;
+    }
+
+    .tips-box {
+      font-size: 12px;
+      background: rgba(8, 47, 73, 0.9);
+      border-radius: 10px;
+      padding: 7px 9px;
+      margin-top: 4px;
+      border: 1px solid rgba(56, 189, 248, 0.55);
+      color: #e0f2fe;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .nav-btn {
+      border-radius: var(--radius-pill);
+      padding: 7px 10px;
+      font-size: 11px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: background var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .btn-google {
+      background: #1d4ed8;
+      color: #e5e7eb;
+      box-shadow: 0 10px 18px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-cheap {
+      background: #15803d;
+      color: #f0fdf4;
+      box-shadow: 0 10px 18px rgba(22, 101, 52, 0.55);
+    }
+
+    .btn-easy {
+      background: #f97316;
+      color: #111827;
+      box-shadow: 0 10px 18px rgba(249, 115, 22, 0.6);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .type-move .time-box {
+      background: #0f766e;
+    }
+
+    .type-food .time-box {
+      background: #9a3412;
+    }
+
+    .type-shop .time-box {
+      background: #4338ca;
+    }
+
+    .type-rec .time-box {
+      background: #0369a1;
+    }
+
+    @media (max-width: 640px) {
+      .timeline-card-header {
+        align-items: flex-start;
+      }
+
+      .fare-badge {
+        display: none;
+      }
+    }
+
+    /* ---------- 互動提醒區 ---------- */
+
+    .reminder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+
+    .reminder-chip {
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #e5e7eb;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .reminder-chip:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(251, 113, 133, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .reminder-chip-icon {
+      font-size: 15px;
+      margin-top: 2px;
+    }
+
+    .reminder-chip-text {
+      flex: 1 1 auto;
+    }
+
+    .reminder-caption {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 4px 0 0;
+    }
+
+    @media (max-width: 960px) {
+      .reminder-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* ---------- Modal 提示視窗 ---------- */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      padding: 16px;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal-panel {
+      background: #020617;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      max-width: 420px;
+      width: 100%;
+      padding: 18px 18px 16px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+
+    .modal-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ---------- Toast / CTA 提醒 ---------- */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(110%);
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(251, 191, 36, 0.85);
+      padding: 8px 16px;
+      font-size: 13px;
+      max-width: min(600px, 92vw);
+      color: #fefce8;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+      opacity: 0;
+      transition: transform 0.35s ease-out, opacity 0.35s ease-out;
+    }
+
+    .toast.is-visible {
+      transform: translateX(-50%) translateY(0%);
+      opacity: 1;
+    }
+
+    .toast-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #facc15;
+    }
+
+    /* ---------- 結語 & CTA ---------- */
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .cta-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      padding-inline: 20px;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      50% {
+        background-position: 100% 60%;
+      }
+
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div id="tokyo-2025-page">
+  <!-- Hero 首屏 -->
+  <header class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-orbits"></div>
+    <div class="hero-grid js-fade-in">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>2025 Tokyo Free Trip · 12/14–12/27</span>
+        </div>
+        <h1>
+          <span class="highlight">2025 東京自由行</span><br />
+          一人熱身 × 家族聖誕 14 天
+        </h1>
+        <p class="hero-sub">
+          這一趟從 <span class="hero-sub-strong">12/14–12/20 的一人散策</span>，
+          到 <span class="hero-sub-strong">12/21 起和家人在東京會合</span>。
+          頁面幫你把行程拆成兩種節奏，每天只抓一兩個重點區域＋一餐在地美食，
+          新手也能穩穩掌握。
+        </p>
+        <div class="hero-meta">
+          <span>🗓️ 14 天／冬季入冬聖誕氛圍</span>
+          <span>🚃 成田進出 · 淺草橋 / 田原町雙據點</span>
+          <span>👨‍👩‍👧‍👧 21 日起全家同行節奏</span>
+        </div>
+        <div class="hero-cta-row">
+          <button class="btn-primary" type="button" data-scroll-to="highlights">
+            開始看 3 個規劃重點
+          </button>
+          <button class="btn-ghost" type="button" data-scroll-to="itinerary">
+            直接看行程表 & 地圖
+          </button>
+        </div>
+        <p class="hero-friendly-note">
+          有點像朋友在旁邊幫你 double check 行程：
+          <strong>不要把每天塞滿，留幾個空白，東京通常會自己安排好驚喜。</strong>
+        </p>
+      </div>
+      <div class="hero-illustration js-fade-in">
+        <div class="hero-card">
+          <div class="hero-card-label">Trip Snapshot · 整趟旅程怎麼看</div>
+          <div class="hero-card-main">
+            <div>
+              <div class="hero-card-title">
+                先 <span>分兩段</span> 再排每天
+              </div>
+              <p class="hero-card-sub">
+                12/14–20：一人版「東京散步＋郊區小旅行」。
+                12/21–27：家族版「聖誕點燈、百貨、好吃好逛」。
+              </p>
+              <div class="hero-card-pills">
+                <span class="pill">下町據點：淺草橋／田原町</span>
+                <span class="pill">江之島 & 鎌倉一日</span>
+                <span class="pill">橫濱紅磚聖誕市集</span>
+              </div>
+            </div>
+            <div class="hero-mini-timeline">
+              <div><u>時間軸速記</u></div>
+              <div class="hero-mini-row">
+                <span>12/14</span>
+                <span>成田 → 淺草橋 Check-in</span>
+              </div>
+              <div class="hero-mini-row">
+                <span>12/16</span>
+                <span>北鎌倉·鶴岡八幡宮</span>
+              </div>
+              <div class="hero-mini-row">
+                <span>12/22</span>
+                <span>家族版 鎌倉＋江之島走跳</span>
+              </div>
+              <div class="hero-mini-row">
+                <span>12/24–25</span>
+                <span>橫濱紅磚聖誕市集 ＆ 銀座</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-tagline">
+            <span class="dot"></span>
+            <span>Tokyo, but at your own pace.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 三大重點區 -->
+    <section class="section" id="highlights">
+      <div class="section-inner js-fade-in">
+        <h2 class="section-title">規劃之前，先抓這三個大方向</h2>
+        <p class="section-subtitle">
+          把旅程想清楚，後面選景點、塞美食都會舒服很多。
+        </p>
+        <p class="section-intro">
+          整體邏輯很簡單：<strong>先分段、再抓主題、最後才是塞細節</strong>。
+          一人時可以多走路、多探店；家人加入後，就把行程調成「好逛、好坐下吃飯」的節奏。
+        </p>
+        <div class="highlight-grid">
+          <article class="highlight-card">
+            <div class="highlight-tag">Key 01 · 分段思維</div>
+            <div class="highlight-title">一人散策 vs. 家族旅遊，要兩種節奏</div>
+            <p class="highlight-body">
+              12/14–12/20 你是一人行動，可以排多一點「走路＋巷弄」，像豪德寺、神樂坂、北鎌倉。
+              12/21 之後家人加入，就改成一天 1～2 個主題區＋充足休息時間。
+            </p>
+            <ul class="highlight-list">
+              <li>
+                <span class="highlight-bullet">●</span>
+                <span>一人天：多搭電車、多試小吃，回飯店晚一點沒關係。</span>
+              </li>
+              <li>
+                <span class="highlight-bullet">●</span>
+                <span>家族天：重點放在動線順、好找廁所、吃飯不用排太久。</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="highlight-card">
+            <div class="highlight-tag">Key 02 · 每天一個主題</div>
+            <div class="highlight-title">每天只抓一～兩個「主場景」＋一餐必吃</div>
+            <p class="highlight-body">
+              這份行程已經幫你把每天的主題切好，
+              例如「北鎌倉＋鶴岡八幡宮」、「橫濱紅磚聖誕市集」、「築地＋銀座」。
+              其他時間就留給隨機遇到的咖啡店或小巷子。
+            </p>
+            <ul class="highlight-list">
+              <li>
+                <span class="highlight-bullet">●</span>
+                <span>主題＋一餐在地美食：Pelican 麵包、敘敘苑、白金や稻荷壽司等。</span>
+              </li>
+              <li>
+                <span class="highlight-bullet">●</span>
+                <span>不要「每十分鐘一個點」，最容易累，也最容易吵架 😅。</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="highlight-card">
+            <div class="highlight-tag">Key 03 · 交通先想好</div>
+            <div class="highlight-title">先決定進出方式，一日券才好算</div>
+            <p class="highlight-body">
+              成田進出、以淺草橋／田原町為據點，搭配 JR、地鐵與少量計程車。
+              你原本的規劃裡也已經標出「最省錢／最省力」選項，下面會保留並視覺化呈現。
+            </p>
+            <ul class="highlight-list">
+              <li>
+                <span class="highlight-bullet">●</span>
+                <span>先想「要不要一日券」，再決定那天要跑哪幾個區。</span>
+              </li>
+              <li>
+                <span class="highlight-bullet">●</span>
+                <span>每個日程卡片都附 Google Maps，一鍵打開就能看站名／轉乘。</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 行程表格：一覽＋ Google 地圖 -->
+    <section class="section" id="itinerary">
+      <div class="section-inner js-fade-in">
+        <h2 class="section-title">行程一覽表 · 先用鳥瞰視角看整趟旅程</h2>
+        <p class="section-subtitle">
+          三欄就看懂：時間、地點／行程、當天重點活動（含 Google Maps）。
+        </p>
+        <p class="section-intro">
+          建議你用這張表先確認「大方向」有沒有想調整的，再往下用互動時間軸調細節。
+          每個重點活動欄都附上
+          <strong>景點位置與路線圖連結</strong>，手機打開就可以直接導航。
+        </p>
+
+        <div class="tab-nav">
+          <button class="tab-btn active" type="button" data-itinerary-tab="solo">
+            <span class="dot"></span>
+            12/14–12/20 一人散策
+          </button>
+          <button class="tab-btn" type="button" data-itinerary-tab="family">
+            <span class="dot"></span>
+            12/21–12/27 家族聖誕旅
+          </button>
+        </div>
+
+        <div class="table-scroll">
+          <!-- 一人散策 -->
+          <table class="itinerary-table is-active" id="solo-table" aria-label="一人散策行程表">
+            <thead>
+              <tr>
+                <th>時間</th>
+                <th>地點／行程</th>
+                <th>重點活動 &amp; 地圖</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time-col">12/14（日） 下午</td>
+                <td class="place-col">成田 → 淺草橋據點</td>
+                <td class="note-col">
+                  抵達成田後，搭京成線進市區，入住 Tabist Hotel Mercury Asakusabashi，
+                  晚餐就近吃中華食堂一番館，讓自己先熟悉下町氛圍。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tabist+Hotel+Mercury+Asakusabashi" target="_blank" rel="noopener">淺草橋飯店周邊地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Narita+Airport+Terminal+2&destination=Tabist+Hotel+Mercury+Asakusabashi&travelmode=transit" target="_blank" rel="noopener">成田 → 淺草橋路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/15（一） 全天</td>
+                <td class="place-col">豪德寺・松陰神社・世田谷 Boro 市集</td>
+                <td class="note-col">
+                  先到澀谷，再搭世田谷線一日券玩貓貓豪德寺、文青感松陰神社通，
+                  下午逛一年兩次的世田谷ボロ市，感受在地生活感。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Gotokuji+Temple+Tokyo" target="_blank" rel="noopener">豪德寺位置</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Gotokuji+Station&travelmode=transit" target="_blank" rel="noopener">淺草橋 → 豪德寺路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/16（二） 全天</td>
+                <td class="place-col">北鎌倉・明月院・鶴岡八幡宮</td>
+                <td class="note-col">
+                  JR 總武線／橫須賀線直達北鎌倉，在明月院、円覺寺散步，
+                  下午走到鶴岡八幡宮與小町通，算是一日小旅行入門版。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Kita-Kamakura+Station" target="_blank" rel="noopener">北鎌倉一帶地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Kita-Kamakura+Station&travelmode=transit" target="_blank" rel="noopener">淺草橋 → 北鎌倉路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/17（三） 上午～晚間</td>
+                <td class="place-col">Pelican 麵包・淺草寺 歲之市</td>
+                <td class="note-col">
+                  早上去田原町附近排 Pelican 麵包，中午之後回淺草寺逛「歲之市」，
+                  可順便上淺草文化觀光中心免費展望台看晴空塔。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Pelican+Bread+Asakusa" target="_blank" rel="noopener">Pelican 麵包位置</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Tawaramachi+Station&travelmode=transit" target="_blank" rel="noopener">淺草橋 → 田原町路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/18（四） 白天</td>
+                <td class="place-col">神樂坂・赤城神社</td>
+                <td class="note-col">
+                  搭 JR 到飯田橋散步神樂坂小巷，順遊隈研吾設計的赤城神社，
+                  氣氛介於日式傳統與現代設計之間，很適合慢慢拍照。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Kagurazaka+Tokyo" target="_blank" rel="noopener">神樂坂範圍地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Iidabashi+Station&travelmode=transit" target="_blank" rel="noopener">淺草橋 → 飯田橋路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/19（五） 白天</td>
+                <td class="place-col">高圓寺・荻窪大田黑公園</td>
+                <td class="note-col">
+                  早上在高圓寺逛二手店與日劇場景，下午到荻窪的大田黑公園走走，
+                  看冬季日式庭園，屬於很「日常」的一天。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Koenji+Station" target="_blank" rel="noopener">高圓寺商店街地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Koenji+Station&travelmode=transit" target="_blank" rel="noopener">淺草橋 → 高圓寺路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/20（六） 白天</td>
+                <td class="place-col">神田志乃多壽司・皇居外苑・日本橋三越</td>
+                <td class="note-col">
+                  早上買神田志乃多壽司當點心，步行往皇居外苑散步，
+                  下午搭免費 Metrolink 巴士到日本橋三越逛百貨與老店。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Outer+Garden" target="_blank" rel="noopener">皇居外苑地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Kanda+Station&destination=Tokyo+Station&travelmode=transit" target="_blank" rel="noopener">神田 → 東京站路線圖</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- 家族聖誕旅 -->
+          <table class="itinerary-table" id="family-table" aria-label="家族聖誕行程表">
+            <thead>
+              <tr>
+                <th>時間</th>
+                <th>地點／行程</th>
+                <th>重點活動 &amp; 地圖</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time-col">12/21（日） 上午～下午</td>
+                <td class="place-col">飯店大移動・大江戶古董市</td>
+                <td class="note-col">
+                  從淺草橋搬到田原町的變な酒店，推薦直接搭計程車省力。
+                  下午帶家人到有樂町的「大江戶古董市」，感受東京人的週末市集。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Henn+na+Hotel+Tokyo+Asakusa+Tawaramachi" target="_blank" rel="noopener">田原町新飯店地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Tawaramachi+Station&travelmode=transit" target="_blank" rel="noopener">淺草橋 → 田原町路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/22（一） 全天</td>
+                <td class="place-col">鎌倉・江之島家族版一日遊</td>
+                <td class="note-col">
+                  田原町 → 新橋 → 大船，先到大船觀音寺祈求旅程平安，
+                  再搭湘南單軌電車到江之島、長谷寺、大佛與鶴岡八幡宮，
+                  家人版的一日經典郊區行程。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Enoshima" target="_blank" rel="noopener">江之島周邊地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Tawaramachi+Station&destination=Ofuna+Station&travelmode=transit" target="_blank" rel="noopener">田原町 → 大船路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/23（二） 白天～晚上</td>
+                <td class="place-col">雷門・AEON LakeTown・上野阿美橫丁</td>
+                <td class="note-col">
+                  早上從飯店步行到雷門拍經典照，中午之後往 AEON LakeTown 讓家人好好逛街，
+                  回程在上野下車到二木菓子採購零食伴手禮。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Kaminarimon" target="_blank" rel="noopener">雷門地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Ueno+Station&destination=Koshigaya+Laketown+Station&travelmode=transit" target="_blank" rel="noopener">上野 → LakeTown 路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/24（三） 下午～夜間</td>
+                <td class="place-col">橫濱敘敘苑・紅磚聖誕市集</td>
+                <td class="note-col">
+                  中午在橫濱 Sky Building 的敘敘苑吃燒肉，午後搭 Air Cabin 纜車到紅磚倉庫聖誕市集，
+                  旁邊的 Marine &amp; Walk 也很適合拍聖誕氛圍照。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Yokohama+Red+Brick+Warehouse" target="_blank" rel="noopener">橫濱紅磚倉庫地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Yokohama+Station&destination=Bashamichi+Station&travelmode=transit" target="_blank" rel="noopener">橫濱站 → 紅磚倉庫區路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/25（四） 白天</td>
+                <td class="place-col">築地・銀座散步・合羽橋道具街</td>
+                <td class="note-col">
+                  早上去築地與銀座散步，順便在歌舞伎座旁的白金や買稻荷壽司，
+                  下午回田原町後走到合羽橋道具街，採買廚房用品與食物模型。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=GINZA+SIX" target="_blank" rel="noopener">銀座周邊地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Tawaramachi+Station&destination=Ginza+Station&travelmode=transit" target="_blank" rel="noopener">田原町 → 銀座路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/26（五） 白天～傍晚</td>
+                <td class="place-col">新宿敘敘苑・東京都廳・下島包裝</td>
+                <td class="note-col">
+                  在初台站的敘敘苑 Opera City 分店吃午餐，
+                  順遊東京都廳免費展望台看全景，回程在淺草橋的下島包裝補貨。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Jojoen+Tokyo+Opera+City" target="_blank" rel="noopener">敘敘苑 Opera City 地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Tawaramachi+Station&destination=Hatsudai+Station&travelmode=transit" target="_blank" rel="noopener">田原町 → 初台路線圖</a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="time-col">12/27（六） 回程日</td>
+                <td class="place-col">京成上野 → 成田機場 JX803</td>
+                <td class="note-col">
+                  從京成上野搭京成本線或 Skyliner 前往成田 T2，
+                  時間與預算可以當天看狀況彈性選擇，重點是保留足夠餘裕辦退稅與逛免稅店。
+                  <div class="map-links">
+                    👉
+                    <a href="https://www.google.com/maps/search/?api=1&query=Narita+Airport+Terminal+2" target="_blank" rel="noopener">成田第 2 航廈地圖</a>
+                    ｜ 
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Keisei+Ueno+Station&destination=Narita+Airport+Terminal+2&travelmode=transit" target="_blank" rel="noopener">京成上野 → 成田 T2 路線圖</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="section-intro" style="margin-top: 14px;">
+          如果看完表格覺得節奏 OK，
+          <strong>下面的「互動式每日行程」就當作細節展開＋可插入的小行程清單</strong>，
+          想改天數或交換日程也會比較有感覺。
+        </p>
+      </div>
+    </section>
+
+    <!-- 互動式每日行程（沿用原本 tripData） -->
+    <section class="section" id="timeline">
+      <div class="section-inner js-fade-in">
+        <h2 class="section-title">互動式每日行程 · 一鍵展開交通與備註</h2>
+        <p class="section-subtitle">
+          點日期切換、點卡片展開，每天的交通建議與 Google Maps 連結都在這裡。
+        </p>
+        <p class="section-intro">
+          這區是依照你原本的 <code>tripData</code> 強化而成：
+          <strong>保留「最省錢／最方便」選項，修正 Maps 連結寫法，並加上滑入動畫。</strong>
+          用手機看時，建議配合上方行程表一起對照。
+        </p>
+
+        <div class="timeline-header">
+          <div class="timeline-weather" id="timeline-weather">
+            <span class="icon">🌤️</span>
+            <span>載入中…</span>
+          </div>
+          <a href="https://tenki.jp/forecast/3/16/4410/13101/" target="_blank" rel="noopener">
+            查看東京即時天氣（Tenki.jp） ↗
+          </a>
+        </div>
+
+        <div class="timeline-date-nav" id="timeline-date-nav"></div>
+        <div class="timeline-list" id="timeline-event-list"></div>
+      </div>
+    </section>
+
+    <!-- 互動提醒區 -->
+    <section class="section" id="reminders">
+      <div class="section-inner js-fade-in">
+        <h2 class="section-title">互動提醒 · 出發前先想好的小事</h2>
+        <p class="section-subtitle">
+          點一下卡片，會跳出具體建議，就當是一起去的朋友在旁邊碎念。
+        </p>
+        <div class="reminder-grid">
+          <button class="reminder-chip" type="button"
+                  data-tip="一人天（12/14–20）可以多排「景點＋巷弄＋咖啡店」，晚上回飯店晚一點無妨。家族天則建議：每天只抓一到兩個主題區，午晚餐都事先查好幾家備案。尤其 12/24–25 的聖誕檔期，越熱門的區域越要預留排隊與移動時間。">
+            <span class="reminder-chip-icon">👣</span>
+            <div class="reminder-chip-text">
+              <strong>1. 行程密度：一人可以稍微衝，家人就要留白</strong><br />
+              冬天走路多、穿厚外套很耗體力，看到空檔時請勇敢什麼都不排。
+            </div>
+          </button>
+
+          <button class="reminder-chip" type="button"
+                  data-tip="原本安排的鎌倉／江之島、北鎌倉、橫濱、LakeTown 等，已經算是分散得很剛好。實務上建議：出門前先在 Suica／PASMO 手機卡裡儲值，長距離（例如成田、鎌倉）再另外買通票或特急票即可。真的累了，就像你在 12/21 那樣直接叫一小段計程車，通常是最省吵架成本的投資。">
+            <span class="reminder-chip-icon">🚃</span>
+            <div class="reminder-chip-text">
+              <strong>2. 交通策略：悠遊卡＋幾張一日券就夠</strong><br />
+              不需要為了「一定要回本」硬繞路，省力比省 100 日圓重要。
+            </div>
+          </button>
+
+          <button class="reminder-chip" type="button"
+                  data-tip="有幾天可以考慮多放一個『Plan B』：例如 12/17 Pelican 排太長，就改找附近咖啡店；12/24 橫濱紅磚人太多，就在港未來散步拍夜景。記得把 Plan B 也事先存進 Maps 收藏，出門當天才不會臨時狂查。">
+            <span class="reminder-chip-icon">🎄</span>
+            <div class="reminder-chip-text">
+              <strong>3. 聖誕檔期：幫自己準備 Plan B</strong><br />
+              聖誕週的東京很美、也很擠，有備案就能從「被人潮推著走」變成「隨機走進剛好喜歡的小店」。
+            </div>
+          </button>
+        </div>
+        <p class="reminder-caption">
+          說真的，<strong>行程寫再漂亮，現場一定會有變數</strong>，
+          你要做的只是：讓那些變數是「愉快的意外」，而不是「天啊為什麼走不完」。😉
+        </p>
+      </div>
+    </section>
+
+    <!-- 結語 + CTA + 我懂了 -->
+    <section class="section" id="summary">
+      <div class="section-inner js-fade-in">
+        <h2 class="section-title">結語 · 這趟 2025 東京自由行的核心</h2>
+        <p class="section-intro">
+          如果要用一句話總結：<strong>先把「一人散策」跟「家族節奏」分開想，
+          再讓每天只剩一到兩個重點，其他交給東京自己發揮。</strong>
+          這樣行程會穩、也比較能留下回憶，而不是只記得趕路。
+        </p>
+        <div class="cta-row">
+          <button class="btn-primary" id="cta-main-btn" type="button">
+            幫我再講一次重點 ✨
+          </button>
+          <button class="btn-ghost" id="got-it-btn" type="button">
+            我懂了，出發前再回來複習
+          </button>
+        </div>
+        <p class="cta-note">
+          小提醒：出發前一兩天，把這頁存在手機書籤或存在雲端硬碟。到東京後，
+          <strong>每天只要看一下今天那一頁行程卡片＋ Maps</strong>，
+          就很像帶著一份「自己的旅遊攻略手冊」在走。
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    2025 Tokyo Winter Trip · 由你的行程原稿強化而成 · 祝旅途順利平安 🎄
+  </div>
+
+  <!-- 提醒 Modal -->
+  <div class="modal-backdrop" id="tip-modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" type="button" data-close-modal aria-label="關閉">×</button>
+      <h3 class="modal-title">小提醒</h3>
+      <div class="modal-body" id="tip-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- CTA Toast -->
+  <div class="toast" id="core-toast" role="status" aria-live="polite">
+    <span class="toast-label">Core Tip</span>
+    <span id="toast-text"></span>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ----- Scroll 滑入動畫 -----
+    var fadeObserver = null;
+    if ('IntersectionObserver' in window) {
+      fadeObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              fadeObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      document.querySelectorAll('.js-fade-in').forEach(function (el) {
+        fadeObserver.observe(el);
+      });
+    } else {
+      document.querySelectorAll('.js-fade-in').forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+    }
+
+    // ----- Hero CTA smooth scroll -----
+    document.querySelectorAll('[data-scroll-to]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var targetId = btn.getAttribute('data-scroll-to');
+        var section = document.getElementById(targetId);
+        if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ----- 行程表 Tab 切換 -----
+    var tabBtns = document.querySelectorAll('[data-itinerary-tab]');
+    var tables = {
+      solo: document.getElementById('solo-table'),
+      family: document.getElementById('family-table')
+    };
+
+    tabBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-itinerary-tab');
+        tabBtns.forEach(function (b) { b.classList.toggle('active', b === btn); });
+        Object.keys(tables).forEach(function (k) {
+          if (tables[k]) {
+            tables[k].classList.toggle('is-active', k === key);
+          }
+        });
+      });
+    });
+
+    // ----- 互動提醒 Modal -----
+    var modal = document.getElementById('tip-modal');
+    var modalBody = document.getElementById('tip-modal-body');
+
+    function openModal(html) {
+      if (!modal) return;
+      modalBody.innerHTML = html;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelectorAll('[data-tip]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        openModal(chip.getAttribute('data-tip'));
+      });
+    });
+
+    document.querySelectorAll('[data-close-modal]').forEach(function (btn) {
+      btn.addEventListener('click', closeModal);
+    });
+
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    // ----- CTA Toast / 「我懂了」 -----
+    var toast = document.getElementById('core-toast');
+    var toastText = document.getElementById('toast-text');
+    var toastTimer = null;
+
+    function showCoreMessage(customText) {
+      if (!toast || !toastText) return;
+      toastText.textContent =
+        customText ||
+        '2025 東京自由行的關鍵，就是把「一人散策」和「家族步調」分開想，每天只抓一兩個重點，行程自然順又不累。';
+      toast.classList.add('is-visible');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        toast.classList.remove('is-visible');
+      }, 4800);
+    }
+
+    var ctaMainBtn = document.getElementById('cta-main-btn');
+    var gotItBtn = document.getElementById('got-it-btn');
+
+    if (ctaMainBtn) {
+      ctaMainBtn.addEventListener('click', function () {
+        showCoreMessage();
+      });
+    }
+
+    if (gotItBtn) {
+      gotItBtn.addEventListener('click', function () {
+        showCoreMessage('記得：一人時多走多看，全家時就讓行程有空白；東京會自己把驚喜填滿。');
+      });
+    }
+
+    // ----- 互動式每日行程（沿用原 tripData） -----
+    var tripData = [
+      {
+        date: "12/14 (日)",
+        avgTemp: "12°C / 5°C",
+        events: [
+          {
+            time: "13:00",
+            title: "抵達東京 (JX800)",
+            type: "move",
+            fare: "💴 約 1,100~1,350円",
+            desc: "搭乘「京成 Access 特急」直達淺草橋，或「京成本線」至青砥轉車。",
+            tips: "【最省錢】京成本線特急 (約1100円)。<br>【最方便】Access 特急直通都營淺草線 (約1350円)。",
+            buttons: [
+              {
+                text: "🚇 Google 規劃：最省錢路線",
+                url: "https://maps.google.com/?cid=15133757769088164000&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ7"
+              }
+            ]
+          },
+          {
+            time: "16:00",
+            title: "Check-in 淺草橋",
+            type: "base",
+            desc: "Tabist Hotel Mercury Asakusabashi。",
+            buttons: [
+              {
+                text: "📍 導航至飯店",
+                url: "https://www.google.com/maps/search/?api=1&query=Tabist+Hotel+Mercury+Asakusabashi"
+              }
+            ]
+          },
+          {
+            time: "晚餐",
+            title: "中華食堂 一番館",
+            type: "food",
+            fare: "💴 徒步 0円",
+            desc: "周邊平價晚餐。",
+            buttons: [
+              {
+                text: "🍴 導航至餐廳",
+                url: "https://www.google.com/maps/search/?api=1&query=Ichi-ban-kan+Asakusabashi"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/15 (一)",
+        avgTemp: "11°C / 4°C",
+        events: [
+          {
+            time: "交通",
+            title: "移動至豪德寺",
+            type: "move",
+            fare: "💴 約 450円",
+            desc: "淺草橋 -> 澀谷 (購買東急一日券) -> 豪德寺。",
+            buttons: [
+              {
+                text: "🚇 導航：淺草橋 -> 澀谷",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Shibuya+Station&travelmode=transit"
+              }
+            ]
+          },
+          {
+            time: "09:00",
+            title: "豪徳寺 & 松陰神社",
+            type: "base",
+            fare: "💴 一日券",
+            desc: "利用世田谷線一日券遊覽。",
+            buttons: [
+              {
+                text: "📍 導航至豪德寺",
+                url: "https://www.google.com/maps/search/?api=1&query=Gotokuji+Temple"
+              }
+            ]
+          },
+          {
+            time: "13:00",
+            title: "世田谷ボロ市",
+            type: "base",
+            fare: "💴 一日券",
+            desc: "一年兩次的舊物市集。",
+            buttons: [
+              {
+                text: "📍 導航至市集",
+                url: "https://www.google.com/maps/search/?api=1&query=Setagaya+Daikan+Yashiki"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/16 (二)",
+        avgTemp: "10°C / 3°C",
+        events: [
+          {
+            time: "交通",
+            title: "前往北鎌倉",
+            type: "move",
+            fare: "💴 約 940円",
+            desc: "JR 總武線快速/橫須賀線直達。",
+            buttons: [
+              {
+                text: "🚇 導航：淺草橋 -> 北鎌倉",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Kita-Kamakura+Station&travelmode=transit"
+              }
+            ]
+          },
+          {
+            time: "09:00",
+            title: "北鎌倉：明月院",
+            type: "base",
+            fare: "💴 徒步",
+            desc: "圓窗景點。",
+            buttons: [
+              {
+                text: "📍 導航至明月院",
+                url: "https://www.google.com/maps/search/?api=1&query=Meigetsuin"
+              }
+            ]
+          },
+          {
+            time: "推薦",
+            title: "順遊：円覺寺",
+            type: "rec",
+            fare: "💴 徒步",
+            desc: "就在北鎌倉車站旁，非常壯觀的禪寺，若時間允許建議加入。",
+            buttons: [
+              {
+                text: "📍 導航至円覺寺",
+                url: "https://www.google.com/maps/search/?api=1&query=Engakuji"
+              }
+            ]
+          },
+          {
+            time: "13:00",
+            title: "鶴岡八幡宮",
+            type: "base",
+            fare: "💴 徒步/電車140円",
+            desc: "參拜後逛小町通商店街。",
+            buttons: [
+              {
+                text: "📍 導航至八幡宮",
+                url: "https://www.google.com/maps/search/?api=1&query=Tsurugaoka+Hachimangu"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/17 (三)",
+        avgTemp: "12°C / 4°C",
+        events: [
+          {
+            time: "09:00",
+            title: "淺草 Pelican 麵包",
+            type: "food",
+            fare: "💴 約 180円",
+            desc: "搭地鐵一站或走路去田原町。",
+            buttons: [
+              {
+                text: "📍 導航至麵包店",
+                url: "https://www.google.com/maps/search/?api=1&query=Pelican+Bread+Asakusa"
+              }
+            ]
+          },
+          {
+            time: "14:00",
+            title: "淺草寺：歲之市",
+            type: "base",
+            fare: "💴 徒步",
+            desc: "羽子板市集。",
+            buttons: [
+              {
+                text: "📍 導航至淺草寺",
+                url: "https://www.google.com/maps/search/?api=1&query=Sensoji"
+              }
+            ]
+          },
+          {
+            time: "推薦",
+            title: "順遊：淺草文化觀光中心",
+            type: "rec",
+            fare: "💴 免費",
+            desc: "雷門對面的 8 樓展望台，免費俯瞰仲見世通與晴空塔，景色絕佳。",
+            buttons: [
+              {
+                text: "📍 導航至觀光中心",
+                url: "https://www.google.com/maps/search/?api=1&query=Asakusa+Culture+Tourist+Information+Center"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/18 (四)",
+        avgTemp: "11°C / 4°C",
+        events: [
+          {
+            time: "10:00",
+            title: "神樂坂 散策",
+            type: "base",
+            fare: "💴 約 170円",
+            desc: "淺草橋搭 JR 至飯田橋。",
+            buttons: [
+              {
+                text: "🚇 導航：淺草橋 -> 飯田橋",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Iidabashi+Station&travelmode=transit"
+              }
+            ]
+          },
+          {
+            time: "推薦",
+            title: "順遊：赤城神社",
+            type: "rec",
+            fare: "💴 徒步",
+            desc: "由隈研吾設計的現代化神社，位於神樂坂街尾，非常特別。",
+            buttons: [
+              {
+                text: "📍 導航至赤城神社",
+                url: "https://www.google.com/maps/search/?api=1&query=Akagi+Shrine+Kagurazaka"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/19 (五)",
+        avgTemp: "10°C / 2°C",
+        events: [
+          {
+            time: "10:00",
+            title: "高圓寺",
+            type: "base",
+            fare: "💴 約 220円",
+            desc: "日劇巡禮。淺草橋搭 JR 直達。",
+            buttons: [
+              {
+                text: "🚇 導航：淺草橋 -> 高圓寺",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Asakusabashi+Station&destination=Koenji+Station&travelmode=transit"
+              }
+            ]
+          },
+          {
+            time: "14:00",
+            title: "荻窪：大田黑公園",
+            type: "base",
+            fare: "💴 約 160円",
+            desc: "日式庭園。",
+            buttons: [
+              {
+                text: "📍 導航至公園",
+                url: "https://www.google.com/maps/search/?api=1&query=Otaguro+Park"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/20 (六)",
+        avgTemp: "11°C / 3°C",
+        events: [
+          {
+            time: "09:00",
+            title: "神田志乃多壽司",
+            type: "food",
+            fare: "💴 徒步/140円",
+            desc: "買外帶壽司。",
+            buttons: [
+              {
+                text: "📍 導航至店舖",
+                url: "https://www.google.com/maps/search/?api=1&query=Kanda+Shinoda+Sushi"
+              }
+            ]
+          },
+          {
+            time: "10:00",
+            title: "皇居外苑",
+            type: "base",
+            fare: "💴 徒步",
+            desc: "從神田慢慢走到大手門/皇居外苑。",
+            buttons: [
+              {
+                text: "📍 導航至皇居",
+                url: "https://www.google.com/maps/search/?api=1&query=Imperial+Palace+Outer+Garden"
+              }
+            ]
+          },
+          {
+            time: "14:00",
+            title: "日本橋三越",
+            type: "shop",
+            fare: "💴 免費巡迴巴士",
+            desc: "可搭乘免費的「Metrolink 日本橋」巡迴巴士移動。",
+            buttons: [
+              {
+                text: "📍 導航至三越",
+                url: "https://www.google.com/maps/search/?api=1&query=Nihombashi+Mitsukoshi"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/21 (日)",
+        avgTemp: "10°C / 3°C",
+        events: [
+          {
+            time: "10:00",
+            title: "飯店大移動 🧳",
+            type: "move",
+            fare: "💴 計程車約 1,200円",
+            desc: "淺草橋 -> 田原町。推薦搭計程車省力。",
+            buttons: [
+              {
+                text: "🚕 導航：Henn na Hotel",
+                url: "https://www.google.com/maps/search/?api=1&query=Henn+na+Hotel+Tokyo+Asakusa+Tawaramachi"
+              }
+            ]
+          },
+          {
+            time: "14:00",
+            title: "大江戶古董市",
+            type: "base",
+            fare: "💴 約 200円",
+            desc: "位於有樂町(東京國際論壇)。",
+            buttons: [
+              {
+                text: "📍 導航至市集",
+                url: "https://www.google.com/maps/search/?api=1&query=Tokyo+International+Forum"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/22 (一)",
+        avgTemp: "11°C / 4°C",
+        events: [
+          {
+            time: "交通",
+            title: "前往鎌倉/江之島",
+            type: "move",
+            fare: "💴 約 950円",
+            desc: "田原町->新橋->大船。建議購買【鎌倉/江之島通票】。",
+            buttons: [
+              {
+                text: "🚇 導航：田原町 -> 大船",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Tawaramachi+Station&destination=Ofuna+Station&travelmode=transit"
+              }
+            ]
+          },
+          {
+            time: "09:00",
+            title: "1. 大船觀音寺",
+            type: "base",
+            fare: "💴 徒步",
+            desc: "出站即可看到巨大觀音，祈求旅途平安。",
+            buttons: [
+              {
+                text: "📍 導航至觀音寺",
+                url: "https://www.google.com/maps/search/?api=1&query=Ofuna+Kannonji"
+              }
+            ]
+          },
+          {
+            time: "10:00",
+            title: "2. 湘南江之島",
+            type: "base",
+            fare: "💴 單軌電車 320円",
+            desc: "搭乘懸掛式單軌電車至江之島。",
+            buttons: [
+              {
+                text: "📍 導航至江之島",
+                url: "https://www.google.com/maps/search/?api=1&query=Enoshima"
+              }
+            ]
+          },
+          {
+            time: "12:00",
+            title: "3. 午餐：Recette",
+            type: "food",
+            fare: "💴 江之電 (通票)",
+            desc: "搭江之電至「長谷站」，步行至餐廳。",
+            buttons: [
+              {
+                text: "📍 導航至餐廳",
+                url: "https://www.google.com/maps/search/?api=1&query=cafe+recette+Kamakura"
+              }
+            ]
+          },
+          {
+            time: "14:00",
+            title: "4. 長谷寺 & 大佛",
+            type: "base",
+            fare: "💴 徒步",
+            desc: "長谷站周邊景點。",
+            buttons: [
+              {
+                text: "📍 導航至大佛",
+                url: "https://www.google.com/maps/search/?api=1&query=Kotoku-in"
+              }
+            ]
+          },
+          {
+            time: "16:00",
+            title: "5. 鶴岡八幡宮",
+            type: "base",
+            fare: "💴 江之電 (通票)",
+            desc: "搭江之電至「鎌倉站」，走小町通至八幡宮 (留意博物館約16:30關，神社開較晚)。",
+            buttons: [
+              {
+                text: "📍 導航至八幡宮",
+                url: "https://www.google.com/maps/search/?api=1&query=Tsurugaoka+Hachimangu"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/23 (二)",
+        avgTemp: "12°C / 4°C",
+        events: [
+          {
+            time: "09:00",
+            title: "雷門",
+            type: "base",
+            fare: "💴 徒步",
+            desc: "飯店走路去雷門。",
+            buttons: [
+              {
+                text: "📍 導航至雷門",
+                url: "https://www.google.com/maps/search/?api=1&query=Kaminarimon"
+              }
+            ]
+          },
+          {
+            time: "13:00",
+            title: "AEON LakeTown",
+            type: "shop",
+            fare: "💴 約 500円",
+            desc: "上野 -> 越谷LakeTown。",
+            buttons: [
+              {
+                text: "🚇 導航：上野 -> 越谷LakeTown",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Ueno+Station&destination=Koshigaya+Laketown+Station&travelmode=transit"
+              }
+            ]
+          },
+          {
+            time: "19:00",
+            title: "二木菓子 (上野)",
+            type: "shop",
+            fare: "💴 約 500円",
+            desc: "回程在上野下車，去阿美橫丁大採購。",
+            buttons: [
+              {
+                text: "📍 導航至二木菓子",
+                url: "https://www.google.com/maps/search/?api=1&query=Niki+no+Kashi"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/24 (三)",
+        avgTemp: "11°C / 3°C",
+        events: [
+          {
+            time: "12:00",
+            title: "午餐：敘敘苑",
+            type: "food",
+            fare: "💴 約 580円",
+            desc: "【預約】橫濱 Sky Building 28F (橫濱站旁)。",
+            buttons: [
+              {
+                text: "📍 導航至敘敘苑(橫濱)",
+                url: "https://www.google.com/maps/search/?api=1&query=Jojoen+Yokohama+Sky+Building"
+              }
+            ]
+          },
+          {
+            time: "14:30",
+            title: "紅磚倉庫 (聖誕市集)",
+            type: "base",
+            fare: "💴 纜車 1000円",
+            desc: "【少走路推薦】從櫻木町搭乘「Air Cabin 空中纜車」直達紅磚倉庫區，景色美且不用走。",
+            buttons: [
+              {
+                text: "📍 導航至纜車站",
+                url: "https://www.google.com/maps/search/?api=1&query=Yokohama+Air+Cabin"
+              },
+              {
+                text: "📍 導航至紅磚倉庫",
+                url: "https://www.google.com/maps/search/?api=1&query=Yokohama+Red+Brick+Warehouse"
+              }
+            ]
+          },
+          {
+            time: "推薦",
+            title: "順遊：Marine & Walk",
+            type: "rec",
+            fare: "💴 徒步",
+            desc: "就在紅磚倉庫旁，有著名的「天使翅膀」牆可以拍照。",
+            buttons: [
+              {
+                text: "📍 導航至 Marine & Walk",
+                url: "https://www.google.com/maps/search/?api=1&query=MARINE+%26+WALK+YOKOHAMA"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/25 (四)",
+        avgTemp: "10°C / 2°C",
+        events: [
+          {
+            time: "09:00",
+            title: "築地 & 銀座",
+            type: "base",
+            fare: "💴 約 200円",
+            desc: "田原町 -> 築地/銀座。",
+            buttons: [
+              {
+                text: "📍 導航至 GINZA SIX",
+                url: "https://www.google.com/maps/search/?api=1&query=GINZA+SIX"
+              }
+            ]
+          },
+          {
+            time: "必買",
+            title: "白金や 稻荷壽司",
+            type: "food",
+            fare: "💴 徒步",
+            desc: "東銀座歌舞伎座旁。",
+            buttons: [
+              {
+                text: "📍 導航至店舖",
+                url: "https://www.google.com/maps/search/?api=1&query=Platinumya+Ginza"
+              }
+            ]
+          },
+          {
+            time: "16:00",
+            title: "合羽橋道具街",
+            type: "shop",
+            fare: "💴 約 200円",
+            desc: "回田原町，步行至道具街。",
+            buttons: [
+              {
+                text: "📍 導航至合羽橋",
+                url: "https://www.google.com/maps/search/?api=1&query=Kappabashi+Street"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/26 (五)",
+        avgTemp: "9°C / 2°C",
+        events: [
+          {
+            time: "12:00",
+            title: "午餐：敘敘苑",
+            type: "food",
+            fare: "💴 約 300円",
+            desc: "【預約】新宿 Opera City 53F (初台站)。",
+            buttons: [
+              {
+                text: "📍 導航至敘敘苑(新宿)",
+                url: "https://www.google.com/maps/search/?api=1&query=Jojoen+Tokyo+Opera+City"
+              }
+            ]
+          },
+          {
+            time: "推薦",
+            title: "順遊：東京都廳",
+            type: "rec",
+            fare: "💴 徒步",
+            desc: "就在附近，可免費上展望台看東京全景。",
+            buttons: [
+              {
+                text: "📍 導航至都廳",
+                url: "https://www.google.com/maps/search/?api=1&query=Tokyo+Metropolitan+Government+Building"
+              }
+            ]
+          },
+          {
+            time: "15:00",
+            title: "下島包裝 (Shimojima)",
+            type: "shop",
+            fare: "💴 約 180円",
+            desc: "總武線至淺草橋補貨。",
+            buttons: [
+              {
+                text: "📍 導航至下島",
+                url: "https://www.google.com/maps/search/?api=1&query=Shimojima+Asakusabashi"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        date: "12/27 (六)",
+        avgTemp: "10°C / 2°C",
+        events: [
+          {
+            time: "10:00",
+            title: "前往成田機場",
+            type: "move",
+            fare: "💴 約 1,050~2,500円",
+            desc: "前往京成上野站。",
+            tips: "【最省錢】京成本線特急 (約1050円，時間較長)。<br>【最推薦】Skyliner (約2570円，最快且舒適)。",
+            buttons: [
+              {
+                text: "🚇 Google 規劃：最省錢路線",
+                url: "https://www.google.com/maps/dir/?api=1&origin=Keisei+Ueno+Station&destination=Narita+Airport+Terminal+2&travelmode=transit&routing_preference=fewer_transfers"
+              },
+              {
+                text: "🚇 Google 規劃：Skyliner",
+                url: "https://maps.google.com/?cid=15133757769088164000&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ8"
+              }
+            ]
+          },
+          {
+            time: "15:35",
+            title: "航班 JX803",
+            type: "move",
+            desc: "成田 T2 起飛。",
+            buttons: [
+              {
+                text: "✈️ 導航至成田T2",
+                url: "https://www.google.com/maps/search/?api=1&query=Narita+Airport+Terminal+2"
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    var dateNav = document.getElementById('timeline-date-nav');
+    var eventList = document.getElementById('timeline-event-list');
+    var weatherText = document.getElementById('timeline-weather');
+
+    function renderTimeline() {
+      if (!dateNav || !eventList || !weatherText || !tripData.length) return;
+      dateNav.innerHTML = '';
+      tripData.forEach(function (day, index) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'date-btn' + (index === 0 ? ' active' : '');
+        btn.textContent = day.date.split(' ')[0];
+        btn.addEventListener('click', function () {
+          switchDay(index, btn);
+        });
+        dateNav.appendChild(btn);
+      });
+      showEvents(0);
+    }
+
+    function switchDay(index, btnEl) {
+      dateNav.querySelectorAll('.date-btn').forEach(function (b) {
+        b.classList.toggle('active', b === btnEl);
+      });
+      showEvents(index);
+    }
+
+    function showEvents(index) {
+      var data = tripData[index];
+      weatherText.innerHTML =
+        '<span class="icon">📅</span>' +
+        '<span>' + data.date + ' · 歷史均溫 ' + data.avgTemp + '</span>';
+      eventList.innerHTML = '';
+
+      data.events.forEach(function (evt) {
+        var typeClass = 'type-base';
+        if (evt.type === 'food') typeClass = 'type-food';
+        else if (evt.type === 'shop') typeClass = 'type-shop';
+        else if (evt.type === 'move') typeClass = 'type-move';
+        else if (evt.type === 'rec') typeClass = 'type-rec';
+
+        var card = document.createElement('article');
+        card.className = 'timeline-card ' + typeClass + ' js-fade-in';
+        if (fadeObserver) fadeObserver.observe(card);
+
+        var btnsHtml = '';
+        if (evt.buttons && evt.buttons.length) {
+          btnsHtml += '<div class="btn-group">';
+          evt.buttons.forEach(function (b) {
+            var btnClass = 'btn-google';
+            var linkUrl = b.url || '';
+            if (!/^https?:\/\//.test(linkUrl)) {
+              linkUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(linkUrl);
+            }
+            if (b.text.indexOf('省錢') !== -1) btnClass = 'btn-cheap';
+            if (b.text.indexOf('計程車') !== -1 || b.text.indexOf('直達') !== -1) btnClass = 'btn-easy';
+            btnsHtml += '<a href="' + linkUrl + '" target="_blank" rel="noopener" class="nav-btn ' + btnClass + '">' + b.text + '</a>';
+          });
+          btnsHtml += '</div>';
+        }
+
+        var tipsHtml = evt.tips
+          ? '<div class="tips-box">💡 ' + evt.tips + '</div>'
+          : '';
+        var fareHtml = evt.fare
+          ? '<span class="fare-badge">' + evt.fare + '</span>'
+          : '';
+
+        card.innerHTML =
+          '<header class="timeline-card-header" role="button" tabindex="0">' +
+          '<span class="time-box">' + evt.time + '</span>' +
+          '<span class="card-title">' + evt.title + '</span>' +
+          fareHtml +
+          '<span class="toggle-icon">展開▼</span>' +
+          '</header>' +
+          '<div class="timeline-card-body">' +
+          '<p class="desc">' + (evt.desc || '') + '</p>' +
+          tipsHtml +
+          btnsHtml +
+          '</div>';
+
+        var headerEl = card.querySelector('.timeline-card-header');
+        var bodyEl = card.querySelector('.timeline-card-body');
+        var iconEl = card.querySelector('.toggle-icon');
+
+        headerEl.addEventListener('click', function () {
+          var open = card.classList.toggle('open');
+          iconEl.textContent = open ? '收合▲' : '展開▼';
+        });
+
+        headerEl.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            headerEl.click();
+          }
+        });
+
+        eventList.appendChild(card);
+      });
+    }
+
+    renderTimeline();
+  });
+</script>
+</body>
+</html>
