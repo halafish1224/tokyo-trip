@@ -3,871 +3,681 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>東京 14 天深度旅程 (簡化版)</title>
+    <title>2025 冬日東京：獨處與團聚的旅程</title>
+    <meta name="description" content="12/14-12/27 東京14天深度旅遊規劃，包含獨旅攝影與家庭團聚行程。">
+    <meta name="robots" content="index, follow">
+    
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-red: #B71C1C; /* 聖誕紅 */
+            --primary-green: #2E7D32; /* 松針綠 */
+            --accent-gold: #F9A825; /* 暖金 */
+            --bg-cream: #FFFBF0; /* 溫暖米白 */
+            --text-dark: #3E2723;
+            --text-light: #6D4C41;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Shippori Mincho', serif; letter-spacing: 0.05em; }
+
+        /* --- 1. Hero Section (首屏) --- */
+        header {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 20px;
+            animation: fadeUp 1.5s ease-out;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce 2s infinite;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* 雪花特效 */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #FFF;
+            font-size: 1em;
+            opacity: 0.8;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* --- 2. Introduction (導言) --- */
+        .intro-section {
+            padding: 80px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .highlight { color: var(--primary-red); font-weight: bold; }
+
+        /* --- 3. Tools Bar (工具列) --- */
+        .tools-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tool-btn {
+            border: none;
+            background: var(--primary-green);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(46, 125, 50, 0.3);
+        }
+
+        .tool-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(46, 125, 50, 0.4); }
+        .tool-btn.secondary { background: var(--primary-red); box-shadow: 0 2px 5px rgba(183, 28, 28, 0.3); }
+
+        /* --- 4. Itinerary Content (核心內容) --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 2rem;
+            color: var(--primary-green);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 15px auto 0;
+        }
+
+        .timeline-group {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .day-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-green);
+            opacity: 0; /* for animation */
+            transform: translateY(30px); /* for animation */
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .day-card.visible { opacity: 1; transform: translateY(0); }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #EEE;
+            padding-bottom: 10px;
+        }
+
+        .day-date { font-size: 1.4rem; font-weight: bold; color: var(--primary-red); }
+        .day-weather { font-size: 0.9rem; color: #888; display: flex; align-items: center; gap: 5px; }
+        
+        .trip-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .trip-table th, .trip-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px dashed #EEE;
+        }
+
+        .trip-table th { color: var(--text-light); font-weight: normal; font-size: 0.9rem; width: 20%; }
+        .trip-table td { font-size: 1rem; }
+        
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .tag-food { background: #FFF3E0; color: #E65100; }
+        .tag-spot { background: #E8F5E9; color: #2E7D32; }
+        .tag-shop { background: #F3E5F5; color: #7B1FA2; }
+
+        .map-link {
+            display: inline-block;
+            margin-top: 5px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary-green);
+            padding: 2px 8px;
+            border-radius: 15px;
+        }
+        .map-link:hover { background: var(--primary-green); color: white; }
+
+        /* --- 5. Reminder/Tips (互動提醒區) --- */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .tip-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card:hover { transform: translateY(-5px); }
+        .tip-card::before {
+            content: '💡';
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            font-size: 5rem;
+            opacity: 0.1;
+        }
+
+        .tip-title { font-weight: bold; margin-bottom: 10px; color: var(--primary-red); }
+        .tip-content { display: none; font-size: 0.95rem; color: #555; animation: fadeIn 0.5s; }
+        .tip-card.active .tip-content { display: block; }
+
+        /* --- 6. Interactive Tools (工具區) --- */
+        .tools-section {
+            background: #FFFFFF;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+            display: none; /* 預設隱藏，點擊按鈕開啟 */
+        }
+
+        .tools-section.active { display: block; animation: fadeIn 0.5s; }
+
+        .calc-box, .trans-box { margin-bottom: 20px; }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #DDD;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- 7. Footer & CTA --- */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #333;
+            color: white;
+            margin-top: 50px;
+        }
+
+        .cta-btn {
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 36, 38, 0.5);
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.3s;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* RWD */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .trip-table th { display: none; } /* 手機版隱藏表頭 */
+            .trip-table td { display: block; width: 100%; border-bottom: none; padding: 5px 0; }
+            .trip-table tr { border-bottom: 1px dashed #EEE; display: block; padding-bottom: 15px; margin-bottom: 15px; }
+            .day-card { padding: 15px; }
+        }
+    </style>
 </head>
 <body>
 
-<div id="tokyo-fare-container">
-<style>
-    /* --- 新增：日期狀態樣式 --- */
-    #tokyo-fare-container .date-btn.past-date {
-        background: #F5F5F5; /* 淺灰色背景 */
-        color: #9E9E9E; /* 灰色文字 */
-        border-color: #E0E0E0;
-        pointer-events: none; /* 讓過去的日期無法點擊 */
-        opacity: 0.7;
-    }
-    #tokyo-fare-container .date-btn.today-date {
-        border: 2px solid #C62828; /* 加粗邊框 */
-        background: #FFEBEE; /* 淺紅背景 */
-        color: #C62828; /* 紅色文字 */
-    }
-    
-    /* --- 匯率與轉換器樣式 --- */
-    #utility-bar {
-        background: #E8F5E9; /* 淺綠色背景 */
-        padding: 20px 15px;
-        margin-top: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        color: #388E3C; /* 深綠色文字 */
-    }
-    .rate-display {
-        text-align: center;
-        margin-bottom: 15px;
-        font-weight: bold;
-        color: #1B5E20; /* 更深的綠色 */
-        font-size: 1.1em;
-    }
-    .conversion-box {
-        background: #FFF;
-        padding: 15px;
-        border-radius: 6px;
-        border: 1px solid #C8E6C9;
-    }
-    .conversion-box label {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 0.95em;
-        font-weight: bold;
-        color: #4CAF50;
-    }
-    .conversion-input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #A5D6A7;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 1.2em;
-        text-align: right;
-    }
-    .conversion-output {
-        padding: 10px;
-        background: #F1F8E9;
-        border-radius: 4px;
-        font-size: 1.1em;
-        font-weight: bold;
-        color: #3E2723;
-        margin-top: 10px;
-    }
-    .conversion-output span {
-        font-weight: normal;
-        color: #1B5E20;
-    }
-
-    /* --- 核心樣式 --- (保持不變) */
-    #tokyo-fare-container {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background-color: #FFFBF0;
-        color: #3E2723;
-        max-width: 100%;
-        margin: 0 auto;
-        padding-bottom: 60px;
-        border-radius: 8px;
-        line-height: 1.6;
-        box-sizing: border-box;
-    }
-
-    #tokyo-fare-container header {
-        background: linear-gradient(135deg, #C62828, #B71C1C);
-        color: #FFF;
-        padding: 20px 15px;
-        text-align: center;
-        border-radius: 8px 8px 0 0;
-    }
-
-    /* --- 日期導航 --- */
-    #tokyo-fare-container .date-nav {
-        padding: 5px 10px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 6px;
-        margin-bottom: 10px;
-    }
-    
-    #tokyo-fare-container .date-btn {
-        flex: 0 0 auto;
-        padding: 10px 5px;
-        border-radius: 6px;
-        border: 1px solid #E0E0E0;
-        background: #FFFFFF;
-        color: #555;
-        font-size: 13px;
-        cursor: pointer;
-        width: calc(20% - 6px);
-        text-align: center;
-        font-weight: bold;
-        transition: all 0.2s; /* 添加過渡效果 */
-    }
-    
-    @media (max-width: 400px) { #tokyo-fare-container .date-btn { width: calc(25% - 6px); } }
-
-    #tokyo-fare-container .date-btn.active:not(.today-date) {
-        background: #C62828;
-        color: white;
-        border-color: #C62828;
-    }
-    #tokyo-fare-container .date-btn.active.today-date {
-        /* 當日被選中時，維持 today-date 的樣式，更醒目 */
-        background: #C62828;
-        color: white;
-        border: 2px solid #C62828;
-    }
-
-    #tokyo-fare-container .timeline { padding: 10px 15px; }
-
-    /* --- 行程卡片樣式 --- */
-    #tokyo-fare-container .card {
-        background: #FFF;
-        border-radius: 8px;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        border-left: 5px solid #999;
-        overflow: hidden;
-    }
-
-    .type-base { border-left-color: #C62828 !important; } 
-    .type-food { border-left-color: #F9A825 !important; } 
-    .type-shop { border-left-color: #6A1B9A !important; } 
-    .type-move { border-left-color: #2E7D32 !important; background-color: #E8F5E9 !important; }
-    .type-rec { border-left-color: #009688 !important; background-color: #E0F2F1 !important; }
-
-    .card-header {
-        padding: 12px 15px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        flex-wrap: wrap;
-    }
-
-    .time-box {
-        font-weight: bold;
-        background: #EEE;
-        padding: 3px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        margin-right: 8px;
-        min-width: 40px;
-        text-align: center;
-    }
-    
-    .type-move .time-box { background: #2E7D32; color: white; }
-
-    .fare-badge {
-        font-size: 11px;
-        color: #555;
-        background: #FFF9C4;
-        padding: 2px 6px;
-        border-radius: 10px;
-        border: 1px solid #FBC02D;
-        margin-left: auto;
-        white-space: nowrap;
-    }
-
-    .card-title { flex-grow: 1; font-weight: bold; font-size: 15px; margin-right: 10px; }
-    .toggle-icon { font-size: 12px; color: #999; margin-left: 5px; transition: transform 0.3s; }
-
-    .card-details {
-        display: none;
-        padding: 15px;
-        border-top: 1px solid #EEE;
-        background-color: #FAFAFA;
-    }
-    .card.open .card-details { display: block; }
-    .card.open .card-header .toggle-icon { transform: rotate(180deg); } 
-
-    .desc { font-size: 14px; margin-bottom: 10px; color: #444; }
-    
-    .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-    .nav-btn {
-        display: block; text-align: center; padding: 10px; border-radius: 6px;
-        text-decoration: none; font-weight: bold; font-size: 14px;
-    }
-    .btn-google { background-color: #4285F4; color: white !important; }
-    .btn-cheap { background-color: #2E7D32; color: white !important; }
-    .btn-easy { background-color: #FF8F00; color: white !important; }
-    .btn-weather { 
-        background-color: #00BCD4; 
-        color: white !important; 
-        border: 1px solid #00ACC1;
-    }
-
-    /* --- 翻譯強化樣式 --- */
-    #translator-container {
-        margin: 15px;
-        border: 1px solid #4285F4;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    .translator-header {
-        background: #4285F4;
-        color: white;
-        padding: 15px;
-        cursor: pointer;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .translator-content {
-        padding: 15px;
-        background: white;
-        display: none;
-    }
-    #translator-container.open .translator-content { display: block; }
-    
-    #translation-input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #DDD;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-    #translate-button {
-        background-color: #DB4437; /* Google 紅色 */
-        color: white;
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 4px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-</style>
-
+<!-- 1. Hero Section -->
 <header>
-    <h2 style="margin:0;">2025 東京 14 天深度旅 🎄</h2>
-    <p style="margin:5px 0 0; font-size:13px; opacity:0.9;">行程互動與即時翻譯功能</p>
+    <div class="hero-content">
+        <h1 class="hero-title">2025 冬日東京</h1>
+        <p class="hero-subtitle">14 天，一場關於獨處與團聚的旅程</p>
+    </div>
+    <div class="scroll-hint">下滑開始旅程 ▼</div>
+    <!-- 雪花效果由 JS 動態生成 -->
 </header>
 
-<div class="date-nav" id="date-nav"></div>
-
-<div id="translator-container">
-    <div class="translator-header">
-        🌐 快速中日文翻譯 (點擊展開) <span class="toggle-icon">▼</span>
-    </div>
-    <div class="translator-content">
-        <p style="font-size:13px; color:#555; margin-bottom:10px;">請輸入中文，然後點擊按鈕跳轉至 Google 翻譯頁面，出示日文給服務人員看。</p>
-        <input type="text" id="translation-input" placeholder="請輸入您想翻譯的中文句子..." />
-        <button id="translate-button">點此跳轉並查看日文翻譯 🚀</button>
-    </div>
+<!-- 2. 工具列 -->
+<div class="tools-bar">
+    <button class="tool-btn" onclick="toggleTools('calculator')">🧮 匯率計算</button>
+    <button class="tool-btn" onclick="toggleTools('translator')">🗣️ 翻譯幫手</button>
+    <a href="https://tenki.jp/forecast/3/16/4410/13101/" target="_blank" class="tool-btn secondary">☁️ 即時天氣</a>
 </div>
 
-<div class="timeline" id="event-list"></div>
-
-<div id="utility-bar">
-    <div class="rate-display">
-        💡 今日即時匯率 (TWD:JPY)：1 TWD = <span id="exchange-rate-value">4.5000</span> JPY
-    </div>
-    
-    <div class="conversion-box">
-        <label for="jpy-input">輸入日幣金額 (JPY) 進行換算：</label>
-        <input type="number" id="jpy-input" class="conversion-input" placeholder="0" />
-        <div class="conversion-output">
-            估算台幣 (TWD)：<span id="twd-result">0</span>
+<!-- 工具展開區 -->
+<div class="container" style="padding-top:0; padding-bottom:0;">
+    <div id="tools-area" class="tools-section">
+        <div id="calc-content" style="display:none;">
+            <h3>💱 匯率計算機 (1 TWD ≈ 4.5 JPY)</h3>
+            <p style="font-size:0.9rem; color:#666;">輸入日幣金額，自動換算台幣</p>
+            <input type="number" id="jpy-input" placeholder="輸入日幣金額 (¥)" oninput="convertCurrency()">
+            <div style="font-size:1.2rem; font-weight:bold; color:var(--primary-green); margin-top:10px;">
+                約 NT$ <span id="twd-result">0</span>
+            </div>
+        </div>
+        <div id="trans-content" style="display:none;">
+            <h3>🗣️ 中日翻譯小幫手</h3>
+            <p style="font-size:0.9rem; color:#666;">輸入中文，一鍵跳轉 Google 翻譯給對方看</p>
+            <input type="text" id="trans-input" placeholder="例如：請問這個有免稅嗎？">
+            <button class="action-btn" onclick="doTranslate()">翻譯並顯示日文</button>
         </div>
     </div>
 </div>
-</div> 
+
+<!-- 3. 導入與故事 -->
+<section class="intro-section">
+    <h2>旅程的節奏</h2>
+    <p class="intro-text">
+        這趟 14 天的旅程很特別。前 8 天，是屬於你一個人的<span class="highlight">「心靈沈澱」</span>，
+        我們走進下町、探訪古寺、漫步在日劇的場景裡。<br><br>
+        後 6 天，是溫暖的<span class="highlight">「家庭時光」</span>，
+        我們將在橫濱的聖誕燈火下、在新宿的高空燒肉中，與家人共享團聚的喜悅。
+    </p>
+</section>
+
+<!-- 4. 核心行程 (時間軸) -->
+<div class="container">
+    
+    <!-- 第一階段：獨旅 -->
+    <h2 class="section-title">Part 1: 獨處的東京 (12/14 - 12/20)</h2>
+    <div id="solo-timeline">
+        <!-- JS 將自動填充 -->
+    </div>
+
+    <!-- 第二階段：團聚 -->
+    <h2 class="section-title">Part 2: 家人的溫暖 (12/21 - 12/27)</h2>
+    <div id="family-timeline">
+        <!-- JS 將自動填充 -->
+    </div>
+
+</div>
+
+<!-- 5. 互動提醒區 -->
+<div class="container">
+    <h2 class="section-title" style="margin-top:0;">💡 像朋友一樣的提醒</h2>
+    <div class="tips-grid">
+        <div class="tip-card" onclick="toggleTip(this)">
+            <div class="tip-title">🧥 關於穿搭</div>
+            <div class="tip-content">
+                12月的東京平均 5°C~12°C。室內暖氣很強，切記「洋蔥式穿搭」！大衣要防風，裡面不要穿太厚的高領，不然進地鐵會熱暈喔。
+            </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+            <div class="tip-title">🍱 關於用餐</div>
+            <div class="tip-content">
+                敘敘苑午餐 CP 值最高，記得一定要準時到。一個人的時候，淺草橋附近的「中華食堂 一番館」是你疲憊時最好的朋友。
+            </div>
+        </div>
+        <div class="tip-card" onclick="toggleTip(this)">
+            <div class="tip-title">🎫 關於交通</div>
+            <div class="tip-content">
+                12/15 記得在澀谷買「東急一日券」，12/22 去鎌倉若搭單軌+江之電，建議在大船買通票。走路很多，鞋子一定要好穿！
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Footer & CTA -->
+<footer>
+    <h3>準備好出發了嗎？</h3>
+    <p>帶著相機，也帶著一顆開放的心。</p>
+    <button class="cta-btn" onclick="showFinalMessage()">我懂了，出發！ ✈️</button>
+</footer>
+
+<!-- Modal -->
+<div id="finalModal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeModal()">×</span>
+        <h3 style="color:var(--primary-red); margin-bottom:15px;">核心提醒</h3>
+        <p style="font-size:1.1rem; line-height:1.8;">
+            旅行最美的風景，<br>
+            不是照片裡的景色，<br>
+            而是當下感受到的平靜與快樂。<br><br>
+            <strong>享受每一刻，無論是獨處還是團聚。</strong><br>
+            祝你旅途平安！🇯🇵
+        </p>
+    </div>
+</div>
+
 <script>
-(function() {
-    // === 行程資料 (保持不變) ===
-    const tripData = [
-        {
-            date: "12/14 (日)",
-            avgTemp: "12°C / 5°C",
-            events: [
-                { 
-                    time: "13:00", title: "抵達東京 (JX800)", type: "move", fare: "💴 約 1,100~1,350円",
-                    desc: "搭乘「京成 Access 特急」直達淺草橋，或「京成本線」至青砥轉車。", 
-                    tips: "【最省錢】京成本線特急 (約1100円)。",
-                    buttons: [{ text: "🚇 Google 規劃：最省錢路線", url: "https://www.google.com/maps/dir/Narita+International+Airport+Terminal+2,+%E6%97%A5%E6%9C%AC,+%E3%80%92282-0004+Chiba,+Narita,+Furugome+1-1+72/Asakusabashi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0052+Tokyo,+Taito+City,+Asakusabashi,+1+Chome%E2%88%927%E2%88%924/@35.7335967,140.0984918,11z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60264b18c7d9a16f:0x6b677a296e680a6c!2m2!1d140.386008!2d35.7725969!1m5!1m1!1s0x60188b0f7e8a38a7:0x5f99222b46ed53d7!2m2!1d139.7845681!2d35.6974796!3e3" }]
-                },
-                { 
-                    time: "16:00", title: "Check-in 淺草橋", type: "base", 
-                    desc: "Tabist Hotel Mercury Asakusabashi。", 
-                    buttons: [{ text: "📍 導航至飯店", url: "Tabist Hotel Mercury Asakusabashi" }],
-                    weatherLinkText: "☁️ 淺草橋天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13106/"
-                },
-                { 
-                    time: "晚餐", title: "中華食堂 一番館", type: "food", fare: "💴 徒步 0円",
-                    desc: "周邊平價晚餐。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "中華食堂 一番館 浅草橋店" }]
-                }
-            ]
-        },
-        {
-            date: "12/15 (一)",
-            avgTemp: "11°C / 4°C",
-            events: [
-                { 
-                    time: "交通", title: "移動至豪德寺", type: "move", fare: "💴 約 450円",
-                    desc: "淺草橋 -> 澀谷 (購買東急一日券) -> 豪德寺。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 澀谷", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0052+Tokyo,+Taito+City,+Asakusabashi,+1+Chome%E2%88%927%E2%88%924/Shibuya+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92150-0043+Tokyo,+Shibuya+City,+Dogenzaka,+1+Chome%E2%88%921%E2%88%921/@35.6811917,139.7180415,13z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b0f7e8a38a7:0x5f99222b46ed53d7!2m2!1d139.7845681!2d35.6974796!1m5!1m1!1s0x60188b5774a98403:0xb63ed20a32504b12!2m2!1d139.701636!2d35.658034!3e3" }]
-                },
-                { 
-                    time: "09:00", title: "豪徳寺 & 松陰神社", type: "base", fare: "💴 一日券",
-                    desc: "利用世田谷線一日券遊覽。", 
-                    buttons: [{ text: "📍 導航至豪德寺", url: "豪徳寺" }],
-                    weatherLinkText: "☁️ 豪德寺天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13112/"
-                },
-                { 
-                    time: "13:00", title: "世田谷ボロ市 (舊物市集)", type: "base", fare: "💴 一日券",
-                    desc: "一年兩次的舊物市集，需確認時間。", 
-                    buttons: [{ text: "📍 導航至市集", url: "世田谷代官屋敷" }]
-                }
-            ]
-        },
-        {
-            date: "12/16 (二)",
-            avgTemp: "10°C / 3°C",
-            events: [
-                { 
-                    time: "交通", title: "前往北鎌倉", type: "move", fare: "💴 約 940円",
-                    desc: "JR 總武線快速/橫須賀線直達。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 北鎌倉", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0052+Tokyo,+Taito+City,+Asakusabashi,+1+Chome%E2%88%927%E2%88%924/Kita-Kamakura+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92247-0062+Kanagawa,+Kamakura,+Yamanouchi,+1102/@35.6033379,139.529892,11z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b0f7e8a38a7:0x5f99222b46ed53d7!2m2!1d139.7845681!2d35.6974796!1m5!1m1!1s0x601851e50587a8b3:0x70d8ff04e9c70c18!2m2!1d139.544778!2d35.3347517!3e3" }]
-                },
-                { 
-                    time: "09:00", title: "北鎌倉：明月院 (圓窗)", type: "base", fare: "💴 徒步",
-                    desc: "繡球花季已過，以枯山水與圓窗為重點。", 
-                    buttons: [{ text: "📍 導航至明月院", url: "明月院" }],
-                    weatherLinkText: "☁️ 北鎌倉天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4620/14204/"
-                },
-                { 
-                    time: "推薦", title: "順遊：円覺寺", type: "rec", fare: "💴 徒步",
-                    desc: "北鎌倉站旁的禪寺。", 
-                    buttons: [{ text: "📍 導航至円覺寺", url: "円覚寺" }]
-                },
-                { 
-                    time: "13:00", title: "鶴岡八幡宮 & 小町通", type: "base", fare: "💴 徒步/電車140円",
-                    desc: "參拜後逛小町通商店街。", 
-                    buttons: [{ text: "📍 導航至八幡宮", url: "鶴岡八幡宮" }]
-                }
-            ]
-        },
-        {
-            date: "12/17 (三)",
-            avgTemp: "12°C / 4°C",
-            events: [
-                { 
-                    time: "09:00", title: "淺草 Pelican 麵包", type: "food", fare: "💴 約 180円",
-                    desc: "需預約，地鐵一站至田原町。", 
-                    buttons: [{ text: "📍 導航至麵包店", url: "パンのペリカン" }]
-                },
-                { 
-                    time: "10:30", title: "今戶神社", type: "base", fare: "💴 徒步",
-                    desc: "招財貓發源地，求良緣。", 
-                    buttons: [{ text: "📍 導航至神社", url: "今戸神社" }]
-                },
-                { 
-                    time: "14:00", title: "淺草寺：歲之市 (羽子板市集)", type: "base", fare: "💴 徒步",
-                    desc: "東京年終重要市集。", 
-                    buttons: [{ text: "📍 導航至淺草寺", url: "浅草寺" }],
-                    weatherLinkText: "☁️ 淺草寺天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13106/"
-                }
-            ]
-        },
-        {
-            date: "12/18 (四)",
-            avgTemp: "11°C / 3°C",
-            events: [
-                { 
-                    time: "10:00", title: "神樂坂散策", type: "base", fare: "💴 約 170円",
-                    desc: "搭 JR 總武線至飯田橋站。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 飯田橋", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0052+Tokyo,+Taito+City,+Asakusabashi,+1+Chome%E2%88%927%E2%88%924/Iidabashi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92102-0072+Tokyo,+Chiyoda+City,+Iidabashi,+4+Chome%E2%88%921/@35.6980649,139.734898,14z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b0f7e8a38a7:0x5f99222b46ed53d7!2m2!1d139.7845681!2d35.6974796!1m5!1m1!1s0x60188c278184f4f7:0x391c49646b976f9c!2m2!1d139.742881!2d35.702146!3e3" }]
-                },
-                { 
-                    time: "活動", title: "円福寺 骨董市 (古董市集)", type: "base", fare: "💴 徒步",
-                    desc: "若遇市集時間，可順道參觀。", 
-                    buttons: [{ text: "📍 導航至円福寺", url: "円福寺" }]
-                },
-                { 
-                    time: "晚餐", title: "鳥茶屋 別亭 (親子丼)", type: "food", 
-                    desc: "米其林推薦。", 
-                    buttons: [{ text: "🍴 導航至鳥茶屋", url: "鳥茶屋 別亭" }],
-                    weatherLinkText: "☁️ 神樂坂天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13105/"
-                }
-            ]
-        },
-        {
-            date: "12/19 (五)",
-            avgTemp: "10°C / 2°C",
-            events: [
-                { 
-                    time: "10:00", title: "高圓寺散策", type: "base", fare: "💴 約 220円",
-                    desc: "日劇巡禮、二手衣店。", 
-                    buttons: [{ text: "🚇 導航：淺草橋 -> 高圓寺", url: "https://www.google.com/maps/dir/Asakusabashi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0052+Tokyo,+Taito+City,+Asakusabashi,+1+Chome%E2%88%927%E2%88%924/Kōenji+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92166-0003+Tokyo,+Suginami+City,+Kōenjiminami,+4+Chome%E2%88%9248%E2%88%922/@35.7021319,139.7025816,13z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b0f7e8a38a7:0x5f99222b46ed53d7!2m2!1d139.7845681!2d35.6974796!1m5!1m1!1s0x6018f2f281e42777:0x526b701c6f497334!2m2!1d139.652136!2d35.703273!3e3" }]
-                },
-                { 
-                    time: "14:00", title: "荻窪：大田黑公園", type: "base", fare: "💴 約 160円",
-                    desc: "日式庭園。", 
-                    buttons: [{ text: "📍 導航至大田黑公園", url: "大田黑公園" }],
-                    weatherLinkText: "☁️ 荻窪天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13115/"
-                },
-                { 
-                    time: "晚餐", title: "中華料理 さいころ", type: "food", 
-                    desc: "拉麵店。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "中華料理 さいころ" }]
-                }
-            ]
-        },
-        {
-            date: "12/20 (六)",
-            avgTemp: "12°C / 5°C",
-            events: [
-                { 
-                    time: "09:00", title: "神田志乃多壽司", type: "food", fare: "💴 約 140円",
-                    desc: "購買外帶。", 
-                    buttons: [{ text: "📍 導航至壽司店", url: "神田志乃多寿司" }]
-                },
-                { 
-                    time: "10:00", title: "皇居外苑 (二重橋)", type: "base", fare: "💴 徒步",
-                    desc: "散步、拍照。", 
-                    buttons: [{ text: "📍 導航至二重橋", url: "皇居外苑 二重橋" }]
-                },
-                { 
-                    time: "14:00", title: "日本橋三越", type: "shop", 
-                    desc: "百年百貨。", 
-                    buttons: [{ text: "🚌 免費巡迴巴士", url: "日本橋三越本店" }],
-                    weatherLinkText: "☁️ 日本橋天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13103/"
-                },
-                { 
-                    time: "晚餐", title: "AFURI (惠比壽)", type: "food", fare: "💴 約 250円",
-                    desc: "柚子鹽味拉麵。", 
-                    buttons: [{ text: "🍴 導航至 AFURI", url: "AFURI 恵比寿" }]
-                }
-            ]
-        },
-        {
-            date: "12/21 (日)",
-            avgTemp: "11°C / 4°C",
-            events: [
-                { 
-                    time: "10:00", title: "飯店大移動", type: "move", fare: "🚕 約 1,200円",
-                    desc: "淺草橋 -> 田原町 (Henn na Hotel)。", 
-                    tips: "推薦搭乘計程車，省力且快速。",
-                    buttons: [{ text: "📍 導航至新飯店", url: "変なホテル東京 浅草田原町" }]
-                },
-                { 
-                    time: "14:00", title: "大江戶古董市", type: "base", fare: "💴 約 200円",
-                    desc: "東京國際論壇。", 
-                    buttons: [{ text: "📍 導航至論壇", url: "東京国際フォーラム" }],
-                    weatherLinkText: "☁️ 有樂町天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13102/"
-                },
-                { 
-                    time: "晚餐", title: "駒形どぜう (泥鰍鍋)", type: "food", 
-                    desc: "淺草特色美食。", 
-                    buttons: [{ text: "🍴 導航至餐廳", url: "駒形どぜう 本店" }]
-                }
-            ]
-        },
-        {
-            date: "12/22 (一)",
-            avgTemp: "10°C / 3°C",
-            events: [
-                { 
-                    time: "交通", title: "前往大船 (鎌倉一日遊起點)", type: "move", fare: "💴 約 950円",
-                    desc: "建議購買鎌倉/江之島通票。", 
-                    buttons: [{ text: "🚇 導航：田原町 -> 大船", url: "https://www.google.com/maps/dir/Tawaramachi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0034+Tokyo,+Taito+City,+Kaminarimon,+1+Chome%E2%88%927%E2%88%923/%C5%8Cfuna+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92247-0056+Kanagawa,+Kamakura,+Oofuna,+1+Chome%E2%88%924%E2%88%921/@35.5395194,139.6385731,11z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b067d5e495b:0x5e373468087948a3!2m2!1d139.789134!2d35.710777!1m5!1m1!1s0x601844b20464604d:0xc210086307127e7d!2m2!1d139.531238!2d35.341258!3e3" }]
-                },
-                { 
-                    time: "09:00", title: "大船觀音寺", type: "base", fare: "💴 徒步",
-                    desc: "巨大的和平觀音像。", 
-                    buttons: [{ text: "📍 導航至觀音寺", url: "大船観音寺" }],
-                    weatherLinkText: "☁️ 大船天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4620/14204/"
-                },
-                { 
-                    time: "10:00", title: "湘南江之島 (單軌電車體驗)", type: "move", fare: "🚋 單軌電車 (通票)",
-                    desc: "懸掛式單軌電車。", 
-                    buttons: [{ text: "🚋 導航：大船 -> 江之島", url: "https://www.google.com/maps/dir/%C5%8Cfuna+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92247-0056+Kanagawa,+Kamakura,+Oofuna,+1+Chome%E2%88%924%E2%88%921/Enoshima+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92251-0035+Kanagawa,+Fujisawa,+Katasekaigan,+1+Chome%E2%88%928/@35.3116343,139.4674323,13z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x601844b20464604d:0xc210086307127e7d!2m2!1d139.531238!2d35.341258!1m5!1m1!1s0x601844efcc3b52d9:0x8501211756209a34!2m2!1d139.482069!2d35.304561!3e3" }]
-                },
-                { 
-                    time: "14:00", title: "長谷寺 & 高德院大佛", type: "base", fare: "🚋 江之電 (通票)",
-                    desc: "鎌倉重要景點。", 
-                    buttons: [{ text: "📍 導航至長谷寺", url: "長谷寺" }]
-                }
-            ]
-        },
-        {
-            date: "12/23 (二)",
-            avgTemp: "12°C / 4°C",
-            events: [
-                { 
-                    time: "09:00", title: "雷門 (清晨拍攝)", type: "base", fare: "💴 徒步",
-                    desc: "避開人潮。", 
-                    buttons: [{ text: "📍 導航至雷門", url: "雷門" }]
-                },
-                { 
-                    time: "13:00", title: "AEON LakeTown OUTLET", type: "shop", fare: "💴 約 500円",
-                    desc: "越谷購物中心。", 
-                    buttons: [{ text: "🚇 導航：上野 -> LakeTown", url: "https://www.google.com/maps/dir/Ueno+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92110-0005+Tokyo,+Taito+City,+Ueno,+7+Chome%E2%88%921%E2%88%921/Koshigaya+Laketown+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92343-0826+Saitama,+Koshigaya,+Laketown+4+Chome%E2%88%921%E2%88%921/@35.8055276,139.7745812,12z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188e9981a8b51d:0x39a3f2b1d64c1808!2m2!1d139.777085!2d35.71424!1m5!1m1!1s0x6018903c9657685d:0x3c961e053e11f185!2m2!1d139.852445!2d35.890696!3e3" }],
-                    weatherLinkText: "☁️ 越谷天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/13/4310/11222/"
-                },
-                { 
-                    time: "19:00", title: "二木菓子 (上野)", type: "shop", fare: "💴 約 500円",
-                    desc: "採購伴手禮。", 
-                    buttons: [{ text: "📍 導航至二木菓子", url: "二木の菓子" }]
-                }
-            ]
-        },
-        {
-            date: "12/24 (三)",
-            avgTemp: "11°C / 3°C",
-            events: [
-                { 
-                    time: "交通", title: "前往橫濱", type: "move", fare: "💴 約 580円",
-                    desc: "前往橫濱櫻木町或未來港區。", 
-                    buttons: [{ text: "🚇 導航：田原町 -> 橫濱", url: "https://www.google.com/maps/dir/Tawaramachi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0034+Tokyo,+Taito+City,+Kaminarimon,+1+Chome%E2%88%927%E2%88%923/Yokohama+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92220-0004+Kanagawa,+Yokohama,+Nishi+Ward,+Kitaekimae/@35.602568,139.6738914,12z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b067d5e495b:0x5e373468087948a3!2m2!1d139.789134!2d35.710777!1m5!1m1!1s0x601859685a21e651:0x322d7d8b5a045c78!2m2!1d139.622616!2d35.465785!3e3" }]
-                },
-                { 
-                    time: "12:00", title: "敘敘苑 (橫濱 Sky Building 28F)", type: "food", 
-                    desc: "午間套餐，享受景觀。", 
-                    buttons: [{ text: "🍴 導航至敘敘苑", url: "叙々苑 横浜スカイビル店" }],
-                    weatherLinkText: "☁️ 橫濱天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4610/14104/"
-                },
-                { 
-                    time: "14:30", title: "紅磚倉庫 (聖誕市集)", type: "base", fare: "纜車/地鐵",
-                    desc: "聖誕夜活動。", 
-                    buttons: [{ text: "📍 導航至紅磚倉庫", url: "横浜赤レンガ倉庫" }]
-                }
-            ]
-        },
-        {
-            date: "12/25 (四)",
-            avgTemp: "10°C / 2°C",
-            events: [
-                { 
-                    time: "09:00", title: "築地場外市場", type: "base", fare: "💴 約 200円",
-                    desc: "逛市場、吃小吃。", 
-                    buttons: [{ text: "📍 導航至築地", url: "築地場外市場" }],
-                    weatherLinkText: "☁️ 築地天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13104/"
-                },
-                { 
-                    time: "12:00", title: "銀座 SIX / Uniqlo", type: "shop", fare: "💴 徒步",
-                    desc: "銀座購物。", 
-                    buttons: [{ text: "📍 導航至 GINZA SIX", url: "GINZA SIX" }]
-                },
-                { 
-                    time: "16:00", title: "合羽橋道具街", type: "shop", fare: "💴 約 200円",
-                    desc: "採購餐具與廚房用品。", 
-                    buttons: [{ text: "📍 導航至合羽橋", url: "かっぱ橋道具街" }]
-                }
-            ]
-        },
-        {
-            date: "12/26 (五)",
-            avgTemp: "11°C / 3°C",
-            events: [
-                { 
-                    time: "12:00", title: "敘敘苑 (新宿 Opera City 53F)", type: "food", fare: "💴 約 300円",
-                    desc: "午間套餐。", 
-                    buttons: [{ text: "🍴 導航至敘敘苑", url: "叙々苑 新宿オペラシティ53" }],
-                    weatherLinkText: "☁️ 新宿天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/16/4410/13104/"
-                },
-                { 
-                    time: "推薦", title: "順遊：東京都廳", type: "rec", fare: "💴 免費",
-                    desc: "免費展望台。", 
-                    buttons: [{ text: "📍 導航至東京都廳", url: "東京都庁" }]
-                },
-                { 
-                    time: "15:00", title: "下島包裝 (淺草橋本店)", type: "shop", fare: "💴 約 180円",
-                    desc: "包裝材料採購。", 
-                    buttons: [{ text: "📍 導航至下島包裝", url: "シモジマ 浅草橋本店" }]
-                }
-            ]
-        },
-        {
-            date: "12/27 (六)",
-            avgTemp: "10°C / 2°C",
-            events: [
-                { 
-                    time: "10:00", title: "前往京成上野站", type: "move", fare: "💴 約 180円",
-                    desc: "搭車至上野。", 
-                    buttons: [{ text: "🚇 導航：田原町 -> 上野", url: "https://www.google.com/maps/dir/Tawaramachi+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92111-0034+Tokyo,+Taito+City,+Kaminarimon,+1+Chome%E2%88%927%E2%88%923/Keisei+Ueno+Station,+%E6%97%A5%E6%9C%AC,+%E3%80%92110-0007+Tokyo,+Taito+City,+Uenokōen,+1%E2%88%921/@35.7142436,139.7766863,15z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x60188b067d5e495b:0x5e373468087948a3!2m2!1d139.789134!2d35.710777!1m5!1m1!1s0x60188e994960d70b:0x4e6ed374e2d36486!2m2!1d139.771965!2d35.711812!3e3" }]
-                },
-                { 
-                    time: "11:00", title: "前往成田機場 (T2)", type: "move", fare: "💴 約 1,050円",
-                    desc: "京成本線特急。", 
-                    buttons: [{ text: "✈️ 導航至成田T2", url: "成田国際空港 第2ターミナル" }],
-                    weatherLinkText: "☁️ 成田機場天氣預報",
-                    weatherLinkUrl: "https://tenki.jp/lite/forecast/3/17/4510/12211/"
-                },
-                { 
-                    time: "15:35", title: "航班 JX803", type: "move", 
-                    desc: "搭機回程。", 
-                }
-            ]
-        },
+    // === 1. 資料庫 ===
+    const soloItinerary = [
+        { date: "12/14 (日)", title: "抵達與安頓", events: [
+            { time: "13:00", item: "抵達成田 (JX800)", note: "搭 Access 特急直達淺草橋" },
+            { time: "16:00", item: "Check-in 淺草橋飯店", note: "Tabist Hotel Mercury" },
+            { time: "晚餐", item: "中華食堂 一番館", note: "飯店周邊，便宜好吃" }
+        ]},
+        { date: "12/15 (一)", title: "世田谷線散策", events: [
+            { time: "09:00", item: "豪德寺 (招財貓)", note: "搭東急世田谷線，必拍！" },
+            { time: "13:00", item: "世田谷ボロ市", note: "年度舊物市集，人潮多請小心" },
+            { time: "晚餐", item: "三軒茶屋周邊", note: "推薦 AFURI 或 餃子" }
+        ]},
+        { date: "12/16 (二)", title: "古都鎌倉", events: [
+            { time: "09:00", item: "北鎌倉：明月院", note: "拍攝圓窗，感受禪意" },
+            { time: "13:00", item: "鶴岡八幡宮", note: "逛小町通吃小吃" },
+            { time: "晚餐", item: "紅虎餃子房", note: "鎌倉站附近" }
+        ]},
+        { date: "12/17 (三)", title: "淺草風情", events: [
+            { time: "09:00", item: "鵜鶘麵包 (Pelican)", note: "淺草傳奇吐司，需預約" },
+            { time: "14:00", item: "淺草寺：歲之市", note: "羽子板市集，充滿過年氣氛" },
+            { time: "晚餐", item: "淺草今半/色川", note: "壽喜燒或鰻魚飯" }
+        ]},
+        { date: "12/18 (四)", title: "大人味的東京", events: [
+            { time: "10:00", item: "神樂坂散策", note: "石板路、兵庫橫丁" },
+            { time: "活動", item: "円福寺 骨董市", note: "若有興趣可順路逛" },
+            { time: "晚餐", item: "鳥茶屋 別亭", note: "必吃親子丼" }
+        ]},
+        { date: "12/19 (五)", title: "日劇巡禮", events: [
+            { time: "10:00", item: "高圓寺", note: "純情商店街、古著店" },
+            { time: "14:00", item: "荻窪：大田黑公園", note: "日式庭園紅葉倒影" },
+            { time: "晚餐", item: "中華料理 さいころ", note: "在地拉麵" }
+        ]},
+        { date: "12/20 (六)", title: "歷史與建築", events: [
+            { time: "09:00", item: "神田志乃多壽司", note: "買豆皮壽司去野餐" },
+            { time: "10:00", item: "皇居外苑", note: "二重橋打卡" },
+            { time: "14:00", item: "日本橋三越", note: "看天女像，搭免費巡迴巴" }
+        ]}
     ];
 
-    const navContainer = document.getElementById('date-nav');
-    const listContainer = document.getElementById('event-list');
-    const translatorContainer = document.getElementById('translator-container'); 
-    const inputField = document.getElementById('translation-input');
-    const translateButton = document.getElementById('translate-button');
+    const familyItinerary = [
+        { date: "12/21 (日)", title: "團聚與移動", events: [
+            { time: "10:00", item: "移動至田原町", note: "計程車最省力 (約1200円)" },
+            { time: "14:00", item: "大江戶古董市", note: "有樂町國際論壇" },
+            { time: "晚餐", item: "駒形どぜう", note: "挑戰泥鰍鍋或是樂宴中華" }
+        ]},
+        { date: "12/22 (一)", title: "湘南海岸線", events: [
+            { time: "09:00", item: "大船觀音 & 江之島", note: "搭懸掛式單軌電車" },
+            { time: "12:00", item: "午餐：Café Recette", note: "高級吐司甜點 (預約確認)" },
+            { time: "15:00", item: "長谷寺 & 大佛", note: "江之電沿線" }
+        ]},
+        { date: "12/23 (二)", title: "購物與雷門", events: [
+            { time: "09:00", item: "雷門清晨", note: "避開人潮拍合照" },
+            { time: "13:00", item: "越谷 LakeTown", note: "大型 Outlet，午餐吃五穀釜飯" },
+            { time: "19:00", item: "二木菓子", note: "上野採買伴手禮" }
+        ]},
+        { date: "12/24 (三)", title: "橫濱聖誕夜", events: [
+            { time: "12:00", item: "午餐：敘敘苑", note: "橫濱 Sky Building 28F" },
+            { time: "14:30", item: "紅磚倉庫", note: "聖誕市集，搭纜車前往" },
+            { time: "晚餐", item: "橫濱家系拉麵", note: "吉村家或車站周邊" }
+        ]},
+        { date: "12/25 (四)", title: "銀座與職人", events: [
+            { time: "09:00", item: "築地 & 銀座", note: "GINZA SIX，買白金屋稻荷壽司" },
+            { time: "16:00", item: "合羽橋道具街", note: "Union 買咖啡器具 (17:30關門)" },
+            { time: "晚餐", item: "銀座 Aster", note: "外帶或店內用餐" }
+        ]},
+        { date: "12/26 (五)", title: "新宿高空", events: [
+            { time: "12:00", item: "午餐：敘敘苑", note: "新宿 Opera City 53F" },
+            { time: "15:00", item: "包裝採購", note: "下島包裝 淺草橋店" },
+            { time: "晚餐", item: "AFURI 拉麵", note: "新宿 Lumine 店" }
+        ]},
+        { date: "12/27 (六)", title: "滿載而歸", events: [
+            { time: "10:00", item: "前往機場", note: "京成上野搭 Skyliner/特急" },
+            { time: "15:35", item: "航班 JX803", note: "成田 T2 起飛" }
+        ]}
+    ];
 
-    // **輔助函數：日期處理**
-    function normalizeDate(date) {
-        // 確保日期是午夜 (00:00:00) 以便精確比較
-        const d = new Date(date);
-        d.setHours(0, 0, 0, 0);
-        return d;
-    }
-
-    // ***翻譯工具啟動函數***
-    function launchTranslator() {
-        const chineseText = inputField.value.trim();
-        if (chineseText) {
-            const url = `https://translate.google.com/?hl=ja&sl=zh-TW&tl=ja&text=${encodeURIComponent(chineseText)}`; 
-            window.open(url, '_blank');
-        } else {
-            alert("請先輸入您想翻譯的中文句子！");
-        }
-    }
-
-    // ***翻譯工具開關事件與按鈕事件***
-    translatorContainer.querySelector('.translator-header').addEventListener('click', function() {
-        translatorContainer.classList.toggle('open');
-    });
-    translateButton.addEventListener('click', launchTranslator);
-
-
-    // **事件綁定函數**
-    function bindEventListeners() {
-        // 綁定卡片展開/收合事件
-        document.querySelectorAll('.card-header').forEach(header => {
-            header.addEventListener('click', function() {
-                this.parentElement.classList.toggle('open');
-            });
-        });
-    }
-
-    // ***showEvents 函數 (處理行程渲染)***
-    function showEvents(index) {
-        const data = tripData[index];
-        
-        listContainer.innerHTML = ''; 
-        
-        data.events.forEach(evt => {
-            let typeClass = 'type-base';
-            if (evt.type === 'food') typeClass = 'type-food';
-            if (evt.type === 'shop') typeClass = 'type-shop';
-            if (evt.type === 'move') typeClass = 'type-move';
-            if (evt.type === 'rec') typeClass = 'type-rec';
-
+    // === 2. 渲染功能 ===
+    function renderTimeline(data, containerId) {
+        const container = document.getElementById(containerId);
+        data.forEach(day => {
             const card = document.createElement('div');
-            card.className = `card ${typeClass}`;
+            card.className = 'day-card';
             
-            let btnsHtml = '';
-            let hasButtonsOrWeather = evt.buttons || evt.weatherLinkUrl;
-            
-            if(hasButtonsOrWeather) {
-                btnsHtml = '<div class="btn-group">';
-
-                // 處理 Google Maps/其他按鈕
-                if(evt.buttons) {
-                    evt.buttons.forEach(b => {
-                        let btnClass = 'btn-google';
-                        let linkUrl = b.url;
-                        if(b.url.startsWith('https://www.google.com/maps')) {
-                            // URL 已經是 Google Maps 導航連結
-                        } else if (!linkUrl.startsWith('http')) {
-                            // 預設為 Google Maps 搜尋
-                            linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.url)}`;
-                        }
-                        
-                        if(b.text.includes('省錢')) btnClass = 'btn-cheap';
-                        if(b.text.includes('直達') || b.text.includes('計程車')) btnClass = 'btn-easy';
-                        btnsHtml += `<a href="${linkUrl}" target="_blank" class="nav-btn ${btnClass}">${b.text}</a>`;
-                    });
-                }
-
-                // 處理天氣按鈕
-                if (evt.weatherLinkUrl) {
-                    btnsHtml += `<a href="${evt.weatherLinkUrl}" target="_blank" class="nav-btn btn-weather">${evt.weatherLinkText || '查看天氣預報'}</a>`;
-                }
-                
-                btnsHtml += '</div>';
-            }
-
-            let tipsHtml = evt.tips ? `<div style="background:#E0F2F1; padding:10px; border-radius:6px; font-size:13px; color:#00695C; margin-top:8px; border:1px solid #B2DFDB;">💡 ${evt.tips}</div>` : '';
-            let fareHtml = evt.fare ? `<span class="fare-badge">${evt.fare}</span>` : '';
+            let rows = '';
+            day.events.forEach(e => {
+                // Google Map 連結生成
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.item)}`;
+                rows += `
+                    <tr>
+                        <th>${e.time}</th>
+                        <td>
+                            <strong style="font-size:1.1rem;">${e.item}</strong><br>
+                            <span style="color:#666; font-size:0.9rem;">${e.note}</span>
+                            <br><a href="${mapUrl}" target="_blank" class="map-link">📍 導航</a>
+                        </td>
+                    </tr>
+                `;
+            });
 
             card.innerHTML = `
-                <div class="card-header">
-                    <span class="time-box">${evt.time}</span>
-                    <span class="card-title">${evt.title}</span>
-                    ${fareHtml}
-                    <span class="toggle-icon">▼</span>
+                <div class="day-header">
+                    <div class="day-date">${day.date}</div>
+                    <div class="day-weather">🎄 ${day.title}</div>
                 </div>
-                <div class="card-details">
-                    <div class="desc">${evt.desc}</div>
-                    ${tipsHtml}
-                    ${btnsHtml}
-                </div>
+                <table class="trip-table">
+                    ${rows}
+                </table>
             `;
-            listContainer.appendChild(card);
+            container.appendChild(card);
         });
-        // 渲染完成後，綁定所有卡片事件
-        bindEventListeners();
     }
 
-    // ***switchDay 函數***
-    function switchDay(index, btnElement) {
-        document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+    // === 3. 工具功能 ===
+    function toggleTools(type) {
+        const section = document.getElementById('tools-area');
+        const calc = document.getElementById('calc-content');
+        const trans = document.getElementById('trans-content');
         
-        // 只有非過去的日期可以被點擊為 active
-        if (!btnElement.classList.contains('past-date')) {
-            btnElement.classList.add('active');
-        }
+        section.classList.add('active');
         
-        showEvents(index);
-    }
-
-    // ***render 函數 (包含日期判斷邏輯)***
-    function render() {
-        const today = normalizeDate(new Date());
-        let initialActiveIndex = 0; 
-        let foundActiveDay = false; // 確保只設定第一個 >= 今天 的日期為 active
-
-        tripData.forEach((day, index) => {
-            // 由於行程標題是 2025 年，我們假設行程年為 2025
-            const year = 2025;
-            const dateParts = day.date.match(/(\d+)\/(\d+)/);
-            const month = parseInt(dateParts[1], 10) - 1; // 月份從 0 開始
-            const dayOfMonth = parseInt(dateParts[2], 10);
-            
-            // 建立行程日期物件 (午夜)
-            const itineraryDate = normalizeDate(new Date(year, month, dayOfMonth));
-
-            const btn = document.createElement('div');
-            btn.textContent = day.date.split(' ')[0]; 
-            btn.className = 'date-btn';
-            
-            // --- 日期狀態判斷 ---
-            if (itineraryDate < today) {
-                // 過去的日期
-                btn.classList.add('past-date');
-            } else if (itineraryDate.getTime() === today.getTime()) {
-                // 當天日期
-                btn.classList.add('today-date');
-                initialActiveIndex = index;
-                foundActiveDay = true;
-            } else if (itineraryDate > today && !foundActiveDay) {
-                // 第一個未來的日期 (如果今天不在行程內或今天已過)
-                initialActiveIndex = index;
-                foundActiveDay = true;
-            }
-
-            // 綁定日期切換事件
-            btn.addEventListener('click', function() {
-                switchDay(index, this);
-            });
-            
-            navContainer.appendChild(btn);
-        });
-
-        // 檢查如果今天已在行程之後 (例如 12/28)，則預設選擇最後一天
-        if (!foundActiveDay && today > normalizeDate(new Date(2025, 11, 27))) { 
-            initialActiveIndex = tripData.length - 1;
-        }
-
-        // 設置正確的初始 active 按鈕
-        const activeBtn = navContainer.children[initialActiveIndex];
-        if (activeBtn) {
-            activeBtn.classList.add('active');
-        }
-        
-        showEvents(initialActiveIndex); // 載入該日期的行程
-    }
-
-    render();
-
-    // === 簡化後的匯率功能 (TWD:JPY 獲取與 JPY:TWD 轉換) ===
-    let currentRate = 4.5000; // 備用匯率：1 TWD = 4.50 JPY
-    const rateElement = document.getElementById('exchange-rate-value');
-    const jpyInputElement = document.getElementById('jpy-input');
-    const twdResultElement = document.getElementById('twd-result');
-
-    // 1. 匯率獲取 (從 TWD 查 JPY)
-    function fetchExchangeRate() {
-        const apiUrl = 'https://api.exchangerate-api.com/v4/latest/TWD'; 
-
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.rates && data.rates.JPY) {
-                    currentRate = data.rates.JPY; // 1 TWD 可以兌換多少 JPY
-                    rateElement.textContent = currentRate.toFixed(4);
-                    convertJpyToTwd();
-                }
-            })
-            .catch(error => {
-                console.error("無法獲取即時匯率，使用備用值 4.5000:", error);
-                rateElement.textContent = `${currentRate.toFixed(4)} (無法更新)`;
-            });
-    }
-
-    // 2. 日幣轉台幣換算邏輯
-    function convertJpyToTwd() {
-        // JPY/TWD 的匯率 = 1 / TWD/JPY 的匯率
-        const rateJPYtoTWD = 1 / currentRate; 
-        
-        const jpyAmount = parseFloat(jpyInputElement.value) || 0;
-
-        if (jpyAmount > 0) {
-            // JPY 金額 * (1/TWD_JPY_Rate)
-            const twdAmount = jpyAmount * rateJPYtoTWD;
-            // 格式化為台幣顯示 (逗號分隔，小數點後兩位)
-            twdResultElement.textContent = twdAmount.toLocaleString('zh-TW', { maximumFractionDigits: 2 });
+        if (type === 'calculator') {
+            calc.style.display = 'block';
+            trans.style.display = 'none';
+            section.scrollIntoView({behavior: 'smooth'});
         } else {
-            twdResultElement.textContent = '0';
+            calc.style.display = 'none';
+            trans.style.display = 'block';
+            section.scrollIntoView({behavior: 'smooth'});
         }
     }
 
-    // 3. 綁定輸入事件
-    jpyInputElement.addEventListener('input', convertJpyToTwd);
+    function convertCurrency() {
+        const jpy = document.getElementById('jpy-input').value;
+        const rate = 0.22; // 預估匯率 1 JPY = 0.22 TWD (或 1 TWD = 4.5 JPY)
+        const twd = (jpy * rate).toFixed(0);
+        document.getElementById('twd-result').innerText = twd;
+    }
 
-    // 啟動功能
-    fetchExchangeRate();
+    function doTranslate() {
+        const text = document.getElementById('trans-input').value;
+        if (text) {
+            const url = `https://translate.google.com/?hl=ja&sl=zh-TW&tl=ja&text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+    }
 
-})();
+    // === 4. 互動特效 ===
+    function toggleTip(card) {
+        card.classList.toggle('active');
+    }
+
+    function showFinalMessage() {
+        document.getElementById('finalModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('finalModal').style.display = 'none';
+    }
+
+    // 雪花生成
+    function createSnow() {
+        const header = document.querySelector('header');
+        for(let i=0; i<20; i++) {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.innerHTML = '❄';
+            snow.style.left = Math.random() * 100 + '%';
+            snow.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snow.style.fontSize = Math.random() * 10 + 10 + 'px';
+            header.appendChild(snow);
+        }
+    }
+
+    // Scroll Reveal Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        renderTimeline(soloItinerary, 'solo-timeline');
+        renderTimeline(familyItinerary, 'family-timeline');
+        createSnow();
+        
+        document.querySelectorAll('.day-card').forEach(card => {
+            observer.observe(card);
+        });
+    });
+
 </script>
 
 </body>
