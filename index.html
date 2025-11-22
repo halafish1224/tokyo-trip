@@ -2,120 +2,81 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 東京冬日紀行 TOKYO WINTER TRIP</title>
-    <meta name="description" content="2025東京自由行行程、記帳與翻譯工具">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TOKYO 2025 | 究極旅遊攻略</title>
+    <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* Tokyo Urban Palette */
-            --tokyo-blue: #0f204b;      /* 深夜藍 */
-            --neon-red: #ff003c;        /* 東京塔紅 */
-            --concrete-gray: #f5f5f5;   /* 清水模灰 */
-            --steel-dark: #2b2b2b;      /* 鐵道黑 */
-            --pure-white: #ffffff;
-            
-            /* Functional Colors */
-            --accent-gold: #d4af37;
-            --success-green: #00b894;
+            /* TOKYO Cyber/Modern Palette */
+            --tokyo-night: #0F172A; /* 深邃藍黑 */
+            --neon-blue: #3B82F6;   /* 科技藍 */
+            --neon-pink: #EC4899;   /* 霓虹粉 */
+            --neon-gold: #F59E0B;   /* 亮金 */
+            --card-bg: #1E293B;     /* 卡片深底 */
+            --text-main: #F8FAFC;   /* 亮白字 */
+            --text-sub: #94A3B8;    /* 灰藍字 */
+            --accent-red: #EF4444;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
+            font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+            background-color: var(--tokyo-night);
+            color: var(--text-main);
             margin: 0;
-            background-color: var(--concrete-gray);
-            font-family: 'Noto Sans TC', sans-serif;
-            color: var(--steel-dark);
-            padding-bottom: 90px; /* Space for bottom nav */
-            overflow-x: hidden;
+            padding-bottom: 90px; /* 預留底部導航空間 */
+            line-height: 1.5;
         }
 
-        /* --- 1. Header 磅礡首屏 --- */
+        /* --- Header 磅礡感 --- */
         header {
-            background: linear-gradient(135deg, var(--tokyo-blue), #1a1a2e);
-            color: var(--pure-white);
-            padding: 40px 20px 30px;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        
-        /* 裝飾線條 */
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 6px;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--neon-red),
-                var(--neon-red) 10px,
-                transparent 10px,
-                transparent 20px
-            );
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         h1 {
             margin: 0;
-            font-family: 'Oswald', sans-serif;
-            font-size: 3.5rem;
-            line-height: 1;
+            font-size: 2.2rem;
+            font-weight: 900;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(to right, #fff, #a5b1c2);
+            background: linear-gradient(to right, #fff, #bae6fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-        
-        .subtitle {
-            font-size: 1rem;
-            margin-top: 10px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .tag {
-            background: var(--neon-red);
-            color: white;
-            padding: 2px 8px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            border-radius: 2px;
+            text-transform: uppercase;
         }
 
-        /* --- 2. 匯率狀態欄 --- */
-        .status-bar {
-            background: var(--steel-dark);
-            color: white;
-            padding: 10px 20px;
+        .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.9rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Oswald', sans-serif;
-            letter-spacing: 1px;
+            margin-top: 10px;
+            color: var(--neon-blue);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-family: monospace;
         }
-        .rate-val { color: var(--accent-gold); font-weight: bold; }
 
-        /* --- 3. 內容容器 --- */
+        /* --- Container --- */
         .container {
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* Section 控制 */
-        .section {
-            display: none;
-            animation: slideUp 0.4s ease-out;
-        }
+        /* --- Sections --- */
+        .section { display: none; animation: slideUp 0.4s ease-out; }
         .section.active { display: block; }
 
         @keyframes slideUp {
@@ -123,527 +84,339 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 {
-            font-size: 1.8rem;
-            color: var(--tokyo-blue);
-            margin-bottom: 20px;
-            font-family: 'Oswald', sans-serif;
-            border-left: 6px solid var(--neon-red);
+        h2.section-title {
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            border-left: 5px solid var(--neon-blue);
             padding-left: 15px;
+            margin: 30px 0 20px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* --- 行程卡片 (Timeline) --- */
-        .day-group { margin-bottom: 30px; }
-        .day-title {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--steel-dark);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .day-badge {
-            background: var(--tokyo-blue);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-family: 'Oswald', sans-serif;
-        }
-
-        .event-card {
-            background: white;
+        /* --- 景點卡片 (Info Card) --- */
+        .info-card {
+            background: var(--card-bg);
             border-radius: 12px;
             padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-left: 4px solid #ddd;
-            transition: transform 0.2s;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             position: relative;
+            overflow: hidden;
         }
-        .event-card:active { transform: scale(0.98); }
-        
-        .event-card.highlight { border-left-color: var(--neon-red); } /* 重點行程 */
+        .info-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--neon-blue);
+        }
 
-        .time {
-            font-family: 'Oswald', sans-serif;
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-            display: block;
+        .card-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 10px;
         }
-        .event-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: var(--tokyo-blue);
+        .card-time {
+            background: var(--neon-blue); color: white; padding: 2px 8px;
+            border-radius: 4px; font-size: 0.85rem; font-weight: bold;
         }
-        .event-desc {
-            font-size: 0.95rem;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 12px;
+        .card-title {
+            font-size: 1.3rem; font-weight: 700; color: white; margin: 5px 0;
         }
+        .card-desc { color: var(--text-sub); font-size: 0.95rem; margin-bottom: 15px; }
         
-        .action-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
+        .card-meta {
+            font-size: 0.85rem; color: #64748B; margin-bottom: 15px;
+            border-top: 1px dashed #334155; padding-top: 10px;
         }
-        .btn-small {
-            font-size: 0.8rem;
-            padding: 6px 12px;
-            border-radius: 20px;
+
+        .btn-group { display: flex; gap: 10px; }
+        
+        .action-btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
-            display: inline-block;
+            font-size: 0.9rem;
+            transition: transform 0.1s;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
         }
-        .btn-map { background: #e3f2fd; color: #1565c0; }
-        .btn-weather { background: #e0f2f1; color: #00695c; }
+        .btn-map { background: var(--neon-blue); color: white; }
+        .btn-weather { background: rgba(255,255,255,0.1); color: var(--neon-blue); border: 1px solid var(--neon-blue); }
+        .action-btn:active { transform: scale(0.97); }
 
-        /* --- 記帳工具 (Wallet) --- */
-        .wallet-box {
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        
+        /* --- 記帳工具樣式 --- */
         .input-group { margin-bottom: 15px; }
-        label { display: block; font-size: 0.9rem; font-weight: bold; color: #666; margin-bottom: 5px; }
+        label { display: block; color: var(--text-sub); margin-bottom: 5px; font-size: 0.9rem; }
         input {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            background: #fafafa;
-            font-family: 'Oswald', sans-serif;
+            width: 100%; padding: 15px; background: #0F172A; border: 1px solid #334155;
+            color: white; border-radius: 8px; font-size: 1.1rem; outline: none;
         }
-        input:focus { outline: none; border-color: var(--tokyo-blue); background: white; }
-
-        .result-display {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--tokyo-blue);
-            font-family: 'Oswald', sans-serif;
-            text-align: right;
-            margin-bottom: 20px;
-        }
+        input:focus { border-color: var(--neon-blue); }
         
-        .btn-add {
-            width: 100%;
-            padding: 16px;
-            background: var(--tokyo-blue);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(15, 32, 75, 0.3);
+        .total-display {
+            background: linear-gradient(45deg, #1e1b4b, #312e81);
+            padding: 20px; border-radius: 12px; text-align: right; margin-bottom: 20px;
+            border: 1px solid var(--neon-blue);
         }
-        .btn-add:active { transform: scale(0.98); }
+        .total-label { color: var(--text-sub); font-size: 0.9rem; }
+        .total-amount { font-size: 2rem; font-weight: 900; color: var(--neon-gold); }
 
         .expense-list { list-style: none; padding: 0; margin-top: 20px; }
         .expense-item {
-            background: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
+            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;
+            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
         }
-        .expense-name { font-weight: bold; color: var(--steel-dark); }
-        .expense-price { color: #666; font-size: 0.9rem; font-family: 'Oswald', sans-serif; }
-        .btn-del { background: none; border: none; color: #999; font-size: 1.2rem; padding: 0 10px; }
+        .delete-btn { color: var(--accent-red); background: none; border: none; font-size: 1.2rem; padding: 5px; }
 
-        /* --- 翻譯指差 (Translate) --- */
-        .trans-input-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        .trans-input-box input { font-family: 'Noto Sans TC', sans-serif; } /* Reset font for chinese input */
-        
+        /* --- 翻譯卡片 --- */
         .trans-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border-left: 6px solid var(--neon-red);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: #334155; padding: 15px; border-radius: 8px; margin-bottom: 10px;
+            border-left: 4px solid var(--neon-pink);
         }
-        .trans-zh { font-size: 1rem; color: #666; margin-bottom: 5px; }
-        .trans-jp { font-size: 1.4rem; font-weight: bold; color: var(--tokyo-blue); margin-bottom: 5px; }
-        .trans-roma { font-size: 0.85rem; color: #999; font-style: italic; }
+        .trans-jp { font-size: 1.2rem; font-weight: bold; color: var(--neon-pink); margin-top: 5px; }
+        .trans-sub { font-size: 0.8rem; color: var(--text-sub); }
 
-        /* --- Bottom Navigation --- */
+        /* --- Bottom Nav --- */
         .nav-bar {
-            position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0 25px; /* Extra padding for iPhone home bar */
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-around;
+            padding: 10px 0 25px; /* 適配 iPhone X */
+            border-top: 1px solid #334155;
             z-index: 1000;
-            border-top: 1px solid #eee;
         }
-
         .nav-item {
-            text-align: center;
-            color: #999;
-            font-size: 0.7rem;
-            flex: 1;
-            cursor: pointer;
-            transition: color 0.2s;
+            text-align: center; color: #64748B; cursor: pointer; flex: 1;
+            font-size: 0.75rem; transition: color 0.2s;
         }
-        .nav-item.active { color: var(--tokyo-blue); }
-        
-        .nav-icon {
-            display: block;
-            font-size: 1.5rem;
-            margin-bottom: 4px;
-        }
+        .nav-item.active { color: var(--neon-blue); }
+        .nav-icon { display: block; font-size: 1.5rem; margin-bottom: 4px; }
 
-        /* Total Banner for Wallet */
-        .total-banner {
-            position: fixed;
-            bottom: 85px; /* Above nav bar */
-            right: 20px;
-            background: var(--neon-red);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-family: 'Oswald', sans-serif;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 0, 60, 0.4);
-            z-index: 900;
-            display: none; /* Only show on wallet tab */
+        /* 大按鈕通用 */
+        .btn-large {
+            width: 100%; padding: 15px; background: var(--neon-blue); color: white;
+            border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); margin-top: 10px;
         }
-        .section.active#tab-wallet ~ .total-banner { display: block; }
+        .btn-large:active { transform: scale(0.98); }
 
     </style>
 </head>
 <body>
 
 <header>
-    <h1>TOKYO<br>2025</h1>
-    <div class="subtitle">
-        <span class="tag">WINTER</span>
-        12.14 - 12.27 深度紀行
-    </div>
+    <h1>TOKYO 2025</h1>
+    <div class="date-badge" id="current-date">LOADING...</div>
 </header>
-
-<div class="status-bar">
-    <span>📅 2025.12.14 START</span>
-    <span>1 TWD ≈ <span id="rate-display" class="rate-val">4.5</span> JPY</span>
-</div>
 
 <div class="container">
 
-    <div id="tab-itinerary" class="section active">
-        <h2>📅 行程總覽 ITINERARY</h2>
-        
-        <div class="day-group">
-            <div class="day-title"><span class="day-badge">12/14</span> 抵達與安頓</div>
-            <div class="event-card highlight">
-                <span class="time">12:30 | Narita Airport T2</span>
-                <div class="event-name">✈️ 抵達東京 (JX800)</div>
-                <div class="event-desc">搭乘京成 Access 特急 (往羽田方向)，直達淺草橋站 (約60分)。</div>
-                <div class="action-row">
-                    <a href="https://tenki.jp/forecast/3/15/4510/12211/" target="_blank" class="btn-small btn-weather">☁️ 成田天氣</a>
-                </div>
+    <div id="tab-trip" class="section active">
+        <h2 class="section-title">📅 今日旅程導航</h2>
+        <div id="itinerary-content">
             </div>
-            <div class="event-card">
-                <span class="time">15:00 | Asakusabashi</span>
-                <div class="event-name">🏨 淺草橋 Check-in</div>
-                <div class="event-desc">入住 Tabist Hotel Mercury。晚餐：中華食堂 一番館。</div>
-                <div class="action-row">
-                    <a href="https://www.google.com/search?q=https://www.google.com/maps/search/%3Fapi%3D1%26query%3D$" target="_blank" class="btn-small btn-map">📍 導航</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="day-group">
-            <div class="day-title"><span class="day-badge">12/15</span> 世田谷慢活</div>
-            <div class="event-card">
-                <span class="time">09:00 | Setagaya</span>
-                <div class="event-name">🐱 豪徳寺 & 世田谷線</div>
-                <div class="event-desc">搭乘復古路面電車。參觀招財貓發源地、松陰神社。</div>
-            </div>
-            <div class="event-card highlight">
-                <span class="time">13:00 | Boro-ichi</span>
-                <div class="event-name">🎪 世田谷舊物市集</div>
-                <div class="event-desc">400年歷史傳統市集。傍晚前往下北澤逛古著。</div>
-            </div>
-        </div>
-
-        <div class="day-group">
-            <div class="day-title"><span class="day-badge">12/16</span> 鎌倉古都</div>
-            <div class="event-card">
-                <span class="time">09:00 | Kamakura</span>
-                <div class="event-name">⛩️ 北鎌倉 & 八幡宮</div>
-                <div class="event-desc">明月院(圓窗) -> 建長寺 -> 鶴岡八幡宮 -> 小町通商店街。</div>
-                <div class="action-row">
-                    <a href="https://tenki.jp/forecast/3/17/4620/14204/" target="_blank" class="btn-small btn-weather">☁️ 鎌倉天氣</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="day-group">
-            <div class="day-title"><span class="day-badge">12/21</span> 家人團聚 ❤️</div>
-            <div class="event-card highlight">
-                <span class="time">10:00 | Tawaramachi</span>
-                <div class="event-name">🚖 移動至田原町</div>
-                <div class="event-desc">搭計程車搬家。家人 JX804 抵達。晚餐：駒形どぜう泥鰍鍋。</div>
-                <div class="action-row">
-                    <a href="https://www.google.com/maps/search/?api=1&query=" target="_blank" class="btn-small btn-map">📍 飯店導航</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="day-group">
-            <div class="day-title"><span class="day-badge">12/24</span> 橫濱聖誕夜 🎄</div>
-            <div class="event-card highlight">
-                <span class="time">12:00 | Yokohama</span>
-                <div class="event-name">🥩 敘敘苑燒肉 (午餐)</div>
-                <div class="event-desc">Sky Building 28F 高空景觀。</div>
-            </div>
-            <div class="event-card">
-                <span class="time">14:30 | Red Brick</span>
-                <div class="event-name">🎁 紅磚倉庫聖誕市集</div>
-                <div class="event-desc">搭乘 Air Cabin 纜車前往，感受濃厚聖誕氣氛。</div>
-            </div>
-        </div>
-
-        <div class="day-group">
-            <div class="day-title"><span class="day-badge">12/27</span> 返程</div>
-            <div class="event-card">
-                <span class="time">10:00 | Ueno</span>
-                <div class="event-name">🚅 前往機場 (Skyliner)</div>
-                <div class="event-desc">京成上野站搭車。航班 JX803 (15:35) 起飛。</div>
-            </div>
-        </div>
-        
-        <p style="text-align:center; color:#999; font-size:0.8rem; margin-top:30px;">(僅列出重點行程，詳細請參閱完整計劃)</p>
     </div>
 
-    <div id="tab-wallet" class="section">
-        <h2>💰 記帳 WALLET</h2>
-        
-        <div class="wallet-box">
-            <div class="input-group">
-                <label>日幣金額 (JPY)</label>
-                <input type="number" id="amount-jpy" placeholder="¥ 0" inputmode="numeric">
-            </div>
-            
-            <div class="result-display" id="converted-result">NT$ 0</div>
-
-            <div class="input-group">
-                <label>商品名稱 (選填)</label>
-                <input type="text" id="item-name" placeholder="例如: Uniqlo, 藥妝...">
-            </div>
-
-            <button class="btn-add" onclick="addItem()">＋ 加入消費清單</button>
+    <div id="tab-calc" class="section">
+        <h2 class="section-title">💰 戰利品記帳</h2>
+        <div class="total-display">
+            <div class="total-label">總消費預估 (TWD)</div>
+            <div class="total-amount" id="total-twd">NT$ 0</div>
         </div>
 
-        <h3 style="font-family:'Oswald'; margin-top:30px;">HISTORY</h3>
-        <ul class="expense-list" id="expense-list">
-            </ul>
-        
-        <button onclick="clearList()" style="width:100%; padding:15px; background:#eee; border:none; border-radius:8px; margin-top:20px; color:#666;">🗑️ 清空紀錄</button>
+        <div class="input-group">
+            <label>日幣金額 (JPY)</label>
+            <input type="number" id="amount-jpy" placeholder="¥ 0" inputmode="numeric">
+        </div>
+        <div class="input-group">
+            <label>商品名稱 (選填)</label>
+            <input type="text" id="item-name" placeholder="例如: Uniqlo 外套">
+        </div>
+        <button class="btn-large" onclick="addItem()">＋ 加入清單</button>
+
+        <h3 style="margin-top:30px; color:var(--text-sub); font-size:1rem;">消費明細</h3>
+        <ul class="expense-list" id="expense-list"></ul>
+        <button style="width:100%; padding:10px; background:none; border:1px solid #334155; color:#64748B; border-radius:6px; margin-top:20px;" onclick="clearList()">🗑️ 清除所有紀錄</button>
     </div>
 
     <div id="tab-trans" class="section">
-        <h2>🗣️ 翻譯 TRANSLATE</h2>
+        <h2 class="section-title">🗣️ 溝通無障礙</h2>
         
-        <div class="trans-input-box">
-            <input type="text" id="custom-translate-text" placeholder="輸入中文..." style="flex:1;">
-            <button class="btn-add" style="width:auto; padding:0 20px; background:var(--neon-red);" onclick="redirectToGoogleTranslate()">GO</button>
+        <div class="input-group">
+            <label>即時翻譯 (輸入中文)</label>
+            <input type="text" id="custom-translate-text" placeholder="想說什麼？">
+            <button class="btn-large" style="background:var(--neon-pink); box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);" onclick="redirectToGoogleTranslate()">
+                Google 翻譯 (日文) ➔
+            </button>
         </div>
 
-        <div class="trans-card">
-            <div class="trans-zh">請問這個多少錢？</div>
-            <div class="trans-jp">これはいくらですか？</div>
-            <div class="trans-roma">Kore wa ikura desu ka?</div>
-        </div>
-
-        <div class="trans-card">
-            <div class="trans-zh">可以免稅嗎？</div>
-            <div class="trans-jp">免税（TAX FREE）はできますか？</div>
-            <div class="trans-roma">Menzei wa dekimasu ka?</div>
-        </div>
-
-        <div class="trans-card">
-            <div class="trans-zh">請給我袋子</div>
-            <div class="trans-jp">袋をください。</div>
-            <div class="trans-roma">Fukuro o kudasai</div>
-        </div>
-
-        <div class="trans-card">
-            <div class="trans-zh">可以刷卡嗎？</div>
-            <div class="trans-jp">カードは使えますか？</div>
-            <div class="trans-roma">Kaado wa tsukaemasu ka?</div>
-        </div>
-        
-        <div class="trans-card">
-            <div class="trans-zh">這班車去 [東京站] 嗎？</div>
-            <div class="trans-jp">この電車は [東京駅] に行きますか？</div>
-            <div class="trans-roma">Kono densha wa [Tokyo-eki] ni ikimasu ka?</div>
+        <h3 style="margin-top:30px; color:var(--text-main); font-size:1.1rem;">🛒 購物常用指差</h3>
+        <div class="trans-grid">
+            <div class="trans-card">
+                <div>請問這個多少錢？</div>
+                <div class="trans-jp">これはいくらですか？</div>
+                <div class="trans-sub">Kore wa ikura desu ka?</div>
+            </div>
+            <div class="trans-card">
+                <div>可以免稅嗎？</div>
+                <div class="trans-jp">免税はできますか？</div>
+                <div class="trans-sub">Menzei wa dekimasu ka?</div>
+            </div>
+            <div class="trans-card">
+                <div>我要這個。</div>
+                <div class="trans-jp">これをください。</div>
+                <div class="trans-sub">Kore o kudasai.</div>
+            </div>
+            <div class="trans-card">
+                <div>可以刷卡嗎？</div>
+                <div class="trans-jp">カードは使えますか？</div>
+                <div class="trans-sub">Ka-do wa tsukaemasu ka?</div>
+            </div>
         </div>
     </div>
 
-</div>
-
-<div class="total-banner" id="total-banner">
-    Total: <span id="total-twd">NT$ 0</span>
 </div>
 
 <nav class="nav-bar">
-    <div class="nav-item active" onclick="switchTab('itinerary', this)">
-        <span class="nav-icon">📅</span>行程
+    <div class="nav-item active" onclick="switchTab('trip', this)">
+        <span class="nav-icon">🗺️</span>行程
     </div>
-    <div class="nav-item" onclick="switchTab('wallet', this)">
-        <span class="nav-icon">💰</span>記帳
+    <div class="nav-item" onclick="switchTab('calc', this)">
+        <span class="nav-icon">💸</span>記帳
     </div>
     <div class="nav-item" onclick="switchTab('trans', this)">
-        <span class="nav-icon">🗣️</span>翻譯
+        <span class="nav-icon">💬</span>翻譯
     </div>
 </nav>
 
 <script>
-    // === 1. 匯率設定 ===
-    let exchangeRate = 0.22; // 1 JPY = 0.22 TWD (1/4.5)
-    
-    // 模擬獲取匯率 (避免 API 限制，這裡使用靜態估算值，您可隨時手動調整)
-    // 若要接 API 可在此處 fetch
-    document.getElementById('rate-display').innerText = (1/exchangeRate).toFixed(1);
+    // === 1. 初始化與時間 ===
+    function updateTime() {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', weekday: 'short' });
+        const timeStr = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('current-date').innerText = `${dateStr} ${timeStr}`;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
 
-    // === 2. 分頁切換 ===
-    function switchTab(tabId, navElement) {
-        // 隱藏所有區塊
+    // === 2. 行程資料庫 (含詳細地址與連結) ===
+    const itineraryDB = [
+        // 示範資料 (12/14) - 可自行擴充
+        { date: "12/14", time: "12:30", title: "抵達東京 (成田T2)", loc: "成田國際機場", addr: "千葉縣成田市", map: "成田空港第2ターミナル", weather: "https://tenki.jp/forecast/3/15/4510/12211/", desc: "搭乘 Access 特急直達淺草橋。" },
+        { date: "12/14", time: "15:00", title: "飯店 Check-in", loc: "Tabist Hotel Mercury", addr: "東京都台東區淺草橋2-29-12", map: "Tabist Hotel Mercury Asakusabashi", weather: "https://tenki.jp/forecast/3/16/4410/13106/", desc: "放置行李，稍作休息。" },
+        // 示範資料 (12/15)
+        { date: "12/15", time: "09:00", title: "豪德寺 (招財貓)", loc: "豪德寺", addr: "東京都世田谷區豪德寺2-24-7", map: "豪德寺", weather: "https://tenki.jp/forecast/3/16/4410/13112/", desc: "搭東急世田谷線，拍攝千隻招財貓。" },
+        { date: "12/15", time: "13:00", title: "世田谷舊物市集", loc: "代官屋敷", addr: "東京都世田谷區世田谷1-29-18", map: "世田谷代官屋敷", weather: "https://tenki.jp/forecast/3/16/4410/13112/", desc: "體驗 400 年歷史的傳統市集。" },
+        // 示範資料 (12/24 團聚)
+        { date: "12/24", time: "12:00", title: "敘敘苑 (午餐)", loc: "橫濱 Sky Building", addr: "神奈川縣橫濱市西區高島2-19-12 28F", map: "敘敘苑 橫濱Sky Building店", weather: "https://tenki.jp/forecast/3/17/4610/14104/", desc: "高空景觀燒肉，CP值超高午間套餐。" },
+        { date: "12/24", time: "14:30", title: "紅磚倉庫聖誕市集", loc: "橫濱紅磚倉庫", addr: "神奈川縣橫濱市中區新港1-1", map: "橫濱紅磚倉庫", weather: "https://tenki.jp/forecast/3/17/4610/14104/", desc: "搭乘 Air Cabin 纜車前往，感受聖誕氣氛。" }
+    ];
+
+    function renderItinerary() {
+        const container = document.getElementById('itinerary-content');
+        let html = '';
+        // 這裡簡單全部列出，您可以加入日期篩選邏輯
+        itineraryDB.forEach(item => {
+            html += `
+                <div class="info-card">
+                    <div class="card-header">
+                        <span class="card-time">${item.date} ${item.time}</span>
+                    </div>
+                    <div class="card-title">${item.title}</div>
+                    <div class="card-desc">${item.desc}</div>
+                    <div class="card-meta">📍 ${item.addr}</div>
+                    <div class="btn-group">
+                        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.map)}" target="_blank" class="action-btn btn-map">
+                            🗺️ 導航
+                        </a>
+                        <a href="${item.weather}" target="_blank" class="action-btn btn-weather">
+                            ☁️ 天氣
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+    renderItinerary();
+
+    // === 3. Tab 切換邏輯 ===
+    function switchTab(tabId, navEl) {
         document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-        // 顯示目標區塊
         document.getElementById('tab-' + tabId).classList.add('active');
-        
-        // 更新導航狀態
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-        navElement.classList.add('active');
-        
-        // 控制總金額 Banner 顯示
-        const banner = document.getElementById('total-banner');
-        if(tabId === 'wallet') {
-            banner.style.display = 'block';
-        } else {
-            banner.style.display = 'none';
-        }
-        
+        navEl.classList.add('active');
         window.scrollTo(0,0);
     }
 
-    // === 3. 記帳功能 ===
-    const amountInput = document.getElementById('amount-jpy');
-    const resultDisplay = document.getElementById('converted-result');
+    // === 4. 記帳功能 (Local Storage) ===
     let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+    const exchangeRate = 0.22; // 匯率設定
 
-    // 即時換算
-    amountInput.addEventListener('input', function() {
-        const jpy = parseFloat(this.value);
-        if (!isNaN(jpy)) {
-            const twd = Math.round(jpy * exchangeRate);
-            resultDisplay.innerText = `NT$ ${twd.toLocaleString()}`;
-        } else {
-            resultDisplay.innerText = `NT$ 0`;
-        }
-    });
-
-    // 渲染列表
-    function renderList() {
-        const listEl = document.getElementById('expense-list');
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
         const totalEl = document.getElementById('total-twd');
-        listEl.innerHTML = '';
-        
+        list.innerHTML = '';
         let total = 0;
 
-        expenses.forEach((item, index) => {
-            const twdVal = Math.round(item.jpy * item.rate);
-            total += twdVal;
-            
-            const li = document.createElement('li');
-            li.className = 'expense-item';
-            li.innerHTML = `
-                <div>
-                    <div class="expense-name">${item.name || '一般消費'}</div>
-                    <div class="expense-price">¥${item.jpy.toLocaleString()} (NT$${twdVal.toLocaleString()})</div>
-                </div>
-                <button class="btn-del" onclick="removeItem(${index})">✕</button>
+        expenses.forEach((item, idx) => {
+            const twd = Math.round(item.jpy * exchangeRate);
+            total += twd;
+            list.innerHTML += `
+                <li class="expense-item">
+                    <div>
+                        <div style="font-weight:bold; color:white;">${item.name || '一般消費'}</div>
+                        <div style="color:var(--text-sub); font-size:0.9rem;">¥${item.jpy} (NT$${twd})</div>
+                    </div>
+                    <button class="delete-btn" onclick="removeExpense(${idx})">✕</button>
+                </li>
             `;
-            listEl.appendChild(li);
         });
-
         totalEl.innerText = `NT$ ${total.toLocaleString()}`;
         localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
     }
 
-    // 新增項目
     function addItem() {
-        const jpy = parseFloat(amountInput.value);
+        const jpy = document.getElementById('amount-jpy').value;
         const name = document.getElementById('item-name').value;
-
-        if (!isNaN(jpy) && jpy > 0) {
-            expenses.unshift({ // 新的在最上面
-                jpy: jpy,
-                name: name,
-                rate: exchangeRate,
-                date: new Date().toISOString()
-            });
-            renderList();
-            // Reset
-            amountInput.value = '';
+        if(jpy) {
+            expenses.push({ jpy: parseInt(jpy), name: name });
+            renderExpenses();
+            document.getElementById('amount-jpy').value = '';
             document.getElementById('item-name').value = '';
-            resultDisplay.innerText = 'NT$ 0';
-        } else {
-            alert('請輸入有效金額');
+            alert('已加入記帳！');
         }
     }
 
-    // 刪除項目
-    function removeItem(index) {
-        if(confirm('確定刪除此筆紀錄？')) {
-            expenses.splice(index, 1);
-            renderList();
+    function removeExpense(idx) {
+        if(confirm('刪除此筆紀錄？')) {
+            expenses.splice(idx, 1);
+            renderExpenses();
         }
     }
-    
+
     function clearList() {
-        if(confirm('確定清空所有購物紀錄嗎？無法復原喔！')) {
+        if(confirm('確定清空所有資料？')) {
             expenses = [];
-            renderList();
+            renderExpenses();
         }
     }
+    renderExpenses(); // Init
 
-    // === 4. 翻譯跳轉 ===
+    // === 5. 翻譯功能 ===
     function redirectToGoogleTranslate() {
-        const text = document.getElementById('custom-translate-text').value.trim();
-        if (text) {
-            const encodedText = encodeURIComponent(text);
-            const url = `https://translate.google.com/?sl=zh-TW&tl=ja&text=${encodedText}&op=translate`;
+        const text = document.getElementById('custom-translate-text').value;
+        if(text) {
+            const url = `https://translate.google.com/?sl=zh-TW&tl=ja&text=${encodeURIComponent(text)}&op=translate`;
             window.open(url, '_blank');
         } else {
-            alert('請輸入內容');
+            alert('請輸入中文內容');
         }
     }
-
-    // 初始化
-    renderList();
 
 </script>
 </body>
