@@ -95,25 +95,53 @@
             font-size: 0.9rem;
         }
 
-        .action-btn {
-            display: inline-block;
-            background: var(--okinawa-blue);
+        /* Coupon Section Styles */
+        .coupon-section {
+            background: #f0f8ff; /* Light blue background for emphasis */
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            border: 2px dashed var(--okinawa-blue);
+        }
+        .coupon-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .coupon-item strong {
+            color: var(--hibiscus-red);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .coupon-link {
+            display: block;
+            background: var(--okinawa-teal);
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: center;
             text-decoration: none;
             font-weight: bold;
             margin-top: 10px;
-            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 0 #33887c;
+        }
+        .coupon-link:active {
+             box-shadow: none;
+             transform: translateY(3px);
+        }
+        .coupon-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            line-height: 1.5;
         }
 
         /* Shopping List & Calc */
-        .tool-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
         .input-group {
             margin-bottom: 15px;
         }
@@ -273,11 +301,28 @@
 
     <div id="tab-naha" class="section active">
         <h2>📍 那霸 (Day 2 & 3)</h2>
-        <p><strong>抵達：</strong>11/26 15:00 (過夜)<br><strong>離港：：</strong>11/27 19:00</p>
+        <p><strong>抵達：</strong>11/26 15:00 (過夜)<br><strong>離港：</strong>11/27 19:00</p>
         
+        <div class="coupon-section">
+            <h3>🛒 沖繩購物優惠 (那霸)</h3>
+            <p class="warning-text">⚠️ **App必備:** UNIQLO/GU的折扣主要來自**日文App會員價**，請提前下載註冊！</p>
+            
+            <div class="coupon-item">
+                <strong>UNIQLO/GU (PARCO CITY)</strong>
+                <p class="coupon-note">免稅: 滿 ¥5,000 可享 10%。額外優惠需透過 App 內的限時折扣。</p>
+                <a href="https://www.uniqlo.com/jp/ja/contents/feature/app/service/download/" target="_blank" class="coupon-link">UNIQLO/GU App 下載 (日文版)</a>
+            </div>
+            
+            <div class="coupon-item">
+                <strong>MUJI 無印良品 (PARCO CITY/RYUBO)</strong>
+                <p class="coupon-note">免稅: 滿 ¥5,000 可享 10%。App 可累積里程並有機會享有「無印週間」額外 10% 折扣。</p>
+                <a href="https://www.muji.com/jp/passport/ja/" target="_blank" class="coupon-link">MUJI Passport App 下載</a>
+            </div>
+        </div>
+
         <div class="taxi-card">
-            <h3>🏆 首選：PARCO CITY (推薦)</h3>
-            <p>Uniqlo, GU, MUJI 全都有，海景商場。距離港口約 15 分鐘。</p>
+            <h3>🏆 首選：PARCO CITY (推薦購物)</h3>
+            <p>Uniqlo, GU, MUJI 全都有，海景商場，購物效率最高。距離港口約 15 分鐘。</p>
             <hr>
             <div class="taxi-sub">請出示此卡給司機 (Show Driver):</div>
             <div class="taxi-big-text">サンエー浦添西海岸<br>パルコシティまで<br>お願いします。</div>
@@ -309,6 +354,21 @@
             ⚠️ <strong>重要注意：</strong><br>
             石垣島上 <strong>沒有 Uniqlo 和 GU！</strong><br>
             請在沖繩那霸買齊衣物。石垣島主攻藥妝與超市。
+        </div>
+
+        <div class="coupon-section">
+            <h3>💊 石垣島優惠 (藥妝/雜貨)</h3>
+            
+            <div class="coupon-item">
+                <strong>唐吉訶德 Don Quijote</strong>
+                <p class="coupon-note">✅ 必用! **免稅10% + 額外 5% OFF**。結帳時務必出示此電子優惠券截圖或連結。</p>
+                <a href="https://www.donki.com/coupon/index.php?pre=le" target="_blank" class="coupon-link">唐吉訶德 5% OFF 優惠券連結</a>
+            </div>
+            
+            <div class="coupon-item">
+                <strong>MaxValu / 大創</strong>
+                <p class="coupon-note">MaxValu 為當地超市，無遊客專用折扣。大創可免稅 (需達 ¥5,000)。</p>
+            </div>
         </div>
 
         <div class="taxi-card">
@@ -429,13 +489,14 @@
     // Fetch Live Rate (Simulated for static file stability, ideally fetch from API)
     async function fetchRate() {
         try {
-            // 使用公共 API 獲取 JPY 對 TWD 匯率
+            // 嘗試獲取 TWD 對 JPY 匯率
             const response = await fetch('https://api.exchangerate-api.com/v4/latest/TWD');
             const data = await response.json();
             if(data.rates.JPY) {
-                // 1 TWD = X JPY，我們需要 1 JPY = Y TWD，所以是 1 / X
-                exchangeRate = 1 / data.rates.JPY; // JPY to TWD
-                document.getElementById('rate-display').innerText = data.rates.JPY.toFixed(2); // 顯示 1 TWD = X JPY
+                // JPY to TWD (匯率變為 1/X)
+                exchangeRate = 1 / data.rates.JPY; 
+                // 顯示 1 TWD = X JPY (方便使用者理解)
+                document.getElementById('rate-display').innerText = data.rates.JPY.toFixed(2); 
             }
         } catch (e) {
             console.log('無法連線到匯率API，使用離線匯率。');
@@ -463,7 +524,7 @@
         const jpy = parseFloat(this.value);
         if (!isNaN(jpy)) {
             const twd = Math.round(jpy * exchangeRate);
-            resultDisplay.innerText = `NT$ ${twd}`;
+            resultDisplay.innerText = `NT$ ${twd.toLocaleString()}`;
         } else {
             resultDisplay.innerText = `NT$ 0`;
         }
@@ -515,7 +576,8 @@
             amountInput.value = '';
             document.getElementById('item-name').value = '';
             resultDisplay.innerText = 'NT$ 0';
-            alert('已加入記帳！');
+            // 不使用 alert，改為更友善的提示
+            // alert('已加入記帳！'); 
         } else {
             alert('請輸入有效金額');
         }
