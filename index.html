@@ -3,466 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 冬日東京：聖誕團聚行旅</title>
+    <title>2025 東京冬日紀行：心靈與團聚</title>
     <meta name="robots" content="noindex, nofollow">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* 聖誕配色 */
-            --primary-red: #C62828; /* 深聖誕紅 */
-            --primary-green: #2E7D32; /* 深聖誕綠 */
-            --gold: #FFC107; /* 聖誕金 */
-            --bg: #F9F9F9; /* 淺灰背景 */
+            /* 配色：聖誕紅綠 + 高對比易讀配色 */
+            --primary-red: #D32F2F; /* 鮮明紅 */
+            --primary-green: #2E7D32; /* 深綠 */
+            --bg-color: #F5F5F5;
             --card-bg: #FFFFFF;
-            --text: #212121; /* 深灰文字 */
-            --light-text: #616161;
-            --accent: #1976D2;
+            --text-main: #212121; /* 近黑，閱讀舒適 */
+            --text-sub: #546E7A;
+            --gold: #FF8F00;
         }
 
         * { box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.8;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
             margin: 0;
-            padding-bottom: 80px;
-            scroll-behavior: smooth;
+            padding-bottom: 100px; /* 預留底部空間 */
         }
 
-        h1, h2, h3 { font-family: 'Shippori Mincho', serif; }
-        
-        /* --- 1. Hero 首屏 --- */
+        /* --- 1. Hero 今日資訊板 (取代背景圖) --- */
         header {
-            height: 100vh; position: relative; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; color: white; text-align: center; overflow: hidden;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
-            background-attachment: fixed;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-red);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .hero-content { z-index: 2; padding: 20px; animation: fadeUp 1.5s ease-out; }
-        .hero-title { font-size: 4rem; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0,0,0,0.6); letter-spacing: 0.1em; color: var(--gold); }
-        .hero-subtitle { font-size: 1.5rem; font-weight: 300; opacity: 0.9; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        .today-info {
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .clock {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums; /* 數字等寬，避免跳動 */
+            margin: 5px 0;
+        }
+        .greeting { font-size: 1rem; color: #666; }
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- 2. 長輩友善工具列 --- */
+        .tools-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 15px 10px;
+            background: #E8F5E9; /* 淺綠背景護眼 */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .tool-btn {
+            background: white;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 12px 5px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 2px 0 rgba(46, 125, 50, 0.2);
+        }
+        .tool-btn:active { transform: translateY(2px); box-shadow: none; }
+        .tool-btn.highlight { background: var(--primary-red); color: white; border-color: var(--primary-red); }
 
-        /* --- 2. 懸浮記帳/工具按鈕 (整合) --- */
-        .tools-float {
-            position: fixed; top: 100px; right: 20px; z-index: 100;
-        }
-        .tool-btn-primary {
-            background: var(--primary-red); color: white; border: none;
-            width: 60px; height: 60px; border-radius: 50%; font-size: 1.5rem;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s; margin-bottom: 10px;
-        }
-        .tool-btn-primary:hover { background: #E53935; transform: scale(1.1); }
-        
+        /* 工具面板 */
         .utility-panel {
-            max-width: 600px; margin: 20px auto; background: white; border-radius: 12px; padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: none; border: 1px solid #E0E0E0;
+            max-width: 600px; margin: 10px auto; background: white; border-radius: 8px; padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: none; border: 2px solid var(--gold);
         }
-        .utility-panel.active { display: block; animation: fadeIn 0.5s; }
-
-        /* --- 3. 記帳浮動窗 (GOOGLE FORM) --- */
+        .utility-panel.active { display: block; animation: fadeIn 0.3s; }
+        
+        /* 記帳 Modal */
         .account-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 99; display: none;
-            justify-content: center; align-items: center; backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.8); z-index: 2000; display: none;
+            justify-content: center; align-items: center;
         }
         .account-content {
-            background: var(--bg); border-radius: 12px; max-width: 90vw; width: 500px;
-            height: 90vh; display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;
+            background: white; width: 100%; height: 100%; /* 全螢幕以利操作 */
+            display: flex; flex-direction: column;
         }
-        .account-header { background: var(--primary-green); color: white; padding: 15px; text-align: center; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
-        .account-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-        .account-iframe { flex-grow: 1; border: none; width: 100%; }
+        .account-header {
+            background: var(--primary-red); color: white; padding: 15px;
+            font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        .close-btn { background: none; border: none; color: white; font-size: 1.5rem; padding: 0 10px; }
 
-        /* --- 4. 總覽與行程區塊 --- */
-        .container-wrapper { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        /* --- 3. 緊湊總覽表格 --- */
+        .overview-section { max-width: 100%; padding: 10px; background: white; margin-bottom: 20px; }
+        .overview-table {
+            width: 100%; border-collapse: collapse; font-size: 0.9rem; /* 字體稍小以容納更多 */
+        }
+        .overview-table th {
+            background: #ECEFF1; padding: 8px; text-align: left; color: #455A64;
+            position: sticky; top: 0; /* 表頭固定 */
+        }
+        .overview-table td {
+            padding: 8px 5px; border-bottom: 1px solid #EEE; height: 40px; /* 固定行高 */
+            cursor: pointer;
+        }
+        /* 隔行變色 */
+        .overview-table tr:nth-child(even) { background-color: #FAFAFA; }
+        .overview-table tr.today-row { background-color: #FFEBEE; border-left: 4px solid var(--primary-red); }
+
+        /* --- 4. 行程卡片 (詳細) --- */
+        .container { max-width: 800px; margin: 0 auto; padding: 0 10px; }
         .chapter-title {
-            text-align: center; margin: 60px 0 30px; font-size: 2rem; color: var(--primary-green);
+            text-align: center; margin: 30px 0 20px; font-size: 1.5rem; color: var(--primary-red);
+            border-bottom: 2px solid var(--gold); display: inline-block; padding: 0 20px 10px;
         }
-        
-        /* 總覽表格 */
-        .overview-table { width: 100%; border-collapse: separate; border-spacing: 0; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .overview-table th { background: var(--primary-green); color: white; padding: 15px; text-align: left; font-weight: normal; }
-        .overview-table td { padding: 12px 15px; border-bottom: 1px solid #F0F0F0; cursor: pointer; transition: background 0.2s; }
-        .overview-table tr:hover td { background-color: #E8F5E9; color: var(--primary-green); }
-        .overview-date { font-weight: bold; color: var(--primary-red); width: 25%; }
-        
-        /* Day Card */
+
         .day-card {
-            background: var(--card-bg); border-radius: 16px; margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06); overflow: hidden;
-            border-left: 6px solid var(--primary-red); transition: transform 0.3s;
-            scroll-margin-top: 100px;
+            background: white; border-radius: 12px; margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 6px solid var(--primary-green);
+            /* 12/21 後字體放大 */
         }
-        
-        .day-header { padding: 20px 25px; background: linear-gradient(to right, #FFF8E1, #FFF); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .day-date { font-weight: bold; font-size: 1.3rem; color: var(--primary-red); font-family: 'Shippori Mincho', serif; }
-        .day-theme { color: var(--light-text); font-size: 1rem; margin-left: 10px; }
-        .toggle-icon { font-size: 0.9rem; color: #999; transition: transform 0.3s; }
+        .day-card.large-text { font-size: 1.15rem; } /* 老花友善模式 */
 
-        .day-content { display: none; padding: 0; }
+        .day-header {
+            padding: 15px; display: flex; justify-content: space-between; align-items: center;
+            background: #F1F8E9; cursor: pointer; border-bottom: 1px solid #E0E0E0;
+        }
+        .day-date { font-weight: bold; font-size: 1.2rem; color: var(--primary-green); }
+        
+        .day-content { display: none; padding: 10px; }
         .day-card.open .day-content { display: block; }
-        .day-card.open .toggle-icon { transform: rotate(180deg); }
 
-        /* 詳細表格 */
-        .itinerary-table { width: 100%; border-collapse: collapse; }
-        .itinerary-table th, .itinerary-table td { padding: 18px 25px; text-align: left; border-bottom: 1px solid #F0F0F0; vertical-align: top; }
-        .itinerary-table th { width: 15%; color: var(--primary-green); white-space: nowrap; font-weight: 600; font-size: 1rem; }
-        .itinerary-table td.loc-col { width: 35%; font-weight: bold; font-size: 1.1rem; color: var(--text); }
-        .itinerary-table td.detail-col { color: var(--light-text); font-size: 1rem; line-height: 1.6; }
-        
-        /* --- 5. 閱讀友善模式 (12/21 以後) --- */
-        .reader-friendly .day-date { font-size: 1.6rem; } /* 日期加大 */
-        .reader-friendly .day-theme { font-size: 1.2rem; } /* 主題加大 */
-        .reader-friendly .itinerary-table th { font-size: 1.1rem; } /* 時間加大 */
-        .reader-friendly .itinerary-table td.loc-col { font-size: 1.35rem; } /* 地點標題特大 */
-        .reader-friendly .itinerary-table td.detail-col { font-size: 1.2rem; line-height: 1.7; } /* 內文加大 */
-        .reader-friendly .guide-box, .reader-friendly .shopping-radar { font-size: 1.1rem; } /* 提示框內文加大 */
-
-        /* --- 6. 每日心靈小語 (New) --- */
-        .zen-daily {
-            padding: 15px 25px; margin-top: 1px; border-top: 1px dashed #DDD;
-            font-size: 0.95rem; color: #880E4F; font-style: italic; background: #FFF8F9;
-            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+        /* 行程細節排版 */
+        .event-item {
+            border-bottom: 1px dashed #DDD; padding: 15px 5px;
         }
-        .reader-friendly .zen-daily { font-size: 1.1rem; } /* 語錄也加大 */
-
-        /* --- 7. Footer --- */
-        footer { text-align: center; margin-top: 80px; padding: 60px 20px; background: #263238; color: white; }
-        .cta-btn { background: var(--primary-red); color: white; border: none; padding: 18px 50px; font-size: 1.2rem; border-radius: 50px; cursor: pointer; margin-top: 30px; box-shadow: 0 0 20px rgba(212, 36, 38, 0.6); transition: transform 0.2s; }
+        .event-item:last-child { border-bottom: none; }
         
-        /* RWD */
-        @media (max-width: 768px) {
-            .tools-float { top: auto; bottom: 20px; right: 20px; }
-            .tool-btn-primary { width: 50px; height: 50px; font-size: 1.3rem; }
-            .account-content { width: 95vw; }
-            /* ... (RWD for table is preserved from previous version) ... */
+        .event-time { 
+            display: inline-block; background: #263238; color: white; 
+            padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; margin-bottom: 5px;
         }
+        .event-loc { font-weight: bold; font-size: 1.1rem; color: #000; display: block; margin-bottom: 5px; }
+        
+        /* 資訊標籤 */
+        .info-tag {
+            display: inline-block; font-size: 0.85rem; padding: 3px 8px; border-radius: 15px;
+            margin: 5px 5px 0 0; color: white; text-decoration: none;
+        }
+        .tag-weather { background: #039BE5; }
+        .tag-map { background: #F9A825; color: black; }
+        
+        /* 知識與車資區塊 */
+        .knowledge-box {
+            background: #FFFDE7; padding: 10px; border-radius: 6px; margin-top: 8px;
+            font-size: 0.95rem; border-left: 3px solid var(--gold); color: #5D4037;
+        }
+        .fare-box {
+            background: #E3F2FD; padding: 8px; border-radius: 6px; margin-top: 8px;
+            font-size: 0.95rem; color: #0D47A1; display: flex; align-items: center; gap: 5px;
+        }
+
+        /* --- 5. Gemini 推薦區 --- */
+        .gemini-tips {
+            background: #263238; color: white; padding: 30px 20px; margin-top: 40px;
+            text-align: center; border-radius: 12px 12px 0 0;
+        }
+        .emergency-card {
+            background: #D32F2F; color: white; padding: 15px; border-radius: 8px;
+            margin: 15px 0; text-align: left;
+        }
+        .emergency-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 5px;}
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="hero-content">
-        <h1 class="hero-title">2025 東京冬日紀行</h1>
-        <p class="hero-subtitle">12/14 - 12/27 • 獨旅的沈澱 x 家人的溫暖</p>
-    </div>
+    <div class="today-info" id="current-date">Loading...</div>
+    <div class="clock" id="current-time">--:--</div>
+    <div class="greeting">早安！今天也是美好的一天 ☀️</div>
 </header>
 
-<div class="tools-float">
-    <button class="tool-btn-primary" onclick="openAccountModal()">💰</button>
-    <button class="tool-btn-primary" onclick="togglePanel('translator')" style="background: var(--primary-green);">🗣️</button>
-    <button class="tool-btn-primary" onclick="togglePanel('currency')" style="background: #1976D2;">💱</button>
+<div class="tools-bar">
+    <button class="tool-btn highlight" onclick="openAccountModal()">
+        <span>💰</span> 記帳本
+    </button>
+    <button class="tool-btn" onclick="togglePanel('translator')">
+        <span>🗣️</span> 翻譯機
+    </button>
+    <button class="tool-btn" onclick="togglePanel('currency')">
+        <span>💱</span> 算匯率
+    </button>
 </div>
 
-<div id="account-modal" class="account-modal" onclick="closeAccountModal()">
-    <div class="account-content" onclick="event.stopPropagation()">
+<div id="account-modal" class="account-modal">
+    <div class="account-content">
         <div class="account-header">
-            <h3>💰 旅費即時記帳 (含照片上傳)</h3>
-            <button class="account-close" onclick="closeAccountModal()">×</button>
+            <span>📝 旅費記帳</span>
+            <button class="close-btn" onclick="closeAccountModal()">✕ 關閉</button>
         </div>
-        <iframe class="account-iframe" 
-            src="https://docs.google.com/forms/d/e/1FAIpQLSfgEX80qJUQOdHvTTxyCYMB8lL-iaEThX_pxGogl0q7Axg5Ow/viewform?embedded=true"
-            loading="lazy">
+        <iframe style="flex-grow:1; border:none;" 
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfgEX80qJUQOdHvTTxyCYMB8lL-iaEThX_pxGogl0q7Axg5Ow/viewform?embedded=true">
         </iframe>
     </div>
 </div>
 
-<div id="translator-panel" class="utility-panel container-wrapper">
-    <h3 style="margin-top:0;">🗣️ 中日翻譯小幫手</h3>
-    <input type="text" id="trans-input" placeholder="例如：請問這個可以免稅嗎？">
-    <button class="action-btn" onclick="doTranslate()" style="background: var(--primary-green);">翻譯並顯示日文 (GO)</button>
+<div id="translator-panel" class="utility-panel">
+    <h3>🗣️ 中日翻譯</h3>
+    <input type="text" id="trans-input" style="width:100%; padding:10px; font-size:1.1rem;" placeholder="輸入中文 (例如：這個多少錢？)">
+    <button onclick="doTranslate()" style="width:100%; padding:12px; margin-top:10px; background:var(--primary-green); color:white; border:none; border-radius:6px; font-size:1.1rem;">翻譯 (跳轉 Google)</button>
 </div>
 
-<div id="currency-panel" class="utility-panel container-wrapper">
-    <h3 style="margin-top:0;">💱 簡易匯率 (1 TWD ≈ 4.5 JPY)</h3>
-    <input type="number" id="jpy-input" placeholder="輸入日幣金額 (¥)" oninput="convertCurrency()">
-    <div style="font-size:1.2rem; font-weight:bold; color:var(--primary-green); margin-top:10px;">
+<div id="currency-panel" class="utility-panel">
+    <h3>💱 匯率換算 (1 TWD ≈ 4.5 JPY)</h3>
+    <input type="number" id="jpy-input" style="width:100%; padding:10px; font-size:1.1rem;" placeholder="輸入日幣金額" oninput="convertCurrency()">
+    <div style="font-size:1.5rem; color:var(--primary-red); margin-top:10px; font-weight:bold;">
         約 NT$ <span id="twd-result">0</span>
     </div>
 </div>
 
-
-<div class="container-wrapper">
-    <h3 style="color:var(--text); margin-bottom:15px; margin-top: 40px;">📅 行程快速總覽 (點擊日期跳轉)</h3>
+<div class="overview-section">
     <table class="overview-table">
-        <thead>
-            <tr>
-                <th>日期</th>
-                <th>本日主題</th>
-            </tr>
-        </thead>
         <tbody id="overview-body">
             </tbody>
     </table>
 </div>
 
-<div class="container-wrapper" id="timeline-container">
+<div class="container" id="timeline-container">
     </div>
 
-<div class="container-wrapper" id="tips" style="margin-top:50px;">
-    <h2 style="text-align:center; color:var(--primary-green); margin-bottom:30px;">💡 旅程小提醒</h2>
-    <div class="guide-box" style="background:white; padding:25px; margin-bottom:15px; border-left-color:var(--gold);">
-        <strong>🧥 穿著建議：</strong> 12月平均 5°C~12°C。室內暖氣強，請採「洋蔥式穿搭」。大衣要防風保暖，內裡不要穿太厚的高領，方便穿脫。好走的鞋子是必須的。
-    </div>
-    <div class="guide-box" style="background:white; padding:25px; border-left-color:var(--primary-red);">
-        <strong>🛒 購物退稅：</strong> 隨身攜帶護照。消耗品（藥妝、食品）滿 5000 日圓 (未稅) 可退稅，但在日本境內不可拆封使用。
-    </div>
-</div>
-
-<footer>
-    <h3>旅途即將啟程</h3>
-    <p>讓心靈沈澱，迎接冬日東京的奇蹟與溫暖。</p>
-    <button class="cta-btn" onclick="showModal()">我懂了，出發！ ✈️</button>
-</footer>
-
-<div id="modal" class="modal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h3 style="color:var(--primary-red); margin-bottom:20px;">給旅人的核心提醒</h3>
-        <p style="line-height:1.8; font-size:1.1rem; color:#555;">
-            請享受每一個當下，<br>
-            不執著於完美的行程，<br>
-            這就是我們所追求的清淨與歡喜。<br><br>
-            祝旅途平安喜樂！🇯🇵
-        </p>
-        <button class="action-btn" style="background:#333; margin-top:20px;" onclick="closeModal()">關閉</button>
+<div class="container">
+    <div class="gemini-tips">
+        <h3>🛡️ Gemini 安心旅遊小幫手</h3>
+        <div class="emergency-card">
+            <div class="emergency-title">🆘 緊急聯絡卡 (請截圖保存)</div>
+            <p>警察局：<strong>110</strong> | 救護車/火警：<strong>119</strong></p>
+            <p>台北駐日經濟文化代表處：<br><strong>03-3280-7811</strong> (緊急聯絡)</p>
+            <p>地址：東京都港區白金台 5-20-2</p>
+        </div>
+        <p style="font-size:0.9rem; opacity:0.8;">💡 建議將此網頁「加入主畫面」，方便隨時查看。</p>
     </div>
 </div>
 
 <script>
-    // === 行程資料庫 (新增每日語錄) ===
+    // === 行程資料庫 ===
     const itineraryData = [
         {
-            chapter: "🎬 Perfect Days：獨處的心靈沈澱",
+            chapter: "第一章：獨旅的心靈沈澱 (12/14-12/20)",
             dates: [
                 {
-                    id: "day1", date: "12/14 (日)", theme: "抵達與安頓", weatherLoc: "narita", isFamilyTrip: false, 
-                    zenQuote: "放下期待，享受啟程。所有的美好，都從安頓自己開始。"
+                    id: "day1", date: "12/14 (日)", title: "抵達與安頓", weather: "https://tenki.jp/forecast/3/15/4510/12211/", // 成田
+                    events: [
+                        { time: "12:30", loc: "抵達東京 (JX800)", desc: "入境後前往 B1 鐵道層。", knowledge: "成田機場是日本最大的國際機場，T2 航廈主要停靠星宇、華航等。", fare: "約 1,350 円", route: "搭乘 **京成 Access 特急 (往羽田方向)** 直達淺草橋站 (約60分)，免轉車最方便。" },
+                        { time: "15:00", loc: "Check-in 淺草橋飯店", desc: "Tabist Hotel Mercury。", knowledge: "淺草橋是江戶時代的「人形」批發街，現在也是手作材料聖地。", map: "Tabist Hotel Mercury Asakusabashi" },
+                        { time: "晚餐", loc: "中華食堂 一番館", desc: "飯店周邊簡單吃。", knowledge: "日本的中華料理已經在地化，口味偏鹹香，炒飯通常配拉麵湯。", map: "中華食堂 一番館 浅草橋店" }
+                    ]
                 },
                 {
-                    id: "day2", date: "12/15 (一)", theme: "世田谷慢活", weatherLoc: "setagaya", isFamilyTrip: false, 
-                    zenQuote: "看貓招手，心不隨境轉。今天的慢活，是為明天積蓄能量。"
+                    id: "day2", date: "12/15 (一)", title: "世田谷線散策", weather: "https://tenki.jp/forecast/3/16/4410/13112/", // 世田谷
+                    events: [
+                        { time: "交通", loc: "前往世田谷", fare: "約 780 円 (一日券)", route: "淺草橋 -> 澀谷 (買東急一日券) -> 三軒茶屋轉車。", knowledge: "東急世田谷線是東京唯二的路面電車之一，車速緩慢，充滿懷舊感。" },
+                        { time: "09:00", loc: "豪德寺 (招財貓)", desc: "拍攝數千隻招財貓。", knowledge: "傳說彥根藩主井伊直孝在此遇貓躲雨，故奉為招財貓發源地。", map: "豪徳寺" },
+                        { time: "11:00", loc: "松陰神社", desc: "步行前往，環境清幽。", knowledge: "祭祀幕末思想家吉田松陰，是求學業與智慧的聖地。", map: "松陰神社" },
+                        { time: "13:00", loc: "世田谷ボロ市", desc: "體驗 400 年歷史舊物市集。", knowledge: "「Boro」意指舊布，源於江戶時代買賣農具與舊衣的市集。", map: "世田谷代官屋敷" },
+                        { time: "傍晚", loc: "下北澤", desc: "逛古著與雜貨。", knowledge: "世界知名的古著與次文化聖地，巷弄複雜有趣。", map: "下北沢" }
+                    ]
                 },
                 {
-                    id: "day3", date: "12/16 (二)", theme: "古都禪意", weatherLoc: "kamakura", isFamilyTrip: false, 
-                    zenQuote: "圓窗映出的世界，即是今日的風景。行走到哪裡，心就在哪裡。"
+                    id: "day3", date: "12/16 (二)", title: "鎌倉古都巡禮", weather: "https://tenki.jp/forecast/3/17/4620/14204/", // 鎌倉
+                    events: [
+                        { time: "交通", loc: "前往北鎌倉", fare: "約 940 円", route: "淺草橋 -> JR 總武線快速 (直通橫須賀線) -> 北鎌倉站 (直達)。" },
+                        { time: "09:00", loc: "明月院", desc: "拍攝圓窗與枯山水。", knowledge: "別名「繡球花寺」，本堂的圓窗象徵悟道與宇宙。", map: "明月院" },
+                        { time: "11:00", loc: "建長寺", desc: "鎌倉五山第一位。", knowledge: "日本最古老的禪宗道場，擁有巨大的木造山門。", map: "建長寺" },
+                        { time: "13:00", loc: "鶴岡八幡宮", desc: "參拜後逛小町通。", knowledge: "鎌倉幕府的守護神社，是鎌倉的中心地標。", map: "鶴岡八幡宮" },
+                        { time: "晚餐", loc: "紅虎餃子房", desc: "大份量鐵鍋餃子。", map: "紅虎餃子房 鎌倉" }
+                    ]
                 },
                 {
-                    id: "day4", date: "12/17 (三)", theme: "下町深度遊", weatherLoc: "tokyo", isFamilyTrip: false, 
-                    zenQuote: "在吵鬧中尋找清淨。所有的熱鬧，都歸於當下的一碗麵包香。"
+                    id: "day4", date: "12/17 (三)", title: "淺草下町深度", weather: "https://tenki.jp/forecast/3/16/4410/13106/", // 淺草
+                    events: [
+                        { time: "09:00", loc: "Pelican 麵包 (取貨)", desc: "訂單金額 2090 円。", knowledge: "昭和17年創業，只賣白吐司與餐包，東京麵包控的聖殿。", map: "Pelican Bread" },
+                        { time: "10:30", loc: "今戶神社", desc: "招財貓發源地。", knowledge: "同時也是求良緣的熱門神社，繪馬是圓形的。", map: "今戸神社" },
+                        { time: "14:00", loc: "淺草寺：歲之市", desc: "羽子板市集。", knowledge: "江戶時代延續至今的年底市集，羽子板有驅除厄運的含義。", map: "淺草寺" },
+                        { time: "晚餐", loc: "淺草今半", desc: "百年壽喜燒老店。", knowledge: "明治28年創業，是頂級黑毛和牛壽喜燒的代名詞。", map: "浅草今半 国際通り本店" }
+                    ]
                 },
                 {
-                    id: "day5", date: "12/18 (四)", theme: "大人味的散策", weatherLoc: "tokyo", isFamilyTrip: false, 
-                    zenQuote: "石板路的轉角，是時間留下的優雅。獨處時的領悟，最為珍貴。"
+                    id: "day5", date: "12/18 (四)", title: "神樂坂大人散策", weather: "https://tenki.jp/forecast/3/16/4410/13104/", // 新宿區
+                    events: [
+                        { time: "10:00", loc: "神樂坂散策", fare: "約 170 円", route: "JR 飯田橋站西口出發，沿坡道而上。", knowledge: "過去是繁華的花街，現在保留了石板路與黑圍牆，有「東京小巴黎」之稱。" },
+                        { time: "景點", loc: "兵庫橫丁 & 赤城神社", desc: "巷弄散步。", knowledge: "赤城神社由建築大師隈研吾重新設計，結合玻璃與木材，極具現代感。", map: "赤城神社" },
+                        { time: "晚餐", loc: "鳥茶屋 / 豚野郎", desc: "親子丼或豚丼。", map: "鳥茶屋 別亭" }
+                    ]
                 },
                 {
-                    id: "day6", date: "12/19 (五)", theme: "日常的風景", weatherLoc: "tokyo", isFamilyTrip: false, 
-                    zenQuote: "看似平凡的街景，總藏著不凡的感動。去發現那些不被看見的美好。"
+                    id: "day6", date: "12/19 (五)", title: "高圓寺日劇感", weather: "https://tenki.jp/forecast/3/16/4410/13115/", // 杉並區
+                    events: [
+                        { time: "10:00", loc: "高圓寺商店街", fare: "約 220 円", route: "淺草橋 -> JR 總武線 -> 高圓寺站。", knowledge: "日劇《有本事換你來做啊》場景，保有昭和時代的庶民氛圍。" },
+                        { time: "14:00", loc: "大田黑公園", desc: "荻窪日式庭園。", knowledge: "原為音樂評論家大田黑元雄的宅邸，迴遊式庭園非常優雅。", map: "大田黑公園" },
+                        { time: "晚餐", loc: "春木屋", desc: "荻窪拉麵始祖。", knowledge: "東京醬油拉麵的代表，湯頭使用小魚乾熬製。", map: "春木屋 荻窪本店" }
+                    ]
                 },
                 {
-                    id: "day7", date: "12/20 (六)", theme: "歷史與優雅", weatherLoc: "tokyo", isFamilyTrip: false, 
-                    zenQuote: "昨日的江戶城，今日的皇居。以史為鑑，心靜而自得。"
+                    id: "day7", date: "12/20 (六)", title: "皇居與日本橋", weather: "https://tenki.jp/forecast/3/16/4410/13101/", // 千代田區
+                    events: [
+                        { time: "09:00", loc: "神田志乃多壽司", desc: "買豆皮壽司。", knowledge: "創業百年的豆皮壽司專賣店，口味偏甜濃郁，是經典的東京伴手禮。", map: "神田志乃多寿司" },
+                        { time: "10:00", loc: "皇居外苑", desc: "二重橋、東御苑。", knowledge: "江戶城的遺址，也是現在日本天皇的居所。", map: "皇居外苑" },
+                        { time: "14:00", loc: "日本橋三越", desc: "參觀天女像。", knowledge: "日本第一家百貨公司，建築本身就是重要文化財。", map: "日本橋三越本店" }
+                    ]
                 }
             ]
         },
-        // --- Part 2: Family Trip (Reader Friendly) ---
         {
-            chapter: "🎬 東京教父：冬日奇蹟與團聚 (12/21 起文字放大)",
+            chapter: "第二章：家人的溫暖團聚 (12/21-12/27)",
             dates: [
                 {
-                    id: "day8", date: "12/21 (日)", theme: "家人會合", weatherLoc: "tokyo", isFamilyTrip: true, 
-                    zenQuote: "團聚是最大的福報。專注於眼前家人的笑臉，便是應無所住。"
+                    id: "day8", date: "12/21 (日)", title: "家人會合", weather: "https://tenki.jp/forecast/3/16/4410/13106/", // 台東區
+                    largeText: true, // 啟用大字體
+                    events: [
+                        { time: "10:00", loc: "移動至田原町", fare: "約 1,200 円 (計程車)", route: "推薦搭計程車搬家。家人 JX804 抵達後，搭 Sky Access 直達淺草站。", knowledge: "田原町位於淺草隔壁，交通便利且生活機能好。" },
+                        { time: "14:00", loc: "大江戶古董市", desc: "有樂町國際論壇。", knowledge: "日本最大規模的戶外古董市集，每月舉辦兩次。", map: "東京国際フォーラム" },
+                        { time: "晚餐", loc: "駒形どぜう", desc: "泥鰍鍋體驗。", knowledge: "江戶時代的體力補給品，使用整條泥鰍燉煮，非常有特色。", map: "駒形どぜう 本店" }
+                    ]
                 },
                 {
-                    id: "day9", date: "12/22 (一)", theme: "湘南全制霸", weatherLoc: "kamakura", isFamilyTrip: true, 
-                    zenQuote: "一起坐上單軌電車，懸空俯瞰的風景，是家人共有的記憶。"
+                    id: "day9", date: "12/22 (一)", title: "湘南全制霸", weather: "https://tenki.jp/forecast/3/17/4620/14204/", // 鎌倉
+                    largeText: true,
+                    events: [
+                        { time: "09:00", loc: "大船觀音", fare: "約 750 円 (通票)", route: "在大船站購買「鎌倉/江之島通票」。", knowledge: "大船觀音是半身像，慈祥地俯瞰街道，保佑交通平安。", map: "大船観音寺" },
+                        { time: "10:00", loc: "湘南單軌電車", desc: "前往江之島。", knowledge: "少見的懸掛式單軌電車，像在空中飛行一樣刺激。", map: "湘南江の島駅" },
+                        { time: "12:00", loc: "Café Recette", desc: "長谷站午餐。", knowledge: "將老民宅改建的高級吐司甜點店。", map: "cafe recette Kamakura" },
+                        { time: "14:00", loc: "長谷寺 & 大佛", desc: "參拜大佛。", knowledge: "鎌倉大佛是日本國寶，原在室內，因海嘯沖毀大殿而露天。", map: "鎌倉大仏殿高徳院" }
+                    ]
                 },
                 {
-                    id: "day10", date: "12/23 (二)", theme: "購物與雷門", weatherLoc: "tokyo", isFamilyTrip: true, 
-                    zenQuote: "雷門的大燈籠，照亮的是回家的路。採買的樂趣，在於分享的喜悅。"
+                    id: "day10", date: "12/23 (二)", title: "購物與雷門", weather: "https://tenki.jp/forecast/3/13/4310/11222/", // 越谷
+                    largeText: true,
+                    events: [
+                        { time: "09:00", loc: "雷門合照", desc: "避開人潮。", knowledge: "雷門的大燈籠重達 700 公斤，每十年會更換一次。", map: "雷門" },
+                        { time: "13:00", loc: "越谷 LakeTown", fare: "約 500 円", route: "上野 -> 越谷。午餐吃五穀釜飯。", knowledge: "日本最大級的購物中心，分為 Kaze、Mori 和 Outlet 三大區。", map: "Aeon Lake Town" },
+                        { time: "19:00", loc: "二木菓子", desc: "上野採買零食。", knowledge: "價格實惠種類齊全，是採買伴手禮的首選。", map: "二木の菓子" }
+                    ]
                 },
                 {
-                    id: "day11", date: "12/24 (三)", theme: "橫濱聖誕夜", weatherLoc: "yokohama", isFamilyTrip: true, 
-                    zenQuote: "聖誕燈火下，心願不求回報。給予祝福，是最美的禮物。"
+                    id: "day11", date: "12/24 (三)", title: "橫濱聖誕夜", weather: "https://tenki.jp/forecast/3/17/4610/14100/", // 橫濱
+                    largeText: true,
+                    events: [
+                        { time: "12:00", loc: "敘敘苑 (橫濱)", fare: "約 580 円", route: "田原町->橫濱 Sky Building 28F。", knowledge: "敘敘苑是日本高級燒肉代表，午間套餐非常超值。", map: "叙々苑 横浜スカイビル店" },
+                        { time: "14:30", loc: "紅磚倉庫", desc: "聖誕市集。", knowledge: "明治時代的紅磚建築，聖誕節會有巨大的聖誕樹和德國市集。", map: "横浜赤レンガ倉庫" },
+                        { time: "體驗", loc: "Air Cabin 纜車", desc: "搭纜車看夜景。", knowledge: "日本第一座都市型循環纜車，連接櫻木町與紅磚倉庫。", map: "YOKOHAMA AIR CABIN" }
+                    ]
                 },
                 {
-                    id: "day12", date: "12/25 (四)", theme: "銀座與職人", weatherLoc: "tokyo", isFamilyTrip: true, 
-                    zenQuote: "所有的工藝都來自專注。願我們的心，也能如此專注於愛與和諧。"
+                    id: "day12", date: "12/25 (四)", title: "銀座與職人", weather: "https://tenki.jp/forecast/3/16/4410/13102/", // 銀座
+                    largeText: true,
+                    events: [
+                        { time: "09:00", loc: "GINZA SIX", desc: "建築巡禮。", knowledge: "銀座最大的商業設施，屋頂花園可俯瞰銀座街景。", map: "GINZA SIX" },
+                        { time: "13:00", loc: "白金や 稻荷壽司", desc: "一口壽司。", knowledge: "位於歌舞伎座旁，主要是為了方便演員化妝時食用而做成一口大小。", map: "白金や" },
+                        { time: "16:00", loc: "合羽橋道具街", desc: "廚房用品。", knowledge: "日本最專業的餐飲道具街，可以買到擬真的食物模型。", map: "かっぱ橋道具街" }
+                    ]
                 },
                 {
-                    id: "day13", date: "12/26 (五)", theme: "新宿全景", weatherLoc: "tokyo", isFamilyTrip: true, 
-                    zenQuote: "在喧囂的城市高點，看見家的方向。旅途尾聲，珍惜相伴。"
+                    id: "day13", date: "12/26 (五)", title: "新宿全景", weather: "https://tenki.jp/forecast/3/16/4410/13104/", // 新宿
+                    largeText: true,
+                    events: [
+                        { time: "12:00", loc: "敘敘苑 (新宿)", fare: "約 300 円", route: "新宿 Opera City 53F。", knowledge: "這裡的敘敘苑可以眺望新宿副都心的高樓群，景觀壯麗。", map: "叙々苑 新宿オペラシティ53" },
+                        { time: "15:00", loc: "下島包裝", desc: "最後補貨。", knowledge: "文具控的天堂，包裝紙袋種類繁多。", map: "シモジマ 浅草橋本店" }
+                    ]
                 },
                 {
-                    id: "day14", date: "12/27 (六)", theme: "再見東京", weatherLoc: "narita", isFamilyTrip: true, 
-                    zenQuote: "不帶走什麼，也不留下遺憾。帶著滿滿的回憶，平安賦歸。"
+                    id: "day14", date: "12/27 (六)", title: "再見東京", weather: "https://tenki.jp/forecast/3/15/4510/12211/", // 成田
+                    largeText: true,
+                    events: [
+                        { time: "10:00", loc: "前往機場", fare: "約 2,570 円 (Skyliner)", route: "推薦搭乘 **Skyliner**，雖然貴一點但有指定席，舒適且快速。", knowledge: "成田機場 T2 有許多免稅店，建議提早抵達逛逛。", map: "京成上野駅" },
+                        { time: "15:35", loc: "航班 JX803", desc: "起飛回台。", knowledge: "星宇航空，預計 18:45 抵達桃園機場。", map: "成田國際機場 第二航廈" }
+                    ]
                 }
             ]
         }
     ];
 
-    // === JS 核心邏輯 ===
-    
-    // 1. 渲染行程 (總覽表格 + 詳細手風琴)
+    // === 初始化與渲染 ===
+    document.addEventListener('DOMContentLoaded', () => {
+        renderHeader();
+        renderOverview();
+        renderTimeline();
+        
+        // 每分鐘更新時間
+        setInterval(renderHeader, 60000);
+    });
+
+    // 1. 更新 Hero 資訊
+    function renderHeader() {
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
+        const weekMap = ['日','一','二','三','四','五','六'];
+        const timeStr = now.toLocaleTimeString('zh-TW', {hour: '2-digit', minute:'2-digit'});
+        
+        document.getElementById('current-date').innerText = `${dateStr} (週${weekMap[now.getDay()]})`;
+        document.getElementById('current-time').innerText = timeStr;
+    }
+
+    // 2. 渲染總覽表格 (不捲動)
+    function renderOverview() {
+        const tbody = document.getElementById('overview-body');
+        let html = '';
+        let today = new Date();
+        // 模擬測試日期 (可移除)
+        // today = new Date(2025, 11, 21);
+
+        itineraryData.forEach(part => {
+            part.dates.forEach(day => {
+                // 判斷是否為當天
+                const dateParts = day.date.match(/(\d+)\/(\d+)/);
+                const isToday = (today.getMonth()+1 == dateParts[1] && today.getDate() == dateParts[2]);
+                const rowClass = isToday ? 'today-row' : '';
+                const marker = isToday ? '🔴' : '▫️';
+
+                html += `
+                    <tr class="${rowClass}" onclick="jumpToDay('${day.id}')">
+                        <td style="width:35%">${marker} ${day.date}</td>
+                        <td>${day.title}</td>
+                    </tr>
+                `;
+            });
+        });
+        tbody.innerHTML = html;
+    }
+
+    // 3. 渲染詳細行程
     function renderTimeline() {
         const container = document.getElementById('timeline-container');
-        const overviewBody = document.getElementById('overview-body');
         let html = '';
-        let tableHtml = '';
 
         itineraryData.forEach(part => {
             html += `<h2 class="chapter-title">${part.chapter}</h2>`;
             
             part.dates.forEach(day => {
-                // 產生總覽表格行
-                tableHtml += `
-                    <tr onclick="jumpToDay('${day.id}')">
-                        <td class="overview-date"><span class="overview-icon">🗓️</span>${day.date}</td>
-                        <td>${day.theme}</td>
-                    </tr>
-                `;
-                
-                // 判斷是否啟用老花友善模式
-                const readerClass = day.isFamilyTrip ? ' reader-friendly' : '';
+                const largeClass = day.largeText ? ' large-text' : '';
+                let eventsHtml = '';
 
-                // 產生詳細行程卡片 (使用佔位符，因為內容太長無法在此重複貼上)
-                // ⚠️ 註：為了代碼可讀性，行程內容保持跟前一版相同，只調整外層結構和 class
-                const dayContentPlaceholder = `
-                    <table class="itinerary-table">
-                        ${generateDayTableContent(day)}
-                    </table>
-                    <div class="zen-daily">🧘 ${day.zenQuote}</div>
-                `;
-
-                html += `
-                    <div class="day-card${readerClass}" id="${day.id}">
-                        <div class="day-header" onclick="toggleDay(this)">
-                            <div><span class="day-date">${day.date}</span> <span class="day-theme">| ${day.theme}</span></div>
-                            <div>
-                                ${generateWeatherLink(day.weatherLoc)}
-                                <span class="toggle-icon">▼</span>
+                day.events.forEach(evt => {
+                    let fareInfo = evt.fare ? `<div class="fare-box">💴 ${evt.fare} | 👣 ${evt.route}</div>` : '';
+                    let knowInfo = evt.knowledge ? `<div class="knowledge-box">ℹ️ [背景] ${evt.knowledge}</div>` : '';
+                    
+                    let mapBtn = evt.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map)}" target="_blank" class="info-tag tag-map">📍 導航</a>` : '';
+                    
+                    eventsHtml += `
+                        <div class="event-item">
+                            <span class="event-time">${evt.time}</span>
+                            <span class="event-loc">${evt.loc}</span>
+                            <div style="color:#555;">${evt.desc}</div>
+                            ${fareInfo}
+                            ${knowInfo}
+                            <div style="margin-top:8px;">
+                                ${mapBtn}
                             </div>
                         </div>
-                        <div class="day-content">${dayContentPlaceholder}</div>
+                    `;
+                });
+
+                html += `
+                    <div class="day-card${largeClass}" id="${day.id}">
+                        <div class="day-header" onclick="toggleDay(this)">
+                            <div>
+                                <span class="day-date">${day.date}</span> 
+                                <span style="color:#666; margin-left:10px;">${day.title}</span>
+                            </div>
+                            <div>
+                                <a href="${day.weather}" target="_blank" class="info-tag tag-weather" onclick="event.stopPropagation()">☁️ 天氣</a>
+                                <span style="font-size:1.2rem;">▼</span>
+                            </div>
+                        </div>
+                        <div class="day-content">
+                            ${eventsHtml}
+                        </div>
                     </div>
                 `;
             });
         });
 
         container.innerHTML = html;
-        overviewBody.innerHTML = tableHtml;
     }
+
+    // 互動功能
+    function toggleDay(header) { header.parentElement.classList.toggle('open'); }
     
-    // 輔助函數：生成單日行程表格內容 (簡化邏輯)
-    function generateDayTableContent(day) {
-        // 這裡應該包含前一個版本中所有詳細的 <th>, <td> 內容
-        // 由於篇幅限制，我們僅返回一個結構化文本，實際代碼中應替換為完整的 Event 渲染邏輯
-        let rows = '';
-        const events = day.events || [];
-        
-        events.forEach(evt => {
-            const tagsHtml = evt.tags.map(t => `<span class="badge bg-${t}">${t === 'move' ? '交通' : t === 'spot' ? '景點' : t === 'food' ? '美食' : '購物'}</span>`).join('');
-            const mapLink = `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.loc)}" target="_blank" class="link-btn map">📍 導航</a>`;
-            
-            let extraInfo = '';
-            if(evt.shop) extraInfo += `<div class="shopping-radar">🛍️ 必買推薦：${evt.shop}</div>`;
-            if(evt.guide) extraInfo += `<div class="guide-box">ℹ️ ${evt.guide}</div>`;
-
-            rows += `
-                <tr>
-                    <th>${evt.time}</th>
-                    <td class="loc-col">${tagsHtml} ${evt.loc}<br>${mapLink}</td>
-                    <td class="detail-col">${evt.desc}${extraInfo}</td>
-                </tr>
-            `;
-        });
-        return rows;
-    }
-    
-    // 輔助函數：生成天氣連結
-    function generateWeatherLink(loc) {
-        let weatherUrl = "https://tenki.jp/forecast/3/16/4410/13101/"; 
-        if(loc === 'kamakura') weatherUrl = "https://tenki.jp/forecast/3/17/4620/14204/";
-        // ... (其他地點連結) ...
-        return `<a href="${weatherUrl}" target="_blank" class="link-btn weather" onclick="event.stopPropagation()">☁️ 天氣</a>`;
-    }
-
-
-    // 2. 互動功能：點擊總覽跳轉
     function jumpToDay(id) {
         const card = document.getElementById(id);
         if(card) {
-            // 先關閉其他已打開的卡片 (保持單一展開)
             document.querySelectorAll('.day-card.open').forEach(c => c.classList.remove('open'));
-            
-            // 打開目標卡片並平滑捲動
             card.classList.add('open');
             card.scrollIntoView({behavior: 'smooth', block: 'center'});
         }
     }
 
-    // 3. 記帳浮動窗控制
-    function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
-    function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
-    
-    // 4. 其他工具面板控制 (保持與前一版一致)
-    function toggleDay(header) { header.parentElement.classList.toggle('open'); }
-    
     function togglePanel(id) {
-        const panelId = id + '-panel';
-        const panel = document.getElementById(panelId);
+        const panel = document.getElementById(id + '-panel');
+        const isActive = panel.classList.contains('active');
         
-        document.querySelectorAll('.utility-panel').forEach(p => {
-            if(p.id !== panelId) p.classList.remove('active');
-        });
+        // 關閉所有面板
+        document.querySelectorAll('.utility-panel').forEach(p => p.classList.remove('active'));
         
-        panel.classList.toggle('active');
-        if(panel.classList.contains('active')) {
+        if(!isActive) {
+            panel.classList.add('active');
             panel.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
     }
 
+    function openAccountModal() { document.getElementById('account-modal').style.display = 'flex'; }
+    function closeAccountModal() { document.getElementById('account-modal').style.display = 'none'; }
+
     function doTranslate() {
         const input = document.getElementById('trans-input').value;
-        if(input) {
-            const url = `https://translate.google.com/?hl=zh-TW&sl=zh-TW&tl=ja&text=${encodeURIComponent(input)}&op=translate`;
-            window.open(url, '_blank');
-        } else {
-            alert('請輸入內容');
-        }
+        if(input) window.open(`https://translate.google.com/?hl=zh-TW&sl=zh-TW&tl=ja&text=${encodeURIComponent(input)}&op=translate`, '_blank');
     }
 
     function convertCurrency() {
         const jpy = document.getElementById('jpy-input').value;
-        const rate = 0.222; 
-        if(jpy) {
-            document.getElementById('twd-result').innerText = Math.round(jpy * rate);
-        } else {
-            document.getElementById('twd-result').innerText = '0';
-        }
+        document.getElementById('twd-result').innerText = jpy ? Math.round(jpy * 0.222) : '0';
     }
-
-    function showModal() { document.getElementById('modal').style.display = 'flex'; }
-    function closeModal() { document.getElementById('modal').style.display = 'none'; }
-
-    // 初始化
-    document.addEventListener('DOMContentLoaded', () => {
-        renderTimeline();
-    });
-
 </script>
 
 </body>
 </html>
-
-
