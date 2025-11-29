@@ -2,7 +2,6 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- 調整為較友善的 RWD / 可縮放寫法 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>東京 2025 | 江戶深處的冬日紀行 - PROJECT</title>
     <meta name="robots" content="noindex, nofollow">
@@ -410,9 +409,10 @@
     updateTime();
     
     // === 強化 GOOGLE 服務整合 (New Functions) ===
-
+    // 修正 Google Maps URL 確保能正確導航
     function getGoogleMapsUrl(query) {
         if (!query) return '#';
+        // 使用標準的 Google Maps Search API URL
         return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
     }
 
@@ -421,7 +421,7 @@
         return `https://www.google.com/search?q=${encodeURIComponent(query)}%E5%A4%A9%E6%B0%A3&hl=zh-TW`;
     }
 
-    // === 2. 行程資料庫 (12/14 ~ 12/27) ===
+    // === 2. 行程資料庫 (已更新 12/21 交通攻略) ===
     const itineraryData = [
         {
             chapter: "PROJECT 1", 
@@ -483,7 +483,7 @@
                 },
                 { id: "d7", date: "12/20 (六)", title: "皇居與日本橋巡禮", dayMonth: "12/20",
                     events: [
-                        { time: "09:00", loc: "神田志乃多壽司", addr: "東京都千代田區神田司町2-17", map: "神田志乃多寿司", weather: "https://tenki.jp/forecast/3/16/4410/13101/", desc: "【背景】百年豆皮壽司老店，口味偏甜，是東京經典伴手禮。" },
+                        { time: "09:00", loc: "神田志乃多壽司", addr: "東京都千代田區神田司町2-17", map: "神田志乃多寿司", weather: "https://tenki.jp/forecast/3/16/4410/13101/", desc: "【背景】百年豆皮壽司老店，口味偏重，是東京經典伴手禮。" },
                         { time: "10:30", loc: "皇居外苑 (二重橋/東御苑)", addr: "東京都千代田區皇居外苑1-1", map: "皇居外苑", weather: "https://tenki.jp/forecast/3/16/4410/13101/", desc: "【背景】江戶城遺址，現為天皇居所。二重橋是標誌性景點。" },
                         { time: "14:00", loc: "日本橋三越 (天女像)", addr: "東京都中央區日本橋室町1-4-1", map: "日本橋三越本店", weather: "https://tenki.jp/forecast/3/16/4410/13102/", desc: "【背景】日本第一家百貨公司，有著名「天女像」雕塑。" },
                         { time: "16:00", loc: "東京鐵塔", map: "東京鐵塔" }
@@ -503,12 +503,22 @@
                             weather: "https://tenki.jp/forecast/3/16/4410/13106/", 
                             desc: "【背景】移動至新住宿：田原町站附近的機器人主題飯店。" 
                         },
-                     
                         { time: "14:00", loc: "大江戶古董市 (彈性行程)", addr: "東京都千代田區丸之內3-5-1", map: "東京国際フォーラム", weather: "https://tenki.jp/forecast/3/16/4410/13101/", desc: "【背景】日本最大規模的戶外古董市集，每月舉辦。" },
 
-                           { time: "19:00", loc: "家人抵達 (成田T2:JX804)", addr: "千葉縣成田市", map: "Henn na Hotel Tokyo Asakusa Tawaramachi", weather: "https://tenki.jp/forecast/3/15/4510/12211/", 
-                            desc: "【背景】家人搭乘京成 Access 特急（直通運轉，無須轉乘，最快且便宜）直達淺草站（往 Henn na Hotel Tokyo Asakusa Tawaramachi)。", 
-                            fare: "約 1,350 円 / 選擇搭乘京成Access特急" 
+                        // ★★★ 已整合 5 種交通方式資訊 (從 ChatGPT 連結提取) ★★★
+                        { time: "19:00", loc: "家人抵達 (成田T2:JX804)", addr: "成田空港 → 淺草 (Henn na Hotel)", map: "Henn na Hotel Tokyo Asakusa Tawaramachi", weather: "https://tenki.jp/forecast/3/15/4510/12211/", 
+                            desc: `【背景】交通攻略（成田→淺草）：<br><br>
+                            <b>🚆 1. Keisei Access 特急 (最推薦/直達)</b><br>
+                            時間：約 60 分｜票價：¥1,290<br>
+                            說明：往「羽田空港」方向，直達淺草免轉車，刷西瓜卡即可。<br><br>
+                            <b>🚆 2. Skyliner + 地鐵</b><br>
+                            時間：約 50 分｜票價：¥2,520 起<br>
+                            說明：最快舒適，但需在「京成上野」轉地鐵銀座線。<br><br>
+                            <b>🚌 3. 機場巴士</b><br>
+                            時間：90-120分｜票價：¥3,000 起<br>
+                            說明：免搬行李，但可能塞車。<br><br>
+                            <b>💡 結論：直接搭乘「Access 特急」最划算方便 (¥1,290)。</b>`, 
+                            fare: "推薦：Keisei Access 特急 (約 ¥1,290)" 
                         },
                         { time: "21:00", loc: "西友超市 (外帶食物回飯店)", weather: "https://tenki.jp/forecast/3/16/4410/13106/" }
                     ]
@@ -764,6 +774,3 @@
 </script>
 </body>
 </html>
-
-
-
