@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>手沖咖啡：合羽橋採買清單 + 沖煮指引</title>
+<meta name="description" content="合羽橋採買清單（必買器具）與可即用的手沖咖啡步驟與內建秒表（RWD）" />
+<style>
+  /* --- Reset / 基本排版 --- */
+  :root{
+    --bg:#ffffff;
+    --card:#fbfbfb;
+    --accent:#f57c00;
+    --muted:#666;
+    --maxw:980px;
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Noto Sans CJK JP","Segoe UI",Roboto,"Helvetica Neue",Arial;}
+  body{background:linear-gradient(180deg,#fff 0%,#f7f7f7 100%);color:#111;line-height:1.5;padding:18px;display:flex;justify-content:center;}
+  .wrapper{width:100%;max-width:var(--maxw);}
+
+  header{display:flex;gap:12px;align-items:center;margin-bottom:14px;}
+  header img.logo{width:52px;height:52px;border-radius:8px;object-fit:cover;}
+  header h1{font-size:1.25rem;margin:0;}
+  header p{margin:0;color:var(--muted);font-size:0.95rem}
+
+  main{display:grid;grid-template-columns:1fr;gap:14px;}
+
+  /* 卡片 */
+  .card{background:var(--card);padding:14px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(20,20,20,0.04);}
+
+  /* 採買清單 */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  .grid .item{padding:10px;border-radius:8px;background:#fff;border:1px solid #eee;}
+  .grid h3{margin:4px 0 8px;font-size:1rem;}
+  .note{font-size:0.9rem;color:var(--muted);}
+
+  /* 流程 */
+  .steps{counter-reset:step;display:flex;flex-direction:column;gap:10px;}
+  .step{
+    display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:start;
+  }
+  .num{width:48px;height:48px;border-radius:8px;background:linear-gradient(180deg,var(--accent),#ffb74d);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.05rem;}
+  .step h4{margin:0 0 6px;font-size:1rem;}
+  .step p{margin:0;color:var(--muted);font-size:0.95rem;}
+
+  /* 控制面板 */
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:6px;}
+  label{font-size:0.9rem;color:var(--muted);}
+
+  input[type="number"]{padding:8px;border-radius:8px;border:1px solid #ddd;width:110px}
+  select{padding:8px;border-radius:8px;border:1px solid #ddd}
+  button{padding:10px 12px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+  button.secondary{background:#fff;color:var(--accent);border:1px solid #f0a040}
+  .timer{font-size:1.6rem;font-weight:700;padding:6px 10px;background:#fff;border-radius:8px;border:1px solid #eee;min-width:130px;text-align:center}
+
+  /* 可調整欄 */
+  .recipe-info{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+
+  /* footer */
+  footer{font-size:0.9rem;color:var(--muted);text-align:center;padding:10px 0}
+
+  /* small screens */
+  @media (max-width:720px){
+    .grid{grid-template-columns:1fr;}
+    header h1{font-size:1.05rem}
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <img class="logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><rect rx='8' width='64' height='64' fill='%23f57c00'/><text x='50%' y='54%' font-size='28' font-family='sans-serif' fill='white' text-anchor='middle' dominant-baseline='middle'>☕</text></svg>" alt="logo">
+      <div>
+        <h1>合羽橋採買清單 & 手沖教學（RWD）</h1>
+        <p>帶著這頁去合羽橋（Kappabashi）就能逐項購買；內含可操作秒表與配方。</p>
+      </div>
+    </header>
+
+    <!-- 採買清單 -->
+    <section class="card" id="shopping">
+      <h2>必備器具（採買清單）</h2>
+      <p class="note">建議優先順序：研磨機 > 濾杯 > 細口壺。合羽橋有數家咖啡/喫茶器具專門店（例如「ユニオン / Union」）可一次補齊。 [oai_citation:2‡かっぱ橋道具街 |](https://www.kappabashi.or.jp/en/shops/169/?utm_source=chatgpt.com)</p>
+
+      <div class="grid" style="margin-top:10px;">
+        <div class="item">
+          <h3>研磨機（Grinder）</h3>
+          <ul>
+            <li>電動平刀或錐刀：穩定性最佳</li>
+            <li>手搖磨：便攜且價位友善</li>
+            <li>挑選要可做濾杯細粉（中細）</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <h3>濾杯（Dripper）</h3>
+          <ul>
+            <li>常見：V60（V型）、Kalita Wave（平底）、KONO</li>
+            <li>配合型號的濾紙（V60用V型、Kalita用Wave）</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <h3>細口手沖壺（Gooseneck Kettle）</h3>
+          <p>細長出水口，控制注水曲線與流速。</p>
+        </div>
+
+        <div class="item">
+          <h3>咖啡秤（Scale）</h3>
+          <p>最好有計時器與克數顯示，精度±0.1g（或至少±0.5g）。</p>
+        </div>
+
+        <div class="item">
+          <h3>保溫壺 / 下壺（Server）</h3>
+          <p>耐熱的玻璃或不鏽鋼下壺，容量依需求選擇。</p>
+        </div>
+
+        <div class="item">
+          <h3>濾紙（Paper Filters）</h3>
+          <p>依濾杯型號購買（V60、Kalita Wave、KONO）。</p>
+        </div>
+
+        <div class="item">
+          <h3>攪拌棒 / 湯匙</h3>
+          <p>木棒或不鏽鋼匙，用於悶蒸與破泡。</p>
+        </div>
+
+        <div class="item">
+          <h3>計時器（或使用手機）</h3>
+          <p>操作步驟需精準掌握時間。</p>
+        </div>
+
+        <div class="item">
+          <h3>溫度計（選購）</h3>
+          <p>若喜歡精準，可量水溫（90–96°C 常用）。</p>
+        </div>
+
+        <div class="item">
+          <h3>咖啡豆（新鮮）</h3>
+          <p>建議現磨，合羽橋附近店家也有整豆/烘焙販售。 [oai_citation:3‡かっぱ橋道具街 |](https://www.kappabashi.or.jp/shops/117/?utm_source=chatgpt.com)</p>
+        </div>
+      </div>
+
+      <p class="note" style="margin-top:12px">合羽橋大道上有許多專售業務用/家用餐飲器具的店家，營業時間多為 10:00–17:00，週日多數店家休息，出發前請確認店家頁面或到合羽橋官網查詢。</p>
+    </section>
+
+    <!-- 沖煮配方及控制 -->
+    <section class="card" id="recipe">
+      <h2>可互動的沖煮配方</h2>
+
+      <div class="controls" style="margin-top:6px">
+        <label>預設配方：
+          <select id="preset">
+            <option value="15-225">粉 15 g → 水 225 g（標準）</option>
+            <option value="12-180">粉 12 g → 水 180 g（清爽）</option>
+            <option value="18-270">粉 18 g → 水 270 g（較濃）</option>
+            <option value="15-200">粉 15 g → 水 200 g（你問的 200g 水 範例）</option>
+          </select>
+        </label>
+
+        <label>粉量 (g)
+          <input id="dose" type="number" min="6" step="0.5" value="15">
+        </label>
+
+        <label>水量 (g)
+          <input id="water" type="number" min="50" step="1" value="225">
+        </label>
+
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+          <div class="timer" id="displayTimer">0:00</div>
+          <button id="startBtn">開始流程</button>
+          <button class="secondary" id="resetBtn">重設</button>
+        </div>
+      </div>
+
+      <div class="recipe-info note">
+        <div>水溫建議：<strong>90–96°C（淺烘焙偏高溫，深焙偏低溫）</strong></div>
+        <div>研磨粗細建議：<strong>中細（介於砂糖與麵粉間）</strong></div>
+      </div>
+
+      <hr style="margin:12px 0">
+
+      <div class="steps" id="stepsContainer">
+        <!-- Steps 會由 JS 注入，下面為說明版 -->
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h4>預熱與備豆</h4>
+            <p>預熱濾杯與下壺（以熱水沖洗濾杯與壺，倒掉沖洗水），置入濾紙並搓平。\n磨豆後把粉放入濾杯，輕拍讓粉層平整。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h4>悶蒸（Bloom）</h4>
+            <p>注入 <strong>粉量的 2 倍水</strong>（例如粉 15 g → 注 30 g），以小圓圈注水均勻浸潤全粉，靜置悶蒸 <strong>30–45 秒</strong>（你記得的 45/40/30 常出現在此類節奏）。悶蒸目的：讓 CO₂ 釋出，粉層膨起，提升萃取均勻度。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h4>第一段注水（分段注水）</h4>
+            <p>從悶蒸結束後開始，分次以細水流注水至總水量的 60–70%（例如 225 g → 注到約 135–160 g）。注水方式：由粉中心向外畫小圓，再回到中心，避免直接沖擊濾紙壁以免造成通道化。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">4</div>
+          <div>
+            <h4>第二段注水（補足）</h4>
+            <p>當水面下降至粉面以下或約 1:30–1:45 時，再以小水流注至總水量（最後一段可用 20–30 秒），保持輕柔穩定。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">5</div>
+          <div>
+            <h4>等待滴完並完成</h4>
+            <p>整個出水完畢時間建議落在 <strong>2:00–3:00 分鐘</strong>（視研磨與注水節奏而異）。若滴得太快 → 研磨再細一點；滴太慢 → 研磨再粗一點。完成後移除濾杯，搖勻杯中萃取液，分杯享用。</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">6</div>
+          <div>
+            <h4>調整建議（風味調整口訣）</h4>
+            <p>若味道偏酸：可提高水溫或延長接觸時間（或做更細的研磨）。若味道偏苦或過度濃：可稍微粗研磨或減少接觸時間/降低水溫。</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="note" style="margin-top:10px">快速 FAQ：你問的「每次給秤咖啡粉（加水）的重量是 200g 嗎？」— 可以，但粉量需搭配：例如粉 12–15 g 常配 180–225 g 水；若想用整數 200 g 水，配粉可選 12–15 g（偏濃偏淡由你調整）。</p>
+    </section>
+
+    <!-- 店家/備註 -->
+    <section class="card" id="stores">
+      <h2>合羽橋採買小提醒與推薦店家</h2>
+      <ul>
+        <li>合羽橋道具街（Kappabashi）約 800 公尺長、店家以專業餐飲器具為主，很多店可刷卡與免稅（視店家而定）。</li>
+        <li>推薦咖啡器具專門店：<strong>ユニオン（Union）</strong> — 喫茶/咖啡器具齊全，並販售咖啡豆／烘焙。到店可請店員示範或詢問配件是否適配。 [oai_citation:4‡かっぱ橋道具街 |](https://www.kappabashi.or.jp/shops/169/?utm_source=chatgpt.com)</li>
+        <li>逛街建議：帶一個購物袋、現金（部分小店仍習慣現金）、出發前確認營業日（週日多休）。</li>
+      </ul>
+    </section>
+
+    <footer class="card">
+      <small>資訊來源：合羽橋道具街官方與合羽橋內主要喫茶器具專門店資訊彙整。若你要我把此頁轉成可以離線列印的 A4 備忘卡或加入你指定店家的地圖標記，我可以直接幫你產出檔案。 [oai_citation:5‡かっぱ橋道具街 |](https://www.kappabashi.or.jp/en/shops/169/?utm_source=chatgpt.com)</small>
+    </footer>
+  </div>
+
+<script>
+/* ------- 互動腳本：配方聯動與秒表（簡易） ------- */
+(function(){
+  const preset = document.getElementById('preset');
+  const dose = document.getElementById('dose');
+  const water = document.getElementById('water');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const displayTimer = document.getElementById('displayTimer');
+
+  // 初始同步
+  function applyPreset(val){
+    const parts = val.split('-');
+    dose.value = Number(parts[0]);
+    water.value = Number(parts[1]);
+  }
+  applyPreset(preset.value);
+
+  preset.addEventListener('change', () => applyPreset(preset.value));
+  dose.addEventListener('input', () => {
+    // 若使用者更改粉量，保留原水量（或可自動依比例調整，這裡由使用者決定）
+  });
+
+  // 簡單多段流程計時（有 3 個階段提示）
+  let timer = null;
+  let elapsed = 0;
+  let phase = 0; // 0 idle, 1 bloom, 2 first pour, 3 second pour, 4 wait end
+
+  function formatTime(s){
+    const mm = Math.floor(s/60);
+    const ss = s%60;
+    return mm + ':' + (ss<10?('0'+ss):ss);
+  }
+
+  function startSequence(){
+    if(timer) return;
+    elapsed = 0;
+    phase = 1;
+    displayTimer.textContent = '0:00';
+    startBtn.textContent = '進行中… (點此停止)';
+    startBtn.disabled = false;
+
+    // 建議階段時間（可依需求微調）
+    const bloomSec = 35;      // 悶蒸 30–45s（這裡設 35s）
+    const firstPourSec = 55;  // 第一段注水時間（示範）
+    const secondPourSec = 50; // 第二段注水時間
+    const tailSec = 40;       // 滴完與調整時間（總時長約 2:40）
+
+    const schedule = [
+      {phase:1, name:'悶蒸', duration:bloomSec},
+      {phase:2, name:'第一段注水', duration:firstPourSec},
+      {phase:3, name:'第二段注水', duration:secondPourSec},
+      {phase:4, name:'滴完等待', duration:tailSec}
+    ];
+
+    let idx = 0;
+    let rem = schedule[0].duration;
+
+    // 先顯示提示
+    alert('步驟提示：\n1) 預先預熱並放好濾紙與粉\n2) 按 OK 開始悶蒸（第一段會顯示倒數）');
+
+    timer = setInterval(()=>{
+      elapsed++;
+      rem--;
+      displayTimer.textContent = formatTime(elapsed) + ' • ' + schedule[idx].name + '（剩 ' + rem + ' s）';
+      if(rem<=0){
+        idx++;
+        if(idx >= schedule.length){
+          // 完成
+          clearInterval(timer);
+          timer = null;
+          displayTimer.textContent = formatTime(elapsed);
+          startBtn.textContent = '開始流程';
+          alert('流程結束：請等待完全滴完並取下濾杯，搖勻後享用。');
+        } else {
+          rem = schedule[idx].duration;
+          // 小提示音（若瀏覽器允許）
+          try{
+            const n = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=");
+            n.play();
+          }catch(e){}
+        }
+      }
+    },1000);
+  }
+
+  function resetSequence(){
+    if(timer){ clearInterval(timer); timer=null; }
+    elapsed = 0;
+    phase = 0;
+    displayTimer.textContent = '0:00';
+    startBtn.textContent = '開始流程';
+  }
+
+  startBtn.addEventListener('click', () => {
+    if(timer){
+      // 停止
+      resetSequence();
+      return;
+    }
+    startSequence();
+  });
+
+  resetBtn.addEventListener('click', resetSequence);
+
+  // 頁面卸載前清除 timer
+  window.addEventListener('beforeunload', () => {
+    if(timer) clearInterval(timer);
+  });
+
+})();
+</script>
+</body>
+</html>
