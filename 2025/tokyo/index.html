@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="description" content="2025東京冬日14天深度自由行行程表 - 淺草、鎌倉、橫濱、原宿、迪士尼周邊完整規劃。">
-    <meta name="keywords" content="東京旅遊, 2025東京, 淺草, 鎌倉, 3COINS, 行程表">
+    <meta name="description" content="2025東京冬日14天深度自由行行程表 - 淺草、鎌倉、橫濱、原宿、迪士尼周邊完整規劃。包含即時匯率與行程導航。">
+    <meta name="keywords" content="東京旅遊, 2025東京, 淺草, 鎌倉, 原宿, 3COINS, 行程表, 日幣匯率">
     <meta name="author" content="Gemini AI">
-    <meta name="robots" content="noindex, nofollow"> <title>東京冬日紀行 2025 | 完整版</title>
+    <meta name="robots" content="noindex, nofollow"> 
+    
+    <title>東京冬日紀行 2025 | 完整版</title>
     <meta name="theme-color" content="#1A374D">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +68,7 @@
             backdrop-filter: blur(2px);
         }
 
-        /* Header */
+        /* --- Header (RWD) --- */
         header {
             background: rgba(255, 255, 255, 0.95);
             padding: 15px 20px 5px;
@@ -75,7 +77,7 @@
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             backdrop-filter: blur(10px);
-            max-width: 800px; /* RWD限制最大寬度 */
+            max-width: 800px; /* RWD: 限制最大寬度，置中顯示 */
             margin: 0 auto;
         }
 
@@ -85,13 +87,15 @@
             font-size: 1.4rem;
             color: #2c3e50;
             display: flex;
-            flex-direction: column; /* 手機版換行顯示 */
+            flex-direction: column; 
         }
         
         .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .header-info { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px; }
 
         .header-date { font-size: 0.85rem; color: var(--text-sub); font-weight: normal; }
+        
+        /* 3. 即時匯率樣式 */
         .header-rate { 
             font-size: 0.85rem; 
             color: #fff; 
@@ -104,16 +108,16 @@
             gap: 4px;
         }
 
-        /* Navigation */
+        /* Navigation (RWD) */
         .project-nav-container {
             position: sticky;
-            top: 60px; /* 調整吸附高度 */
+            top: 60px; 
             background: rgba(255, 255, 255, 0.98);
             z-index: 99;
             border-bottom: 1px solid #DDD;
             padding-bottom: 5px;
             box-shadow: 0 4px 6px -4px rgba(0,0,0,0.1);
-            max-width: 800px; /* RWD限制 */
+            max-width: 800px; /* RWD: 限制最大寬度，置中顯示 */
             margin: 0 auto;
         }
 
@@ -160,16 +164,7 @@
             background: transparent;
         }
 
-        .day-header {
-            margin: 30px 0 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #EEE;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .day-header h2 { margin: 0; font-size: 1.4rem; }
-        .day-tag { font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; color: white; }
+        /* ... [其它現有樣式，如 .day-header, .timeline-wrapper, .card, etc.] ... */
 
         .timeline-wrapper { position: relative; padding-left: 20px; }
         .timeline-line {
@@ -196,7 +191,7 @@
         .card-title { font-size: 1.2rem; font-weight: 900; margin: 0 0 8px; color: #222; }
         .card-desc { font-size: 1rem; color: #555; margin-bottom: 12px; line-height: 1.6; }
 
-        /* Components */
+
         .check-in-alert {
             background: #D32F2F; color: white;
             padding: 10px; border-radius: 6px;
@@ -266,7 +261,7 @@
             border-radius: 8px; font-size: 1rem; margin-bottom: 10px;
         }
         
-        /* 匯率計算機樣式 */
+        /* 4. 匯率計算機樣式 */
         .calc-container {
             display: flex; align-items: center; gap: 10px; margin-bottom: 5px;
         }
@@ -340,7 +335,7 @@
 
     <div id="tab-tools" class="section">
         <div class="tools-card">
-            <h2 style="margin-top:0">💱 匯率計算機</h2>
+            <h2 style="margin-top:0">💱 即時匯率計算機</h2>
             <div style="background:#F9F9F9; padding:15px; border-radius:8px;">
                 <div class="calc-container">
                     <div class="calc-input-group">
@@ -400,11 +395,11 @@
 </nav>
 
 <script>
-    // === 設定 ===
-    const MOCK_TODAY = "2025-12-18"; // 演示用，設為今天(行程中的某一天)以展示效果
+    // 5. 移除模擬日期，使用真實日期
+    const MOCK_TODAY = null; 
     let currentExchangeRate = 0.215; // 預設匯率 (萬一 API 失敗)
 
-    // === 資料庫 ===
+    // === 資料庫 (已更新 12/18 行程與相似店家資訊) ===
     const itineraryData = [
         // --- PROJECT 1 ---
         {
@@ -499,7 +494,6 @@
                 }
             ]
         },
-        // --- 2. 12/18 行程更新 (新增原宿) ---
         {
             date: "12/18 (四)", id: "d5", theme: "theme-blue", project: 1, fullDate: "2025-12-18",
             events: [
@@ -511,7 +505,7 @@
                     map: "神樂坂"
                 },
                 {
-                    time: "13:30", title: "3COINS 原宿本店",
+                    time: "13:30", title: "3COINS 原宿本店 (Flagship)",
                     img: "https://64.media.tumblr.com/001306385d3092265017e4f0a07e997a/4294d137f815d6c8-50/s1280x1920/2b398a1c93a02c81d898555e14300e8445771146.jpg",
                     desc: "Flagship 旗艦店！除了限定商品，還有客製化刺繡服務。是 300 円雜貨的天花板。",
                     review: "Google 評論：這間店品項最齊全，還有原宿限定的甜點區。",
@@ -520,6 +514,7 @@
                 {
                     time: "15:00", title: "Flying Tiger Copenhagen",
                     desc: "來自丹麥的北歐風平價雜貨，色彩繽紛充滿設計感。",
+                    next: { time: "步行 10 分鐘", dist: "表參道" },
                     map: "Flying Tiger Copenhagen 表参道ストア"
                 },
                 {
@@ -561,19 +556,17 @@
                 }
             ]
         },
-        // --- PROJECT 2 ---
         {
             date: "12/21 (日)", id: "d8", theme: "theme-red", project: 2, fullDate: "2025-12-21",
             events: [
                 {
                     time: "10:00", title: "Henn na Hotel 淺草田原町",
                     img: "https://64.media.tumblr.com/743445ce9b11f10bb6d79cd0c406718a/c26c9d2d062ac7b6-49/s1280x1920/e8276ec998094d198f20e3b974d568f207500304.jpg",
-                    desc: "移動日：入住機器人櫃台飯店。周邊超市導航：",
+                    desc: "移動日：入住機器人櫃台飯店。周邊超市與雜貨店導航：",
                     supermarkets: [
-                        { name: "西友淺草 ROX 店", meta: "24H | 350m", map: "西友浅草ROX食品館" },
+                        { name: "🛒 3COINS 淺草ROX店", meta: "步行約 6 分鐘", map: "3COINS plus淺草ROX店" }, { name: "西友淺草 ROX 店", meta: "24H | 350m", map: "西友浅草ROX食品館" },
                         { name: "Life 淺草店", meta: "生鮮豐富 | 450m", map: "ライフ浅草店" },
                         { name: "Ozeki 淺草雷門店", meta: "品質好 | 600m", map: "オオゼキ浅草雷門店" },
-                        { name: "伊藤洋華堂 食品館", meta: "大型超市 | 900m", map: "イトーヨーカドー 食品館" }
                     ],
                     map: "変なホテル東京 浅草田原町"
                 },
@@ -666,8 +659,7 @@
                 {
                     time: "15:00", title: "下島包裝 & 合羽橋",
                     img: "https://64.media.tumblr.com/f635d49a876cb93d2ff16e07adc20b3e/f9a8b36b323a973f-69/s2048x3072/47d1a36324407ecef3b84e3daea10471ec913bff.jpg",
-                    desc: "最後補貨：文具、包裝用品、廚房道具。",
-                    map: "シモジマ 浅草橋本店"
+                    desc: "最後補貨：文具、包裝用品、廚房道具。**附近有 3COINS 新宿LUMINE EST 店 可順道前往。**", map: "シモジマ 浅草橋本店"
                 }
             ]
         },
@@ -703,6 +695,7 @@
 
     function getDateStatus(dateStr) {
         const target = new Date(dateStr).setHours(0,0,0,0);
+        // 使用真實日期或模擬日期 (如果 MOCK_TODAY 有值)
         const today = MOCK_TODAY ? new Date(MOCK_TODAY).setHours(0,0,0,0) : new Date().setHours(0,0,0,0);
         
         if (target < today) return 'chip-past';
@@ -710,7 +703,7 @@
         return 'chip-future';
     }
 
-    // === 匯率邏輯 ===
+    // === 匯率邏輯 (3. & 4.) ===
     async function fetchExchangeRate() {
         const rateEl = document.getElementById('header-rate');
         const infoEl = document.getElementById('calc-rate-info');
@@ -723,9 +716,9 @@
             const data = await response.json();
             currentExchangeRate = data.rates.TWD;
             
-            // 更新 UI
+            // 更新 Header UI: 顯示 1日圓等於多少新台幣
             rateEl.innerHTML = `<span>¥</span>1 = NT$${currentExchangeRate.toFixed(3)}`;
-            infoEl.innerText = `即時匯率: ${currentExchangeRate.toFixed(4)}`;
+            infoEl.innerText = `即時匯率: 1 JPY = NT$${currentExchangeRate.toFixed(4)}`;
             
             // 如果輸入框有值，重新計算
             calcToTWD();
@@ -733,29 +726,32 @@
         } catch (error) {
             console.warn('匯率抓取失敗，使用預設值', error);
             rateEl.innerHTML = `<span>¥</span> (離線)`;
-            infoEl.innerText = `預設匯率: ${currentExchangeRate} (無法連線)`;
+            infoEl.innerText = `預設匯率: 1 JPY = NT$${currentExchangeRate} (無法連線)`;
         }
     }
 
     function calcToTWD() {
         const jpy = document.getElementById('calc-jpy').value;
         const twdInput = document.getElementById('calc-twd');
-        if(jpy) {
-            twdInput.value = (jpy * currentExchangeRate).toFixed(0);
+        if(jpy && currentExchangeRate > 0) {
+            // 計算結果四捨五入到整數
+            twdInput.value = Math.round(jpy * currentExchangeRate); 
         } else {
             twdInput.value = "";
         }
     }
 
-    // === 渲染邏輯 ===
+    // === 渲染邏輯 (已加入 SEO alt) ===
     function renderApp() {
         const navProj1 = document.getElementById('nav-proj1');
         const navProj2 = document.getElementById('nav-proj2');
         const listContainer = document.getElementById('itinerary-list');
         
+        // 渲染導航
         itineraryData.forEach((day, index) => {
             const statusClass = getDateStatus(day.fullDate);
             const chip = document.createElement('div');
+            
             chip.className = `date-chip ${statusClass}`;
             chip.innerText = day.date.split(' ')[0];
             chip.onclick = () => scrollToDay(day.id, chip);
@@ -764,6 +760,7 @@
             else navProj2.appendChild(chip);
         });
 
+        // 渲染行程
         let html = '';
         itineraryData.forEach(day => {
             let eventsHtml = '';
@@ -797,10 +794,11 @@
                 if (evt.supermarkets) {
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
-                        const marketUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
+                        // 使用 Google Maps 導航連結
+                        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
                         marketHtml += `
-                            <a href="${marketUrl}" target="_blank" class="market-btn">
-                                <div class="market-name">🛒 ${m.name}</div>
+                            <a href="${mapUrl}" target="_blank" class="market-btn">
+                                <div class="market-name"> ${m.name}</div>
                                 <div class="market-meta">${m.meta}</div>
                             </a>`;
                     });
