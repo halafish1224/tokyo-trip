@@ -13,7 +13,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght=700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght[700]&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -430,7 +430,7 @@
     let currentExchangeRate = 0.2009015; 
 
 
-    // === 資料庫 (已更新 12/18 行程與相似店家資訊) ===
+    // === 資料庫 (已更新 12/22 行程) ===
     const itineraryData = [
         // --- PROJECT 1 ---
         {
@@ -620,15 +620,54 @@
             date: "12/22 (一)", id: "d9", theme: "theme-blue", project: 2, fullDate: "2025-12-22",
             events: [
                 {
-                    time: "10:00", title: "湘南單軌電車",
-                    img: "https://64.media.tumblr.com/8f5331157216396ab6fd3e643c8e4a0d/c26c9d2d062ac7b6-b7/s1280x1920/00a24a67bedb8d08cce39b972da359a33da5e24a.jpg",
-                    desc: "體驗懸掛在空中的刺激電車。",
-                    map: "湘南江の島駅"
+                    time: "09:00", title: "大船觀音寺 (Ofuna Kannon)",
+                    img: "https://64.media.tumblr.com/178d8a54d5d34237d6928e469509a24c/f9a8b36b323a973f-f9/s1280x1920/1221b06877292215c0e737c54175b95ff81a5330.jpg",
+                    desc: "在巨大白衣觀音前展開鎌倉行程。從大船站步行約 5 分鐘。參觀時間約 1 小時。",
+                    map: "大船觀音寺",
+                    next: { time: "步行 5 分", dist: "大船站" }
                 },
                 {
-                    time: "14:00", title: "鎌倉大佛",
-                    desc: "國寶級露天青銅大佛。",
-                    map: "鎌倉大仏殿高徳院"
+                    time: "10:30", title: "湘南單軌電車 (Shōnan Monorail)",
+                    img: "https://64.media.tumblr.com/8f5331157216396ab6fd3e643c8e4a0d/c26c9d2d062ac7b6-b7/s1280x1920/00a24a67bedb8d08cce39b972da359a33da5e24a.jpg",
+                    desc: "體驗懸掛在空中的刺激電車。搭乘至終點江之島，轉乘江之電 (Enoden) 往鎌倉方向。",
+                    map: "湘南江の島駅",
+                    next: { time: "電車 15 分", dist: "極樂寺站" }
+                },
+                {
+                    time: "11:30", title: "極樂寺 (Gokuraku-ji)",
+                    desc: "參觀充滿懷舊氣氛的江之電極樂寺車站，以及江之電唯一的隧道「極樂洞」。寺廟內樸素典雅，是日劇《最後的灰姑娘》取景地。",
+                    map: "極楽寺",
+                    next: { time: "電車 1 站", dist: "長谷站" }
+                },
+                {
+                    time: "12:30", title: "Café recette 鎌倉 (午餐預約)",
+                    img: "https://64.media.tumblr.com/f2553752e259e21184a441315e966474/c26c9d2d062ac7b6-12/s1280x1920/953460f4b36070a7d519b7a42168582d2c77d639.jpg",
+                    desc: "古民家咖啡廳，品嚐使用最高級生食吐司製作的「究極法式吐司」。<span class='keyword-orange'>已預約 12:30 入座。</span> (從長谷站步行約 8-10 分鐘)",
+                    pelicanData: [
+                        "🍴 推薦菜單 (點餐參考)：",
+                        "1. 究極法式吐司 (甜點系)：究極のフレンチトースト / The Ultimate French Toast (Sweet)",
+                        "2. 究極法式吐司 (鹹食系)：究極の食事系フレンチトースト / The Ultimate French Toast (Savory)",
+                        "3. 季節限定 公主紅茶橘子法式吐司：季節限定 姫様の紅茶オレンジフレンチトースト / Seasonal Princess Tea Orange French Toast"
+                    ],
+                    map: "カフェ ルセット 鎌倉",
+                    next: { time: "步行 10 分", dist: "長樂寺/大佛" }
+                },
+                {
+                    time: "14:30", title: "長樂寺 (Chouraku-ji)",
+                    desc: "位於長谷一帶，遊客較少的幽靜寺院，若時間充裕可前往。請注意此處與著名的長谷寺不同。",
+                    map: "長楽寺（鎌倉）",
+                    next: { time: "步行 5 分", dist: "長谷大佛" }
+                },
+                {
+                    time: "15:30", title: "鎌倉大佛 (高德院)",
+                    desc: "國寶級露天青銅大佛，是鎌倉的標誌性景點。",
+                    map: "鎌倉大仏殿高徳院",
+                    next: { time: "電車 15 分", dist: "鎌倉站" }
+                },
+                {
+                    time: "17:00", title: "鶴岡八幡宮 (Tsurugaoka Hachimangu)",
+                    desc: "鎌倉最主要的神社，是武士的守護神。參拜後可沿著小町通逛街。",
+                    map: "鶴岡八幡宮"
                 }
             ]
         },
