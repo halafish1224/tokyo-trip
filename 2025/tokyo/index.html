@@ -160,6 +160,8 @@
 
             margin: 0 auto;
 
+            /* 移除舊的 flex-direction: column 相關樣式 */
+
         }
 
 
@@ -174,17 +176,13 @@
 
             color: #2c3e50;
 
-            display: flex;
-
-            flex-direction: column; 
+            /* 移除舊的 flex-direction: column 相關樣式 */
 
         }
 
 
 
-        .header-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-
-        .header-info { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px; }
+        /* 移除舊的 .header-top 和 .header-info CSS */
 
 
 
@@ -213,6 +211,8 @@
             align-items: center;
 
             gap: 4px;
+
+            margin: 0; /* 確保沒有多餘邊距 */
 
         }
 
@@ -866,29 +866,17 @@
 
 
 <header>
-
-    <h1>
-
-        <div class="header-top">
-
-            <span>TOKYO <span style="color:var(--theme-red)">2025</span></span>
-
-            <div id="header-rate" class="header-rate">
-
-                <span>¥</span> 載入中...
-
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 5px;">
+        <h1 style="margin: 0; font-size: 1.4rem; color: #2c3e50; font-family: 'Zen Maru Gothic', sans-serif; flex-shrink: 0;">
+            TOKYO <span style="color:var(--theme-red)">2025</span>
+        </h1>
+        <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 1; justify-content: flex-end;">
+            <span class="header-date" id="header-clock" style="font-size: 0.85rem; color: var(--text-sub); font-weight: normal;"></span>
+            <div id="header-rate" class="header-rate" style="margin: 0;">
+                <span>¥</span> 
             </div>
-
         </div>
-
-        <div class="header-info">
-
-            <span class="header-date" id="header-clock">LOADING...</span>
-
-        </div>
-
-    </h1>
-
+    </div>
 </header>
 
 
@@ -1109,22 +1097,6 @@
 
     </div>
 
-    <div class="nav-item" onclick="switchTab('map', this)">
-
-        <span class="nav-icon">🗺️</span>
-
-        <span>地圖</span>
-
-    </div>
-
-    <div class="nav-item" onclick="switchTab('photos', this)">
-
-        <span class="nav-icon">📸</span>
-
-        <span>相簿</span>
-
-    </div>
-
 </footer>
 
 
@@ -1194,8 +1166,6 @@
     ];
 
     // === 資料庫 (已根據 CSV 完整更新所有行程) ===
-
-    // === 資料庫 (已根據 CSV 完整更新所有行程) (略，維持上次版本) ===
 
     const itineraryData = [ /* ... (略，維持上次版本) ... */
 
@@ -1443,7 +1413,7 @@
 
             row.insertCell().innerHTML = `<div style="padding:5px; text-align:right;">¥${exp.jpy.toLocaleString('en-US')}</div>`;
 
-            row.insertCell().innerHTML = `<div style="padding:5px; text-align:right;"><button onclick="deleteExpense(${exp.id})" style="background:none; border:none; color:#D32F2F; font-size:1rem; cursor:pointer;">&times;</button></div>`;
+            row.insertCell().innerHTML = `<div style="padding:5px; text-align:right;"><button onclick="deleteExpense(${exp.id})" style="background:none; border:none; color:#D32F2F; font-size:1rem; cursor:pointer;">×</button></div>`;
 
         });
 
@@ -1790,6 +1760,12 @@
     }
 
     
+    // NEW: Function to display the hardcoded currency rate
+    function updateHeaderRate() {
+        document.getElementById('header-rate').innerHTML = `<span>¥</span> ${CURRENT_RATE}`;
+    }
+
+    
 
     // Initial load
 
@@ -1800,6 +1776,9 @@
         calcToTWD();
 
         updateTime();
+        
+        // NEW: Call the new function to display the currency rate immediately
+        updateHeaderRate();
 
         setInterval(updateTime, 1000);
 
