@@ -13,7 +13,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght=700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -120,15 +120,36 @@
             max-width: 800px; /* RWD: 限制最大寬度，置中顯示 */
             margin: 0 auto;
         }
-
-        .project-label {
-            font-size: 0.8rem;
-            font-weight: 900;
-            color: #888;
-            padding: 8px 15px 0;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        
+        /* 2. 新增導覽列分頁樣式 */
+        .project-tab-header {
+            display: flex;
+            justify-content: space-around;
+            padding: 0 15px;
         }
+        .tab-button {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-button.active {
+            color: #1A374D;
+            border-bottom: 3px solid #1A374D;
+        }
+        .project-content {
+            display: none; /* 預設隱藏 */
+        }
+        .project-content.active {
+            display: block; /* 顯示選中的 Project */
+        }
+        /* -- 結束分頁樣式 -- */
+
 
         .date-scroller {
             display: flex;
@@ -163,8 +184,6 @@
             margin: 0 auto; 
             background: transparent;
         }
-
-        /* ... [其它現有樣式，如 .day-header, .timeline-wrapper, .card, etc.] ... */
 
         .timeline-wrapper { position: relative; padding-left: 20px; }
         .timeline-line {
@@ -322,10 +341,18 @@
 </header>
 
 <div class="project-nav-container">
-    <div class="project-label">PROJECT 1 (12/14 - 12/20)</div>
-    <div class="date-scroller" id="nav-proj1"></div>
-    <div class="project-label" style="border-top:1px dashed #eee; margin-top:5px;">PROJECT 2 (12/21 - 12/27)</div>
-    <div class="date-scroller" id="nav-proj2"></div>
+    <div class="project-tab-header">
+        <div class="tab-button active" onclick="switchProject(1, this)">PROJECT 1 (12/14 - 12/20)</div>
+        <div class="tab-button" onclick="switchProject(2, this)">PROJECT 2 (12/21 - 12/27)</div>
+    </div>
+    
+    <div id="project-content-1" class="project-content active">
+        <div class="date-scroller" id="nav-proj1"></div>
+    </div>
+    
+    <div id="project-content-2" class="project-content">
+        <div class="date-scroller" id="nav-proj2"></div>
+    </div>
 </div>
 
 <main class="container">
@@ -349,7 +376,7 @@
                     </div>
                 </div>
                 <div style="text-align:right; font-size:0.8rem; color:#666;" id="calc-rate-info">
-                    目前匯率: 0.215 (預設)
+                    目前匯率: 0.2009015 (Google)
                 </div>
             </div>
         </div>
@@ -397,7 +424,11 @@
 <script>
     // 5. 移除模擬日期，使用真實日期
     const MOCK_TODAY = null; 
-    let currentExchangeRate = 0.215; // 預設匯率 (萬一 API 失敗)
+    
+    // ** FIX 1: 匯率修復 **
+    // 根據 Google Search 取得的即時匯率: 1 JPY = 0.2009015 TWD
+    let currentExchangeRate = 0.2009015; 
+
 
     // === 資料庫 (已更新 12/18 行程與相似店家資訊) ===
     const itineraryData = [
@@ -564,7 +595,8 @@
                     img: "https://64.media.tumblr.com/743445ce9b11f10bb6d79cd0c406718a/c26c9d2d062ac7b6-49/s1280x1920/e8276ec998094d198f20e3b974d568f207500304.jpg",
                     desc: "移動日：入住機器人櫃台飯店。周邊超市與雜貨店導航：",
                     supermarkets: [
-                        { name: "🛒 3COINS 淺草ROX店", meta: "步行約 6 分鐘", map: "3COINS plus淺草ROX店" }, { name: "西友淺草 ROX 店", meta: "24H | 350m", map: "西友浅草ROX食品館" },
+                        { name: "🛒 3COINS 淺草ROX店", meta: "步行約 6 分鐘", map: "3COINS plus淺草ROX店" },
+                        { name: "西友淺草 ROX 店", meta: "24H | 350m", map: "西友浅草ROX食品館" },
                         { name: "Life 淺草店", meta: "生鮮豐富 | 450m", map: "ライフ浅草店" },
                         { name: "Ozeki 淺草雷門店", meta: "品質好 | 600m", map: "オオゼキ浅草雷門店" },
                     ],
@@ -576,7 +608,7 @@
                     transportGuide: [
                         "成田機場 T2 尋找 <span class='keyword-orange'>京成電鐵 (Keisei)</span>。",
                         "搭乘 <span class='keyword-orange'>Access 特急</span>。",
-                        "往 <span class='keyword-blue'>羽田空港</span> 或 <span class='keyword-blue'>西馬込</span> 方向 (直達不轉車)。",
+                        "方向：往 <span class='keyword-blue'>羽田空港</span> 或 <span class='keyword-blue'>西馬込</span> 方向 (直達不轉車)。",
                         "下車站：<span class='keyword-orange'>A18 淺草 (Asakusa)</span>。",
                         "出站後：建議走 A2b 出口 (有電梯)，步行約 5-8 分鐘。"
                     ],
@@ -658,8 +690,8 @@
                 },
                 {
                     time: "15:00", title: "下島包裝 & 合羽橋",
-                    img: "https://64.media.tumblr.com/f635d49a876cb93d2ff16e07adc20b3e/f9a8b36b323a973f-69/s2048x3072/47d1a36324407ecef3b84e3daea10471ec913bff.jpg",
-                    desc: "最後補貨：文具、包裝用品、廚房道具。**附近有 3COINS 新宿LUMINE EST 店 可順道前往。**", map: "シモジマ 浅草橋本店"
+                    desc: "最後補貨：文具、包裝用品、廚房道具。**附近有 3COINS 新宿LUMINE EST 店 可順道前往。**",
+                    map: "シモジマ 浅草橋本店"
                 }
             ]
         },
@@ -703,31 +735,16 @@
         return 'chip-future';
     }
 
-    // === 匯率邏輯 (3. & 4.) ===
-    async function fetchExchangeRate() {
+    // ** FIX 1: 匯率修復 **
+    function initializeExchangeRate() {
         const rateEl = document.getElementById('header-rate');
         const infoEl = document.getElementById('calc-rate-info');
         
-        try {
-            // 使用免費 API 抓取匯率 (Frankfurter API)
-            const response = await fetch('https://api.frankfurter.app/latest?from=JPY&to=TWD');
-            if (!response.ok) throw new Error('Network response was not ok');
-            
-            const data = await response.json();
-            currentExchangeRate = data.rates.TWD;
-            
-            // 更新 Header UI: 顯示 1日圓等於多少新台幣
-            rateEl.innerHTML = `<span>¥</span>1 = NT$${currentExchangeRate.toFixed(3)}`;
-            infoEl.innerText = `即時匯率: 1 JPY = NT$${currentExchangeRate.toFixed(4)}`;
-            
-            // 如果輸入框有值，重新計算
-            calcToTWD();
-            
-        } catch (error) {
-            console.warn('匯率抓取失敗，使用預設值', error);
-            rateEl.innerHTML = `<span>¥</span> (離線)`;
-            infoEl.innerText = `預設匯率: 1 JPY = NT$${currentExchangeRate} (無法連線)`;
-        }
+        // 更新 Header UI: 顯示 1日圓等於多少新台幣 (標註 Google 來源)
+        rateEl.innerHTML = `<span>¥</span>1 = NT$${currentExchangeRate.toFixed(4)} <span style="font-size:0.75rem; font-weight:normal;">(Google)</span>`;
+        infoEl.innerText = `即時匯率: 1 JPY = NT$${currentExchangeRate.toFixed(6)}`;
+        
+        calcToTWD();
     }
 
     function calcToTWD() {
@@ -741,7 +758,29 @@
         }
     }
 
-    // === 渲染邏輯 (已加入 SEO alt) ===
+    // ** FIX 2: 導覽列分頁邏輯 **
+    function switchProject(projectId, buttonEl) {
+        // 1. 切換按鈕樣式
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        if (buttonEl) {
+            buttonEl.classList.add('active');
+        } else {
+            // 首次載入時設置預設 active
+            document.querySelector(`.project-tab-header .tab-button:nth-child(${projectId})`).classList.add('active');
+        }
+
+
+        // 2. 切換內容顯示
+        document.querySelectorAll('.project-content').forEach(content => content.classList.remove('active'));
+        document.getElementById(`project-content-${projectId}`).classList.add('active');
+
+        // 3. 滾動到第一個行程點
+        // 在切換 Project 時，滾動頁面到導覽列下方，方便查看日期清單
+        const headerOffset = document.querySelector('.project-nav-container').offsetHeight + 10;
+        window.scrollTo({ top: headerOffset, behavior: "smooth" });
+    }
+
+    // === 渲染邏輯 ===
     function renderApp() {
         const navProj1 = document.getElementById('nav-proj1');
         const navProj2 = document.getElementById('nav-proj2');
@@ -765,7 +804,6 @@
         itineraryData.forEach(day => {
             let eventsHtml = '';
             day.events.forEach((evt, idx) => {
-                // SEO: 加入 alt 屬性
                 const imgHtml = evt.img ? `<img src="${evt.img}" class="card-img" alt="${evt.title}" loading="lazy">` : '';
                 
                 let alertHtml = '';
@@ -795,7 +833,7 @@
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
                         // 使用 Google Maps 導航連結
-                        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
+                        const mapUrl = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(m.map)}`;
                         marketHtml += `
                             <a href="${mapUrl}" target="_blank" class="market-btn">
                                 <div class="market-name"> ${m.name}</div>
@@ -805,7 +843,7 @@
                     marketHtml += `</div>`;
                 }
 
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map || evt.title)}`;
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(evt.map || evt.title)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent((evt.map || evt.title) + ' 天氣')}`;
                 
                 const btnsHtml = `
@@ -890,8 +928,11 @@
     // Init
     setInterval(updateTime, 1000);
     updateTime();
-    fetchExchangeRate(); // 啟動時抓取匯率
+    initializeExchangeRate(); // 載入固定匯率
     renderApp();
+    
+    // 設置預設為 PROJECT 1
+    switchProject(1); 
 
 </script>
 </body>
