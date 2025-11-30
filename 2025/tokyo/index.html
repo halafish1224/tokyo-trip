@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="description" content="2025東京冬日14天深度自由行行程表 - 淺草、鎌倉、橫濱、原宿、迪士尼周邊完整規劃。包含即時匯率與行程導航。">
-    <meta name="keywords" content="東京旅遊, 2025東京, 淺草, 鎌倉, 原宿, 3COINS, 行程表, 日幣匯率">
+    <meta name="description" content="2025東京冬日14天深度自由行行程表 - 淺草、鎌倉、橫濱、原宿、迪士尼周邊完整規劃。包含即時匯率、行程導航與記帳本。">
+    <meta name="keywords" content="東京旅遊, 2025東京, 淺草, 鎌倉, 原宿, 3COINS, 行程表, 日幣匯率, 記帳">
     <meta name="author" content="Gemini AI">
     <meta name="robots" content="noindex, nofollow"> 
     
@@ -409,6 +409,51 @@
             color: #9CA3AF;
         }
 
+        /* 記帳本樣式 */
+        .account-card {
+            background: white; border-radius: 12px; padding: 20px;
+            margin-bottom: 15px; box-shadow: var(--shadow);
+        }
+        .acc-form {
+            display: flex; gap: 8px; margin-bottom: 15px;
+        }
+        .acc-input {
+            padding: 10px; border: 1px solid #DDD; border-radius: 6px;
+            font-size: 0.95rem; width: 100%;
+        }
+        .acc-select {
+            padding: 10px; border: 1px solid #DDD; border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        .acc-btn-add {
+            background: #1A374D; color: white; border: none;
+            border-radius: 6px; padding: 10px 15px; font-weight: bold;
+            cursor: pointer;
+        }
+        .expense-list {
+            list-style: none; padding: 0; margin: 0;
+        }
+        .expense-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; border-bottom: 1px solid #EEE;
+        }
+        .expense-info { flex: 1; }
+        .expense-title { font-weight: bold; font-size: 0.95rem; color: #333; }
+        .expense-meta { font-size: 0.8rem; color: #888; display: flex; gap: 8px; }
+        .expense-amt { font-weight: bold; color: #2E7D32; font-size: 1rem; margin-right: 10px; }
+        .expense-del {
+            background: #FFEBEE; color: #C62828; border: none;
+            width: 30px; height: 30px; border-radius: 50%;
+            cursor: pointer; font-size: 1.2rem; line-height: 1;
+        }
+        .acc-summary {
+            background: #F3F4FF; padding: 15px; border-radius: 8px;
+            margin-bottom: 20px; text-align: center;
+        }
+        .acc-total-label { font-size: 0.85rem; color: #666; }
+        .acc-total-val { font-size: 1.8rem; font-weight: 900; color: #1A374D; }
+        .acc-total-twd { font-size: 0.9rem; color: #888; font-weight: bold; }
+
         .footer-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(255,255,255,0.98);
@@ -503,6 +548,35 @@
         <div id="itinerary-list"></div>
     </div>
 
+    <div id="tab-account" class="section">
+        <div class="account-card">
+            <div class="acc-summary">
+                <div class="acc-total-label">目前總花費 (JPY)</div>
+                <div class="acc-total-val" id="acc-total-val">¥0</div>
+                <div class="acc-total-twd" id="acc-total-twd">約 NT$0</div>
+            </div>
+
+            <div class="acc-form">
+                <input type="text" id="acc-item" class="acc-input" placeholder="品項 (如: 拉麵)">
+            </div>
+            <div class="acc-form">
+                <input type="number" id="acc-cost" class="acc-input" placeholder="金額 (日幣)">
+                <select id="acc-type" class="acc-select">
+                    <option value="食">🍔 食</option>
+                    <option value="行">🚄 行</option>
+                    <option value="購">🛍️ 購</option>
+                    <option value="住">🏨 住</option>
+                    <option value="他">🔖 他</option>
+                </select>
+                <button class="acc-btn-add" onclick="addExpense()">＋</button>
+            </div>
+            
+            <h3 style="margin: 20px 0 10px; font-size: 1rem; color:#555;">支出明細</h3>
+            <ul id="expense-list" class="expense-list">
+                </ul>
+        </div>
+    </div>
+
     <div id="tab-tools" class="section">
         <div class="tools-card">
             <h2 style="margin-top:0">💱 即時匯率計算機</h2>
@@ -543,7 +617,6 @@
     </div>
 </main>
 
-<!-- 指差卡放大 Modal -->
 <div id="phrase-modal" class="phrase-modal" onclick="closePhraseModal(event)">
     <div class="phrase-modal-content">
         <button class="phrase-modal-close" type="button" onclick="hidePhraseModal()">×</button>
@@ -557,6 +630,9 @@
 <nav class="footer-nav">
     <div class="nav-item active" onclick="switchTab('trip', this)">
         <span class="nav-icon">🗺️</span>行程
+    </div>
+    <div class="nav-item" onclick="switchTab('account', this)">
+        <span class="nav-icon">📒</span>記帳
     </div>
     <div class="nav-item" onclick="switchTab('tools', this)">
         <span class="nav-icon">🧰</span>工具箱
@@ -625,6 +701,7 @@
                 {
                     time: "19:00", title: "逸品閣 (晚餐)",
                     desc: "享用第一頓晚餐，體驗當地中華料理或日式定食。",
+                    review: "Google 評論 (4.0★)：份量十足的中華料理，麻婆豆腐和餃子是必點招牌，深受當地上班族喜愛。",
                     map: "逸品閣"
                 }
             ]
@@ -637,12 +714,25 @@
                     img: "https://64.media.tumblr.com/6ca2d4f71caedc5d5c1d2eb9e6573e2a/c26c9d2d062ac7b6-d0/s1280x1920/0ebc5d1c8c2bcf5c93d82670f5469b2d48047b69.jpg",
                     desc: "招財貓發源地，成千上萬隻白貓向你招手。",
                     review: "Google 評論 (4.4★)：非常療癒的貓咪軍團！建議早點到避開人潮。",
-                    next: { time: "電車 15 分", dist: "1.2km" },
+                    next: { time: "步行", dist: "松陰神社" },
                     map: "豪徳寺"
                 },
                 {
-                    time: "13:00", title: "世田谷舊物市集 & 下北澤",
-                    desc: "在古著與雜貨天堂尋寶，感受東京次文化。",
+                    time: "10:30", title: "松陰神社",
+                    desc: "供奉幕末教育家吉田松陰，充滿歷史氛圍的神社。",
+                    review: "Wiki: 供奉吉田松陰，是學問之神，境內有復原的松下村塾，環境清幽。",
+                    map: "松陰神社"
+                },
+                {
+                    time: "13:00", title: "世田谷舊物市集 (ボロ市)",
+                    desc: "已有440年歷史的傳統市集。**記得尋找 Furoshiki (風呂敷) 當作紀念**。",
+                    review: "Wiki: 東京都無形民俗文化財，每年12月與1月舉辦，販售骨董、古著、裝飾品與日式名產「代官餅」。",
+                    map: "世田谷代官屋敷"
+                },
+                {
+                    time: "16:00", title: "下北澤 散策",
+                    desc: "古著聖地、劇場文化與咖哩激戰區。",
+                    review: "Google 評論: 充滿年輕活力的街區，巷弄間隱藏著無數古著店與特色咖啡廳。",
                     map: "下北沢"
                 }
             ]
@@ -651,17 +741,36 @@
             date: "12/16 (二)", id: "d3", theme: "theme-green", project: 1, fullDate: "2025-12-16",
             events: [
                 {
-                    time: "09:30", title: "北鎌倉 明月院",
+                    time: "09:30", title: "北鎌倉站 -> 明月院",
                     img: "https://64.media.tumblr.com/e2ceecd83ba29c418cd7e6558fd063ff/c26c9d2d062ac7b6-a7/s1280x1920/9182b2b0a711e555af4610bbd7633c774e81097c.jpg",
-                    desc: "著名的圓窗景色，充滿禪意。",
-                    review: "Google 評論 (4.3★)：圓窗 (悟りの窓) 是必拍景點，庭園非常美。",
-                    next: { time: "步行 15 分", dist: "1km" },
+                    desc: "著名的圓窗景色 (悟りの窓)，充滿禪意。",
+                    review: "Google 評論 (4.3★)：圓窗是必拍景點，建議開門就去，避開人潮。",
                     map: "明月院"
                 },
                 {
-                    time: "14:00", title: "鶴岡八幡宮 & 小町通",
+                    time: "11:00", title: "建長寺",
+                    desc: "鎌倉五山第一位，日本最古老的禪宗道場。",
+                    review: "Wiki: 氣勢恢宏的三門與法堂，境內深處的半僧坊可眺望相模灣。",
+                    next: { time: "步行", dist: "鶴岡八幡宮" },
+                    map: "建長寺"
+                },
+                {
+                    time: "13:00", title: "鶴岡八幡宮 & 小町通",
                     desc: "鎌倉的心臟地帶，參拜後逛街吃小吃。",
+                    review: "Wiki: 鎌倉幕府的守護神。小町通被譽為『邊走邊吃的天堂』。",
                     map: "鶴岡八幡宮"
+                },
+                {
+                    time: "15:00", title: "寶戒寺",
+                    desc: "以萩花聞名的『萩之寺』，供奉地藏菩薩。",
+                    review: "Google 評論: 相對清靜的寺院，環境優雅，可以享受片刻寧靜。",
+                    map: "宝戒寺"
+                },
+                {
+                    time: "16:30", title: "七里濱 (夕陽)",
+                    desc: "前往海邊欣賞江之島與富士山的夕陽絕景。",
+                    review: "Google 評論: 這裡的夕陽被選為『日本海灘百選』，運氣好能看到富士山輪廓。",
+                    map: "七里ヶ浜海岸駐車場"
                 }
             ]
         },
@@ -679,12 +788,25 @@
                         "📌 reserve toast Pickup on Saturday 12/27",
                         "預約品項: 540*3, 700*1"
                     ],
-                    next: { time: "步行 15 分", dist: "1.1km" },
+                    next: { time: "步行", dist: "今戶神社" },
                     map: "Pelican Bread"
                 },
                 {
-                    time: "15:30", title: "淺草寺 羽子板市",
+                    time: "10:30", title: "今戶神社",
+                    desc: "招財貓發源地之一，也是著名的結緣神社。",
+                    review: "Wiki: 供奉伊弉諾尊與伊弉冉尊夫婦，以祈求良緣靈驗著稱。",
+                    map: "今戸神社"
+                },
+                {
+                    time: "11:30", title: "淺草神社",
+                    desc: "位於淺草寺本堂右側，供奉淺草寺的創立者。",
+                    review: "Wiki: 國家重要文化財，是體驗江戶風情的重要景點。",
+                    map: "浅草神社"
+                },
+                {
+                    time: "13:00", title: "淺草寺 歲之市 (羽子板市)",
                     desc: "歲末傳統市集，購買華麗的羽子板驅邪祈福。",
+                    review: "Wiki: 江戶時代延續至今的歲末傳統，販售繪有歌舞伎演員的華麗羽子板，充滿過年熱鬧氣氛。",
                     map: "淺草寺"
                 }
             ]
@@ -695,27 +817,23 @@
                 {
                     time: "10:00", title: "神樂坂散策",
                     img: "https://64.media.tumblr.com/d76895f834c765d23831b099afe50af2/c26c9d2d062ac7b6-08/s1280x1920/8dc32fa9e91518d7c705f2a2fd3ea13b661adb98.jpg",
-                    desc: "東京小巴黎，石板路與黑圍牆的優雅街區，適合悠閒散步。",
+                    desc: "東京小巴黎，石板路與黑圍牆的優雅街區。",
+                    review: "Google 評論: 充滿『小巴黎』風情的石板路，巷弄間隱藏著許多高級料亭，適合午後悠閒漫步。",
                     next: { time: "電車約 20 分", dist: "原宿" },
                     map: "神樂坂"
                 },
                 {
                     time: "13:30", title: "3COINS 原宿本店 (Flagship)",
                     img: "https://64.media.tumblr.com/001306385d3092265017e4f0a07e997a/4294d137f815d6c8-50/s1280x1920/2b398a1c93a02c81d898555e14300e8445771146.jpg",
-                    desc: "Flagship 旗艦店！除了限定商品，還有客製化刺繡服務。是 300 円雜貨的天花板。",
+                    desc: "Flagship 旗艦店！除了限定商品，還有客製化刺繡服務。",
                     review: "Google 評論：這間店品項最齊全，還有原宿限定的甜點區。",
                     map: "3COINS 原宿本店"
                 },
                 {
-                    time: "15:00", title: "Flying Tiger Copenhagen",
+                    time: "15:00", title: "FLYING TIGER Copenhagen",
                     desc: "來自丹麥的北歐風平價雜貨，色彩繽紛充滿設計感。",
-                    next: { time: "步行 10 分鐘", dist: "表參道" },
+                    review: "Google 評論: 來自哥本哈根的設計雜貨，色彩鮮豔且幽默，價格親民，非常適合挑選伴手禮。",
                     map: "Flying Tiger Copenhagen 表参道ストア"
-                },
-                {
-                    time: "16:30", title: "原宿/表參道 散策",
-                    desc: "感受東京潮流中心，欣賞表參道著名的冬季點燈（若時間允許）。",
-                    map: "原宿駅"
                 }
             ]
         },
@@ -726,11 +844,13 @@
                     time: "10:00", title: "高圓寺商店街",
                     img: "https://64.media.tumblr.com/a4bc9430fbdc116b723880593f8e3aa6/c26c9d2d062ac7b6-5a/s1280x1920/2510d23bfdd3cc61c60afaa37ca7d40280b8da3e.jpg",
                     desc: "昭和復古氛圍，二手衣與純情商店街。",
+                    review: "Google 評論: 這裡有真正的『東京生活感』，純情商店街保留昔日風情，古著店數量驚人且價格親民。",
                     map: "高圓寺"
                 },
                 {
                     time: "19:00", title: "春木屋 荻窪本店",
                     desc: "東京拉麵的經典老味道。",
+                    review: "Google 評論 (4.1★): 荻窪拉麵的始祖級名店。昭和時代傳承至今的醬油湯頭，魚介香氣濃郁，麵條口感絕佳。",
                     map: "春木屋 荻窪本店"
                 }
             ]
@@ -742,11 +862,13 @@
                     time: "10:30", title: "皇居外苑",
                     img: "https://64.media.tumblr.com/27b7f8ab1233bde8137cc242c15b1df5/c26c9d2d062ac7b6-02/s1280x1920/c41b92a1a6ae65f14714119b7481073192b09f89.jpg",
                     desc: "東京的中心，感受皇室威儀。",
+                    review: "Wiki: 寬闊的廣場種植了約2000棵黑松，二重橋是皇居最著名的拍照點，氛圍莊嚴肅穆。",
                     map: "皇居外苑"
                 },
                 {
                     time: "14:00", title: "日本橋三越",
                     desc: "日本最古老的百貨公司。",
+                    review: "Wiki: 日本第一家百貨公司，文藝復興樣式的建築被指定為重要文化財，入口的獅子像是著名的會面點。",
                     map: "日本橋三越"
                 }
             ]
@@ -786,15 +908,40 @@
             date: "12/22 (一)", id: "d9", theme: "theme-blue", project: 2, fullDate: "2025-12-22",
             events: [
                 {
-                    time: "10:00", title: "湘南單軌電車",
+                    time: "09:30", title: "大船站 & 大船觀音",
                     img: "https://64.media.tumblr.com/8f5331157216396ab6fd3e643c8e4a0d/c26c9d2d062ac7b6-b7/s1280x1920/00a24a67bedb8d08cce39b972da359a33da5e24a.jpg",
-                    desc: "體驗懸掛在空中的刺激電車。",
+                    desc: "出大船站即可看見巨大的白衣觀音像，守護著湘南。",
+                    review: "Wiki: 巨大的白衣觀音像，內部可參觀，是當地的地標。",
+                    map: "大船観音寺"
+                },
+                {
+                    time: "10:30", title: "湘南單軌電車 (前往江之島/高校前)",
+                    desc: "體驗懸掛在空中的刺激電車（湘南江之島站下車，轉江之電）。",
+                    review: "Google 評論: 被稱為『湘南雲霄飛車』！懸掛式設計非常少見，穿過隧道和山坡時速度感十足。",
                     map: "湘南江の島駅"
                 },
                 {
-                    time: "14:00", title: "鎌倉大佛",
-                    desc: "國寶級露天青銅大佛。",
+                    time: "11:30", title: "鎌倉高校前 (下車拍照)",
+                    desc: "灌籃高手平交道，拍完後前往下一站。",
+                    review: "Wiki: 因動畫《灌籃高手》片頭曲場景而聞名世界，面海的平交道景色絕美。",
+                    map: "鎌倉高校前駅"
+                },
+                {
+                    time: "12:15", title: "極樂寺站 & café recette",
+                    desc: "在極樂寺下車，步行至由古民家改建的高級吐司專賣店/咖啡廳享用午餐。",
+                    review: "Google 評論: 專賣高級吐司的咖啡廳，店內氛圍優雅，法式吐司非常受歡迎。",
+                    map: "café recette 鎌倉"
+                },
+                {
+                    time: "14:00", title: "長谷寺 & 鎌倉大佛",
+                    desc: "參觀花之寺長谷寺，隨後步行至高德院看大佛。",
+                    review: "Wiki: 長谷寺以紫陽花聞名，大佛則是國寶級露天青銅佛像，高11.3公尺。",
                     map: "鎌倉大仏殿高徳院"
+                },
+                {
+                    time: "16:00", title: "鶴岡八幡宮 & 超市",
+                    desc: "返回鎌倉站，若有時間可再訪八幡宮或在車站周邊超市補貨。",
+                    map: "鎌倉駅"
                 }
             ]
         },
@@ -808,9 +955,16 @@
                     map: "雷門"
                 },
                 {
-                    time: "13:00", title: "越谷 LakeTown",
-                    desc: "日本最大購物中心，分為 Kaze, Mori, Outlet 三區。",
-                    map: "越谷レイクタウン"
+                    time: "11:00", title: "AEON MALL LakeTown OUTLET",
+                    desc: "日本最大購物中心，包含 Outlet 區，盡情購物。",
+                    review: "Wiki: 分為 Kaze、Mori 和 Outlet 三大棟，佔地廣大，是購物狂的天堂。",
+                    map: "越谷レイクタウン アウトレット"
+                },
+                {
+                    time: "16:00", title: "二木菓子 (可於 LakeTown 或 上野 購買)",
+                    desc: "購買零食伴手禮的最佳地點 (LakeTown Mori 1F 有分店)。",
+                    review: "Google 評論: 價格便宜種類齊全，是購買大量零食伴手禮的首選。",
+                    map: "二木菓子"
                 }
             ]
         },
@@ -818,15 +972,29 @@
             date: "12/24 (三)", id: "d11", theme: "theme-green", project: 2, fullDate: "2025-12-24",
             events: [
                 {
-                    time: "12:00", title: "敘敘苑 (橫濱)",
+                    time: "12:00", title: "敘敘苑 (橫濱 Sky Building)",
                     img: "https://64.media.tumblr.com/f5c39698e15581b8640a571d55dca56c/f9a8b36b323a973f-99/s1280x1920/a2ae00c803208da6b2d9d2afe59ba43b79d3269b.jpg",
                     desc: "高空景觀燒肉午餐。",
+                    review: "Google 評論 (4.5★): 絕美景觀燒肉！午間套餐CP值極高，牛五花入口即化。",
                     map: "叙々苑 横浜スカイビル店"
                 },
                 {
-                    time: "17:00", title: "橫濱空中纜車",
-                    desc: "前往紅磚倉庫感受聖誕氣氛。",
-                    map: "YOKOHAMA AIR CABIN"
+                    time: "14:30", title: "漫步前往紅磚倉庫 (約40分鐘)",
+                    desc: "沿著橫濱港灣漫步，享受海風與美景。",
+                    transportGuide: [
+                        "路線建議：從橫濱站/Sky Building 出發",
+                        "途經：<span class='keyword-blue'>Nissan Global HQ Gallery</span> (穿越)",
+                        "途經：<span class='keyword-blue'>高島水際線公園</span>",
+                        "途經：<span class='keyword-orange'>汽車道 (Kishamichi Promenade)</span> - 這是舊鐵道改建的海上步道，風景極佳",
+                        "抵達：橫濱紅磚倉庫"
+                    ],
+                    map: "汽車道"
+                },
+                {
+                    time: "15:30", title: "橫濱紅磚倉庫",
+                    desc: "參觀聖誕市集（若有）與歷史建築。",
+                    review: "Wiki: 建於明治末期至大正初期的磚造歷史建築，現為文化商業設施，充滿異國情調。",
+                    map: "横浜赤レンガ倉庫"
                 }
             ]
         },
@@ -834,15 +1002,35 @@
             date: "12/25 (四)", id: "d12", theme: "theme-red", project: 2, fullDate: "2025-12-25",
             events: [
                 {
-                    time: "08:00", title: "築地 MATCHA STAND",
-                    desc: "現刷濃郁抹茶拿鐵。",
+                    time: "08:30", title: "築地市場 & MATCHA STAND",
+                    desc: "享用海鮮早餐與現刷濃郁抹茶拿鐵。",
                     img: "https://64.media.tumblr.com/e7f7e5a9f6617cce141a0b453600193d/f9a8b36b323a973f-89/s2048x3072/e1a056821c51087ea2a33482edd3f81423120ba0.jpg",
-                    map: "MATCHA STAND MARUNI"
+                    review: "Google 評論 (4.6★): 築地場外市場的人氣店，抹茶口感濃郁。",
+                    map: "築地場外市場"
                 },
                 {
-                    time: "10:00", title: "GINZA SIX",
-                    desc: "銀座最新潮百貨，屋頂花園可休憩。",
+                    time: "11:00", title: "GINZA SIX (屋頂庭園 & 建築)",
+                    desc: "參觀銀座最新地標，欣賞中央挑空藝術與屋頂庭園美景。",
+                    review: "Wiki: 銀座最大的商業設施，屋頂花園可360度眺望銀座，建築設計充滿現代感。",
                     map: "GINZA SIX"
+                },
+                {
+                    time: "12:30", title: "銀座 Uniqlo 旗艦店 & Ginza Astre",
+                    desc: "逛逛12層樓高的 Uniqlo，並前往 Ginza Astre (銀座アスター) 外帶部購買美食。",
+                    map: "ユニクロ 銀座店"
+                },
+                {
+                    time: "14:30", title: "返回飯店 (Henn na Hotel)",
+                    desc: "先將戰利品放回飯店，稍作休息。",
+                    next: { time: "步行", dist: "合羽橋" },
+                    map: "変なホテル東京 浅草田原町"
+                },
+                {
+                    time: "15:30", title: "合羽橋道具街",
+                    desc: "日本第一的廚房用品街，就在田原町站附近。留意商店多於 17:00 打烊。",
+                    img: "https://64.media.tumblr.com/f635d49a876cb93d2ff16e07adc20b3e/f9a8b36b323a973f-69/s2048x3072/47d1a36324407ecef3b84e3daea10471ec913bff.jpg",
+                    review: "Google 評論: 廚藝愛好者的聖地，從專業刀具、鍋具到超逼真的食物模型應有盡有。",
+                    map: "かっぱ橋道具街"
                 }
             ]
         },
@@ -850,14 +1038,21 @@
             date: "12/26 (五)", id: "d13", theme: "theme-blue", project: 2, fullDate: "2025-12-26",
             events: [
                 {
-                    time: "12:00", title: "敘敘苑 (新宿 Opera City)",
+                    time: "09:30", title: "淺草美食巡禮",
+                    desc: "淺草花月堂 (波羅麵包) & 龜十 (銅鑼燒)。",
+                    review: "Google 評論: 花月堂外酥內軟，龜十銅鑼燒餅皮像鬆餅般蓬鬆，通常需要排隊。",
+                    map: "浅草花月堂 本店"
+                },
+                {
+                    time: "12:30", title: "敘敘苑 (新宿 Opera City)",
                     desc: "53樓高空景觀午餐。",
+                    review: "Google 評論: 位於53樓的無敵視野，邊吃燒肉邊俯瞰東京高樓群。",
                     map: "叙々苑 新宿オペラシティ53"
                 },
                 {
-                    time: "15:00", title: "下島包裝 & 合羽橋",
-                    img: "https://64.media.tumblr.com/f635d49a876cb93d2ff16e07adc20b3e/f9a8b36b323a973f-69/s2048x3072/47d1a36324407ecef3b84e3daea10471ec913bff.jpg",
-                    desc: "最後補貨：文具、包裝用品、廚房道具。**附近有 3COINS 新宿LUMINE EST 店 可順道前往。**", 
+                    time: "15:30", title: "下島包裝 (シモジマ)",
+                    desc: "最後補貨：文具、包裝用品、雜貨。", 
+                    review: "Google 評論: 『包裝控的天堂』！文具、紙袋、緞帶應有盡有，批發價格超划算。",
                     map: "シモジマ 浅草橋本店"
                 }
             ]
@@ -948,6 +1143,7 @@
         }
 
         calcToTWD();
+        renderExpenses(); // 更新記帳的匯率
     }
 
     function calcToTWD() {
@@ -958,6 +1154,67 @@
         } else {
             twdInput.value = "";
         }
+    }
+
+    // === 記帳本邏輯 ===
+    let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+
+    function addExpense() {
+        const item = document.getElementById('acc-item').value;
+        const cost = parseInt(document.getElementById('acc-cost').value);
+        const type = document.getElementById('acc-type').value;
+
+        if (!item || !cost) {
+            alert("請輸入完整資訊");
+            return;
+        }
+
+        expenses.unshift({
+            id: Date.now(),
+            item: item,
+            cost: cost,
+            type: type,
+            date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'})
+        });
+
+        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        document.getElementById('acc-item').value = '';
+        document.getElementById('acc-cost').value = '';
+        renderExpenses();
+    }
+
+    function removeExpense(id) {
+        expenses = expenses.filter(e => e.id !== id);
+        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        renderExpenses();
+    }
+
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        const totalVal = document.getElementById('acc-total-val');
+        const totalTwd = document.getElementById('acc-total-twd');
+        
+        list.innerHTML = '';
+        let total = 0;
+
+        expenses.forEach(e => {
+            total += e.cost;
+            const li = document.createElement('li');
+            li.className = 'expense-item';
+            li.innerHTML = `
+                <div class="expense-info">
+                    <div class="expense-title">${e.type} ${e.item}</div>
+                    <div class="expense-meta">${e.date}</div>
+                </div>
+                <div class="expense-amt">¥${e.cost.toLocaleString()}</div>
+                <button class="expense-del" onclick="removeExpense(${e.id})">×</button>
+            `;
+            list.appendChild(li);
+        });
+
+        totalVal.innerText = `¥${total.toLocaleString()}`;
+        const approxTwd = Math.round(total * currentExchangeRate);
+        totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
     }
 
     // === 渲染指差卡 ===
@@ -1185,6 +1442,7 @@
     fetchExchangeRate(); // 啟動時抓取匯率
     renderPhrases();
     renderApp();
+    renderExpenses();
 </script>
 </body>
 </html>
