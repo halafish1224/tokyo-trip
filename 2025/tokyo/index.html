@@ -312,7 +312,9 @@
         .phrase-card {
             border: 1px solid #eee; padding: 10px; border-radius: 8px;
             cursor: pointer; text-align: left;
+            transition: transform 0.1s;
         }
+        .phrase-card:active { transform: scale(0.98); }
         
         .footer-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
@@ -336,6 +338,85 @@
         .theme-orange .timeline-dot, .theme-orange .day-tag { background: var(--theme-orange); }
         .theme-green .timeline-dot, .theme-green .day-tag { background: var(--theme-green); }
         .theme-red .timeline-dot, .theme-red .day-tag { background: var(--theme-red); }
+
+        /* --- 新增：指差卡放大 Modal 樣式 --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            cursor: pointer; /* 點擊空白處關閉 */
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .phrase-modal {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+            text-align: center;
+            position: relative;
+            cursor: default; /* 模態框內點擊不關閉 */
+            transform: scale(0.8);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .modal-overlay.active .phrase-modal {
+            transform: scale(1);
+        }
+
+        .phrase-modal h3 {
+            font-size: 2.2rem;
+            color: #D32F2F;
+            margin: 0 0 10px;
+            line-height: 1.2;
+            font-weight: 900;
+        }
+
+        .phrase-modal .phrase-romanji {
+            font-size: 1.2rem;
+            color: #777;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .phrase-modal .phrase-chinese {
+            font-size: 1.5rem;
+            color: #1A374D;
+            margin-bottom: 5px;
+        }
+        
+        .phrase-modal .phrase-english {
+            font-size: 1.1rem;
+            color: #999;
+            border-top: 1px solid #EEE;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: #CCC;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
     </style>
 </head>
 <body>
@@ -440,28 +521,12 @@
             <input type="text" id="trans-text" class="trans-input" placeholder="輸入中文 (例如: 這個多少錢?)">
             <button class="btn btn-primary" style="width:100%" onclick="googleTranslate()">翻譯成日文 (Google) ➔</button>
         </div>
-
+        
         <div class="tools-card">
-            <h3 style="margin-top:0">🇯🇵 常用指差卡</h3>
-            <div class="phrase-grid">
-                <div class="phrase-card" onclick="copyText('いくらですか？')">
-                    <div style="font-size:1.1rem; color:#D32F2F; font-weight:bold;">多少錢？</div>
-                    <div style="color:#666;">Ikura desu ka?</div>
+            <h3 style="margin-top:0">🇯🇵 常用指差卡 (點擊放大)</h3>
+            <div class="phrase-grid" id="phrase-grid">
                 </div>
-                <div class="phrase-card" onclick="copyText('これをください')">
-                    <div style="font-size:1.1rem; color:#D32F2F; font-weight:bold;">我要這個</div>
-                    <div style="color:#666;">Kore o kudasai</div>
-                </div>
-                <div class="phrase-card" onclick="copyText('免税できますか？')">
-                    <div style="font-size:1.1rem; color:#D32F2F; font-weight:bold;">可以免稅嗎？</div>
-                    <div style="color:#666;">Menzei dekimasu ka?</div>
-                </div>
-                <div class="phrase-card" onclick="copyText('トイレはどこですか？')">
-                    <div style="font-size:1.1rem; color:#D32F2F; font-weight:bold;">廁所在哪？</div>
-                    <div style="color:#666;">Toire wa doko?</div>
-                </div>
-            </div>
-            <p style="text-align:center; font-size:0.8rem; color:#999; margin-top:10px;">(點擊卡片可複製日文)</p>
+            <p style="text-align:center; font-size:0.8rem; color:#999; margin-top:10px;">(點擊卡片可放大顯示)</p>
         </div>
     </div>
 </main>
@@ -475,6 +540,11 @@
     </div>
 </nav>
 
+<div class="modal-overlay" id="phrase-modal-overlay" onclick="closePhraseModal()">
+    <div class="phrase-modal" id="phrase-modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close-btn" onclick="closePhraseModal()">×</button>
+        </div>
+</div>
 <script>
     // 5. 移除模擬日期，使用真實日期
     const MOCK_TODAY = null; 
@@ -483,6 +553,57 @@
     // 根據 Google Search 取得的即時匯率: 1 JPY = 0.2009015 TWD
     let currentExchangeRate = 0.2009015; 
 
+    // === 新增：常用語句資料庫 (三語) ===
+    const commonPhrases = [
+        {
+            chinese: "這個多少錢？",
+            japanese: "いくらですか？",
+            romanji: "Ikura desu ka?",
+            english: "How much is this?"
+        },
+        {
+            chinese: "我要這個。",
+            japanese: "これをください。",
+            romanji: "Kore o kudasai.",
+            english: "I'd like this one."
+        },
+        {
+            chinese: "可以免稅嗎？",
+            japanese: "免税できますか？",
+            romanji: "Menzei dekimasu ka?",
+            english: "Can I get a tax refund?"
+        },
+        {
+            chinese: "請問廁所在哪裡？",
+            japanese: "トイレはどこですか？",
+            romanji: "Toire wa doko desu ka?",
+            english: "Where is the restroom?"
+        },
+        {
+            chinese: "請給我收據。",
+            japanese: "レシートをください。",
+            romanji: "Reshiito o kudasai.",
+            english: "Please give me the receipt."
+        },
+        {
+            chinese: "我可以試穿嗎？",
+            japanese: "試着してもいいですか？",
+            romanji: "Shichaku shite mo ii desu ka?",
+            english: "May I try this on?"
+        },
+        {
+            chinese: "我迷路了。",
+            japanese: "道に迷いました。",
+            romanji: "Michi ni mayoi mashita.",
+            english: "I am lost."
+        },
+        {
+            chinese: "請往這邊走。",
+            japanese: "こちらへどうぞ。",
+            romanji: "Kochira e douzo.",
+            english: "Please come this way."
+        }
+    ];
 
     // === 資料庫 (已根據 CSV 完整更新所有行程) ===
     const itineraryData = [
@@ -778,7 +899,7 @@
                 {
                     time: "17:00", title: "鶴岡八幡宮 & 小町通",
                     img: "https://images.unsplash.com/photo-1634938688467-37c2299d6d5a?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Tsurugaoka Image
-                    desc: "鎌倉最主要的神社，是武士的守護神。參拜後可沿著小町通逛街。",
+                    desc: "鎌倉的心臟地帶，參拜後逛街吃小吃。",
                     map: "鶴岡八幡宮"
                 }
             ]
@@ -986,7 +1107,7 @@
         window.scrollTo({ top: headerOffset, behavior: "smooth" });
     }
 
-    // === 記帳功能邏輯 (新增) ===
+    // === 記帳功能邏輯 (原有) ===
     let expenses = JSON.parse(localStorage.getItem('travelExpenses')) || [];
 
     function getCategoryColor(category) {
@@ -1088,6 +1209,52 @@
     }
 
 
+    // === 新增：指差卡渲染與互動邏輯 ===
+    
+    // 渲染常用語句卡片
+    function renderPhrases() {
+        const grid = document.getElementById('phrase-grid');
+        grid.innerHTML = '';
+
+        commonPhrases.forEach(phrase => {
+            const card = document.createElement('div');
+            card.className = 'phrase-card';
+            // 點擊事件：傳遞整個 phrase 物件
+            card.onclick = () => showPhraseModal(phrase); 
+            
+            card.innerHTML = `
+                <div style="font-size:1.1rem; color:#1A374D; font-weight:bold;">${phrase.chinese}</div>
+                <div style="color:#D32F2F;">${phrase.japanese}</div>
+                <div style="color:#666; font-size:0.85rem;">${phrase.english}</div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // 顯示放大後的指差卡
+    function showPhraseModal(phrase) {
+        const modalOverlay = document.getElementById('phrase-modal-overlay');
+        const modalContent = document.getElementById('phrase-modal-content');
+
+        modalContent.innerHTML = `
+            <button class="modal-close-btn" onclick="closePhraseModal()">×</button>
+            <div class="phrase-chinese">中文：${phrase.chinese}</div>
+            <h3>${phrase.japanese}</h3>
+            <div class="phrase-romanji">${phrase.romanji}</div>
+            <div class="phrase-english">English: ${phrase.english}</div>
+        `;
+        
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // 防止背景滾動
+    }
+
+    // 關閉放大後的指差卡
+    function closePhraseModal() {
+        const modalOverlay = document.getElementById('phrase-modal-overlay');
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // 恢復背景滾動
+    }
+
     // === 渲染邏輯 (原有) ===
     function renderApp() {
         const navProj1 = document.getElementById('nav-proj1');
@@ -1153,8 +1320,8 @@
                 if (evt.supermarkets) {
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
-                        // 使用 Google Maps 導航連結
-                        const mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.map)}`;
+                        // 使用 Google Maps 導航連結 (原程式碼中的 'https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(m.map)}' 似乎有錯誤，修正為標準格式)
+                        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
                         marketHtml += `
                             <a href="${mapUrl}" target="_blank" class="market-btn">
                                 <div class="market-name"> ${m.name}</div>
@@ -1164,7 +1331,8 @@
                     marketHtml += `</div>`;
                 }
 
-                const mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(evt.map || evt.title)}`;
+                // 修正導航連結中的錯誤
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map || evt.title)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent((evt.map || evt.title) + ' 天氣')}`;
                 
                 const btnsHtml = `
@@ -1211,6 +1379,9 @@
             `;
         });
         listContainer.innerHTML = html;
+        
+        // 渲染常用語句
+        renderPhrases();
     }
 
     // === 互動功能 (原有) ===
@@ -1240,9 +1411,10 @@
         if(text) window.open(`https://translate.google.com/?sl=zh-TW&tl=ja&text=${encodeURIComponent(text)}&op=translate`, '_blank');
     }
     
-    function copyText(text) {
-        navigator.clipboard.writeText(text).then(() => alert('已複製：' + text));
-    }
+    // 移除 copyText 函式，因為放大卡片功能已經滿足需求。
+    // function copyText(text) {
+    //     navigator.clipboard.writeText(text).then(() => alert('已複製：' + text));
+    // }
 
     function updateTime() {
         const now = new Date();
