@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="2025東京冬日14天深度自由行行程表 - 淺草、鎌倉、橫濱、原宿、迪士尼周邊完整規劃。包含即時匯率、行程導航與記帳本。">
+    <title>東京冬日紀行 2025 | 高級版</title>
+    
+    <meta name="theme-color" content="#171A2C"> 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/sf-ultralight/180/torii.png"> 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght:700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 顏色主題：高貴與現代感 */
+            --color-primary: #171A2C; /* 深藍/黑，App 級質感 */
+            --color-secondary: #C89953; /* 金色/琥珀色，點綴高貴感 */
+            --bg-body: #F5F7FA;
+            --bg-overlay: rgba(255, 255, 255, 0.96);
+            --card-bg: #FFFFFF;
+            --text-main: #2A2A2A;
+            --text-sub: #666666;
+            
+            /* 狀態色 */
+            --status-future: #8B0000;   /* 深紅 */
+            --status-today: #1A5E20;    /* 深綠 */
+            --status-past: #B0BEC5;     /* 淺灰 */
+
+            /* 四色循環主題 (調整為更沉穩的色調) */
+            --theme-blue: #0077B6;
+            --theme-orange: #E68A00;
+            --theme-green: #38761D;
+            --theme-red: #A30000;
+
+            --shadow: 0 6px 20px rgba(0,0,0,0.08); /* 更立體的陰影 */
+            --shadow-md: 0 8px 25px rgba(0,0,0,0.15); 
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding-bottom: 90px;
+            line-height: 1.6;
+            color: var(--text-main);
+            min-height: 100vh;
+            background-color: var(--bg-body);
+        }
+        
+        /* RWD: 背景圖片處理 - 移除大圖，使用簡約背景 */
+        /* body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://...');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -2;
+        } */
+        
+        /* 移除濾鏡，使用單色背景 */
+        /* body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-body);
+            z-index: -1;
+            backdrop-filter: blur(2px);
+        } */
+
+        /* --- Header: 簡潔化 --- */
+        header {
+            background: var(--color-primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 12px 15px; /* 增加上下內距 */
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .top-title {
+            font-family: 'Playfair Display', serif; /* 使用襯線字體增加高級感 */
+            font-size: 1.2rem;
+            color: #FFFFFF;
+            white-space: nowrap;
+        }
+
+        .top-title span.year {
+            color: var(--color-secondary);
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        .project-tabs {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .project-tab {
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: transparent;
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            color: #E0E0E0;
+            transition: background 0.1s, border-color 0.1s;
+            font-weight: 500;
+        }
+        .project-tab:active { transform: scale(0.95); }
+
+        .project-tab.active {
+            background: var(--color-secondary);
+            color: var(--color-primary);
+            border-color: var(--color-secondary);
+            font-weight: 700;
+        }
+
+        /* 匯率 Badge - 移至導航下方，更顯眼 */
+        .header-rate { 
+            font-size: 0.8rem; 
+            color: var(--color-primary); 
+            background: #FFD700; /* 亮金色 */
+            padding: 4px 10px; 
+            border-radius: 16px; 
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .header-rate-wrapper {
+            text-align: right;
+            padding: 5px 0 0;
+        }
+
+        .project-nav-row {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4px 8px 8px;
+            background: var(--color-primary);
+        }
+
+        .date-scroller {
+            display: none;
+            overflow-x: auto;
+            padding: 4px 4px 6px;
+            gap: 10px;
+            scrollbar-width: none;
+        }
+        .date-scroller::-webkit-scrollbar { display: none; }
+        .date-scroller.active { display: flex; }
+
+        .date-chip {
+            flex: 0 0 auto;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s;
+            border: 1px solid rgba(255,255,255,0.3);
+            text-align: center;
+            min-width: 60px;
+            color: white; /* 導航字體為白色 */
+        }
+        .date-chip:active { transform: scale(0.95); }
+
+        .chip-future { background: rgba(255, 255, 255, 0.1); color: #F0F0F0; border-color: rgba(255, 255, 255, 0.4); }
+        .chip-today  { background: #38761D;  color: white; border: 2px solid #FFD700; box-shadow: 0 0 8px rgba(76, 175, 80, 0.4); }
+        .chip-past   { background: #546E7A;   color: #CFD8DC; opacity: 0.8; border-color: #546E7A; }
+
+        /* Container & RWD */
+        .container { 
+            padding: 15px; 
+            max-width: 600px;
+            margin: 0 auto; 
+        }
+
+        .timeline-wrapper { position: relative; padding-left: 20px; }
+        .timeline-line {
+            position: absolute; left: 7px; top: 10px; bottom: 0; width: 2px;
+            background: #E0E0E0; z-index: 0;
+        }
+        .timeline-item { position: relative; margin-bottom: 25px; z-index: 1; }
+        .timeline-dot {
+            position: absolute; left: -20px; top: 20px; width: 16px; height: 16px;
+            border-radius: 50%; border: 3px solid #FFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 2;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border-top: 3px solid var(--color-secondary); /* 增加高級感邊框 */
+        }
+        
+        .card-img { 
+            width: 100%; 
+            height: 200px; /* 圖片高度增加 */
+            object-fit: cover; 
+            display: block; 
+            filter: brightness(0.9); /* 略微變暗，凸顯文字 */
+        }
+        .card-content { padding: 15px; }
+        .card-time { 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            color: var(--color-secondary); /* 金色強調時間 */
+            display: block; 
+            margin-bottom: 5px; 
+        }
+        .card-title { 
+            font-size: 1.25rem; 
+            font-weight: 900; 
+            margin: 0 0 8px; 
+            color: var(--text-main); 
+        }
+        .card-desc { font-size: 1rem; color: var(--text-sub); margin-bottom: 12px; line-height: 1.6; }
+
+        /* UI/UX 優化：摺疊與交通指引 */
+        .check-in-alert {
+            background: #D32F2F; color: white;
+            padding: 10px; border-radius: 6px;
+            font-size: 0.95rem; font-weight: bold;
+            margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 2px 5px rgba(211, 47, 47, 0.3);
+        }
+        .pelican-note {
+            background: #F9F9E0; border-left: 4px solid #E68A00;
+            padding: 10px; margin: 10px 0; font-size: 0.9rem; color: #555;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .guide-toggle {
+            background: #F8F9FA;
+            border: 1px solid #E0E0E0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: var(--color-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            width: 100%;
+            text-align: left;
+            transition: background 0.2s;
+        }
+        .guide-toggle:active { background: #EAF0F6; }
+
+        .guide-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+            color: #666;
+            margin-left: 8px;
+        }
+        .guide-toggle.active::after { transform: rotate(180deg); }
+        .guide-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s; opacity: 0; }
+        .guide-content.open { opacity: 1; }
+        .transport-guide { 
+            background: #F8F9FA; 
+            border: 1px solid #EEE; 
+            border-radius: 8px; 
+            padding: 12px; 
+            margin-top: -10px; 
+        }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 8px; font-size: 0.9rem; }
+        .step-num {
+            background: var(--color-primary); color: #fff; width: 20px; height: 20px;
+            border-radius: 50%; text-align: center; line-height: 20px;
+            font-size: 0.75rem; margin-right: 8px; flex-shrink: 0;
+        }
+
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .market-btn {
+            background: #F9F9F9; border: 1px solid #C8E6C9;
+            padding: 10px; border-radius: 8px;
+            text-decoration: none; display: block;
+            transition: background 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .market-btn:active { background: #E8F5E9; }
+        .market-name { font-weight: bold; font-size: 0.9rem; color: #1B5E20; }
+        .market-meta { font-size: 0.75rem; color: #666; margin-top: 4px; }
+
+        .btn-group { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+        .btn {
+            flex: 1; text-align: center; padding: 10px 0;
+            border-radius: 8px; /* 圓角增加 */
+            text-decoration: none;
+            font-size: 0.95rem; font-weight: 700;
+            border: none; background: #EEE; color: #555;
+            display: flex; align-items: center; justify-content: center; gap: 5px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            min-width: 80px;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background: var(--color-primary); color: white; }
+        .btn-weather { background: #E3F2FD; color: #1565C0; }
+        .btn-photo { background: #FFF3E0; color: #E65100; }
+
+        .review-bubble {
+            position: relative;
+            background: #F0F4F8;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #455A64;
+            display: flex;
+            gap: 10px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+        .review-bubble::after {
+            content: "";
+            position: absolute;
+            left: 20px;
+            bottom: -8px;
+            border-width: 8px 8px 0 0;
+            border-style: solid;
+            border-color: #F0F4F8 transparent transparent transparent;
+        }
+        
+        .next-stop {
+            margin: 10px 0 0 15px; padding: 5px 12px; font-size: 0.85rem;
+            color: #666; background: rgba(255,255,255,0.8);
+            border: 1px dashed #CCC; border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+
+        /* Tools & Emergency Card */
+        .tools-card {
+            background: white; border-radius: 12px; padding: 20px;
+            margin-bottom: 15px; box-shadow: var(--shadow);
+        }
+        .emergency-card {
+            border-left: 5px solid #D32F2F; 
+            background: #FFF5F5; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+        .emergency-card h3 { color:#D32F2F; margin:0 0 10px;}
+        .emergency-card strong { color:var(--color-primary); }
+        
+        /* 天氣卡片新增 */
+        .weather-card h2, .tools-card h2 { 
+            margin-top: 0; 
+            color: var(--color-primary); 
+            border-bottom: 2px solid #EEE;
+            padding-bottom: 8px;
+        }
+        .weather-info { 
+            background: #E3F2FD; 
+            padding: 15px; 
+            border-radius: 8px; 
+            text-align: center;
+        }
+        .weather-info div { font-size: 0.9rem; color: #1565C0; margin-bottom: 5px; }
+
+        /* 匯率計算機優化 */
+        .calc-input {
+            width: 100%; padding: 12px; border: 1px solid #CCC; border-radius: 8px;
+            font-size: 1.3rem; font-weight: bold; color: #333;
+        }
+
+        /* 指差卡優化 */
+        .phrase-card { border-radius: 10px; }
+        .phrase-modal-content { border-radius: 12px; padding: 30px 24px; }
+        .modal-jp { font-size: 2.8rem; line-height: 1.2; }
+
+        /* 記帳本樣式 */
+        .acc-summary { background: #EBF3FF; }
+        .acc-total-val { color: var(--color-primary); }
+        .acc-btn-add { background: var(--color-primary); }
+
+        .footer-nav {
+            background: rgba(255,255,255,0.98);
+            padding: 10px 0 25px; 
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.15); 
+        }
+        .nav-item { color: #999; }
+        .nav-item.active { color: var(--color-primary); font-weight: bold; }
+        
+        .day-header {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin:15px 0 10px;
+            border-bottom: 1px solid #E0E0E0;
+            padding-bottom: 5px;
+        }
+        .day-header h2{
+            margin:0;
+            font-size:1.15rem;
+            color:var(--color-primary);
+            font-weight: 700;
+        }
+        .day-tag{
+            display:inline-block;
+            padding:4px 12px;
+            border-radius:999px;
+            font-size:0.75rem;
+            font-weight:700;
+            color:#fff;
+            background: #90A4AE; /* 預設 Tag 顏色 */
+        }
+        
+        .theme-blue .timeline-dot, .theme-blue .day-tag { background: var(--theme-blue); }
+        .theme-orange .timeline-dot, .theme-orange .day-tag { background: var(--theme-orange); }
+        .theme-green .timeline-dot, .theme-green .day-tag { background: var(--theme-green); }
+        .theme-red .timeline-dot, .theme-red .day-tag { background: var(--theme-red); }
+
+        @media (min-width: 768px){
+            .top-bar{ padding-inline:4px; }
+            .top-title{ font-size:1.4rem; }
+            .acc-form { flex-wrap: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="top-bar">
+            <div class="top-title">
+                TOKYO<span class="year">2025</span>
+            </div>
+            <div class="project-tabs">
+                <button id="tab-project1" class="project-tab active" onclick="setProject(1)">
+                    P1｜12/14–12/20
+                </button>
+                <button id="tab-project2" class="project-tab" onclick="setProject(2)">
+                    P2｜12/21–12/27
+                </button>
+            </div>
+        </div>
+        <div class="header-rate-wrapper">
+            <div id="header-rate" class="header-rate">
+                <span class="symbol">¥</span> 載入中...
+            </div>
+        </div>
+        
+    </div>
+    <div class="project-nav-row">
+        <div class="date-scroller active" id="nav-proj1"></div>
+        <div class="date-scroller" id="nav-proj2"></div>
+    </div>
+</header>
+
+<main class="container">
+    <div id="tab-trip" class="section active">
+        <div id="itinerary-list"></div>
+    </div>
+
+    <div id="tab-account" class="section">
+        <div class="account-card">
+            <div class="acc-summary">
+                <div class="acc-total-label">目前總花費 (JPY)</div>
+                <div class="acc-total-val" id="acc-total-val">¥0</div>
+                <div class="acc-total-twd" id="acc-total-twd">約 NT$0</div>
+            </div>
+
+            <div class="acc-form">
+                <input type="text" id="acc-item" class="acc-input" placeholder="品項 (如: 拉麵)">
+            </div>
+            <div class="acc-form">
+                <input type="number" id="acc-cost" class="acc-input" placeholder="金額 (日幣)">
+                <select id="acc-type" class="acc-select">
+                    <option value="🍔 食">🍔 食</option>
+                    <option value="🚄 行">🚄 行</option>
+                    <option value="🛍️ 購">🛍️ 購</option>
+                    <option value="🏨 住">🏨 住</option>
+                    <option value="🔖 他">🔖 他</option>
+                </select>
+                <button class="acc-btn-add" onclick="addExpense()">＋</button>
+            </div>
+            
+            <h3 style="margin: 20px 0 10px; font-size: 1rem; color:#555;">支出明細</h3>
+            <ul id="expense-list" class="expense-list">
+                </ul>
+        </div>
+    </div>
+
+    <div id="tab-tools" class="section">
+        <div class="tools-card weather-card">
+            <h2>☀️ 淺草周邊五日天氣</h2>
+            <div class="weather-info">
+                <div>地點：**Henn na Hotel Premier Tokyo Asakusa Tawaramachi** 附近</div>
+                <p style="margin:10px 0 0; font-size:0.9rem; color:#333;">
+                    點擊按鈕連結 Google 搜尋結果，查看即時天氣預報。
+                </p>
+                <a href="https://www.google.com/search?q=東京都台東区寿3-19-8+五日天氣預報" target="_blank" class="btn btn-weather" style="width:100%; margin-top:15px;">
+                    查看即時五日天氣預報
+                </a>
+            </div>
+        </div>
+        
+        <div class="emergency-card">
+            <h3>🆘 緊急聯絡卡 (請家人存取並熟記)</h3>
+            <div style="font-size:0.95rem; color:#333; line-height: 1.6;">
+                <div>📞 **駐日代表處：** +81-3-3280-7811 (急難救助)</div>
+                <div>🚑 **救護車/火警：** 119</div>
+                <div>👮 **警察局：** 110</div>
+                <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #D32F2F;">
+                    <strong>🏠 飯店地址（給司機或問路）：</strong><br>
+                    <span style="font-size: 0.9rem;">〒111-0042 東京都台東区寿3-19-8</span><br>
+                    (Henn na Hotel Premier Tokyo Asakusa Tawaramachi)
+                </div>
+            </div>
+        </div>
+        <div class="tools-card">
+            <h2>💱 即時匯率計算機</h2>
+            <div style="background:#F9F9F9; padding:15px; border-radius:8px;">
+                <div class="calc-container">
+                    <div class="calc-input-group">
+                        <label>日幣 (JPY)</label>
+                        <input type="number" id="calc-jpy" class="calc-input" placeholder="0" oninput="calcToTWD()">
+                    </div>
+                    <div class="calc-arrow">➔</div>
+                    <div class="calc-input-group">
+                        <label>台幣 (TWD)</label>
+                        <input type="number" id="calc-twd" class="calc-input" placeholder="0" style="background:#EEE;" readonly>
+                    </div>
+                </div>
+                <div style="text-align:right; font-size:0.8rem; color:#666;" id="calc-rate-info">
+                    目前匯率: 0.215 (預設，請以銀行與刷卡帳單為準)
+                </div>
+            </div>
+        </div>
+
+        <div class="tools-card">
+            <h2>🗣️ 即時翻譯機</h2>
+            <input type="text" id="trans-text" class="trans-input" placeholder="輸入中文 (例如: 這個多少錢?)">
+            <button class="btn btn-primary" style="width:100%" onclick="googleTranslate()">翻譯成日文 (Google) ➔</button>
+        </div>
+
+        <div class="tools-card">
+            <h3 style="margin-top:0">🇯🇵 常用指差卡 (給對方看)</h3>
+            <p style="font-size:0.8rem;color:#6B7280;margin-top:0;margin-bottom:8px;">
+                點擊卡片放大顯示日文，並自動複製句子。
+            </p>
+            <div id="phrase-grid" class="phrase-grid"></div>
+        </div>
+    </div>
+</main>
+
+<div id="phrase-modal" class="phrase-modal" onclick="closePhraseModal(event)">
+    <div class="phrase-modal-content">
+        <button class="phrase-modal-close" type="button" onclick="hidePhraseModal()">×</button>
+        <div id="modal-jp" class="modal-jp"></div>
+        <div id="modal-en" class="modal-en"></div>
+        <div id="modal-zh" class="modal-zh"></div>
+        <p class="modal-tip">已複製日文句子，點外側空白處可以關閉。</p>
+    </div>
+</div>
+
+<nav class="footer-nav">
+    <div class="nav-item active" onclick="switchTab('trip', this)">
+        <span class="nav-icon">🗺️</span>行程
+    </div>
+    <div class="nav-item" onclick="switchTab('account', this)">
+        <span class="nav-icon">📒</span>記帳
+    </div>
+    <div class="nav-item" onclick="switchTab('tools', this)">
+        <span class="nav-icon">🧰</span>工具箱
+    </div>
+</nav>
+
+<script>
+    const MOCK_TODAY = null; 
+    let currentExchangeRate = 0.215; // 預設匯率 (萬一 API 失敗)
+
+    function toggleGuide(btn) {
+        btn.classList.toggle('active');
+        const content = btn.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+            content.classList.remove('open');
+        } else {
+            content.classList.add('open');
+            content.style.maxHeight = content.scrollHeight + 30 + "px"; 
+        }
+    }
+
+    // 指差卡資料 (不變)
+    const phraseData = [
+        { id: 'price_this', jp: 'これはいくらですか？', en: 'How much is this?', zh: '這個多少錢？' },
+        { id: 'cheaper', jp: 'もうすこしやすくなりますか？', en: 'Can it be a little cheaper?', zh: '可以再便宜一點嗎？' },
+        { id: 'cash_ok', jp: 'げんきんではらえますか？', en: 'Can I pay in cash?', zh: '可以用現金付款嗎？' },
+        { id: 'card_ok', jp: 'カードではらえますか？', en: 'Can I pay by credit card?', zh: '可以刷卡嗎？' },
+        { id: 'tax_free', jp: 'たっくすふりーできますか？', en: 'Is tax-free available?', zh: '可以免稅嗎？' },
+        { id: 'tax_counter', jp: 'たっくすふりーかうんたーはどこですか？', en: 'Where is the tax-free counter?', zh: '退稅櫃檯在哪裡？' },
+        { id: 'ticket_office', jp: 'きっぷうりばはどこですか？', en: 'Where is the ticket office?', zh: '售票口在哪裡？' },
+        { id: 'one_ticket_to', jp: '＿＿までのきっぷを１まいください。', en: 'One ticket to ___, please.', zh: '我要一張到＿＿的車票。' },
+        { id: 'adult_child', jp: 'おとな１まい、こども１まいください。', en: 'One adult and one child ticket, please.', zh: '大人一張、小孩一張。' },
+        { id: 'which_platform', jp: '＿＿ゆきはどのほうめんですか？', en: 'Which direction / platform goes to ___?', zh: '往＿＿的是哪個月台 / 方向？' },
+        { id: 'hotel_checkin', jp: 'ちぇっくいんをおねがいします。', en: 'I would like to check in.', zh: '我要辦理入住。' },
+        { id: 'extra_bed', jp: 'このへやにべっどをついかできますか？', en: 'Can we add an extra bed to this room?', zh: '這個房間可以加床嗎？' },
+        { id: 'receipt', jp: 'レシートをください。', en: 'Receipt, please.', zh: '請給我收據。' },
+        { id: 'no_bag', jp: 'ふくろはいりません。', en: 'I do not need a bag.', zh: '不用袋子，謝謝。' },
+        { id: 'where_atm', jp: 'ちかくにATMはありますか？', en: 'Is there an ATM nearby?', zh: '附近有提款機嗎？' },
+        { id: 'lost_item', jp: 'わすれものをしてしまいました。たずねてもいいですか？', en: 'I lost something. May I ask about it?', zh: '我好像遺失東西，可以幫我找看看嗎？' },
+        { id: 'toilet', jp: 'トイレはどこですか？', en: 'Where is the restroom?', zh: '廁所在哪裡？' },
+        { id: 'microwave', jp: 'べびーふーどをあたためてもいいですか？', en: 'May I warm up baby food?', zh: '可以幫我加熱嬰兒副食品嗎？' },
+        { id: 'keep_luggage', jp: 'にもつをあずかってもらえますか？', en: 'Could you keep my luggage?', zh: '可以代為保管行李嗎？' },
+        { id: 'what_time', jp: 'いまなんじですか？', en: 'What time is it now?', zh: '現在幾點？' }
+    ];
+
+    // === 資料庫 (行程) - 修正二木菓子資訊 ===
+    const itineraryData = [
+        // --- PROJECT 1 ---
+        {
+            date: "12/14 (日)", id: "d1", theme: "theme-blue", project: 1, fullDate: "2025-12-14",
+            events: [
+                {
+                    time: "12:30", title: "成田機場 T2 抵達",
+                    // 📌 替換 3: d1-1 圖片連結
+                    img: "https://64.media.tumblr.com/17f18ba16169871964ae53edf1fa8b65/c26c9d2d062ac7b6-ee/s1280x1920/05b7e20adf2c9e6e24764eaec2ce4c52282bf9cf.jpg",
+                    desc: "抵達東京！領取行李後，直接前往地下層搭車。",
+                    checkInNote: "去程",
+                    transportGuide: [
+                        "入境後依照黃色指標 <strong>鉄道 / Train / 鐵道</strong> 前進。",
+                        "跟著藍色標誌的 <span class='keyword-orange'>京成電鉄 Keisei Line（けいせいでんてつ）</span> 指示，下樓到月台層。",
+                        "購票時可詢問：<span class='keyword-blue'>「アクセスとっきゅうで あさくさまで おねがいします。」</span>（Access 特急到淺草）。",
+                        "搭乘 <span class='keyword-orange'>Access 特急（アクセス特急 / Access Express）</span>，確認列車顯示有停 <span class='keyword-blue'>浅草 Asakusa</span>。",
+                        "電光看板上會標示：<span class='keyword-orange'>成田空港 Narita Airport</span> → <span class='keyword-blue'>押上 Oshiage / 浅草 Asakusa / 西馬込 Nishimagome</span> 等方向。",
+                        "車廂內也會廣播「アクセス特急 Access Express」，可對照路線圖確認。",
+                        "約 60 分鐘抵達都營淺草線一帶，之後依當日安排再移動。"
+                    ],
+                    review: "Google 評論：Access 特急不需對號座，能刷西瓜卡直接進站，比 Skyliner 便宜且直達淺草線各站。",
+                    next: { time: "步行 3 分鐘", dist: "200m" },
+                    map: "成田空港第2ターミナル駅"
+                },
+                {
+                    time: "15:00", title: "Tabist Hotel Mercury",
+                    desc: "辦理入住。淺草橋是手作材料聖地，充滿昭和風情。",
+                    review: "Google 評論 (3.8★)：地點極佳，就在車站旁。房間雖然不大但乾淨，櫃台人員親切。",
+                    map: "Tabist Hotel Mercury Asakusabashi"
+                },
+                {
+                    time: "19:00", title: "逸品閣 (晚餐)",
+                    desc: "享用第一頓晚餐，體驗當地中華料理或日式定食。",
+                    review: "Google 評論 (4.0★)：份量十足的中華料理，麻婆豆腐和餃子是必點招牌，深受當地上班族喜愛。",
+                    map: "逸品閣"
+                }
+            ]
+        },
+        {
+            date: "12/15 (一)", id: "d2", theme: "theme-orange", project: 1, fullDate: "2025-12-15",
+            events: [
+                {
+                    time: "09:00", title: "豪德寺 (招財貓)",
+                    // 📌 替換 4: d2-1 圖片連結
+                    img: "https://64.media.tumblr.com/6ca2d4f71caedc5d5c1d2eb9e6573e2a/c26c9d2d062ac7b6-d0/s1280x1920/0ebc5d1c8c2bcf5c93d82670f5469b2d48047b69.jpg",
+                    desc: "招財貓發源地，成千上萬隻白貓向你招手。",
+                    review: "Google 評論 (4.4★)：非常療癒的貓咪軍團！建議早點到避開人潮。",
+                    next: { time: "步行", dist: "松陰神社" },
+                    map: "豪徳寺"
+                },
+                {
+                    time: "10:30", title: "松陰神社",
+                    desc: "供奉幕末教育家吉田松陰，充滿歷史氛圍的神社。",
+                    review: "Wiki: 供奉吉田松陰，是學問之神，境內有復原的松下村塾，環境清幽。",
+                    map: "松陰神社"
+                },
+                {
+                    time: "13:00", title: "世田谷舊物市集 (ボロ市)",
+                    desc: "已有440年歷史的傳統市集。**記得尋找 Furoshiki (風呂敷) 當作紀念**。",
+                    review: "Wiki: 東京都無形民俗文化財，每年12月與1月舉辦，販售骨董、古著、裝飾品與日式名產「代官餅」。",
+                    map: "世田谷代官屋敷"
+                },
+                {
+                    time: "16:00", title: "下北澤 散策",
+                    desc: "古著聖地、劇場文化與咖哩激戰區。",
+                    review: "Google 評論: 充滿年輕活力的街區，巷弄間隱藏著無數古著店與特色咖啡廳。",
+                    map: "下北沢"
+                }
+            ]
+        },
+        {
+            date: "12/16 (二)", id: "d3", theme: "theme-green", project: 1, fullDate: "2025-12-16",
+            events: [
+                {
+                    time: "09:30", title: "北鎌倉站 -> 明月院",
+                    // 📌 替換 5: d3-1 圖片連結
+                    img: "https://64.media.tumblr.com/e2ceecd83ba29c418cd7e6558fd063ff/c26c9d2d062ac7b6-a7/s1280x1920/9182b2b0a711e555af4610bbd7633c774e81097c.jpg",
+                    desc: "著名的圓窗景色 (悟りの窓)，充滿禪意。",
+                    review: "Google 評論 (4.3★)：圓窗是必拍景點，建議開門就去，避開人潮。",
+                    map: "明月院"
+                },
+                {
+                    time: "11:00", title: "建長寺",
+                    desc: "鎌倉五山第一位，日本最古老的禪宗道場。",
+                    review: "Wiki: 氣勢恢宏的三門與法堂，境內深處的半僧坊可眺望相模灣。",
+                    next: { time: "步行", dist: "鶴岡八幡宮" },
+                    map: "建長寺"
+                },
+                {
+                    time: "13:00", title: "鶴岡八幡宮 & 小町通",
+                    desc: "鎌倉的心臟地帶，參拜後逛街吃小吃。",
+                    review: "Wiki: 鎌倉幕府的守護神。小町通被譽為『邊走邊吃的天堂』。",
+                    map: "鶴岡八幡宮"
+                },
+                {
+                    time: "15:00", title: "寶戒寺",
+                    desc: "以萩花聞名的『萩之寺』，供奉地藏菩薩。",
+                    review: "Google 評論: 相對清靜的寺院，環境優雅，可以享受片刻寧靜。",
+                    map: "宝戒寺"
+                },
+                {
+                    time: "16:30", title: "七里濱 (夕陽)",
+                    desc: "前往海邊欣賞江之島與富士山的夕陽絕景。",
+                    review: "Google 評論: 這裡的夕陽被選為『日本海灘百選』，運氣好能看到富士山輪廓。",
+                    map: "七里ヶ浜海岸駐車場"
+                }
+            ]
+        },
+        {
+            date: "12/17 (三)", id: "d4", theme: "theme-red", project: 1, fullDate: "2025-12-17",
+            events: [
+                {
+                    time: "09:00", title: "Pelican 麵包 (預約制)",
+                    // 📌 替換 6: d4-1 圖片連結
+                    img: "https://64.media.tumblr.com/70e7c64a5a3f5297995f62b311826c13/c26c9d2d062ac7b6-98/s1280x1920/8d72e751b0c8dc66ddb592138dd60c2cbfccd702.jpg",
+                    desc: "淺草傳奇吐司店，口感紮實Q彈。",
+                    pelicanData: [
+                        "📌 reserve toast Pickup on Saturday 12/20",
+                        "預約品項: 540*1, 1700*1, 1850*1",
+                        "---",
+                        "📌 reserve toast Pickup on Saturday 12/27",
+                        "預約品項: 540*3, 700*1"
+                    ],
+                    next: { time: "步行", dist: "今戶神社" },
+                    map: "Pelican Bread"
+                },
+                {
+                    time: "10:30", title: "今戶神社",
+                    desc: "招財貓發源地之一，也是著名的結緣神社。",
+                    review: "Wiki: 供奉伊弉諾尊與伊弉冉尊夫婦，以祈求良緣靈驗著稱。",
+                    map: "今戸神社"
+                },
+                {
+                    time: "11:30", title: "淺草神社",
+                    desc: "位於淺草寺本堂右側，供奉淺草寺的創立者。",
+                    review: "Wiki: 國家重要文化財，是體驗江戶風情的重要景點。",
+                    map: "浅草神社"
+                },
+                {
+                    time: "13:00", title: "淺草寺 歲之市 (羽子板市)",
+                    desc: "歲末傳統市集，購買華麗的羽子板驅邪祈福。",
+                    review: "Wiki: 江戶時代延續至今的歲末傳統，販售繪有歌舞伎演員的華麗羽子板，充滿過年熱鬧氣氛。",
+                    map: "淺草寺"
+                }
+            ]
+        },
+        {
+            date: "12/18 (四)", id: "d5", theme: "theme-blue", project: 1, fullDate: "2025-12-18",
+            events: [
+                {
+                    time: "10:00", title: "神樂坂散策",
+                    // 📌 替換 7: d5-1 圖片連結
+                    img: "https://64.media.tumblr.com/d76895f834c765d23831b099afe50af2/c26c9d2d062ac7b6-08/s1280x1920/8dc32fa9e91518d7c705f2a2fd3ea13b661adb98.jpg",
+                    desc: "東京小巴黎，石板路與黑圍牆的優雅街區。",
+                    review: "Google 評論: 充滿『小巴黎』風情的石板路，巷弄間隱藏著許多高級料亭，適合午後悠閒漫步。",
+                    next: { time: "電車約 20 分", dist: "原宿" },
+                    map: "神樂坂"
+                },
+                {
+                    time: "13:30", title: "3COINS 原宿本店 (Flagship)",
+                    // 📌 替換 8: d5-2 圖片連結
+                    img: "https://64.media.tumblr.com/001306385d3092265017e4f0a07e997a/4294d137f815d6c8-50/s1280x1920/2b398a1c93a02c81d898555e14300e8445771146.jpg",
+                    desc: "Flagship 旗艦店！除了限定商品，還有客製化刺繡服務。",
+                    review: "Google 評論：這間店品項最齊全，還有原宿限定的甜點區。",
+                    map: "3COINS 原宿本店"
+                },
+                {
+                    time: "15:00", title: "FLYING TIGER Copenhagen",
+                    desc: "來自丹麥的北歐風平價雜貨，色彩繽紛充滿設計感。",
+                    review: "Google 評論: 來自哥本哈根的設計雜貨，色彩鮮豔且幽默，價格親民，非常適合挑選伴手禮。",
+                    map: "Flying Tiger Copenhagen 表参道ストア"
+                }
+            ]
+        },
+        {
+            date: "12/19 (五)", id: "d6", theme: "theme-orange", project: 1, fullDate: "2025-12-19",
+            events: [
+                {
+                    time: "10:00", title: "高圓寺商店街",
+                    // 📌 替換 9: d6-1 圖片連結
+                    img: "https://64.media.tumblr.com/a4bc9430fbdc116b723880593f8e3aa6/c26c9d2d062ac7b6-5a/s1280x1920/2510d23bfddc3cc61c60afaa37ca7d40280b8da3e.jpg",
+                    desc: "昭和復古氛圍，二手衣與純情商店街。",
+                    review: "Google 評論: 這裡有真正的『東京生活感』，純情商店街保留昔日風情，古著店數量驚人且價格親民。",
+                    map: "高圓寺"
+                },
+                {
+                    time: "19:00", title: "春木屋 荻窪本店",
+                    desc: "東京拉麵的經典老味道。",
+                    review: "Google 評論 (4.1★): 荻窪拉麵的始祖級名店。昭和時代傳承至今的醬油湯頭，魚介香氣濃郁，麵條口感絕佳。",
+                    map: "春木屋 荻窪本店"
+                }
+            ]
+        },
+        {
+            date: "12/20 (六)", id: "d7", theme: "theme-green", project: 1, fullDate: "2025-12-20",
+            events: [
+                {
+                    time: "10:30", title: "皇居外苑",
+                    // 📌 替換 10: d7-1 圖片連結
+                    img: "https://64.media.tumblr.com/27b7f8ab1233bde8137cc242c15b1df5/c26c9d2d062ac7b6-02/s1280x1920/c41b92a1a6ae65f14714119b7481073192b09f89.jpg",
+                    desc: "東京的中心，感受皇室威儀。",
+                    review: "Wiki: 寬闊的廣場種植了約2000棵黑松，二重橋是皇居最著名的拍照點，氛圍莊嚴肅穆。",
+                    map: "皇居外苑"
+                },
+                {
+                    time: "14:00", title: "日本橋三越",
+                    desc: "日本最古老的百貨公司。",
+                    review: "Wiki: 日本第一家百貨公司，文藝復興樣式的建築被指定為重要文化財，入口的獅子像是著名的會面點。",
+                    map: "日本橋三越"
+                }
+            ]
+        },
+        {
+            date: "12/21 (日)", id: "d8", theme: "theme-red", project: 2, fullDate: "2025-12-21",
+            events: [
+                {
+                    time: "10:00", title: "Henn na Hotel 淺草田原町",
+                    // 📌 替換 11: d8-1 圖片連結
+                    img: "https://64.media.tumblr.com/743445ce9b11f10bb6d79cd0c406718a/c26c9d2d062ac7b6-49/s1280x1920/e8276ec998094d198f20e3b974d568f20e3b974d568f20e3b974d568f20e3b974d568f207500304.jpg",
+                    desc: "移動日：入住機器人櫃台飯店。周邊超市與雜貨店導航：",
+                    supermarkets: [
+                        { name: "🛒 3COINS 淺草ROX店", meta: "步行約 6 分鐘", map: "3COINS plus浅草ROX店" }, 
+                        { name: "西友淺草 ROX 店", meta: "24H | 350m", map: "西友浅草ROX食品館" },
+                        { name: "Life 淺草店", meta: "生鮮豐富 | 450m", map: "ライフ浅草店" },
+                        { name: "Ozeki 淺草雷門店", meta: "品質好 | 600m", map: "オオゼキ浅草雷門店" },
+                    ],
+                    map: "変なホテル東京 浅草田原町"
+                },
+                {
+                    time: "19:00", title: "成田空港 → 淺草（Henn na Hotel）交通指引",
+                    desc: "家人從成田空港第2航廈前往淺草、再步行到 Henn na Hotel Premier Tokyo Asakusa Tawaramachi，用這一張就能照著走。",
+                    transportGuide: [
+                        "【出關後】跟著黃色指標 <strong>鉄道 / Train / 鐵道</strong> 前進，往地下樓層移動。",
+                        "【找線路】看到藍色標誌 <span class='keyword-orange'>京成電鉄 Keisei Line（けいせいでんてつ）</span>，確認寫有「Access 特急 / アクセス特急 / Access Express」。",
+                        "【購票句子】櫃檯可說：<span class='keyword-blue'>「アクセスとっきゅうで あさくさまで おねがいします。」</span>（我要搭 Access 特急到淺草）。",
+                        "【搭車資訊】刷 IC 卡或車票進站後，找到電光看板顯示 <span class='keyword-orange'>アクセス特急</span>，終點多為 <span class='keyword-blue'>羽田空港 Haneda Airport</span> 或 <span class='keyword-blue'>西馬込 Nishimagome</span>，中途會停 <span class='keyword-blue'>浅草 Asakusa</span>。",
+                        "【關鍵站名】上車前再確認車門旁路線圖有寫 <span class='keyword-blue'>浅草（A18）</span>。廣播通常會念日文＋英文：「Asakusa」。",
+                        "【下車站】在 <span class='keyword-blue'>浅草（A18）</span> 下車後，依指標往 <span class='keyword-orange'>出口 Exit A2b</span> 方向走（有電梯、適合帶行李）。",
+                        "【步行至飯店】出 A2b 後，依照導航步行約 5–8 分鐘即可抵達 Henn na Hotel：<span class='keyword-blue'>へんなホテルプレミア東京浅草田原町 / Henn na Hotel Premier Tokyo Asakusa Tawaramachi</span>。",
+                        "【備註】若臨時改搭別班車，只要確認是 <span class='keyword-orange'>京成線 / 都営浅草線</span>，並且有停 <span class='keyword-blue'>浅草</span> 即可。"
+                    ],
+                    map: "都營淺草站"
+                }
+            ]
+        },
+        {
+            date: "12/22 (一)", id: "d9", theme: "theme-blue", project: 2, fullDate: "2025-12-22",
+            events: [
+                {
+                    time: "09:30", title: "大船站 & 大船觀音",
+                    // 📌 替換 12: d9-1 圖片連結
+                    img: "https://64.media.tumblr.com/8f5331157216396ab6fd3e643c8e4a0d/c26c9d2d062ac7b6-b7/s1280x1920/00a24a67bedb8d08cce39b972da359a33da5e24a.jpg",
+                    desc: "出大船站即可看見巨大的白衣觀音像，守護著湘南。",
+                    review: "Wiki: 巨大的白衣觀音像，內部可參觀，是當地的地標。",
+                    map: "大船観音寺"
+                },
+                {
+                    time: "10:30", title: "湘南單軌電車 (前往江之島/高校前)",
+                    desc: "體驗懸掛在空中的刺激電車（湘南江之島站下車，轉江之電）。",
+                    review: "Google 評論: 被稱為『湘南雲霄飛車』！懸掛式設計非常少見，穿過隧道和山坡時速度感十足。",
+                    map: "湘南江の島駅"
+                },
+                {
+                    time: "11:30", title: "鎌倉高校前 (下車拍照)",
+                    desc: "灌籃高手平交道，拍完後前往下一站。",
+                    review: "Wiki: 因動畫《灌籃高手》片頭曲場景而聞名世界，面海的平交道景色絕美。",
+                    map: "鎌倉高校前駅"
+                },
+                {
+                    time: "12:15", title: "極樂寺站 & café recette",
+                    desc: "在極樂寺下車，步行至由古民家改建的高級吐司專賣店/咖啡廳享用午餐。",
+                    review: "Google 評論: 專賣高級吐司的咖啡廳，店內氛圍優雅，法式吐司非常受歡迎。",
+                    map: "café recette 鎌倉"
+                },
+                {
+                    time: "14:00", title: "長谷寺 & 鎌倉大佛",
+                    desc: "參觀花之寺長谷寺，隨後步行至高德院看大佛。",
+                    review: "Wiki: 長谷寺以紫陽花聞名，大佛則是國寶級露天青銅佛像，高11.3公尺。",
+                    map: "鎌倉大仏殿高徳院"
+                },
+                {
+                    time: "16:00", title: "鶴岡八幡宮 & 超市",
+                    desc: "返回鎌倉站，若有時間可再訪八幡宮或在車站周邊超市補貨。",
+                    map: "鎌倉駅"
+                }
+            ]
+        },
+        {
+            date: "12/23 (二)", id: "d10", theme: "theme-orange", project: 2, fullDate: "2025-12-23",
+            events: [
+                {
+                    time: "09:00", title: "淺草雷門",
+                    // 📌 替換 13: d10-1 圖片連結
+                    img: "https://64.media.tumblr.com/94020b178f1a9a390c7554c1a7fba2c4/c26c9d2d062ac7b6-c2/s1280x1920/576bb535617ae3441a5764a7f835675287fcd993.jpg",
+                    desc: "早晨人少時拍攝雷門大燈籠。",
+                    map: "雷門"
+                },
+                {
+                    time: "11:00", title: "AEON MALL LakeTown OUTLET",
+                    desc: "日本最大購物中心，包含 Outlet 區，盡情購物。",
+                    review: "Wiki: 分為 Kaze、Mori 和 Outlet 三大棟，佔地廣大，是購物狂的天堂。",
+                    map: "越谷レイクタウン アウトレット"
+                },
+                {
+                    time: "16:00", title: "二木菓子 (上野本店)",
+                    desc: "購買零食伴手禮的最佳地點。",
+                    review: "Google 評論: 價格便宜種類齊全，是購買大量零食伴手禮的首選。",
+                    map: "二木の菓子"
+                }
+            ]
+        },
+        {
+            date: "12/24 (三)", id: "d11", theme: "theme-green", project: 2, fullDate: "2025-12-24",
+            events: [
+                {
+                    time: "12:00", title: "敘敘苑 (橫濱 Sky Building)",
+                    // 📌 替換 14: d11-1 圖片連結
+                    img: "https://64.media.tumblr.com/f5c39698e15581b8640a571d55dca56c/f9a8b36b323a973f-99/s1280x1920/a2ae00c803208da6b2d9d2afe59ba43b79d3269b.jpg",
+                    desc: "高空景觀燒肉午餐。",
+                    review: "Google 評論 (4.5★): 絕美景觀燒肉！午間套餐CP值極高，牛五花入口即化。",
+                    map: "叙々苑 横浜スカイビル店"
+                },
+                {
+                    time: "14:30", title: "漫步前往紅磚倉庫 (約40分鐘)",
+                    desc: "沿著橫濱港灣漫步，享受海風與美景。",
+                    transportGuide: [
+                        "路線建議：從橫濱站/Sky Building 出發",
+                        "途經：<span class='keyword-blue'>Nissan Global HQ Gallery</span> (穿越)",
+                        "途經：<span class='keyword-blue'>高島水際線公園</span>",
+                        "途經：<span class='keyword-orange'>汽車道 (Kishamichi Promenade)</span> - 這是舊鐵道改建的海上步道，風景極佳",
+                        "抵達：橫濱紅磚倉庫"
+                    ],
+                    map: "汽車道"
+                },
+                {
+                    time: "15:30", title: "橫濱紅磚倉庫",
+                    desc: "參觀聖誕市集（若有）與歷史建築。",
+                    review: "Wiki: 建於明治末期至大正初期的磚造歷史建築，現為文化商業設施，充滿異國情調。",
+                    map: "横浜赤レンガ倉庫"
+                }
+            ]
+        },
+        {
+            date: "12/25 (四)", id: "d12", theme: "theme-red", project: 2, fullDate: "2025-12-25",
+            events: [
+                {
+                    time: "08:30", title: "築地市場 & MATCHA STAND",
+                    desc: "享用海鮮早餐與現刷濃郁抹茶拿鐵。",
+                    // 📌 替換 15: d12-1 圖片連結
+                    img: "https://64.media.tumblr.com/e7f7e5a9f6617cce141a0b453600193d/f9a8b36b323a973f-89/s2048x3072/e1a056821c51087ea2a33482edd3f81423120ba0.jpg",
+                    review: "Google 評論 (4.6★): 築地場外市場的人氣店，抹茶口感濃郁。",
+                    map: "築地場外市場"
+                },
+                {
+                    time: "11:00", title: "GINZA SIX (屋頂庭園 & 建築)",
+                    desc: "參觀銀座最新地標，欣賞中央挑空藝術與屋頂庭園美景。",
+                    review: "Wiki: 銀座最大的商業設施，屋頂花園可360度眺望銀座，建築設計充滿現代感。",
+                    map: "GINZA SIX"
+                },
+                {
+                    time: "12:30", title: "銀座 Uniqlo 旗艦店 & Ginza Astre",
+                    desc: "逛逛12層樓高的 Uniqlo，並前往 Ginza Astre (銀座アスター) 外帶部購買美食。",
+                    map: "ユニクロ 銀座店"
+                },
+                {
+                    time: "14:30", title: "返回飯店 (Henn na Hotel)",
+                    desc: "先將戰利品放回飯店，稍作休息。",
+                    next: { time: "步行", dist: "合羽橋" },
+                    map: "変なホテル東京 浅草田原町"
+                },
+                {
+                    time: "15:30", title: "合羽橋道具街",
+                    desc: "日本第一的廚房用品街，就在田原町站附近。留意商店多於 17:00 打烊。",
+                    // 📌 替換 16: d12-2 圖片連結
+                    img: "https://64.media.tumblr.com/f635d49a876cb93d2ff16e07adc20b3e/f9a8b36b323a973f-69/s2048x3072/47d1a36324407ecef3b84e3daea10471ec913bff.jpg",
+                    review: "Google 評論: 廚藝愛好者的聖地，從專業刀具、鍋具到超逼真的食物模型應有盡有。",
+                    map: "かっぱ橋道具街"
+                }
+            ]
+        },
+        {
+            date: "12/26 (五)", id: "d13", theme: "theme-blue", project: 2, fullDate: "2025-12-26",
+            events: [
+                {
+                    time: "09:30", title: "淺草美食巡禮",
+                    desc: "淺草花月堂 (波羅麵包) & 龜十 (銅鑼燒)。",
+                    review: "Google 評論: 花月堂外酥內軟，龜十銅鑼燒餅皮像鬆餅般蓬鬆，通常需要排隊。",
+                    map: "浅草花月堂 本店"
+                },
+                {
+                    time: "12:30", title: "敘敘苑 (新宿 Opera City)",
+                    desc: "53樓高空景觀午餐。",
+                    review: "Google 評論: 位於53樓的無敵視野，邊吃燒肉邊俯瞰東京高樓群。",
+                    map: "叙々苑 新宿オペラシティ53"
+                },
+                {
+                    time: "15:30", title: "下島包裝 (シモジマ)",
+                    desc: "最後補貨：文具、包裝用品、雜貨。", 
+                    review: "Google 評論: 『包裝控的天堂』！文具、紙袋、緞帶應有盡有，批發價格超划算。",
+                    map: "シモジマ 浅草橋本店"
+                }
+            ]
+        },
+        {
+            date: "12/27 (六)", id: "d14", theme: "theme-orange", project: 2, fullDate: "2025-12-27",
+            events: [
+                {
+                    time: "10:00", title: "返程 (前往成田 T2)",
+                    // 📌 替換 17: d14-1 圖片連結
+                    img: "https://64.media.tumblr.com/b9a87d278c8490c67f5483c53ac8379c/f9a8b36b323a973f-17/s2048x3072/db146f9cc3cf4849af693062fe1c5908bd730114.jpg",
+                    desc: "帶著滿滿回憶返程。星宇航空 JX803。",
+                    checkInNote: "回程",
+                    transportGuide: [
+                        "<span class='keyword-orange'>A18 淺草站</span> 進站。",
+                        "搭乘：<span class='keyword-orange'>Access 特急（アクセス特急 / Access Express）</span>。",
+                        "方向：往 <span class='keyword-orange'>成田空港 Narita Airport</span>（務必確認終點）。",
+                        "下車站：<span class='keyword-blue'>成田機場 T2</span>。",
+                        "如使用 IC 卡，出站前留意餘額是否足夠；也可在站內儲值機補儲值。"
+                    ],
+                    review: "Google 評論：淺草直達機場約 60 分鐘，不用轉車搬行李真的很方便。",
+                    next: { time: "飛行", dist: "TPE" },
+                    map: "成田空港第2ターミナル"
+                }
+            ]
+        }
+    ];
+    // === 行程資料庫結束 ===
+
+    function getCheckInDateStr(flightDateStr) {
+        const flightDate = new Date(flightDateStr);
+        const checkInDate = new Date(flightDate);
+        checkInDate.setDate(flightDate.getDate() - 2);
+        return (checkInDate.getMonth()+1) + '/' + checkInDate.getDate();
+    }
+
+    function getDateStatus(dateStr) {
+        const target = new Date(dateStr).setHours(0,0,0,0);
+        const today = MOCK_TODAY ? new Date(MOCK_TODAY).setHours(0,0,0,0) : new Date().setHours(0,0,0,0);
+        
+        if (target < today) return 'chip-past';
+        if (target === today) return 'chip-today';
+        return 'chip-future';
+    }
+
+    // === 匯率邏輯 (不變) ===
+    async function fetchExchangeRate() {
+        const rateEl = document.getElementById('header-rate');
+        const infoEl = document.getElementById('calc-rate-info');
+        let ok = false;
+
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest?base=JPY');
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.rates && data.rates.TWD) {
+                    currentExchangeRate = 1 / data.rates.JPY * data.rates.TWD; // 修正換算邏輯
+                    ok = true;
+                }
+            }
+        } catch (e) {
+            console.warn('open.er-api 匯率抓取失敗', e);
+        }
+
+        if (ok) {
+            const nowStr = new Date().toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
+            rateEl.innerHTML = `<span class="symbol">¥</span>1 = NT$${currentExchangeRate.toFixed(3)}`;
+            infoEl.innerText = `即時匯率: 1 JPY = NT$${currentExchangeRate.toFixed(4)}（約略值，實際以銀行與刷卡帳單為準｜更新：${nowStr}）`;
+        } else {
+            rateEl.innerHTML = `<span class="symbol">¥</span>1 ≈ NT$${currentExchangeRate.toFixed(3)}`;
+            infoEl.innerText = `預設匯率: 1 JPY = NT$${currentExchangeRate}（無法連線，請以銀行公告為準）`;
+        }
+
+        calcToTWD();
+        renderExpenses(); 
+    }
+
+    function calcToTWD() {
+        const jpy = document.getElementById('calc-jpy').value;
+        const twdInput = document.getElementById('calc-twd');
+        if(jpy && currentExchangeRate > 0) {
+            twdInput.value = Math.round(jpy * currentExchangeRate); 
+        } else {
+            twdInput.value = "";
+        }
+    }
+
+    // === 記帳本邏輯 (不變) ===
+    let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+
+    function addExpense() {
+        const item = document.getElementById('acc-item').value;
+        const cost = parseInt(document.getElementById('acc-cost').value);
+        const type = document.getElementById('acc-type').value;
+
+        if (!item || !cost || isNaN(cost)) {
+            alert("請輸入有效的品項與金額");
+            return;
+        }
+
+        expenses.unshift({
+            id: Date.now(),
+            item: item,
+            cost: cost,
+            type: type,
+            date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'})
+        });
+
+        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        document.getElementById('acc-item').value = '';
+        document.getElementById('acc-cost').value = '';
+        renderExpenses();
+    }
+
+    function removeExpense(id) {
+        expenses = expenses.filter(e => e.id !== id);
+        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        renderExpenses();
+    }
+
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        const totalVal = document.getElementById('acc-total-val');
+        const totalTwd = document.getElementById('acc-total-twd');
+        
+        list.innerHTML = '';
+        let total = 0;
+
+        expenses.forEach(e => {
+            total += e.cost;
+            const li = document.createElement('li');
+            li.className = 'expense-item';
+            li.innerHTML = `
+                <div class="expense-info">
+                    <div class="expense-title">${e.type} ${e.item}</div>
+                    <div class="expense-meta">${e.date}</div>
+                </div>
+                <div class="expense-amt">¥${e.cost.toLocaleString()}</div>
+                <button class="expense-del" onclick="removeExpense(${e.id})">×</button>
+            `;
+            list.appendChild(li);
+        });
+
+        totalVal.innerText = `¥${total.toLocaleString()}`;
+        const approxTwd = Math.round(total * currentExchangeRate);
+        totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
+    }
+
+    // === 渲染指差卡 (不變) ===
+    function renderPhrases(){
+        const grid = document.getElementById('phrase-grid');
+        phraseData.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'phrase-card';
+            card.onclick = () => openPhraseModal(p);
+            card.innerHTML = `
+                <div class="phrase-zh">${p.zh}</div>
+                <div class="phrase-en">${p.en}</div>
+                <div class="phrase-jp-small">${p.jp}</div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function openPhraseModal(phrase){
+        const modal = document.getElementById('phrase-modal');
+        document.getElementById('modal-jp').textContent = phrase.jp;
+        document.getElementById('modal-en').textContent = phrase.en;
+        document.getElementById('modal-zh').textContent = phrase.zh;
+        modal.classList.add('active');
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(phrase.jp).catch(()=>{});
+        }
+    }
+
+    function hidePhraseModal(){
+        document.getElementById('phrase-modal').classList.remove('active');
+    }
+
+    function closePhraseModal(e){
+        if (e.target.id === 'phrase-modal') {
+            hidePhraseModal();
+        }
+    }
+
+    // === 行程渲染 (不變) ===
+    function renderApp() {
+        const navProj1 = document.getElementById('nav-proj1');
+        const navProj2 = document.getElementById('nav-proj2');
+        const listContainer = document.getElementById('itinerary-list');
+        
+        // 渲染導航日期 Chips
+        itineraryData.forEach(day => {
+            const statusClass = getDateStatus(day.fullDate);
+            const chip = document.createElement('div');
+            chip.className = `date-chip ${statusClass}`;
+            chip.innerText = day.date.split(' ')[0];
+            chip.onclick = () => scrollToDay(day.id, chip);
+            
+            if (day.project === 1) navProj1.appendChild(chip);
+            else navProj2.appendChild(chip);
+        });
+
+        navProj1.classList.add('active');
+        navProj2.classList.remove('active');
+
+        // 渲染行程卡片
+        let html = '';
+        itineraryData.forEach(day => {
+            let eventsHtml = '';
+            day.events.forEach((evt) => {
+                // 📌 替換 18: 圖片連結 (已在資料庫標示，此處為使用)
+                const imgHtml = evt.img ? `<img src="${evt.img}" class="card-img" alt="${evt.title}" loading="lazy">` : '';
+                
+                let alertHtml = '';
+                if (evt.checkInNote) {
+                    const checkInDate = getCheckInDateStr(day.fullDate);
+                    alertHtml = `<div class="check-in-alert">🔴 提醒：線上報到與選位 (起飛前48小時：${checkInDate} 開放)</div>`;
+                }
+
+                let noteHtml = '';
+                if (evt.pelicanData) {
+                    let pelicanContent = '';
+                    evt.pelicanData.forEach(line => pelicanContent += `<div>${line}</div>`);
+                    noteHtml = `
+                        <button class="guide-toggle" onclick="toggleGuide(this)">🍞 Pelican 麵包預約清單 (點擊展開)</button>
+                        <div class="guide-content">
+                            <div class="pelican-note">
+                                ${pelicanContent}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let guideHtml = '';
+                if (evt.transportGuide) {
+                    let guideSteps = '';
+                    evt.transportGuide.forEach((step, i) => {
+                        guideSteps += `<div class="guide-step"><div class="step-num">${i+1}</div><div>${step}</div></div>`;
+                    });
+                    guideHtml = `
+                        <button class="guide-toggle" onclick="toggleGuide(this)">
+                            🚉 詳細交通/步行指引 (點擊展開)
+                        </button>
+                        <div class="guide-content">
+                            <div class="transport-guide">
+                                ${guideSteps}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let marketHtml = '';
+                if (evt.supermarkets) {
+                    marketHtml = `<div class="market-grid">`;
+                    evt.supermarkets.forEach(m => {
+                        const mapUrl = `https://maps.google.com/?q=${encodeURIComponent(m.map)}`;
+                        marketHtml += `
+                            <a href="${mapUrl}" target="_blank" class="market-btn">
+                                <div class="market-name">${m.name}</div>
+                                <div class="market-meta">${m.meta}</div>
+                            </a>`;
+                    });
+                    marketHtml += `</div>`;
+                }
+
+                const mapQuery = evt.map || evt.title;
+                const mapUrl = `https://maps.google.com/?q=${encodeURIComponent(mapQuery)}`;
+                const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
+                
+                const photoSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 景點圖片')}&tbm=isch`;
+
+                const btnsHtml = `
+                    <div class="btn-group">
+                        <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
+                        <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
+                        <a href="${photoSearchUrl}" target="_blank" class="btn btn-photo">📷 圖片</a>
+                    </div>
+                `;
+
+                const reviewText = evt.review || '前往 Google 地圖頁面，可查看最新的旅客評論與更多照片。';
+                const reviewHtml = `
+                    <div class="review-bubble">
+                        <span>💬</span>
+                        <div>${reviewText}</div>
+                    </div>
+                `;
+
+                eventsHtml += `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="card">
+                            ${imgHtml}
+                            <div class="card-content">
+                                <span class="card-time">${evt.time}</span>
+                                <h3 class="card-title">${evt.title}</h3>
+                                ${alertHtml}
+                                <div class="card-desc">${evt.desc}</div>
+                                ${noteHtml}
+                                ${guideHtml}
+                                ${btnsHtml}
+                                ${marketHtml}
+                                ${reviewHtml}
+                            </div>
+                        </div>
+                        ${evt.next ? `<div class="next-stop">🚶 下一站：${evt.next.time} (${evt.next.dist})</div>` : ''}
+                    </div>
+                `;
+            });
+
+            html += `
+                <div id="${day.id}" class="day-section ${day.theme}">
+                    <div class="day-header">
+                        <h2>${day.date}</h2>
+                        <span class="day-tag">Day ${day.id.substring(1)}</span>
+                    </div>
+                    <div class="timeline-wrapper">
+                        <div class="timeline-line"></div>
+                        ${eventsHtml}
+                    </div>
+                </div>
+            `;
+        });
+        listContainer.innerHTML = html;
+    }
+
+    // === 互動功能 (不變) ===
+    function scrollToDay(id, chipEl) {
+        chipEl.style.transform = "scale(0.9)";
+        setTimeout(()=> chipEl.style.transform = "scale(1)", 200);
+
+        const el = document.getElementById(id);
+        const headerOffset = 130; 
+        const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+
+    function switchTab(tabId, navEl) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function setProject(project){
+        const nav1 = document.getElementById('nav-proj1');
+        const nav2 = document.getElementById('nav-proj2');
+        const t1 = document.getElementById('tab-project1');
+        const t2 = document.getElementById('tab-project2');
+        if (!nav1 || !nav2 || !t1 || !t2) return;
+
+        if (project === 1){
+            nav1.classList.add('active');
+            nav2.classList.remove('active');
+            t1.classList.add('active');
+            t2.classList.remove('active');
+        } else {
+            nav1.classList.remove('active');
+            nav2.classList.add('active');
+            t1.classList.remove('active');
+            t2.classList.add('active');
+        }
+    }
+
+    function googleTranslate() {
+        const text = document.getElementById('trans-text').value;
+        if(text) window.open(`https://translate.google.com/?sl=zh-TW&tl=ja&text=${encodeURIComponent(text)}&op=translate`, '_blank');
+    }
+    
+    // Init
+    fetchExchangeRate(); 
+    renderPhrases();
+    renderApp();
+    renderExpenses();
+</script>
+</body>
+</html>
