@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="東京2025">
+    
     <title>東京冬日紀行 2025 | 完整版</title>
     <meta name="theme-color" content="#1A374D">
     
@@ -361,30 +366,28 @@
         .phrase-jp-small { font-size: 0.9rem; color: #B91C1C; font-weight: 700; }
 
         /* 指差卡與優惠券 Modal */
-        .phrase-modal, .coupon-modal {
+        .phrase-modal, .coupon-modal, .install-guide-modal {
             position: fixed;
             inset: 0;
-            z-index: 1200; /* 高於內容，但要注意 */
-            display: none; align-items: center; justify-content: center;
+            z-index: 1200;
+            display: none;
+            align-items: center; justify-content: center;
             padding: 20px;
         }
-        /* 特別針對優惠券 Modal 進行調整 
-           目標：讓底部導覽列 (z-index: 1000) 可見。
-           作法：Modal 背景不蓋到底部，並降低 z-index 至 999 
-        */
+        
         .coupon-modal {
             background: rgba(0,0,0,0.85);
-            bottom: 65px; /* 留出底部空間給導覽列 */
-            z-index: 999; /* 低於 Footer Nav (1000) */
+            bottom: 65px;
+            z-index: 999;
         }
 
-        .phrase-modal {
+        .phrase-modal, .install-guide-modal {
             background: rgba(15,23,42,0.65);
         }
 
-        .phrase-modal.active, .coupon-modal.active { display: flex; }
+        .phrase-modal.active, .coupon-modal.active, .install-guide-modal.active { display: flex; }
 
-        .phrase-modal-content, .coupon-modal-content {
+        .phrase-modal-content, .coupon-modal-content, .install-guide-content {
             position: relative;
             background: #FFFFFF;
             border-radius: 18px;
@@ -417,7 +420,7 @@
         .cm-img-container img {
             max-width: 100%;
             height: auto;
-            max-height: 300px;
+            max-height: 60vh; /* 讓放大後的圖片盡量大 */
             object-fit: contain;
         }
         .cm-title { font-size: 1.4rem; color: #1A374D; margin: 5px 0; font-weight: 900; }
@@ -467,57 +470,59 @@
         .acc-total-val { font-size: 1.8rem; font-weight: 900; color: #1A374D; }
         .acc-total-twd { font-size: 0.9rem; color: #888; font-weight: bold; }
 
-        /* 優惠券樣式 - 手機雙欄優化 */
+        /* 優惠券樣式 - 修改版 */
         .coupon-grid {
             display: grid;
-            /* 強制設定為 2 欄，符合手機一列兩家的需求 */
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
             margin-top: 15px;
         }
         .coupon-card {
             background: #fff;
-            border: 1px solid #e0e0e0;
+            /* 邊框顏色由 JS 動態產生，這邊只留基本屬性 */
             border-radius: 10px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            /* 改為 pointer，因為現在是開 Modal */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
             cursor: pointer;
             transition: transform 0.2s;
+            position: relative;
         }
         .coupon-card:active {
-            transform: scale(0.98);
-            background-color: #f9f9f9;
+            transform: scale(0.96);
+            background-color: #fafafa;
         }
         .coupon-img-box {
             width: 100%;
-            height: 100px; /* 手機版稍微縮小高度以適應雙欄 */
-            background: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid #eee;
-            padding: 5px;
+            height: 120px; /* 固定高度，讓卡片整齊 */
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+            /* 移除 padding，讓圖片可以滿版 */
+            padding: 0;
+            border-bottom: 1px solid #f0f0f0;
         }
         .coupon-img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            /* 關鍵：填滿容器，並從上方開始顯示 (通常 Logo 或重點在上方) */
+            object-fit: cover;
+            object-position: top center;
+            display: block;
         }
         .coupon-content {
-            padding: 10px;
+            padding: 12px 10px;
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
         }
         .coupon-name {
-            font-size: 0.95rem; /* 字體微調 */
+            font-size: 0.95rem;
             font-weight: 900;
             color: #1A374D;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             line-height: 1.3;
         }
         .coupon-offer {
@@ -526,11 +531,11 @@
             font-weight: bold;
             background: #FFEBEE;
             display: inline-block;
-            padding: 2px 6px;
+            padding: 3px 8px;
             border-radius: 4px;
         }
         .coupon-action {
-            margin-top: 8px;
+            margin-top: 10px;
             text-align: right;
             font-size: 0.75rem;
             color: #1565C0;
@@ -545,6 +550,26 @@
             border-radius: 6px;
         }
 
+        /* 加入主畫面按鈕樣式 */
+        .btn-install {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 1rem;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-install:active { transform: scale(0.98); box-shadow: none; }
+        
         .footer-nav {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
@@ -662,6 +687,10 @@
     </div>
 
     <div id="tab-tools" class="section">
+        <button class="btn-install" onclick="showInstallGuide()">
+            <span>📱</span> 將本頁加入手機桌面 (APP化)
+        </button>
+
         <div class="tools-card">
             <h2 style="margin-top:0">💱 即時匯率計算機</h2>
             <div style="background:#F9F9F9; padding:15px; border-radius:8px;">
@@ -713,11 +742,38 @@
         <button class="modal-close" type="button" onclick="hideCouponModal()">×</button>
         <div id="cm-title" class="cm-title"></div>
         <div class="cm-img-container">
-            <img id="cm-img" src="" alt="Coupon">
+            <img id="cm-img" src="" alt="Coupon" loading="lazy">
         </div>
         <div id="cm-offer" class="cm-offer"></div>
         <a id="cm-link" href="#" target="_blank" class="btn btn-primary" style="width:100%">前往官網 / 領取頁面 ➔</a>
         <p class="modal-tip" style="margin-top:10px;">點擊上方按鈕將開啟新視窗</p>
+    </div>
+</div>
+
+<div id="install-guide-modal" class="install-guide-modal" onclick="closeInstallGuide(event)">
+    <div class="install-guide-content">
+        <button class="modal-close" type="button" onclick="hideInstallGuide()">×</button>
+        <h3 style="margin-top:0; color:#1A374D;">📱 如何加入手機桌面？</h3>
+        <div id="guide-ios" style="display:none; text-align:left; font-size:0.95rem;">
+            <p><strong>iOS (iPhone/iPad):</strong></p>
+            <ol>
+                <li>點擊瀏覽器下方的 <strong style="color:#007AFF; font-size:1.2rem;">分享按鈕</strong> (方框向上箭頭)。</li>
+                <li>向下滑動選單，找到並點選 <strong style="background:#eee; padding:2px 6px; border-radius:4px;">加入主畫面</strong>。</li>
+                <li>點擊右上角的「新增」即可。</li>
+            </ol>
+        </div>
+        <div id="guide-android" style="display:none; text-align:left; font-size:0.95rem;">
+            <p><strong>Android (Chrome):</strong></p>
+            <ol>
+                <li>點擊瀏覽器右上角的 <strong style="font-size:1.2rem;">... 選單</strong>。</li>
+                <li>選擇 <strong style="background:#eee; padding:2px 6px; border-radius:4px;">安裝應用程式</strong> 或 <strong>加到主畫面</strong>。</li>
+                <li>確認新增即可。</li>
+            </ol>
+        </div>
+        <div id="guide-default" style="display:none; text-align:left;">
+            <p>請使用手機瀏覽器 (Safari 或 Chrome) 開啟本頁，並在選單中尋找「加入主畫面」功能。</p>
+        </div>
+        <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="hideInstallGuide()">我知道了</button>
     </div>
 </div>
 
@@ -756,35 +812,32 @@
         { id: 'fork_please', jp: 'フォークを ください。', en: 'Fork, please.', zh: '不好意思，請給我叉子。' },
         { id: 'take_out', jp: 'もちかえりで おねがいします。', en: 'Take out, please.', zh: '我要外帶。' }
     ];
-    
-    // 優惠券資料庫 (更新 AEON)
+    // 優惠券資料庫
     const couponData = [
-        { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.png", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
-        { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.png", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
-        { name: "愛電王 Edion", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/edion.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/edion.jpg" },
-        { name: "Laox", offer: "免稅10% + 8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.jpg" },
-        { name: "成田機場免稅店", offer: "享有95折優惠", img: "https://travel.itigre.com/2025/tokyo/coupon/narita_duty.png", url: "https://duty-free-japan.jp/narita/ta/content/coupon2833-30.html" },
-        { name: "SUNDRUG 藥妝", offer: "免稅 + 3~7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.jpg", url: "https://sundrug-online.com/" },
-        { name: "鶴羽藥妝", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.jpg" },
-        { name: "札幌藥妝", offer: "免稅 + 最高5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sapporo.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/sapporo.jpg" },
-        { name: "Cosmos 藥妝", offer: "免稅 + 最高9% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.jpg" },
+        { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.webp", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
+        { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.webp", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
+        { name: "愛電王 Edion", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp" },
+        { name: "Laox", offer: "免稅10% + 8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.webp" },
+        { name: "成田機場免稅店", offer: "享有95折優惠", img: "https://travel.itigre.com/2025/tokyo/coupon/narita_duty.webp", url: "https://duty-free-japan.jp/narita/ta/content/coupon2833-30.html" },
+        { name: "SUNDRUG 藥妝", offer: "免稅 + 3~7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.webp", url: "https://sundrug-online.com/" },
+        { name: "鶴羽藥妝", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.webp" },
+        { name: "札幌藥妝", offer: "免稅 + 最高5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sapporo.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/sapporo.webp" },
+        { name: "Cosmos 藥妝", offer: "免稅 + 最高9% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.webp" },
         { name: "松本清", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/matsucoupontw.webp", url: "https://www.matsukiyococokara-online.com/point/coupon/" },
-        { name: "大國藥妝", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.jpg" },
+        { name: "大國藥妝", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.webp" },
         { name: "SUGI 藥局", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sugidrug.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/sugidrug.webp" },
-        { name: "福太郎藥局", offer: "免稅 + 最高18% (82折)", img: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.png", url: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.png" },
-        { name: "銀座樂天免稅店", offer: "滿額最高折2千日圓", img: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.jpg" },
+        { name: "福太郎藥局", offer: "免稅 + 最高18% (82折)", img: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.webp" },
+        { name: "銀座樂天免稅店", offer: "滿額最高折2千日圓", img: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.webp" },
         { name: "大丸松坂屋", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf", url: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf" },
-        { name: "西武百貨", offer: "滿1000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/seibu.png", url: "https://travel.itigre.com/2025/tokyo/coupon/seibu.png" },
+        { name: "西武百貨", offer: "滿1000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/seibu.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/seibu.webp" },
         { name: "京王百貨", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg", url: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg" },
-        { name: "Victoria 運動", offer: "免稅 + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.jpg" },
+        { name: "Victoria 運動", offer: "免稅 + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.webp" },
         { name: "山田電機", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp" },
         { name: "多慶屋", offer: "JCB卡+券享12% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp" },
-        // 新增 3 個 AEON
         { name: "AEON LakeTown kaze", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall05#body" },
         { name: "AEON LakeTown mori", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
         { name: "AEON LakeTown OUTLET", offer: "專屬優惠券", img: "https://laketown-outlet.jp/img/common/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall07" }
     ];
-
     // === 資料庫 (行程) ===
     const itineraryData = [
         // --- PROJECT 1 ---
@@ -1173,7 +1226,6 @@
             ]
         }
     ];
-
     // === 工具函數 ===
     function getCheckInDateStr(flightDateStr) {
         const flightDate = new Date(flightDateStr);
@@ -1307,21 +1359,29 @@
         totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
     }
 
-    // === 渲染優惠券 (Modal 版) ===
+    // === 渲染優惠券 (Modal 版 - 修改增強) ===
     function renderCoupons() {
         const list = document.getElementById('coupon-list');
         let html = '';
+        // 定義豐富的邊框顏色陣列
+        const borderColors = [
+            '#FF5722', '#2196F3', '#4CAF50', '#9C27B0', '#FF9800', 
+            '#E91E63', '#009688', '#3F51B5', '#CDDC39', '#607D8B', 
+            '#F44336', '#673AB7', '#03A9F4', '#8BC34A', '#FFC107'
+        ];
+
         couponData.forEach((c, index) => {
-            // 使用 div 並加上 onclick 事件來開啟 Modal
+            const color = borderColors[index % borderColors.length];
+            // 增加 loading="lazy" 以優化載入
             html += `
-                <div class="coupon-card" onclick="openCouponModal(${index})">
+                <div class="coupon-card" onclick="openCouponModal(${index})" style="border: 2px solid ${color};">
                     <div class="coupon-img-box">
-                        <img src="${c.img}" alt="${c.name}" class="coupon-img" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
+                        <img src="${c.img}" alt="${c.name}" class="coupon-img" loading="lazy" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
                     </div>
                     <div class="coupon-content">
                         <div class="coupon-name">${c.name}</div>
                         <div><span class="coupon-offer">${c.offer}</span></div>
-                        <div class="coupon-action">點此開啟 ➔</div>
+                        <div class="coupon-action">點此放大 ➔</div>
                     </div>
                 </div>
             `;
@@ -1352,6 +1412,38 @@
             hideCouponModal();
         }
     }
+
+    // === 加入主畫面 Modal 邏輯 ===
+    function showInstallGuide() {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+        const isAndroid = /android/i.test(userAgent);
+
+        document.getElementById('guide-ios').style.display = 'none';
+        document.getElementById('guide-android').style.display = 'none';
+        document.getElementById('guide-default').style.display = 'none';
+
+        if (isIOS) {
+            document.getElementById('guide-ios').style.display = 'block';
+        } else if (isAndroid) {
+            document.getElementById('guide-android').style.display = 'block';
+        } else {
+            document.getElementById('guide-default').style.display = 'block';
+        }
+
+        document.getElementById('install-guide-modal').classList.add('active');
+    }
+
+    function hideInstallGuide() {
+        document.getElementById('install-guide-modal').classList.remove('active');
+    }
+
+    function closeInstallGuide(e) {
+        if (e.target.id === 'install-guide-modal') {
+            hideInstallGuide();
+        }
+    }
+
 
     // === 渲染指差卡 ===
     function renderPhrases(){
@@ -1487,7 +1579,6 @@
                         <div>${reviewText}</div>
                     </div>
                 `;
-
                 eventsHtml += `
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
