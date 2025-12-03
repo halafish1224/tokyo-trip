@@ -360,17 +360,31 @@
         .phrase-en { font-size: 0.75rem; color: #6B7280; margin-bottom: 3px; }
         .phrase-jp-small { font-size: 0.9rem; color: #B91C1C; font-weight: 700; }
 
-        /* 指差卡放大 Modal */
-        .phrase-modal {
+        /* 指差卡與優惠券 Modal */
+        .phrase-modal, .coupon-modal {
             position: fixed;
             inset: 0;
-            background: rgba(15,23,42,0.65);
+            z-index: 1200; /* 高於內容，但要注意 */
             display: none; align-items: center; justify-content: center;
-            z-index: 1200; padding: 20px;
+            padding: 20px;
         }
-        .phrase-modal.active { display: flex; }
+        /* 特別針對優惠券 Modal 進行調整 
+           目標：讓底部導覽列 (z-index: 1000) 可見。
+           作法：Modal 背景不蓋到底部，並降低 z-index 至 999 
+        */
+        .coupon-modal {
+            background: rgba(0,0,0,0.85);
+            bottom: 65px; /* 留出底部空間給導覽列 */
+            z-index: 999; /* 低於 Footer Nav (1000) */
+        }
 
-        .phrase-modal-content {
+        .phrase-modal {
+            background: rgba(15,23,42,0.65);
+        }
+
+        .phrase-modal.active, .coupon-modal.active { display: flex; }
+
+        .phrase-modal-content, .coupon-modal-content {
             position: relative;
             background: #FFFFFF;
             border-radius: 18px;
@@ -378,8 +392,10 @@
             max-width: 480px; width: 100%;
             box-shadow: 0 16px 40px rgba(0,0,0,0.25);
             text-align: center;
+            max-height: 100%;
+            overflow-y: auto;
         }
-        .phrase-modal-close {
+        .phrase-modal-close, .modal-close {
             position: absolute;
             top: 8px; right: 12px;
             border: none; background: transparent;
@@ -390,6 +406,22 @@
         .modal-en { font-size: 1rem; color: #374151; margin-bottom: 4px; }
         .modal-zh { font-size: 1.2rem; color: #111827; margin-bottom: 12px; font-weight: bold; }
         .modal-tip { font-size: 0.8rem; color: #9CA3AF; }
+
+        /* Coupon Modal Specifics */
+        .cm-img-container {
+            margin: 15px 0;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .cm-img-container img {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+        }
+        .cm-title { font-size: 1.4rem; color: #1A374D; margin: 5px 0; font-weight: 900; }
+        .cm-offer { font-size: 1.1rem; color: #D32F2F; font-weight: bold; background: #FFEBEE; display: inline-block; padding: 4px 12px; border-radius: 6px; margin-bottom: 15px; }
 
         /* 記帳本樣式 */
         .account-card {
@@ -435,11 +467,12 @@
         .acc-total-val { font-size: 1.8rem; font-weight: 900; color: #1A374D; }
         .acc-total-twd { font-size: 0.9rem; color: #888; font-weight: bold; }
 
-        /* 優惠券樣式 - 長輩友善版 */
+        /* 優惠券樣式 - 手機雙欄優化 */
         .coupon-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
+            /* 強制設定為 2 欄，符合手機一列兩家的需求 */
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             margin-top: 15px;
         }
         .coupon-card {
@@ -450,8 +483,8 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            text-decoration: none;
-            color: inherit;
+            /* 改為 pointer，因為現在是開 Modal */
+            cursor: pointer;
             transition: transform 0.2s;
         }
         .coupon-card:active {
@@ -460,13 +493,13 @@
         }
         .coupon-img-box {
             width: 100%;
-            height: 120px;
+            height: 100px; /* 手機版稍微縮小高度以適應雙欄 */
             background: #f5f5f5;
             display: flex;
             align-items: center;
             justify-content: center;
             border-bottom: 1px solid #eee;
-            padding: 10px;
+            padding: 5px;
         }
         .coupon-img {
             max-width: 100%;
@@ -474,31 +507,32 @@
             object-fit: contain;
         }
         .coupon-content {
-            padding: 12px;
+            padding: 10px;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         .coupon-name {
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* 字體微調 */
             font-weight: 900;
             color: #1A374D;
             margin-bottom: 4px;
+            line-height: 1.3;
         }
         .coupon-offer {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #D32F2F;
             font-weight: bold;
             background: #FFEBEE;
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
         }
         .coupon-action {
             margin-top: 8px;
             text-align: right;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #1565C0;
             font-weight: bold;
         }
@@ -547,7 +581,8 @@
             .top-bar{ padding-inline:4px; }
             .top-title{ font-size:1.15rem; }
             .header-rate{ font-size:0.8rem; }
-            .coupon-grid { grid-template-columns: repeat(2, 1fr); }
+            /* 平板以上改為 3 欄 */
+            .coupon-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
         }
     </style>
 </head>
@@ -615,7 +650,7 @@
         <div class="account-card">
             <h3 style="margin-top:0; color:#B71C1C; font-size:1.3rem;">💰 日本購物優惠券大全</h3>
             <p style="font-size:0.9rem; color:#555; line-height:1.6;">
-                長輩與親友專用版。<br>點擊卡片可開啟優惠券圖片或官網，結帳時出示畫面即可。
+                點擊卡片可預覽大圖，確認要使用再前往連結。<br>(預覽時下方導覽列仍可使用)
             </p>
             <div id="coupon-list" class="coupon-grid"></div>
             <div class="coupon-source-note">
@@ -673,6 +708,19 @@
     </div>
 </div>
 
+<div id="coupon-modal" class="coupon-modal" onclick="closeCouponModal(event)">
+    <div class="coupon-modal-content">
+        <button class="modal-close" type="button" onclick="hideCouponModal()">×</button>
+        <div id="cm-title" class="cm-title"></div>
+        <div class="cm-img-container">
+            <img id="cm-img" src="" alt="Coupon">
+        </div>
+        <div id="cm-offer" class="cm-offer"></div>
+        <a id="cm-link" href="#" target="_blank" class="btn btn-primary" style="width:100%">前往官網 / 領取頁面 ➔</a>
+        <p class="modal-tip" style="margin-top:10px;">點擊上方按鈕將開啟新視窗</p>
+    </div>
+</div>
+
 <nav class="footer-nav">
     <div class="nav-item active" onclick="switchTab('trip', this)">
         <span class="nav-icon">🗺️</span>行程
@@ -709,7 +757,7 @@
         { id: 'take_out', jp: 'もちかえりで おねがいします。', en: 'Take out, please.', zh: '我要外帶。' }
     ];
     
-    // 優惠券資料庫 (全新更新版)
+    // 優惠券資料庫 (更新 AEON)
     const couponData = [
         { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.png", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
         { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.png", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
@@ -731,8 +779,10 @@
         { name: "Victoria 運動", offer: "免稅 + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.jpg" },
         { name: "山田電機", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp" },
         { name: "多慶屋", offer: "JCB卡+券享12% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp" },
-        { name: "AEON LakeTown", offer: "¥500 優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
-        { name: "AEON Outlet", offer: "專屬優惠券", img: "https://laketown-outlet.jp/img/common/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall07" }
+        // 新增 3 個 AEON
+        { name: "AEON LakeTown kaze", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall05#body" },
+        { name: "AEON LakeTown mori", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
+        { name: "AEON LakeTown OUTLET", offer: "專屬優惠券", img: "https://laketown-outlet.jp/img/common/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall07" }
     ];
 
     // === 資料庫 (行程) ===
@@ -1257,26 +1307,50 @@
         totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
     }
 
-    // === 渲染優惠券 (新版長輩友善) ===
+    // === 渲染優惠券 (Modal 版) ===
     function renderCoupons() {
         const list = document.getElementById('coupon-list');
         let html = '';
-        couponData.forEach(c => {
-            // 對於長輩，直接顯示大圖和文字，點擊後跳轉
+        couponData.forEach((c, index) => {
+            // 使用 div 並加上 onclick 事件來開啟 Modal
             html += `
-                <a href="${c.url}" target="_blank" class="coupon-card">
+                <div class="coupon-card" onclick="openCouponModal(${index})">
                     <div class="coupon-img-box">
                         <img src="${c.img}" alt="${c.name}" class="coupon-img" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
                     </div>
                     <div class="coupon-content">
                         <div class="coupon-name">${c.name}</div>
                         <div><span class="coupon-offer">${c.offer}</span></div>
-                        <div class="coupon-action">點此開啟優惠券 ➔</div>
+                        <div class="coupon-action">點此開啟 ➔</div>
                     </div>
-                </a>
+                </div>
             `;
         });
         list.innerHTML = html;
+    }
+
+    // === Modal 邏輯 ===
+    function openCouponModal(index) {
+        const coupon = couponData[index];
+        if(!coupon) return;
+
+        const modal = document.getElementById('coupon-modal');
+        document.getElementById('cm-title').innerText = coupon.name;
+        document.getElementById('cm-img').src = coupon.img;
+        document.getElementById('cm-offer').innerText = coupon.offer;
+        document.getElementById('cm-link').href = coupon.url;
+        
+        modal.classList.add('active');
+    }
+
+    function hideCouponModal() {
+        document.getElementById('coupon-modal').classList.remove('active');
+    }
+
+    function closeCouponModal(e) {
+        if (e.target.id === 'coupon-modal') {
+            hideCouponModal();
+        }
     }
 
     // === 渲染指差卡 ===
