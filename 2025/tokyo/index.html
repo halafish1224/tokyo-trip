@@ -43,7 +43,6 @@
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* 背景圖保留，但因 overlay 很重，視覺上不明顯 */
             background-image: url('https://64.media.tumblr.com/c68ffd369609d9eeb2d2c29908144535/f9a8b36b323a973f-a8/s2048x3072/0a05579aea81bcbb57f39043f14fa5f51e9b718b.jpg');
             background-size: cover;
             background-position: center;
@@ -206,7 +205,6 @@
         }
         
         .card-content { padding: 15px; }
-        /* 移除 card-img 相關樣式，因為不再顯示圖片 */
         
         .card-time { font-size: 0.85rem; font-weight: 700; color: #888; display: block; margin-bottom: 5px; }
         .card-title { font-size: 1.15rem; font-weight: 900; margin: 0 0 8px; color: #222; }
@@ -239,7 +237,6 @@
             border-radius: 0 4px 4px 0;
         }
         
-        /* 咖啡清單樣式 */
         .coffee-list {
             background: #EFEBE9;
             border: 1px dashed #8D6E63;
@@ -254,7 +251,6 @@
         .coffee-list li { margin-bottom: 4px; }
         .coffee-tag { display:inline-block; background:#8D6E63; color:white; font-size:0.7rem; padding:2px 6px; border-radius:4px; margin-right:5px; }
 
-        /* 通用資訊清單樣式 (如 Recette 菜單) */
         .info-list {
             background: #F5F5F5;
             border-left: 4px solid #1A374D;
@@ -366,7 +362,8 @@
 
         /* 指差卡放大 Modal */
         .phrase-modal {
-            position: fixed; inset: 0;
+            position: fixed;
+            inset: 0;
             background: rgba(15,23,42,0.65);
             display: none; align-items: center; justify-content: center;
             z-index: 1200; padding: 20px;
@@ -383,7 +380,8 @@
             text-align: center;
         }
         .phrase-modal-close {
-            position: absolute; top: 8px; right: 12px;
+            position: absolute;
+            top: 8px; right: 12px;
             border: none; background: transparent;
             font-size: 1.8rem; cursor: pointer; color: #6B7280;
         }
@@ -437,18 +435,81 @@
         .acc-total-val { font-size: 1.8rem; font-weight: 900; color: #1A374D; }
         .acc-total-twd { font-size: 0.9rem; color: #888; font-weight: bold; }
 
-        /* 優惠券樣式 */
-        .coupon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; margin-top: 10px; }
-        .coupon-btn {
-            background: #FFF; border: 1px solid #E0E0E0;
-            padding: 8px; border-radius: 6px; text-align: center;
-            text-decoration: none; color: #333; font-size: 0.8rem;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        /* 優惠券樣式 - 長輩友善版 */
+        .coupon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
-        .coupon-btn:hover { background: #FAFAFA; border-color: #BDBDBD; }
-        .coupon-icon { font-size: 1.5rem; margin-bottom: 4px; }
-        .coupon-name { font-weight: bold; color: #1565C0; }
+        .coupon-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s;
+        }
+        .coupon-card:active {
+            transform: scale(0.98);
+            background-color: #f9f9f9;
+        }
+        .coupon-img-box {
+            width: 100%;
+            height: 120px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+        }
+        .coupon-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .coupon-content {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .coupon-name {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #1A374D;
+            margin-bottom: 4px;
+        }
+        .coupon-offer {
+            font-size: 1rem;
+            color: #D32F2F;
+            font-weight: bold;
+            background: #FFEBEE;
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .coupon-action {
+            margin-top: 8px;
+            text-align: right;
+            font-size: 0.85rem;
+            color: #1565C0;
+            font-weight: bold;
+        }
+        .coupon-source-note {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: #999;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 6px;
+        }
 
         .footer-nav {
             position: fixed;
@@ -486,6 +547,7 @@
             .top-bar{ padding-inline:4px; }
             .top-title{ font-size:1.15rem; }
             .header-rate{ font-size:0.8rem; }
+            .coupon-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -511,7 +573,6 @@
                 </div>
             </div>
         </div>
-       
         <div class="project-nav-row">
             <div class="date-scroller active" id="nav-proj1"></div>
             <div class="date-scroller" id="nav-proj2"></div>
@@ -552,9 +613,16 @@
         </div>
         
         <div class="account-card">
-            <h3 style="margin-top:0; color:#B71C1C;">💰 日本購物優惠券大全</h3>
-            <p style="font-size:0.8rem; color:#666;">點擊連結通常可直接出示條碼或進入官網領取</p>
+            <h3 style="margin-top:0; color:#B71C1C; font-size:1.3rem;">💰 日本購物優惠券大全</h3>
+            <p style="font-size:0.9rem; color:#555; line-height:1.6;">
+                長輩與親友專用版。<br>點擊卡片可開啟優惠券圖片或官網，結帳時出示畫面即可。
+            </p>
             <div id="coupon-list" class="coupon-grid"></div>
+            <div class="coupon-source-note">
+                資料來源整理：<br>
+                1. funtime.com.tw/blog/funtime/japan-coupon<br>
+                2. letsgojp.com/archives/382974
+            </div>
         </div>
     </div>
 
@@ -610,7 +678,7 @@
         <span class="nav-icon">🗺️</span>行程
     </div>
     <div class="nav-item" onclick="switchTab('account', this)">
-        <span class="nav-icon">📒</span>記帳
+        <span class="nav-icon">📒</span>記帳/優惠
     </div>
     <div class="nav-item" onclick="switchTab('tools', this)">
         <span class="nav-icon">🧰</span>工具箱
@@ -640,19 +708,31 @@
         { id: 'fork_please', jp: 'フォークを ください。', en: 'Fork, please.', zh: '不好意思，請給我叉子。' },
         { id: 'take_out', jp: 'もちかえりで おねがいします。', en: 'Take out, please.', zh: '我要外帶。' }
     ];
-
-    // 優惠券資料庫
+    
+    // 優惠券資料庫 (全新更新版)
     const couponData = [
-        { name: "Bic Camera", icon: "📷", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
-        { name: "Uniqlo", icon: "👕", url: "https://www.uniqlo.com/jp/ja/spl/app" },
-        { name: "GU", icon: "👖", url: "https://www.gu-global.com/jp/ja/feature/app/pc/" },
-        { name: "唐吉訶德", icon: "🐧", url: "https://www.djapanpass.com/coupon/0002000103" },
-        { name: "松本清", icon: "💊", url: "https://www.matsukiyococokara-online.com/point/coupon/" },
-        { name: "Sundrug", icon: "💊", url: "https://sundrug-online.com/" },
-        { name: "Loft", icon: "✏️", url: "https://www.loft.co.jp/app/" },
-        { name: "YAMADA", icon: "🔌", url: "https://www.yamada-denki.jp/" },
-        { name: "PARCO", icon: "🏬", url: "https://parco.jp/" },
-        { name: "AEON", icon: "🛒", url: "https://www.welcome-aeon.com/tw/coupon/" }
+        { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.png", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
+        { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.png", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
+        { name: "愛電王 Edion", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/edion.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/edion.jpg" },
+        { name: "Laox", offer: "免稅10% + 8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.jpg" },
+        { name: "成田機場免稅店", offer: "享有95折優惠", img: "https://travel.itigre.com/2025/tokyo/coupon/narita_duty.png", url: "https://duty-free-japan.jp/narita/ta/content/coupon2833-30.html" },
+        { name: "SUNDRUG 藥妝", offer: "免稅 + 3~7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.jpg", url: "https://sundrug-online.com/" },
+        { name: "鶴羽藥妝", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.jpg" },
+        { name: "札幌藥妝", offer: "免稅 + 最高5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.jpg" },
+        { name: "Cosmos 藥妝", offer: "免稅 + 最高9% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.jpg" },
+        { name: "松本清", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/matsucoupontw.webp", url: "https://www.matsukiyococokara-online.com/point/coupon/" },
+        { name: "大國藥妝", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.jpg" },
+        { name: "SUGI 藥局", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sugidrug.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/sugidrug.webp" },
+        { name: "福太郎藥局", offer: "免稅 + 最高18% (82折)", img: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.png", url: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.png" },
+        { name: "銀座樂天免稅店", offer: "滿額最高折2千日圓", img: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.jpg" },
+        { name: "大丸松坂屋", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf", url: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf" },
+        { name: "西武百貨", offer: "滿1000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/seibu.png", url: "https://travel.itigre.com/2025/tokyo/coupon/seibu.png" },
+        { name: "京王百貨", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg", url: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg" },
+        { name: "Victoria 運動", offer: "免稅 + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.jpg", url: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.jpg" },
+        { name: "山田電機", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp" },
+        { name: "多慶屋", offer: "JCB卡+券享12% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp" },
+        { name: "AEON LakeTown", offer: "¥500 優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
+        { name: "AEON Outlet", offer: "專屬優惠券", img: "https://laketown-outlet.jp/img/common/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall07" }
     ];
 
     // === 資料庫 (行程) ===
@@ -867,8 +947,14 @@
                     map: "変なホテル東京 浅草田原町"
                 },
                 {
-                    time: "20:00", title: "👨‍👩‍👧‍👦 與家人匯合 & 晚餐",
-                    desc: "預計晚上8點後匯合。晚餐直接在飯店旁的 Yayoi 軒解決。",
+                    time: "20:00", title: "👨‍👩‍👧‍👦 家人抵達 & 交通指引",
+                    desc: "預計晚上8點後匯合。晚餐可直接在飯店旁的 Yayoi 軒解決。<br><br><strong>⚠️ 家人前往飯店之交通/電梯攻略：</strong>",
+                    transportGuide: [
+                        "從成田機場搭乘 <span class='keyword-orange'>京成電鐵 Access 特急</span> (往羽田空港方向)。",
+                        "至 <span class='keyword-blue'>都營淺草站 (A18)</span> 下車 (免轉車)。",
+                        "🛗 <strong>行李專用出口：</strong> 請務必尋找 <span class='keyword-orange'>A2b 出口</span> (有大電梯)。",
+                        "出站後建議直接搭乘計程車至飯店 (約 ¥800-1000)，避免拖行李走 12 分鐘。"
+                    ],
                     map: "YAYOI Asakusa Tawaramachi"
                 },
                 {
@@ -1171,15 +1257,22 @@
         totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
     }
 
-    // === 渲染優惠券 ===
+    // === 渲染優惠券 (新版長輩友善) ===
     function renderCoupons() {
         const list = document.getElementById('coupon-list');
         let html = '';
         couponData.forEach(c => {
+            // 對於長輩，直接顯示大圖和文字，點擊後跳轉
             html += `
-                <a href="${c.url}" target="_blank" class="coupon-btn">
-                    <div class="coupon-icon">${c.icon}</div>
-                    <div class="coupon-name">${c.name}</div>
+                <a href="${c.url}" target="_blank" class="coupon-card">
+                    <div class="coupon-img-box">
+                        <img src="${c.img}" alt="${c.name}" class="coupon-img" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
+                    </div>
+                    <div class="coupon-content">
+                        <div class="coupon-name">${c.name}</div>
+                        <div><span class="coupon-offer">${c.offer}</span></div>
+                        <div class="coupon-action">點此開啟優惠券 ➔</div>
+                    </div>
                 </a>
             `;
         });
@@ -1241,7 +1334,6 @@
             if (day.project === 1) navProj1.appendChild(chip);
             else navProj2.appendChild(chip);
         });
-
         navProj1.classList.add('active');
         navProj2.classList.remove('active');
 
@@ -1250,7 +1342,6 @@
         itineraryData.forEach(day => {
             let eventsHtml = '';
             day.events.forEach((evt) => {
-                // 已移除 img 標籤渲染
                 
                 let alertHtml = '';
                 if (evt.checkInNote) {
@@ -1309,14 +1400,12 @@
                 const mapQuery = evt.map || evt.title;
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
-                
                 const btnsHtml = `
                     <div class="btn-group">
                         <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
                         <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
                     </div>
                 `;
-
                 const reviewText = evt.review || '前往 Google 地圖頁面，可查看最新的旅客評論與更多照片。';
                 const reviewHtml = `
                     <div class="review-bubble">
@@ -1410,7 +1499,7 @@
     // Init
     fetchExchangeRate();
     renderPhrases();
-    renderCoupons(); // 新增渲染優惠券
+    renderCoupons();
     renderApp();
     renderExpenses();
 </script>
