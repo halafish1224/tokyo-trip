@@ -33,7 +33,14 @@
             --color-dark-grey: #2C3E50;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* 設定 HTML 基礎字體大小以便縮放 */
+        html {
+            font-size: 100%; /* 預設 16px */
+            transition: font-size 0.2s ease;
+        }
+
+        * { box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
@@ -160,8 +167,10 @@
             gap: 8px;
             scrollbar-width: none;
         }
-        .date-scroller::-webkit-scrollbar { display: none; }
-        .date-scroller.active { display: flex; }
+        .date-scroller::-webkit-scrollbar { display: none;
+        }
+        .date-scroller.active { display: flex;
+        }
 
         /* 新版日期 Chips 樣式 */
         .date-chip {
@@ -192,11 +201,13 @@
             background: rgba(0,0,0,0.2); /* 讓文字更清楚 */
             z-index: 0;
         }
-        .date-chip span { z-index: 1; position: relative; }
+        .date-chip span { z-index: 1; position: relative;
+        }
 
-        .date-chip:active { transform: scale(0.95); }
+        .date-chip:active { transform: scale(0.95);
+        }
         .date-chip.active { 
-            border-color: var(--color-gold); 
+            border-color: var(--color-gold);
             transform: scale(1.1); 
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             z-index: 10;
@@ -207,6 +218,42 @@
             max-width: 600px;
             margin: 0 auto;
             background: transparent;
+        }
+        
+        /* 字型控制面板樣式 */
+        .font-control-panel {
+            background: #fff;
+            padding: 10px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+        }
+        
+        .font-btn {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none;
+        }
+        .font-btn:active {
+            background: #e0e0e0;
+            transform: scale(0.95);
+        }
+        .font-display {
+            font-weight: bold;
+            color: #1A374D;
+            min-width: 60px;
+            text-align: center;
         }
 
         /* 每日行程區塊優化 */
@@ -235,20 +282,24 @@
             justify-content: space-between;
             align-items: center;
         }
-        .day-header h2 { margin: 0; font-size: 1.3rem; color: #111827; font-weight: 900; }
+        .day-header h2 { margin: 0; font-size: 1.3rem; color: #111827; font-weight: 900;
+        }
         .day-tag { 
-            display: inline-block; padding: 4px 12px; border-radius: 99px; 
+            display: inline-block;
+            padding: 4px 12px; border-radius: 99px; 
             font-size: 0.75rem; font-weight: 700; color: #fff; 
             text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        .timeline-wrapper { position: relative; padding: 20px 20px 20px 30px; }
+        .timeline-wrapper { position: relative; padding: 20px 20px 20px 30px;
+        }
         .timeline-line {
             position: absolute;
             left: 14px; top: 25px; bottom: 20px; width: 2px;
             background: #E0E0E0; z-index: 0;
         }
-        .timeline-item { position: relative; margin-bottom: 30px; z-index: 1; }
+        .timeline-item { position: relative; margin-bottom: 30px; z-index: 1;
+        }
         .timeline-dot {
             position: absolute;
             left: -23px; top: 20px; width: 14px; height: 14px;
@@ -258,22 +309,27 @@
         }
 
         .card {
-            background: #fff; /* 內部卡片背景 */
+            background: #fff;
+            /* 內部卡片背景 */
             border-radius: 12px;
             border: 1px solid #f0f0f0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
             overflow: hidden;
         }
         
-        .card-content { padding: 15px; }
+        .card-content { padding: 15px;
+        }
         
         .card-time { 
-            font-size: 0.85rem; font-weight: 700; color: #1A374D; 
+            font-size: 0.85rem;
+            font-weight: 700; color: #1A374D; 
             display: inline-block; margin-bottom: 6px;
             background: #E3F2FD; padding: 2px 8px; border-radius: 4px;
         }
-        .card-title { font-size: 1.1rem; font-weight: 900; margin: 0 0 8px; color: #222; }
-        .card-desc { font-size: 0.95rem; color: #555; margin-bottom: 12px; line-height: 1.6; }
+        .card-title { font-size: 1.1rem; font-weight: 900; margin: 0 0 8px; color: #222;
+        }
+        .card-desc { font-size: 0.95rem; color: #555; margin-bottom: 12px; line-height: 1.6;
+        }
 
         .check-in-alert {
             background: #FFEBEE;
@@ -311,20 +367,27 @@
             color: #4E342E;
             margin-top: 10px;
         }
-        .coffee-list h4 { margin: 0 0 8px; color: #5D4037; font-size: 1rem; }
-        .coffee-list ul { padding-left: 20px; margin: 0; }
-        .coffee-list li { margin-bottom: 4px; }
-        .coffee-tag { display:inline-block; background:#8D6E63; color:white; font-size:0.7rem; padding:2px 6px; border-radius:4px; margin-right:5px; }
+        .coffee-list h4 { margin: 0 0 8px; color: #5D4037; font-size: 1rem;
+        }
+        .coffee-list ul { padding-left: 20px; margin: 0;
+        }
+        .coffee-list li { margin-bottom: 4px;
+        }
+        .coffee-tag { display:inline-block; background:#8D6E63; color:white; font-size:0.7rem; padding:2px 6px; border-radius:4px; margin-right:5px;
+        }
 
         .info-list {
             background: #F5F5F5;
             border-left: 4px solid #1A374D;
             padding: 10px; margin: 10px 0; font-size: 0.9rem; color: #444;
         }
-        .info-list h4 { margin: 0 0 6px; color: #1A374D; font-size: 0.95rem; }
-        .info-list ul { padding-left: 20px; margin: 0; }
+        .info-list h4 { margin: 0 0 6px; color: #1A374D; font-size: 0.95rem;
+        }
+        .info-list ul { padding-left: 20px; margin: 0;
+        }
 
-        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;
+        }
         .market-btn {
             background: #FAFAFA;
             border: 1px solid #EEE;
@@ -332,12 +395,17 @@
             text-decoration: none; display: block;
             transition: background 0.2s;
         }
-        .market-btn:active { background: #F0F0F0; }
-        .market-name { font-weight: bold; font-size: 0.9rem; color: #2E7D32; }
-        .market-meta { font-size: 0.75rem; color: #666; margin-top: 4px; }
+        .market-btn:active { background: #F0F0F0;
+        }
+        .market-name { font-weight: bold; font-size: 0.9rem; color: #2E7D32;
+        }
+        .market-meta { font-size: 0.75rem; color: #666; margin-top: 4px;
+        }
 
-        .transport-guide { background: #FAFAFA; border: 1px solid #EEE; border-radius: 8px; padding: 12px; margin-top: 12px; }
-        .guide-step { display: flex; align-items: flex-start; margin-bottom: 8px; font-size: 0.9rem; }
+        .transport-guide { background: #FAFAFA; border: 1px solid #EEE; border-radius: 8px; padding: 12px;
+            margin-top: 12px; }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 8px; font-size: 0.9rem;
+        }
         .step-num {
             background: #333;
             color: #fff; width: 20px; height: 20px;
@@ -345,7 +413,8 @@
             font-size: 0.75rem; margin-right: 8px; flex-shrink: 0;
         }
 
-        .btn-group { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+        .btn-group { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap;
+        }
         .btn {
             flex: 1;
             text-align: center; padding: 9px 0;
@@ -356,10 +425,14 @@
             display: flex; align-items: center; justify-content: center; gap: 5px;
             cursor: pointer;
         }
-        .btn-primary { background: #1A374D; color: white; border: none; }
-        .btn-weather { background: #E3F2FD; color: #1565C0; border-color: #BBDEFB; }
-        .btn-calc { background: #E8F5E9; color: #2E7D32; border-color: #C8E6C9; }
-        .btn-photo { background: #FFF3E0; color: #E65100; border-color: #FFCC80; }
+        .btn-primary { background: #1A374D; color: white; border: none;
+        }
+        .btn-weather { background: #E3F2FD; color: #1565C0; border-color: #BBDEFB;
+        }
+        .btn-calc { background: #E8F5E9; color: #2E7D32; border-color: #C8E6C9;
+        }
+        .btn-photo { background: #FFF3E0; color: #E65100; border-color: #FFCC80;
+        }
 
         .review-bubble {
             position: relative;
@@ -403,30 +476,38 @@
             border-radius: 8px; font-size: 1rem; margin-bottom: 10px;
         }
         
-        .calc-container { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
-        .calc-input-group { flex: 1; display: flex; flex-direction: column; }
-        .calc-input-group label { font-size: 0.8rem; color: #888; margin-bottom: 2px; }
+        .calc-container { display: flex;
+            align-items: center; gap: 10px; margin-bottom: 5px; }
+        .calc-input-group { flex: 1; display: flex;
+            flex-direction: column; }
+        .calc-input-group label { font-size: 0.8rem; color: #888; margin-bottom: 2px;
+        }
         .calc-input {
             width: 100%;
             padding: 10px; border: 1px solid #CCC; border-radius: 6px;
             font-size: 1.2rem; font-weight: bold; color: #333;
         }
-        .calc-arrow { font-size: 1.2rem; color: #888; }
+        .calc-arrow { font-size: 1.2rem; color: #888;
+        }
         
         /* 指差卡基本排版 */
-        .phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .phrase-grid { display: grid;
+            grid-template-columns: 1fr 1fr; gap: 10px; }
         .phrase-card {
             border: 1px solid #eee;
             padding: 12px 10px; border-radius: 8px;
             cursor: zoom-in; text-align: left;
             background: #FDFDFC;
         }
-        .phrase-zh { font-size: 0.95rem; color: #111827; margin-bottom: 4px; font-weight: 700; }
-        .phrase-en { font-size: 0.75rem; color: #6B7280; margin-bottom: 3px; }
-        .phrase-jp-small { font-size: 0.9rem; color: #B91C1C; font-weight: 700; }
+        .phrase-zh { font-size: 0.95rem; color: #111827; margin-bottom: 4px; font-weight: 700;
+        }
+        .phrase-en { font-size: 0.75rem; color: #6B7280; margin-bottom: 3px;
+        }
+        .phrase-jp-small { font-size: 0.9rem; color: #B91C1C; font-weight: 700;
+        }
 
         /* 指差卡與優惠券 Modal */
-        .phrase-modal, .coupon-modal, .install-guide-modal {
+        .phrase-modal, .coupon-modal {
             position: fixed;
             inset: 0;
             z-index: 1200;
@@ -441,13 +522,14 @@
             z-index: 999;
         }
 
-        .phrase-modal, .install-guide-modal {
+        .phrase-modal {
             background: rgba(15,23,42,0.65);
         }
 
-        .phrase-modal.active, .coupon-modal.active, .install-guide-modal.active { display: flex; }
+        .phrase-modal.active, .coupon-modal.active { display: flex;
+        }
 
-        .phrase-modal-content, .coupon-modal-content, .install-guide-content {
+        .phrase-modal-content, .coupon-modal-content {
             position: relative;
             background: #FFFFFF;
             border-radius: 18px;
@@ -465,10 +547,14 @@
             font-size: 1.8rem; cursor: pointer; color: #6B7280;
         }
 
-        .modal-jp { font-size: 2rem; font-weight: 900; color: #B91C1C; margin-bottom: 10px; line-height: 1.3; }
-        .modal-en { font-size: 1rem; color: #374151; margin-bottom: 4px; }
-        .modal-zh { font-size: 1.2rem; color: #111827; margin-bottom: 12px; font-weight: bold; }
-        .modal-tip { font-size: 0.8rem; color: #9CA3AF; }
+        .modal-jp { font-size: 2rem; font-weight: 900; color: #B91C1C; margin-bottom: 10px; line-height: 1.3;
+        }
+        .modal-en { font-size: 1rem; color: #374151; margin-bottom: 4px;
+        }
+        .modal-zh { font-size: 1.2rem; color: #111827; margin-bottom: 12px; font-weight: bold;
+        }
+        .modal-tip { font-size: 0.8rem; color: #9CA3AF;
+        }
 
         /* Coupon Modal Specifics */
         .cm-img-container {
@@ -483,8 +569,10 @@
             max-height: 60vh; /* 讓放大後的圖片盡量大 */
             object-fit: contain;
         }
-        .cm-title { font-size: 1.4rem; color: #1A374D; margin: 5px 0; font-weight: 900; }
-        .cm-offer { font-size: 1.1rem; color: #D32F2F; font-weight: bold; background: #FFEBEE; display: inline-block; padding: 4px 12px; border-radius: 6px; margin-bottom: 15px; }
+        .cm-title { font-size: 1.4rem; color: #1A374D; margin: 5px 0; font-weight: 900;
+        }
+        .cm-offer { font-size: 1.1rem; color: #D32F2F; font-weight: bold; background: #FFEBEE; display: inline-block;
+            padding: 4px 12px; border-radius: 6px; margin-bottom: 15px; }
 
         /* 記帳本樣式 */
         .account-card {
@@ -492,29 +580,36 @@
             border-radius: 12px; padding: 20px;
             margin-bottom: 15px; box-shadow: var(--shadow);
         }
-        .acc-form { display: flex; gap: 8px; margin-bottom: 15px; }
+        .acc-form { display: flex;
+            gap: 8px; margin-bottom: 15px; }
         .acc-input {
             padding: 10px;
             border: 1px solid #DDD; border-radius: 6px;
             font-size: 0.95rem; width: 100%;
         }
-        .acc-select { padding: 10px; border: 1px solid #DDD; border-radius: 6px; font-size: 0.95rem; }
+        .acc-select { padding: 10px; border: 1px solid #DDD; border-radius: 6px; font-size: 0.95rem;
+        }
         .acc-btn-add {
             background: #1A374D;
             color: white; border: none;
             border-radius: 6px; padding: 10px 15px; font-weight: bold;
             cursor: pointer;
         }
-        .expense-list { list-style: none; padding: 0; margin: 0; }
+        .expense-list { list-style: none; padding: 0; margin: 0;
+        }
         .expense-item {
             display: flex;
             justify-content: space-between; align-items: center;
             padding: 10px 0; border-bottom: 1px solid #EEE;
         }
-        .expense-info { flex: 1; }
-        .expense-title { font-weight: bold; font-size: 0.95rem; color: #333; }
-        .expense-meta { font-size: 0.8rem; color: #888; display: flex; gap: 8px; }
-        .expense-amt { font-weight: bold; color: #2E7D32; font-size: 1rem; margin-right: 10px; }
+        .expense-info { flex: 1;
+        }
+        .expense-title { font-weight: bold; font-size: 0.95rem; color: #333;
+        }
+        .expense-meta { font-size: 0.8rem; color: #888; display: flex; gap: 8px;
+        }
+        .expense-amt { font-weight: bold; color: #2E7D32; font-size: 1rem; margin-right: 10px;
+        }
         .expense-del {
             background: #FFEBEE;
             color: #C62828; border: none;
@@ -526,9 +621,12 @@
             padding: 15px; border-radius: 8px;
             margin-bottom: 20px; text-align: center;
         }
-        .acc-total-label { font-size: 0.85rem; color: #666; }
-        .acc-total-val { font-size: 1.8rem; font-weight: 900; color: #1A374D; }
-        .acc-total-twd { font-size: 0.9rem; color: #888; font-weight: bold; }
+        .acc-total-label { font-size: 0.85rem;
+            color: #666; }
+        .acc-total-val { font-size: 1.8rem; font-weight: 900; color: #1A374D;
+        }
+        .acc-total-twd { font-size: 0.9rem; color: #888; font-weight: bold;
+        }
 
         /* 優惠券樣式 - 修改版 */
         .coupon-grid {
@@ -606,26 +704,6 @@
             padding: 10px;
             border-radius: 6px;
         }
-
-        /* 加入主畫面按鈕樣式 */
-        .btn-install {
-            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 900;
-            font-size: 1rem;
-            width: 100%;
-            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
-            cursor: pointer;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn-install:active { transform: scale(0.98); box-shadow: none; }
         
         .footer-nav {
             position: fixed;
@@ -636,27 +714,42 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
             z-index: 1000; backdrop-filter: blur(5px);
         }
-        .nav-item { text-align: center; font-size: 0.85rem; color: #999; cursor: pointer; flex: 1; }
-        .nav-item.active { color: #1A374D; font-weight: bold; }
-        .nav-icon { font-size: 1.5rem; display: block; margin-bottom: 2px; }
+        .nav-item { text-align: center;
+            font-size: 0.85rem; color: #999; cursor: pointer; flex: 1; }
+        .nav-item.active { color: #1A374D;
+            font-weight: bold; }
+        .nav-icon { font-size: 1.5rem; display: block; margin-bottom: 2px;
+        }
         
-        .section { display: none; }
-        .section.active { display: block; animation: fadeIn 0.3s; }
+        .section { display: none;
+        }
+        .section.active { display: block; animation: fadeIn 0.3s;
+        }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
         
-        .keyword-orange { background: #FFF3E0; color: #E65100; padding: 0 4px; border-radius: 4px; font-weight: bold; }
-        .keyword-blue { background: #E3F2FD; color: #1565C0; padding: 0 4px; border-radius: 4px; font-weight: bold; }
+        .keyword-orange { background: #FFF3E0;
+            color: #E65100; padding: 0 4px; border-radius: 4px; font-weight: bold; }
+        .keyword-blue { background: #E3F2FD;
+            color: #1565C0; padding: 0 4px; border-radius: 4px; font-weight: bold; }
         
-        .theme-blue .timeline-dot, .theme-blue .day-tag { background: var(--theme-blue); }
-        .theme-orange .timeline-dot, .theme-orange .day-tag { background: var(--theme-orange); }
-        .theme-green .timeline-dot, .theme-green .day-tag { background: var(--theme-green); }
-        .theme-red .timeline-dot, .theme-red .day-tag { background: var(--theme-red); }
+        .theme-blue .timeline-dot, .theme-blue .day-tag { background: var(--theme-blue);
+        }
+        .theme-orange .timeline-dot, .theme-orange .day-tag { background: var(--theme-orange);
+        }
+        .theme-green .timeline-dot, .theme-green .day-tag { background: var(--theme-green);
+        }
+        .theme-red .timeline-dot, .theme-red .day-tag { background: var(--theme-red);
+        }
 
         @media (min-width: 768px){
-            .top-bar{ padding-inline:4px; }
-            .top-title{ font-size:1.15rem; }
-            .header-rate{ font-size:0.8rem; }
-            .coupon-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .top-bar{ padding-inline:4px;
+            }
+            .top-title{ font-size:1.15rem;
+            }
+            .header-rate{ font-size:0.8rem;
+            }
+            .coupon-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
     </style>
 </head>
@@ -675,6 +768,7 @@
                 <button id="tab-project2" class="project-tab" onclick="setProject(2)">
                     P2｜12/21–12/27
                 </button>
+        
             </div>
             <div class="top-right">
                 <div id="header-rate" class="header-rate">
@@ -682,6 +776,7 @@
                 </div>
             </div>
         </div>
+       
         <div class="project-nav-row">
             <div class="date-scroller active" id="nav-proj1"></div>
             <div class="date-scroller" id="nav-proj2"></div>
@@ -690,6 +785,12 @@
 </header>
 
 <main class="container">
+    <div class="font-control-panel">
+        <button class="font-btn" onclick="changeFontSize(-10)">A- 字體變小</button>
+        <div class="font-display" id="font-size-display">100%</div>
+        <button class="font-btn" onclick="changeFontSize(10)">A+ 字體變大</button>
+    </div>
+
     <div id="tab-trip" class="section active">
         <div id="itinerary-list"></div>
     </div>
@@ -697,6 +798,7 @@
     <div id="tab-account" class="section">
         <div class="account-card">
             <div class="acc-summary">
+        
                 <div class="acc-total-label">目前總花費 (JPY)</div>
                 <div class="acc-total-val" id="acc-total-val">¥0</div>
                 <div class="acc-total-twd" id="acc-total-twd">約 NT$0</div>
@@ -704,16 +806,19 @@
 
             <div class="acc-form">
                 <input type="text" id="acc-item" class="acc-input" placeholder="品項 (如: 拉麵)">
+      
             </div>
             <div class="acc-form">
                 <input type="number" id="acc-cost" class="acc-input" placeholder="金額 (日幣)">
                 <select id="acc-type" class="acc-select">
                     <option value="食">🍔 食</option>
+                    
                     <option value="行">🚄 行</option>
                     <option value="購">🛍️ 購</option>
                     <option value="住">🏨 住</option>
                     <option value="他">🔖 他</option>
                 </select>
+                
                 <button class="acc-btn-add" onclick="addExpense()">＋</button>
             </div>
             
@@ -730,27 +835,35 @@
             <div class="coupon-source-note">
                 資料來源整理：<br>
                 1. funtime.com.tw/blog/funtime/japan-coupon<br>
+            
                 2. letsgojp.com/archives/382974
             </div>
         </div>
     </div>
 
     <div id="tab-tools" class="section">
-        <button class="btn-install" onclick="showInstallGuide()">
-            <span>📱</span> 將本頁加入手機桌面 (APP化)
-        </button>
+        <div class="tools-card">
+             <h3 style="margin-top:0; color:#E65100;">📷 攝影教學與詳細設定</h3>
+             <div class="btn-group" style="flex-direction: column;">
+                 <a href="https://travel.itigre.com/2025/tokyo/photo/5.html" target="_blank" class="btn btn-photo">📸 拍攝細節提醒 (連結 1)</a>
+                 <a href="https://travel.itigre.com/2025/tokyo/photo/" target="_blank" class="btn btn-photo">📂 完整攝影資料 (連結 2)</a>
+             </div>
+        </div>
 
         <div class="tools-card">
             <h2 style="margin-top:0">💱 即時匯率計算機</h2>
+          
             <div style="background:#F9F9F9; padding:15px; border-radius:8px;">
                 <div class="calc-container">
                     <div class="calc-input-group">
                         <label>日幣 (JPY)</label>
                         <input type="number" id="calc-jpy" class="calc-input" placeholder="0" oninput="calcToTWD()">
+   
                     </div>
                     <div class="calc-arrow">➔</div>
                     <div class="calc-input-group">
                         <label>台幣 (TWD)</label>
+                
                         <input type="number" id="calc-twd" class="calc-input" placeholder="0" style="background:#EEE;" readonly>
                     </div>
                 </div>
@@ -771,6 +884,7 @@
             <p style="font-size:0.8rem;color:#6B7280;margin-top:0;margin-bottom:8px;">
                 點卡片會放大，方便給店員看。
             </p>
+         
             <div id="phrase-grid" class="phrase-grid"></div>
         </div>
     </div>
@@ -789,6 +903,7 @@
 <div id="coupon-modal" class="coupon-modal" onclick="closeCouponModal(event)">
     <div class="coupon-modal-content">
         <button class="modal-close" type="button" onclick="hideCouponModal()">×</button>
+  
         <div id="cm-title" class="cm-title"></div>
         <div class="cm-img-container">
             <img id="cm-img" src="" alt="Coupon" loading="lazy">
@@ -796,33 +911,6 @@
         <div id="cm-offer" class="cm-offer"></div>
         <a id="cm-link" href="#" target="_blank" class="btn btn-primary" style="width:100%">前往官網 / 領取頁面 ➔</a>
         <p class="modal-tip" style="margin-top:10px;">點擊上方按鈕將開啟新視窗</p>
-    </div>
-</div>
-
-<div id="install-guide-modal" class="install-guide-modal" onclick="closeInstallGuide(event)">
-    <div class="install-guide-content">
-        <button class="modal-close" type="button" onclick="hideInstallGuide()">×</button>
-        <h3 style="margin-top:0; color:#1A374D;">📱 如何加入手機桌面？</h3>
-        <div id="guide-ios" style="display:none; text-align:left; font-size:0.95rem;">
-            <p><strong>iOS (iPhone/iPad):</strong></p>
-            <ol>
-                <li>點擊瀏覽器下方的 <strong style="color:#007AFF; font-size:1.2rem;">分享按鈕</strong> (方框向上箭頭)。</li>
-                <li>向下滑動選單，找到並點選 <strong style="background:#eee; padding:2px 6px; border-radius:4px;">加入主畫面</strong>。</li>
-                <li>點擊右上角的「新增」即可。</li>
-            </ol>
-        </div>
-        <div id="guide-android" style="display:none; text-align:left; font-size:0.95rem;">
-            <p><strong>Android (Chrome):</strong></p>
-            <ol>
-                <li>點擊瀏覽器右上角的 <strong style="font-size:1.2rem;">... 選單</strong>。</li>
-                <li>選擇 <strong style="background:#eee; padding:2px 6px; border-radius:4px;">安裝應用程式</strong> 或 <strong>加到主畫面</strong>。</li>
-                <li>確認新增即可。</li>
-            </ol>
-        </div>
-        <div id="guide-default" style="display:none; text-align:left;">
-            <p>請使用手機瀏覽器 (Safari 或 Chrome) 開啟本頁，並在選單中尋找「加入主畫面」功能。</p>
-        </div>
-        <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="hideInstallGuide()">我知道了</button>
     </div>
 </div>
 
@@ -842,8 +930,20 @@
     const MOCK_TODAY = null;
     let currentExchangeRate = 0.215;
 
+    // 字體調整功能
+    let currentFontSizePercent = 100;
+    function changeFontSize(amount) {
+        currentFontSizePercent += amount;
+        if (currentFontSizePercent > 200) currentFontSizePercent = 200;
+        if (currentFontSizePercent < 100) currentFontSizePercent = 100;
+        
+        document.documentElement.style.fontSize = currentFontSizePercent + "%";
+        document.getElementById('font-size-display').innerText = currentFontSizePercent + "%";
+    }
+
     // 長輩專用指差卡
     const phraseData = [
+       
         { id: 'toilet_western', jp: 'ようしきトイレはどこですか？', en: 'Where is the Western-style toilet?', zh: '請問洋式(坐式)廁所在哪裡？' },
         { id: 'rest_chair', jp: 'すこしやすみたいです。イスはありますか？', en: 'I want to rest. Is there a chair?', zh: '我想休息一下，請問有椅子嗎？' },
         { id: 'water_no_ice', jp: 'こおりなしの おみずをください。', en: 'Water without ice, please.', zh: '請給我去冰的開水（常溫）。' },
@@ -895,11 +995,11 @@
             coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813863/1214_asbsik.webp",
             events: [
                 {
-                    time: "12:30", title: "成田機場 T2 抵達",
+                     time: "12:30", title: "成田機場 T2 抵達",
                     desc: "抵達東京！領取行李後，直接前往地下層搭車。",
                     checkInNote: "去程",
                     transportGuide: [
-                        "入境後依照黃色指標 <strong>鉄道 / Train / 鐵道</strong> 前進。",
+                         "入境後依照黃色指標 <strong>鉄道 / Train / 鐵道</strong> 前進。",
                         "跟著藍色標誌的 <span class='keyword-orange'>京成電鉄 Keisei Line</span> 指示，下樓到月台層。",
                         "購票時可詢問：<span class='keyword-blue'>「アクセスとっきゅうで あさくさまで おねがいします。」</span>（Access 特急到淺草）。",
                         "搭乘 <span class='keyword-orange'>Access 特急</span>，確認列車顯示有停 <span class='keyword-blue'>浅草 Asakusa</span>。",
@@ -908,16 +1008,17 @@
                     map: "成田空港第2ターミナル駅"
                 },
                 {
-                    time: "15:00", title: "Tabist Hotel Mercury",
+                     time: "15:00", title: "Tabist Hotel Mercury",
                     desc: "辦理入住。淺草橋是手作材料聖地，充滿昭和風情。",
                     map: "Tabist Hotel Mercury Asakusabashi"
                 },
-                {
+               
+                 {
                     time: "19:00", title: "逸品閣 (晚餐)",
                     desc: "享用第一頓晚餐，體驗當地中華料理或日式定食。",
                     review: "Google 評論 (4.0★)：份量十足的中華料理，麻婆豆腐和餃子是必點招牌。",
                     map: "逸品閣"
-                },
+                 },
                 {
                     time: "21:00", title: "✅ 投保確認 (重要)",
                     desc: "請確認是否已投保日本當地的「外國人專用醫療險」(Cashless 服務)。",
@@ -1045,12 +1146,12 @@
                     desc: "東京小巴黎，清晨感受石板路與黑圍牆的優雅街區。",
                     next: { time: "電車", dist: "原宿/表參道" },
                     map: "神樂坂"
-                },
+                 },
                 {
                     time: "12:00", title: "原宿/表參道 雜貨巡禮",
                     desc: "3COINS 旗艦店與 Flying Tiger 北歐雜貨。順道逛逛潮包 AS2OV。",
                     map: "3COINS 原宿本店"
-                },
+                 },
                 {
                     time: "13:30", title: "UNBY GENERAL GOODS STORE (AS2OV)",
                     desc: "就在原宿/表參道區域。推薦查看 AS2OV 的機能背包。",
@@ -1067,7 +1168,7 @@
             date: "12/19 (五)", id: "d6", theme: "theme-orange", project: 1, fullDate: "2025-12-19",
             coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813963/1219_gzblyc.webp",
             events: [
-                {
+                 {
                     time: "10:00", title: "高圓寺商店街",
                     desc: "充滿二手服飾、小眾樂團Live House與小酒吧的街區，被視為次文化與青年創作聚落。街道不華麗卻個性鮮明，很適合喜歡挖寶與觀察在地生活的人。昭和復古氛圍，二手衣與純情商店街。",
                     map: "高圓寺"
@@ -1077,20 +1178,20 @@
                     desc: "東京拉麵的經典老味道。魚介香氣濃郁。",
                     map: "春木屋 荻窪本店"
                 }
-            ]
+             ]
         },
         {
             date: "12/20 (六)", id: "d7", theme: "theme-green", project: 1, fullDate: "2025-12-20",
             coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813920/1220_z9qxwr.webp",
             events: [
                 {
-                    time: "10:30", title: "皇居外苑",
+                     time: "10:30", title: "皇居外苑",
                     desc: "東京的中心，感受皇室威儀。",
 					review: "二重橋是著名拍照點。A.二重大橋＋石橋合體的「雙橋」視覺最強；B.皇居護城河 & 松樹＋石牆線條；C.和田倉噴水公園（噴水＋金屬反光）",
                     map: "皇居外苑"
                 },
                 {
-                    time: "13:30", title: "日本橋三越",
+                     time: "13:30", title: "日本橋三越",
                     desc: "日本最古老的百貨公司，建築本身即是藝術。",
 					review: "A.正門獅子雕像（招牌）、B.三越百貨 正門天花板（圓形天頂 × 裝飾藝術）、C.中央大理石階梯（超厚重的昭和百貨氛圍）、D.中央大廳（Grand Hall）＋ 奶油色柱式、E.圓頂燈飾（彩色玻璃 / 金色線條）、F.百貨外牆（巨大浮雕與石材）、G.玻璃櫥窗（期間限定 × 展示美學）",
                     map: "日本橋三越"
@@ -1122,7 +1223,7 @@
                     transportGuide: [
                         "從成田機場搭乘 <span class='keyword-orange'>京成電鐵 Access 特急</span> (往羽田空港方向)。",
                         "至 <span class='keyword-blue'>都營淺草站 (A18)</span> 下車 (免轉車)。",
-                        "🛗 <strong>行李專用出口：</strong> 請務必尋找 <span class='keyword-orange'>A2b 出口</span> (有大電梯)。",
+                         "🛗 <strong>行李專用出口：</strong> 請務必尋找 <span class='keyword-orange'>A2b 出口</span> (有大電梯)。",
                         "出站後建議直接搭乘計程車至飯店 (約 ¥800-1000)，避免拖行李走 12 分鐘。"
                     ],
                     map: "YAYOI Asakusa Tawaramachi"
@@ -1165,7 +1266,8 @@
                     desc: "元朝（蒙古帝國）攻打日本（所謂元寇）時，忍性銜幕府與朝廷之命，在這座真言律宗的寺院祈願異國敵軍退散。往昔的極樂寺占地廣大並有醫療設施。一般認為忍性手下有一批土木技術精良的人才。關東車站百選之一，充滿懷舊風情的木造無人車站。周邊寧靜清幽，是日劇《倒數第二次戀愛》的經典場景，感受古都的日常步調。",
                     map: "極楽寺駅"
                 },
-                {
+              
+               {
                     time: "12:00", title: "café recette 鎌倉 (預約)",
                     desc: "高級吐司專賣店/古民家咖啡廳。<strong>🏆 推薦必點 Top 5：</strong>",
                     transportGuide: [
@@ -1193,6 +1295,7 @@
                     map: "江の島シーキャンドル"
                 },
                 {
+                  
                     time: "19:00", title: "晚餐：鎌倉/鶴岡八幡宮周邊",
                     desc: "看完燈光後返回鎌倉市區用餐。預算約 ¥2000/人。推薦：<strong>Wasabi (日式定食)</strong> 或 <strong>Bowls (文青丼飯)</strong>，或在小町通尋找喜歡的餐廳。",
                     map: "Kamakura Wasabi"
@@ -1318,6 +1421,7 @@
                 }
             ]
         }
+   
     ];
     // === 工具函數 ===
     function getCheckInDateStr(flightDateStr) {
@@ -1439,6 +1543,7 @@
             li.innerHTML = `
                 <div class="expense-info">
                     <div class="expense-title">${e.type} ${e.item}</div>
+  
                     <div class="expense-meta">${e.date}</div>
                 </div>
                 <div class="expense-amt">¥${e.cost.toLocaleString()}</div>
@@ -1462,17 +1567,18 @@
             '#E91E63', '#009688', '#3F51B5', '#CDDC39', '#607D8B', 
             '#F44336', '#673AB7', '#03A9F4', '#8BC34A', '#FFC107'
         ];
-
         couponData.forEach((c, index) => {
             const color = borderColors[index % borderColors.length];
             // 增加 loading="lazy" 以優化載入
             html += `
                 <div class="coupon-card" onclick="openCouponModal(${index})" style="border: 2px solid ${color};">
                     <div class="coupon-img-box">
+        
                         <img src="${c.img}" alt="${c.name}" class="coupon-img" loading="lazy" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
                     </div>
                     <div class="coupon-content">
                         <div class="coupon-name">${c.name}</div>
+             
                         <div><span class="coupon-offer">${c.offer}</span></div>
                         <div class="coupon-action">點此放大 ➔</div>
                     </div>
@@ -1506,38 +1612,6 @@
         }
     }
 
-    // === 加入主畫面 Modal 邏輯 ===
-    function showInstallGuide() {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-        const isAndroid = /android/i.test(userAgent);
-
-        document.getElementById('guide-ios').style.display = 'none';
-        document.getElementById('guide-android').style.display = 'none';
-        document.getElementById('guide-default').style.display = 'none';
-
-        if (isIOS) {
-            document.getElementById('guide-ios').style.display = 'block';
-        } else if (isAndroid) {
-            document.getElementById('guide-android').style.display = 'block';
-        } else {
-            document.getElementById('guide-default').style.display = 'block';
-        }
-
-        document.getElementById('install-guide-modal').classList.add('active');
-    }
-
-    function hideInstallGuide() {
-        document.getElementById('install-guide-modal').classList.remove('active');
-    }
-
-    function closeInstallGuide(e) {
-        if (e.target.id === 'install-guide-modal') {
-            hideInstallGuide();
-        }
-    }
-
-
     // === 渲染指差卡 ===
     function renderPhrases(){
         const grid = document.getElementById('phrase-grid');
@@ -1548,6 +1622,7 @@
             card.innerHTML = `
                 <div class="phrase-zh">${p.zh}</div>
                 <div class="phrase-en">${p.en}</div>
+     
                 <div class="phrase-jp-small">${p.jp}</div>
             `;
             grid.appendChild(card);
@@ -1589,6 +1664,7 @@
             chip.className = `date-chip ${statusClass}`;
             
             // 加入圖片背景
+         
             if(day.coverImage) {
                 chip.style.backgroundImage = `url('${day.coverImage}')`;
             } else {
@@ -1612,30 +1688,36 @@
                 
                 let alertHtml = '';
                 if (evt.checkInNote) {
+                
                     const checkInDate = getCheckInDateStr(day.fullDate);
                     alertHtml = `<div class="check-in-alert">🔴 提醒：線上報到與選位 (起飛前48小時：${checkInDate} 開放)</div>`;
                 }
                 
                 if (evt.insuranceNote) {
+                 
                     alertHtml += `<div class="insurance-alert">🛡️ 提醒：請確認投保「日本當地醫療險」(Cashless)</div>`;
                 }
 
                 let noteHtml = '';
                 if (evt.pelicanData) {
                     noteHtml = `<div class="pelican-note">`;
+                 
                     evt.pelicanData.forEach(line => noteHtml += `<div>${line}</div>`);
                     noteHtml += `</div>`;
                 }
                 
                 // 咖啡清單
                 if (evt.coffeeData) {
+    
                     noteHtml += `
                     <div class="coffee-list">
                         <h4>☕ 手沖咖啡購買攻略</h4>
                         <ul>
+            
                             <li><span class="coffee-tag">攻略</span><a href="https://travel.itigre.com/Coffee/" target="_blank">東京咖啡器具地圖</a></li>
                             <li><span class="coffee-tag">必買</span><a href="https://travel.itigre.com/Coffee/buy/" target="_blank">合羽橋/Union 購買清單</a></li>
                             <li><span class="coffee-tag">濾杯</span>HARIO V60 / 聰明杯</li>
+                 
                             <li><span class="coffee-tag">手沖壺</span>TIMEMORE 鵝頸壺 / Kalita</li>
                         </ul>
                     </div>`;
@@ -1657,9 +1739,11 @@
                         const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
                         marketHtml += `
                             <a href="${mapUrl}" target="_blank" class="market-btn">
+              
                                 <div class="market-name">${m.name}</div>
                                 <div class="market-meta">${m.meta}</div>
                             </a>`;
+                    
                     });
                     marketHtml += `</div>`;
                 }
@@ -1671,6 +1755,7 @@
                     <div class="btn-group">
                         <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
                         <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
+                  
                     </div>
                 `;
                 const reviewText = evt.review || '記帳/優惠-優惠券|工具箱-翻譯功能。';
@@ -1679,22 +1764,27 @@
                         <span>💬</span>
                         <div>${reviewText}</div>
                     </div>
+  
                 `;
                 eventsHtml += `
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="card">
+                           
                             <div class="card-content">
                                 <span class="card-time">${evt.time}</span>
                                 <h3 class="card-title">${evt.title}</h3>
+                                
                                 ${alertHtml}
                                 <div class="card-desc">${evt.desc}</div>
                                 ${noteHtml}
                                 ${guideHtml}
+   
                                 ${btnsHtml}
                                 ${marketHtml}
                                 ${reviewHtml}
-                            </div>
+       
+                             </div>
                         </div>
                         ${evt.next ? `<div class="next-stop">🚶 下一站：${evt.next.time} (${evt.next.dist})</div>` : ''}
                     </div>
@@ -1702,18 +1792,19 @@
             });
 
             // 新版卡片頭部 (包含圖片)
-            const coverHtml = day.coverImage ? 
-                `<img src="${day.coverImage}" class="day-cover-img" loading="lazy" alt="Day Cover">` : '';
+            const coverHtml = day.coverImage ? `<img src="${day.coverImage}" class="day-cover-img" loading="lazy" alt="Day Cover">` : '';
 
             html += `
                 <div id="${day.id}" class="day-section ${day.theme}">
                     ${coverHtml}
                     <div class="day-header">
                         <h2>${day.date}</h2>
+      
                         <span class="day-tag" style="background:${getThemeColor(day.theme)}">Day Trip</span>
                     </div>
                     <div class="timeline-wrapper">
                         <div class="timeline-line"></div>
+             
                         ${eventsHtml}
                     </div>
                 </div>
@@ -1739,7 +1830,6 @@
         const el = document.getElementById(id);
         const headerOffset = 130;
         const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
-
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
 
