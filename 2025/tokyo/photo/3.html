@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<title>東京行程拍攝攻略（R7 + Sigma 16-300 + 50mm）</title>
+<meta name="description" content="一頁式旅拍攻略：器材重點、逐日拍攝提示、R7 設定與大師心法。手機優先 + 圖示版。" />
+
+<style>
+  /* -------------------------
+     基本樣式 / 字型 / 佈局
+     ------------------------- */
+  :root{
+    --bg:#f6f7fb; --card:#fff; --accent:#0f62fe; --muted:#6b7280;
+    --highlight-bg: #ffeeba; --highlight-color:#8a4b00;
+    --gap:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: "Noto Sans", "Noto Sans CJK JP", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:var(--bg); color:#111; -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale; padding-bottom:80px;
+  }
+
+  /* ---------- 頂欄 ---------- */
+  header{
+    position:sticky; top:0; z-index:30;
+    background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.9));
+    backdrop-filter: blur(6px); border-bottom:1px solid rgba(0,0,0,0.06);
+    display:flex; align-items:center; gap:10px; padding:10px 14px;
+  }
+  .logo {display:flex; align-items:center; gap:10px;}
+  .logo svg{width:36px;height:36px}
+  .title {font-weight:700; font-size:0.98rem}
+  nav{margin-left:auto; display:flex; gap:6px; align-items:center}
+  .nav-btn{
+    background:transparent; border:1px solid transparent; padding:8px 10px; border-radius:8px;
+    font-size:0.86rem; color:var(--accent);
+  }
+  .nav-btn:active{transform:translateY(1px)}
+
+  /* ---------- 容器 ---------- */
+  .container{max-width:980px; margin:14px auto; padding:0 14px 60px;}
+  .grid {display:grid; grid-template-columns: 1fr; gap:12px}
+
+  /* ---------- 卡片 ---------- */
+  .card{
+    background:var(--card); border-radius:12px; padding:14px; box-shadow:0 6px 18px rgba(11,20,40,0.06);
+    overflow:hidden;
+  }
+  .card-head{display:flex; gap:12px; align-items:center}
+  .icon {
+    width:44px; height:44px; flex:none; display:grid; place-items:center;
+    background:linear-gradient(135deg,#eef6ff,#ffffff); border-radius:10px;
+  }
+  h2{font-size:1.03rem; margin:0}
+  p.lead{margin:8px 0 0; color:var(--muted); font-size:0.92rem}
+
+  /* ---------- 列表 ---------- */
+  ul{padding-left:18px; margin:10px 0 0; color:#222}
+  li{margin:8px 0; font-size:0.96rem}
+
+  /* ---------- highlight ---------- */
+  .highlight{
+    background:var(--highlight-bg); color:var(--highlight-color); padding:2px 6px; border-radius:6px;
+    font-weight:700;
+  }
+
+  /* ---------- 折疊卡 ---------- */
+  .collapsible{margin-top:10px}
+  .collapsible button{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:10px 12px; border-radius:10px;
+    border:1px solid rgba(11,20,40,0.06); background:linear-gradient(180deg,#fff,#fbfdff);
+    font-size:0.96rem; cursor:pointer;
+  }
+  .collapsible .body{padding:10px 6px; display:none}
+  .collapsible.open .body{display:block}
+
+  /* ---------- footer 按鈕 ---------- */
+  .actions{position:fixed; right:14px; bottom:14px; z-index:40; display:flex; flex-direction:column; gap:8px}
+  .fab{
+    background:var(--accent); color:#fff; padding:12px 14px; border-radius:999px;
+    box-shadow: 0 10px 24px rgba(15,98,254,0.18); font-weight:700; border:none;
+  }
+
+  /* ---------- 斷點（手機優先） ---------- */
+  @media(min-width:720px){
+    .grid{grid-template-columns: repeat(2,1fr);}
+    .card{padding:16px}
+    .icon{width:52px;height:52px;border-radius:12px}
+  }
+  @media(min-width:1100px){
+    .container{padding:0 24px}
+    .grid{grid-template-columns: 1fr 1fr 1fr}
+  }
+
+  /* ---------- 小細節 ---------- */
+  .muted{color:var(--muted); font-size:0.9rem}
+  .kb {display:inline-block; margin-left:6px; font-size:0.85rem; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" aria-hidden="true">
+    <!-- Camera SVG icon -->
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="2" y="6" width="20" height="14" rx="2" stroke="#0f62fe" stroke-width="1.4" fill="#fff"/>
+      <circle cx="12" cy="13" r="3.6" fill="#0f62fe"/>
+      <path d="M7 6 L9 4 h6 l2 2" stroke="#0f62fe" stroke-width="1.2" fill="none"/>
+    </svg>
+  </div>
+  <div class="title">東京行程拍攝攻略</div>
+
+  <nav>
+    <button class="nav-btn" onclick="document.getElementById('daily').scrollIntoView({behavior:'smooth'})">逐日</button>
+    <button class="nav-btn" onclick="document.getElementById('settings').scrollIntoView({behavior:'smooth'})">設定</button>
+    <button class="nav-btn" onclick="document.getElementById('master').scrollIntoView({behavior:'smooth'})">大師心法</button>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">
+        <!-- lens SVG -->
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><circle cx="12" cy="12" r="8" stroke="#0f62fe" stroke-width="1.3"/><circle cx="12" cy="12" r="3" fill="#0f62fe"/></svg>
+      </div>
+      <div>
+        <h2>器材 & 拍攝重點</h2>
+        <p class="lead">旅拍以 <span class="highlight">Sigma 16-300mm</span>（萬用）與 <span class="highlight">RF 50mm f/1.8</span>（人像/夜拍）為主。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="grid">
+      <div>
+        <ul>
+          <li><span class="highlight">Sigma 16-300mm</span>：景觀、壓縮感、街拍紀錄</li>
+          <li><span class="highlight">RF 50mm f/1.8</span>：人像、夜景散景、食物特寫</li>
+          <li class="muted">建議：單人以景觀為主；與家人同行補抓人物表情</li>
+        </ul>
+      </div>
+
+      <div>
+        <ul>
+          <li>盡量備一張 <span class="highlight">小腳架</span>（夜景、日落）</li>
+          <li>不要頻繁換鏡頭，行進中可先用 16–300mm 一鏡走天下</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 逐日區塊 -->
+  <section id="daily" class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">
+        <!-- calendar -->
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="#0f62fe"/><path d="M16 3v4M8 3v4" stroke="#0f62fe"/></svg>
+      </div>
+      <div><h2>逐日拍攝精華（快速瀏覽）</h2><p class="lead">點擊每一行可展開詳細提示，方便邊走邊查。</p></div>
+    </div>
+
+    <div class="collapsible" id="c-1214">
+      <button onclick="toggle('c-1214')">
+        <span>12/14 成田 → 浅草橋</span>
+        <span class="kb">夜間 / 入住</span>
+      </button>
+      <div class="body">
+        <ul>
+          <li>室內與飯店周遭夜景：<span class="highlight">50mm f/1.8</span>，ISO 1600–2500。</li>
+          <li>若要低光更穩：開 <span class="highlight">手持夜景</span> 模式。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="collapsible" id="c-1215">
+      <button onclick="toggle('c-1215')">
+        <span>12/15 豪德寺 → 下北沢</span><span class="kb">市集 / 猫寺</span>
+      </button>
+      <div class="body">
+        <ul>
+          <li>豪德寺貓群：<span class="highlight">50mm</span>（近拍）與 <span class="highlight">300mm</span>（壓縮堆疊）。</li>
+          <li>市集：使用 <span class="highlight">靜音快門</span>，追焦切換到區域AF。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="collapsible" id="c-1216">
+      <button onclick="toggle('c-1216')">
+        <span>12/16 鎌倉寺廟 → 七里濱日落</span><span class="kb">日落 / 廟宇</span>
+      </button>
+      <div class="body">
+        <ul>
+          <li>寺廟用中長焦呈現建築層次；遇逆光用 <span class="highlight">高光色調優先</span>。</li>
+          <li>日落：優先側光或逆光剪影，快門 1/200 以上視風強調整。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="collapsible" id="c-1217">
+      <button onclick="toggle('c-1217')">
+        <span>12/17 浅草・合羽橋・羽子板市</span><span class="kb">市集 / 美食</span>
+      </button>
+      <div class="body">
+        <ul>
+          <li>合羽橋美食：用 50mm 拍食物特寫（食物模式可試）。</li>
+          <li>羽子板市：人潮多以 70–200mm 或 16–300mm 中長焦防擾拍攝。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="collapsible" id="c-1218">
+      <button onclick="toggle('c-1218')">
+        <span>12/18 神樂坂 → 原宿 / 表參道</span><span class="kb">街拍 / 購物</span>
+      </button>
+      <div class="body">
+        <ul>
+          <li>神樂坂小巷：50mm 捕捉溫柔巷弄與人物互動。</li>
+          <li>表參道建築：16mm 抓建築線條與聖誕裝飾。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="collapsible" id="c-1224">
+      <button onclick="toggle('c-1224')">
+        <span>12/24 橫濱聖誕市集</span><span class="kb">重點：燈光 / 夜拍</span>
+      </button>
+      <div class="body">
+        <ul>
+          <li>重點使用 <span class="highlight">50mm f/1.8</span>，製造燈球散景與前景模糊。</li>
+          <li>若有行人合影：側光 + 背景留燈球，構圖預留人物頭頂空間。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 更多日期可依樣板新增 -->
+  </section>
+
+  <!-- 相機設定 -->
+  <section id="settings" class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">
+        <!-- gear -->
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" stroke="#0f62fe"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2M4.5 4.5l1.4 1.4M18.1 18.1l1.4 1.4M4.5 19.5l1.4-1.4M18.1 5.9l1.4-1.4" stroke="#0f62fe"/></svg>
+      </div>
+      <div><h2>Canon R7 建議設定（旅拍精簡）</h2><p class="lead">快速套用，方便出門在外調整。</p></div>
+    </div>
+
+    <div style="margin-top:10px" class="grid">
+      <div>
+        <ul>
+          <li><span class="highlight">手持夜景</span>：夜市與聖誕市集首選</li>
+          <li><span class="highlight">臉部 + 眼部追蹤 AF</span>：家庭合照穩定</li>
+          <li><span class="highlight">靜音快門</span>：寺廟・市場拍攝</li>
+        </ul>
+      </div>
+
+      <div>
+        <ul>
+          <li><span class="highlight">高光色調優先 (D+)</span>：保留天空細節</li>
+          <li><span class="highlight">合照模式</span>：多人時自動加深景深</li>
+          <li>Auto ISO 上限：建議設 <span class="highlight">ISO 3200</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 大師心法 -->
+  <section id="master" class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">
+        <!-- star -->
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M12 2l2.6 5.6L20 9l-4 3.9L17 20l-5-2.6L7 20l1-7.1L4 9l5.4-1.4L12 2z" stroke="#0f62fe" fill="#dff2ff"/></svg>
+      </div>
+      <div><h2>攝影大師心法（旅行版）</h2><p class="lead">簡短但高命中率的構圖與光線技巧。</p></div>
+    </div>
+
+    <div style="margin-top:12px">
+      <ul>
+        <li><span class="highlight">風景 = 廣角 + 一個人物背影</span> → 立即有人文感</li>
+        <li>夜景人像：用 <span class="highlight">側光</span> 或 <span class="highlight">背光</span>，避免正面路燈直射</li>
+        <li>日落與海邊：試試 <span class="highlight">逆光剪影</span>，構圖留負空間</li>
+        <li>街拍：拍 <span class="highlight">30° 斜角</span>，層次與深度較佳</li>
+        <li>家庭照三構圖：背影、地標小人、餐桌自然互動</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 快速工具 -->
+  <section class="card">
+    <div class="card-head">
+      <div class="icon" aria-hidden="true">
+        <!-- checklist -->
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#0f62fe"/><path d="M8 11l2 2 4-4" stroke="#0f62fe"/></svg>
+      </div>
+      <div><h2>出門清單（簡短）</h2><p class="lead">把重要關鍵字當 checklist 檢查</p></div>
+    </div>
+
+    <div style="margin-top:12px">
+      <ul>
+        <li><span class="highlight">電池 × 2</span>、SD 卡兩張（備份）</li>
+        <li><span class="highlight">小腳架 / 手機支架</span>（夜景＆家人合照）</li>
+        <li><span class="highlight">鏡頭布、濾鏡（若有）</span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<!-- floating actions -->
+<div class="actions" role="navigation" aria-label="快速動作">
+  <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">回頂部</button>
+</div>
+
+<script>
+  // toggle collapsible by id
+  function toggle(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.toggle('open');
+  }
+
+  // open first few by default for convenience on mobile
+  ['c-1215','c-1216','c-1224'].forEach(id=>{
+    const e=document.getElementById(id);
+    if(e) e.classList.add('open');
+  });
+
+  // enhance link buttons to be keyboard accessible (already buttons)
+  // no external libs used — lightweight
+</script>
+</body>
+</html>
