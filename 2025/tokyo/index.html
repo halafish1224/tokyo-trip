@@ -802,987 +802,641 @@
 <div id="install-guide-modal" class="install-guide-modal" onclick="closeInstallGuide(event)">
     <div class="install-guide-content">
         <button class="modal-close" type="button" onclick="hideInstallGuide()">×</button>
-        <h3 style="margin-top:0; color:#1A374D;">📱 如何加入手機桌面？</h3>
-        <div id="guide-ios" style="display:none; text-align:left; font-size:0.95rem;">
-            <p><strong>iOS (iPhone/iPad):</strong></p>
-            <ol>
-                <li>點擊瀏覽器下方的 <strong style="color:#007AFF; font-size:1.2rem;">分享按鈕</strong> (方框向上箭頭)。</li>
-                <li>向下滑動選單，找到並點選 <strong style="background:#eee; padding:2px 6px; border-radius:4px;">加入主畫面</strong>。</li>
-                <li>點擊右上角的「新增」即可。</li>
-            </ol>
-        </div>
-        <div id="guide-android" style="display:none; text-align:left; font-size:0.95rem;">
-            <p><strong>Android (Chrome):</strong></p>
-            <ol>
-                <li>點擊瀏覽器右上角的 <strong style="font-size:1.2rem;">... 選單</strong>。</li>
-                <li>選擇 <strong style="background:#eee; padding:2px 6px; border-radius:4px;">安裝應用程式</strong> 或 <strong>加到主畫面</strong>。</li>
-                <li>確認新增即可。</li>
-            </ol>
-        </div>
-        <div id="guide-default" style="display:none; text-align:left;">
-            <p><a href="https://travel.itigre.com/2025/tokyo/photo/">相機設定</a></p>
-			<p><a href="https://travel.itigre.com/2025/tokyo/photo/5.html">景點拍照提示</a></p>
-        </div>
-        <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="hideInstallGuide()">我知道了</button>
+        <h3 style="margin-top:0">📸 拍照用提示 / 安裝指南</h3>
+        <p>在旅遊景點拍照時，可將此頁面加入手機桌面，隨時點開查看拍照構圖提示：</p>
+        <ol style="text-align:left; font-size:0.9rem; color:#444; padding-left:20px;">
+            <li><strong>廣角建築：</strong>水平線置中，避免透視變形。</li>
+            <li><strong>壓縮景深：</strong>使用長焦段 (如 70-200mm) 配合中小光圈 (f/5.6-f/8)。</li>
+            <li><strong>美食特寫：</strong>俯拍或低角度，景深要淺 (大光圈 f/1.8-f/2.8)。</li>
+        </ol>
+        <hr style="border:none; border-top:1px solid #eee; margin:15px 0;">
+        <h4 style="margin-top:0">🔖 將本頁面加入主畫面 (PWA)</h4>
+        <p style="font-size:0.85rem; color:#666;">
+            此頁面已為 PWA (Progressive Web App)，可離線使用並享受全螢幕介面。
+            <br>iOS/Safari：點擊下方分享按鈕 ➔ 「加入主畫面」。
+            <br>Android/Chrome：點擊右上角選單 ➔ 「安裝應用程式」。
+        </p>
     </div>
 </div>
 
-<nav class="footer-nav">
+<div class="footer-nav">
     <div class="nav-item active" onclick="switchTab('trip', this)">
-        <span class="nav-icon">🗺️</span>行程
+        <span class="nav-icon">🗺️</span>
+        行程
     </div>
     <div class="nav-item" onclick="switchTab('account', this)">
-        <span class="nav-icon">📒</span>記帳/優惠
+        <span class="nav-icon">💸</span>
+        記帳
     </div>
     <div class="nav-item" onclick="switchTab('tools', this)">
-        <span class="nav-icon">🧰</span>工具箱
+        <span class="nav-icon">🛠️</span>
+        工具
     </div>
-</nav>
+</div>
 
 <script>
-    const MOCK_TODAY = null;
-    let currentExchangeRate = 0.215;
+// MOCK_TODAY 用於測試日期狀態，部署時應為 null
+const MOCK_TODAY = '2025-12-14'; 
+let currentExchangeRate = 0.22; // 預設匯率
 
-    // 長輩專用指差卡
-    const phraseData = [
-        { id: 'toilet_western', jp: 'ようしきトイレはどこですか？', en: 'Where is the Western-style toilet?', zh: '請問洋式(坐式)廁所在哪裡？' },
-        { id: 'rest_chair', jp: 'すこしやすみたいです。イスはありますか？', en: 'I want to rest. Is there a chair?', zh: '我想休息一下，請問有椅子嗎？' },
-        { id: 'water_no_ice', jp: 'こおりなしの おみずをください。', en: 'Water without ice, please.', zh: '請給我去冰的開水（常溫）。' },
-        { id: 'hot_water', jp: 'おゆを いただけますか？', en: 'Could I have some hot water?', zh: '可以給我一杯熱水嗎？' },
-        { id: 'elevator', jp: 'エレベーターは どこですか？', en: 'Where is the elevator?', zh: '請問電梯在哪裡？' },
-        { id: 'station_dir', jp: 'えきは どっちですか？', en: 'Which way is the station?', zh: '請問車站往哪個方向走？' },
-        { id: 'taxi', jp: 'タクシーのりばは どこですか？', en: 'Where is the taxi stand?', zh: '計程車招呼站在哪裡？' },
-        { id: 'write_down', jp: 'かみに かいていただけますか？', en: 'Could you write it down?', zh: '請幫我寫在紙上。' },
-        { id: 'how_much', jp: 'これは いくらですか？', en: 'How much is this?', zh: '這個多少錢？' },
-        { id: 'made_in_japan', jp: 'これは にほんせいですか？', en: 'Is this made in Japan?', zh: '這是日本製造的嗎？' },
-        { id: 'best_seller', jp: 'おすすめは どれですか？', en: 'Which one do you recommend?', zh: '請問最推薦（賣最好）的是哪個？' },
-        { id: 'card_ok', jp: 'カードで はらえますか？', en: 'Can I pay by credit card?', zh: '可以刷卡嗎？' },
-        { id: 'menu_pic', jp: 'しゃしんのメニューは ありますか？', en: 'Do you have a menu with photos?', zh: '有附照片的菜單嗎？' },
-        { id: 'less_salt', jp: 'あじを うすくできますか？', en: 'Can you make it less salty?', zh: '味道可以做清淡一點嗎？' },
-        { id: 'fork_please', jp: 'フォークを ください。', en: 'Fork, please.', zh: '不好意思，請給我叉子。' },
-        { id: 'take_out', jp: 'もちかえりで おねがいします。', en: 'Take out, please.', zh: '我要外帶。' }
-    ];
-    // 優惠券資料庫
-    const couponData = [
-        { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.webp", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
-        { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.webp", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
-        { name: "愛電王 Edion", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp" },
-        { name: "Laox", offer: "免稅10% + 8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/LAOX.webp" },
-        { name: "成田機場免稅店", offer: "享有95折優惠", img: "https://travel.itigre.com/2025/tokyo/coupon/narita_duty.webp", url: "https://duty-free-japan.jp/narita/ta/content/coupon2833-30.html" },
-        { name: "SUNDRUG 藥妝", offer: "免稅 + 3~7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.webp", url: "https://sundrug-online.com/" },
-        { name: "鶴羽藥妝", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/tsuruha.webp" },
-        { name: "札幌藥妝", offer: "免稅 + 最高5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sapporo.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/sapporo.webp" },
-        { name: "Cosmos 藥妝", offer: "免稅 + 最高9% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/cosmos.webp" },
-        { name: "松本清", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/matsucoupontw.webp", url: "https://www.matsukiyococokara-online.com/point/coupon/" },
-        { name: "大國藥妝", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.webp" },
-        { name: "SUGI 藥局", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sugidrug.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/sugidrug.webp" },
-        { name: "福太郎藥局", offer: "免稅 + 最高18% (82折)", img: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/kusurinofukutaro.webp" },
-        { name: "銀座樂天免稅店", offer: "滿額最高折2千日圓", img: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/Lottedutyfree.webp" },
-        { name: "大丸松坂屋", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf", url: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf" },
-        { name: "西武百貨", offer: "滿1000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/seibu.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/seibu.webp" },
-        { name: "京王百貨", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg", url: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg" },
-        { name: "Victoria 運動", offer: "免稅 + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.webp" },
-        { name: "山田電機", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp" },
-        { name: "多慶屋", offer: "JCB卡+券享12% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp" },
-        { name: "AEON LakeTown kaze", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall05#body" },
-        { name: "AEON LakeTown mori", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
-        { name: "AEON LakeTown OUTLET", offer: "專屬優惠券", img: "https://laketown-outlet.jp/img/common/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall07" }
-    ];
-    // === 資料庫 (行程) ===
-    const itineraryData = [
-        // --- PROJECT 1 ---
-        {
-            date: "12/14 (日)", id: "d1", theme: "theme-blue", project: 1, fullDate: "2025-12-14",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813863/1214_asbsik.webp",
-            events: [
-                {
-                    time: "12:30", title: "成田機場 T2 抵達",
-                    desc: "抵達東京！領取行李後，直接前往地下層搭車。",
-                    checkInNote: "去程",
-                    transportGuide: [
-                        "入境後依照黃色指標 <strong>鉄道 / Train / 鐵道</strong> 前進。",
-                        "跟著藍色標誌的 <span class='keyword-orange'>京成電鉄 Keisei Line</span> 指示，下樓到月台層。",
-                        "購票時可詢問：<span class='keyword-blue'>「アクセスとっきゅうで あさくさまで おねがいします。」</span>（Access 特急到淺草）。",
-                        "搭乘 <span class='keyword-orange'>Access 特急</span>，確認列車顯示有停 <span class='keyword-blue'>浅草 Asakusa</span>。",
-                        "約 60 分鐘抵達都營淺草線一帶，之後依當日安排再移動。"
-                    ],
-                    map: "成田空港第2ターミナル駅"
-                },
-                {
-                    time: "15:00", title: "Tabist Hotel Mercury",
-                    desc: "辦理入住。淺草橋是手作材料聖地，充滿昭和風情。",
-                    map: "Tabist Hotel Mercury Asakusabashi"
-                },
-                {
-                    time: "19:00", title: "逸品閣 (晚餐)",
-                    desc: "享用第一頓晚餐，體驗當地中華料理或日式定食。",
-                    review: "Google 評論 (4.0★)：份量十足的中華料理，麻婆豆腐和餃子是必點招牌。",
-                    map: "逸品閣"
-                },
-                {
-                    time: "21:00", title: "✅ 投保確認 (重要)",
-                    desc: "請確認是否已投保日本當地的「外國人專用醫療險」(Cashless 服務)。",
-                    insuranceNote: true,
-                    map: "Tabist Hotel Mercury Asakusabashi"
-                }
-            ]
-        },
-        {
-            date: "12/15 (一)", id: "d2", theme: "theme-orange", project: 1, fullDate: "2025-12-15",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813864/1215_n1tikt.webp",
-            events: [
-                {
-                    time: "09:00", title: "豪德寺 (招財貓)",
-                    desc: "招財貓發源地，成千上萬隻白貓向你招手。",
-                    review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。",
-					map: "豪徳寺"
-					next: { time: "步行", dist: "松陰神社" },
-                },
-                {
-                    time: "10:30", title: "松陰神社",
-                    desc: "供奉幕末教育家吉田松陰，充滿歷史氛圍的神社。",
-					review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。",
-                    map: "松陰神社"
-                },
-                {
-                    time: "13:00", title: "世田谷舊物市集 (ボロ市)",
-                    desc: "已有440年歷史的傳統市集。**記得尋找 Furoshiki (風呂敷) 當作紀念**。",
-                    review: "用長焦端拍局部（70–200mm），快門≥1/250 避免人物模糊。AF 用伺服 + 區域/追蹤，避免 AF 捕捉到無關標牌。",
-					map: "世田谷代官屋敷"
-                },
-                {
-                    time: "18:00", title: "下北澤 散策",
-                    desc: "古著聖地、劇場文化與咖哩激戰區。",
-                    map: "下北沢"
-                }
-            ]
-        },
-        {
-            date: "12/16 (二)", id: "d3", theme: "theme-green", project: 1, fullDate: "2025-12-16",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813964/1216_tuyoae.webp",
-            events: [
-                {
-                    time: "09:00", title: "北鎌倉站 -> 明月院",
-                    desc: "著名的圓窗景色 (悟りの窓)，充滿禪意。",
-					review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。",
-                    map: "明月院"
-                },
-                {
-                    time: "11:00", title: "建長寺",
-                    desc: "鎌倉五山第一位，日本最古老的禪宗道場。",
-                    next: { time: "步行", dist: "鶴岡八幡宮" },
-					review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。",
-                    map: "建長寺"
-                },
-                {
-                    time: "13:00", title: "鶴岡八幡宮 & 小町通",
-                    desc: "鎌倉的心臟地帶，參拜後逛街吃小吃。",
-                    map: "鶴岡八幡宮"
-                },
-                {
-                    time: "15:00", title: "寶戒寺",
-                    desc: "以萩花聞名的『萩之寺』，供奉地藏菩薩。",
-					review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。",
-                    map: "宝戒寺"
-                },
-                {
-                    time: "16:30", title: "七里濱 (夕陽)",
-                    desc: "前往海邊欣賞江之島與富士山的夕陽絕景。<br>⚠️ <strong>交通注意：</strong>若從鎌倉市區/寶戒寺步行至七里濱非常遠（約需 1 小時 20 分），強烈建議搭乘 <span class='keyword-green'>江之電</span>（從鎌倉站搭到七里濱站約 15 分鐘）。",
-                    map: "七里ヶ浜海岸駐車場"
-                }
-            ]
-        },
-        {
-            date: "12/17 (三)", id: "d4", theme: "theme-red", project: 1, fullDate: "2025-12-17",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813960/1217_wqq6xy.webp",
-            events: [
-                {
-                    time: "09:00", title: "Pelican 麵包 (預約制)",
-                    desc: "淺草傳奇吐司店，口感紮實Q彈。",
-                    pelicanData: [
-                        "💰 1斤 (Small Loaf): ¥540",
-                        "💰 1.5斤 (Medium Loaf): ¥810",
-                        "💰 3斤 (Large Loaf): ¥1,620",
-                        "💰 小餐包 (10入): ¥850",
-                        "---",
-                        "📌 <strong>12/20 (六) 取貨訂單：</strong>",
-                        "¥540 * 1",
-                        "¥700 * 1 (請確認是否為特製款/其他)",
-                        "¥850 * 1 (請確認是否為大型/組合)",
-                        "📌 <strong>12/27(六) 取貨訂單：</strong>",
-                        "¥540 * 3",
-                        "¥700 * 1 (請確認是否為特製款/其他)",
-                        "(請現場確認總金額)"
-                    ],
-                    next: { time: "步行", dist: "今戶神社" },
-                    map: "Pelican Bread"
-                },
-                {
-                    time: "10:30", title: "今戶神社 & 淺草神社",
-                    desc: "招財貓發源地與結緣神社，隨後前往淺草神社。與淺草寺並立的神社，主祭三位創建者，見證信仰融合與庶民文化。每年三社祭熱鬧非凡，平日氛圍相對靜謐，適合細看社殿雕刻與歷史。",
-                    review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。",
-					map: "今戸神社"
-                },
-                {
-                    time: "12:00", title: "☕ 合羽橋道具街 (咖啡器具)",
-                    desc: "日本第一的廚房用品街，專注購買咖啡手沖器具。買完後再前往歲之市。",
-                    coffeeData: true,
-                    map: "Union Commerce Co., Ltd."
-                },
-                {
-                    time: "14:00", title: "淺草寺 歲之市 (羽子板市)",
-                    desc: "歲末期間在淺草寺境內舉辦的年貨市集，攤位林立，販售熊手、裝飾品與新年相關小物。結合淺草寺參拜儀式感，是迎接日本新年的經典場景，購買華麗的羽子板驅邪祈福。",
-                    review: "用長焦端拍局部（70–200mm），快門≥1/250 避免人物模糊。AF 用伺服 + 區域/追蹤，避免 AF 捕捉到無關標牌。",
-					map: "淺草寺"
-                }
-            ]
-        },
-        {
-            date: "12/18 (四)", id: "d5", theme: "theme-blue", project: 1, fullDate: "2025-12-18",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813959/1218_g6cndy.webp",
-            events: [
-                {
-                    time: "08:00", title: "神樂坂散策",
-                    desc: "東京小巴黎，清晨感受石板路與黑圍牆的優雅街區。",
-                    next: { time: "電車", dist: "原宿/表參道" },
-                    map: "神樂坂"
-                },
-                {
-                    time: "12:00", title: "原宿/表參道 雜貨巡禮",
-                    desc: "3COINS 旗艦店與 Flying Tiger 北歐雜貨。順道逛逛潮包 AS2OV。",
-                    map: "3COINS 原宿本店"
-                },
-                {
-                    time: "13:30", title: "UNBY GENERAL GOODS STORE (AS2OV)",
-                    desc: "就在原宿/表參道區域。推薦查看 AS2OV 的機能背包。",
-                    map: "UNBY GENERAL GOODS STORE HARAJUKU"
-                },
-                {
-                    time: "15:00", title: "FLYING TIGER Copenhagen",
-                    desc: "來自丹麥的北歐風平價雜貨，色彩繽紛充滿設計感。",
-                    map: "Flying Tiger Copenhagen 表参道ストア"
-                }
-            ]
-        },
-        {
-            date: "12/19 (五)", id: "d6", theme: "theme-orange", project: 1, fullDate: "2025-12-19",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813963/1219_gzblyc.webp",
-            events: [
-                {
-                    time: "10:00", title: "高圓寺商店街",
-                    desc: "充滿二手服飾、小眾樂團Live House與小酒吧的街區，被視為次文化與青年創作聚落。街道不華麗卻個性鮮明，很適合喜歡挖寶與觀察在地生活的人。昭和復古氛圍，二手衣與純情商店街。",
-                    map: "高圓寺"
-                },
-                {
-                    time: "19:00", title: "春木屋 荻窪本店",
-                    desc: "東京拉麵的經典老味道。魚介香氣濃郁。",
-                    map: "春木屋 荻窪本店"
-                }
-            ]
-        },
-        {
-            date: "12/20 (六)", id: "d7", theme: "theme-green", project: 1, fullDate: "2025-12-20",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813920/1220_z9qxwr.webp",
-            events: [
-                {
-                    time: "10:30", title: "皇居外苑",
-                    desc: "東京的中心，感受皇室威儀。",
-					review: "二重橋是著名拍照點。A.二重大橋＋石橋合體的「雙橋」視覺最強；B.皇居護城河 & 松樹＋石牆線條；C.和田倉噴水公園（噴水＋金屬反光）",
-                    map: "皇居外苑"
-                },
-                {
-                    time: "13:30", title: "日本橋三越",
-                    desc: "日本最古老的百貨公司，建築本身即是藝術。",
-					review: "A.正門獅子雕像（招牌）、B.三越百貨 正門天花板（圓形天頂 × 裝飾藝術）、C.中央大理石階梯（超厚重的昭和百貨氛圍）、D.中央大廳（Grand Hall）＋ 奶油色柱式、E.圓頂燈飾（彩色玻璃 / 金色線條）、F.百貨外牆（巨大浮雕與石材）、G.玻璃櫥窗（期間限定 × 展示美學）",
-                    map: "日本橋三越"
-                },
-                {
-                    time: "15:00", title: "🛍️ MSPC (Master-Piece) 尋包之旅",
-                    desc: "目標：Potential ver.3 (大容量/多隔層)。以下為距離日本橋三越最近的店舖排序：",
-                    transportGuide: [
-                        "1. <strong>MSPC PRODUCT GINZA</strong> (Ginza Six 5F) <br> <span style='font-size:0.8rem;color:#888'>距離約 1.5km (最近/最推薦)</span>",
-                        "2. <strong>MSPC PRODUCT UENO</strong> (PARCO_ya 5F) <br> <span style='font-size:0.8rem;color:#888'>距離約 2.5km</span>",
-                        "3. <strong>MSPC PRODUCT SHINJUKU</strong> (Lumine 1 5F) <br> <span style='font-size:0.8rem;color:#888'>距離約 6km (較遠)</span>"
-                    ],
-                    map: "MSPC PRODUCT GINZA"
-                }
-            ]
-        },
-        {
-            date: "12/21 (日)", id: "d8", theme: "theme-red", project: 2, fullDate: "2025-12-21",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813872/1221_slcapi.webp",
-            events: [
-                {
-                    time: "10:00", title: "Henn na Hotel 淺草田原町",
-                    desc: "移動日：入住機器人櫃台飯店。",
-                    map: "変なホテル東京 浅草田原町"
-                },
-                {
-                    time: "20:00", title: "👨‍👩‍👧‍👦 家人抵達 & 交通指引",
-                    desc: "預計晚上8點後匯合。晚餐可直接在飯店旁的 Yayoi 軒解決。<br><br><strong>⚠️ 家人前往飯店之交通/電梯攻略：</strong>",
-                    transportGuide: [
-                        "從成田機場搭乘 <span class='keyword-orange'>京成電鐵 Access 特急</span> (往羽田空港方向)。",
-                        "至 <span class='keyword-blue'>都營淺草站 (A18)</span> 下車 (免轉車)。",
-                        "🛗 <strong>行李專用出口：</strong> 請務必尋找 <span class='keyword-orange'>A2b 出口</span> (有大電梯)。",
-                        "出站後建議直接搭乘計程車至飯店 (約 ¥800-1000)，避免拖行李走 12 分鐘。"
-                    ],
-                    map: "YAYOI Asakusa Tawaramachi"
-                },
-                {
-                    time: "21:00", title: "🛒 深夜超市採買",
-                    desc: "飯店周遭 21:00 後仍營業的採買點：",
-                    supermarkets: [
-                        { name: "西友淺草 ROX 食品館", meta: "24H 營業 | 最穩", map: "西友浅草ROX食品館" },
-                        { name: "唐吉訶德 淺草店", meta: "24H 營業 | 雜貨+食品", map: "Don Quijote Asakusa" },
-                        { name: "Life 淺草店", meta: "開到 22:00 | 生鮮多", map: "ライフ浅草店" },
-                        { name: "Lawson/7-11", meta: "便利商店", map: "Lawson Asakusa Tawaramachi" }
-                    ],
-                    map: "変なホテル東京 浅草田原町"
-                },
-                {
-                    time: "22:00", title: "✅ 投保確認 (第二階段)",
-                    desc: "請確認第二階段行程的「外國人專用醫療險」是否已生效。",
-                    insuranceNote: true,
-                    map: "変なホテル東京 浅草田原町"
-                }
-            ]
-        },
-        {
-            date: "12/22 (一)", id: "d9", theme: "theme-blue", project: 2, fullDate: "2025-12-22",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764814801/1222_ut8ct6.jpg",
-            events: [
-                {
-                    time: "09:30", title: "大船站 & 大船觀音",
-                    desc: "俯瞰鎌倉的巨大白色觀音像，原為祈求戰亡者冥福而建，山腰視野開闊，可遠眺湘南海岸與市景，氣氛安靜莊嚴，很適合靜心停留。",
-                    map: "大船観音寺"
-                },
-                {
-                    time: "10:30", title: "湘南單軌電車",
-                    desc: "吊掛式單軌電車像「空中飛車」般滑過民宅與海岸，車體貼近建築與山壁，是連結大船、江之島一帶的重要交通，也是一段獨特風景線。（湘南江之島站下車，轉江之電）。",
-                    map: "湘南江の島駅"
-                },
-                {
-                    time: "11:30", title: "極樂寺 (Gokurakuji) 散策",
-                    desc: "元朝（蒙古帝國）攻打日本（所謂元寇）時，忍性銜幕府與朝廷之命，在這座真言律宗的寺院祈願異國敵軍退散。往昔的極樂寺占地廣大並有醫療設施。一般認為忍性手下有一批土木技術精良的人才。關東車站百選之一，充滿懷舊風情的木造無人車站。周邊寧靜清幽，是日劇《倒數第二次戀愛》的經典場景，感受古都的日常步調。",
-                    map: "極楽寺駅"
-                },
-                {
-                    time: "12:00", title: "café recette 鎌倉 (預約)",
-                    desc: "高級吐司專賣店/古民家咖啡廳。<strong>🏆 推薦必點 Top 5：</strong>",
-                    transportGuide: [
-                        "1. <strong>究極のフレンチトースト</strong> <br> (Ultimate French Toast / 究極法式吐司)",
-                        "2. <strong>自家製パンと平飼い卵のプレート</strong> <br> (Homemade Bread & Free-range Egg Plate / 自製麵包與放養雞蛋拼盤)",
-                        "3. <strong>姫様のフレンチトースト</strong> <br> (Princess French Toast / 公主法式吐司 - 季節限定)",
-                        "4. <strong>BLTサンド</strong> <br> (BLT Sandwich / 培根生菜番茄三明治)",
-                        "5. <strong>自家製ジンジャーエール</strong> <br> (Homemade Ginger Ale / 自製薑汁汽水)"
-                    ],
-                    map: "café recette 鎌倉"
-                },
-                {
-                    time: "13:30", title: "長谷寺 (Hasedera)",
-                    desc: "以「長谷觀音」與四季花卉聞名，雖然非繡球花季，但境內的枯山水庭園與見晴台（可眺望由比濱海岸）依然值得一訪。感受古剎的莊嚴與海景的遼闊。",
-                    map: "長谷寺 鎌倉"
-                },
-                {
-                    time: "15:00", title: "鎌倉大佛",
-                    desc: "高約十一公尺的青銅阿彌陀如來端坐露天，自13世紀保存至今，姿態沉靜卻氣勢十足。可近距離環繞，感受歷史風霧與古都信仰力量。",
-                    map: "鎌倉大仏殿高徳院"
-                },
-                {
-                    time: "17:00", title: "江之島 湘南寶石 (聖誕燈光秀)",
-                    desc: "關東三大燈飾之一「湘南寶石 (Jewel of Shonan)」。以江之島 Sea Candle 為中心，數萬顆水晶珠簾與燈海覆蓋整座島嶼，夢幻浪漫的冬季限定景色。",
-                    map: "江の島シーキャンドル"
-                },
-                {
-                    time: "19:00", title: "晚餐：鎌倉/鶴岡八幡宮周邊",
-                    desc: "看完燈光後返回鎌倉市區用餐。預算約 ¥2000/人。推薦：<strong>Wasabi (日式定食)</strong> 或 <strong>Bowls (文青丼飯)</strong>，或在小町通尋找喜歡的餐廳。",
-                    map: "Kamakura Wasabi"
-                }
-            ]
-        },
-        {
-            date: "12/23 (二)", id: "d10", theme: "theme-orange", project: 2, fullDate: "2025-12-23",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813871/1223_x2rojh.webp",
-            events: [
-                {
-                    time: "09:00", title: "淺草雷門",
-                    desc: "早晨人少時拍攝雷門大燈籠。⚠️ <strong>出發提醒：請攜帶兩個登機箱</strong>，今日為 Outlet 爆買日。",
-                    map: "雷門"
-                },
-                {
-                    time: "11:00", title: "AEON MALL LakeTown OUTLET",
-                    desc: "日本最大購物中心 (Kaze/Mori/Outlet 三館)。午餐直接在美食街享用。",
-                    map: "越谷レイクタウン アウトレット"
-                },
-                {
-                    time: "16:00", title: "LakeTown 購物續攤",
-                    desc: "持續在 LakeTown Mori/Kaze 區購物 (注意：二木菓子在此無分店，建議改去超市或專賣店買伴手禮)。",
-                    map: "Aeon Lake Town Mori"
-                }
-            ]
-        },
-        {
-            date: "12/24 (三)", id: "d11", theme: "theme-green", project: 2, fullDate: "2025-12-24",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813870/1224_qsahm3.webp",
-            events: [
-                {
-                    time: "12:00", title: "敘敘苑 (橫濱 Sky Building)",
-                    desc: "高空景觀燒肉午餐。",
-                    map: "叙々苑 横浜スカイビル店"
-                },
-                {
-                    time: "14:30", title: "漫步前往紅磚倉庫 (約40分鐘)",
-                    desc: "沿著橫濱港灣漫步，享受海風與美景（Nissan Gallery -> 汽車道）。",
-                    map: "汽車道"
-                },
-                {
-                    time: "15:30", title: "橫濱紅磚倉庫",
-                    desc: "百年磚造倉庫改裝成文創商場與展演空間，保留港口工業風歷史肌理。聖誕市集、啤酒節等季節活動豐富，是橫濱港邊最具氛圍的散步地標。",
-                    map: "横浜赤レンガ倉庫"
-                },
-                {
-                    time: "18:30", title: "晚餐：橫濱/港未來周邊",
-                    desc: "預算約 ¥2000/人。推薦：<strong>Shake Shack (紅磚倉庫店)</strong> 漢堡，或至 <strong>World Porters</strong> 美食街選擇多樣。",
-                    map: "Shake Shack Minatomirai"
-                }
-            ]
-        },
-        {
-            date: "12/25 (四)", id: "d12", theme: "theme-red", project: 2, fullDate: "2025-12-25",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813867/1225_se95vc.webp",
-            events: [
-                {
-                    time: "08:30", title: "築地市場 & MATCHA STAND",
-                    desc: "享用海鮮早餐與現刷濃郁抹茶拿鐵。",
-                    map: "築地場外市場"
-                },
+// === 資料庫 (指差卡) ===
+const phraseData = [
+    { id: 'toilet', jp: 'トイレは どこですか？', en: 'Where is the toilet?', zh: '請問廁所在哪裡？' },
+    { id: 'elevator', jp: 'エレベーターは どこですか？', en: 'Where is the elevator?', zh: '請問電梯在哪裡？' },
+    { id: 'station_dir', jp: 'えきは どっちですか？', en: 'Which way is the station?', zh: '請問車站往哪個方向走？' },
+    { id: 'taxi', jp: 'タクシーのりばは どこですか？', en: 'Where is the taxi stand?', zh: '計程車招呼站在哪裡？' },
+    { id: 'write_down', jp: 'かみに かいていただけますか？', en: 'Could you write it down?', zh: '請幫我寫在紙上。' },
+    { id: 'how_much', jp: 'これは いくらですか？', en: 'How much is this?', zh: '這個多少錢？' },
+    { id: 'made_in_japan', jp: 'これは にほんせいですか？', en: 'Is this made in Japan?', zh: '這是日本製造的嗎？' },
+    { id: 'best_seller', jp: 'おすすめは どれですか？', en: 'Which one do you recommend?', zh: '請問最推薦（賣最好）的是哪個？' },
+    { id: 'card_ok', jp: 'カードで はらえますか？', en: 'Can I pay by credit card?', zh: '可以刷卡嗎？' },
+    { id: 'menu_pic', jp: 'しゃしんのメニューは ありますか？', en: 'Do you have a menu with photos?', zh: '有附照片的菜單嗎？' },
+    { id: 'less_salt', jp: 'あじを うすくできますか？', en: 'Can you make it less salty?', zh: '味道可以做清淡一點嗎？' },
+    { id: 'fork_please', jp: 'フォークを ください。', en: 'Fork, please.', zh: '不好意思，請給我叉子。' },
+    { id: 'take_out', jp: 'もちかえりで おねがいします。', en: 'Take out, please.', zh: '我要外帶。' }
+];
 
-                {
-                    time: "11:00", title: "Ginza Shabu-tu (午餐)",
-                    desc: "位於 Marronnier Gate 12F 的好呷涮涮鍋 (しゃぶせん)。",
-                    map: "Ginza Shabutsu Marronnier Gate"
-                },
-                {
-                    time: "13:30", title: "GINZA SIX & Uniqlo 旗艦店",
-                    desc: "參觀銀座地標與 12 層樓高的 Uniqlo。晚餐可外帶 Ginza Astre。",
-                    map: "GINZA SIX"
-                },
-            ]
-        },
-        {
-            date: "12/26 (五)", id: "d13", theme: "theme-blue", project: 2, fullDate: "2025-12-26",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813866/1226_p6ahzi.webp",
-            events: [
-                {
-                    time: "10:00", title: "淺草美食巡禮",
-                    desc: "合羽橋道具街 (補貨/閒逛)/淺草花月堂 (波羅麵包) & 龜十 (銅鑼燒)。",
-                    map: "浅草花月堂 本店"
-                },
-                {
-                    time: "12:30", title: "敘敘苑 (新宿 Opera City)",
-                    desc: "53樓高空景觀午餐。",
-                    map: "叙々苑 新宿オペラシティ53"
-                },
-                {
-                    time: "14:30", title: "京王百貨 新宿店",
-                    desc: "老字號百貨，地下伴手禮街非常豐富，適合採買長輩禮品。頂樓還有懷舊的露天遊樂園。",
-                    map: "京王百貨店 新宿店"
-                },
-                {
-                    time: "15:30", title: "LUMINE 2 (MASTER-PIECE)",
-                    desc: "新宿站南口直結。前往 MSPC 專櫃挑選日本製職人包款 (MASTER-PIECE)，款式齊全。",
-                    map: "Lumine 2 Shinjuku"
-                },
-                {
-                    time: "17:00", title: "下島包裝 (シモジマ)",
-                    desc: "最後補貨：文具、包裝用品、雜貨。",
-                    map: "シモジマ 浅草橋本店"
-                }
-            ]
-        },
-        {
-            date: "12/27 (六)", id: "d14", theme: "theme-orange", project: 2, fullDate: "2025-12-27",
-            coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813864/1227_bhxjjx.webp",
-            events: [
-                {
-                    time: "10:00", title: "返程 (前往成田 T2)",
-                    desc: "帶著滿滿回憶返程。星宇航空 JX803。",
-                    checkInNote: "回程",
-                    transportGuide: [
-                        "<span class='keyword-orange'>A18 淺草站</span> 進站。",
-                        "搭乘：<span class='keyword-orange'>Access 特急</span>。",
-                        "方向：往 <span class='keyword-orange'>成田空港 Narita Airport</span>（務必確認終點）。",
-                        "下車站：<span class='keyword-blue'>成田機場 T2</span>。"
-                    ],
-                    next: { time: "飛行", dist: "TPE" },
-                    map: "成田空港第2ターミナル"
-                }
-            ]
+// 優惠券資料庫
+const couponData = [
+    { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.webp", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
+    { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.webp", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
+    { name: "愛電王 Edion", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp" },
+    { name: "Laox", offer: "免稅10% + 8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/laox.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/laox.webp" },
+    { name: "松本清", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/matsumotokiyoshi.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/matsumotokiyoshi.webp" },
+    { name: "大丸百貨", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf", url: "https://travel.itigre.com/2025/tokyo/coupon/daimaru.pdf" },
+    { name: "西武百貨", offer: "滿1000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/seibu.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/seibu.webp" },
+    { name: "京王百貨", offer: "滿3000日圓享95折", img: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg", url: "https://travel.itigre.com/2025/tokyo/coupon/Keio.jpeg" },
+    { name: "Victoria 運動", offer: "免稅 + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/Victoriajpg.webp" },
+    { name: "山田電機", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/yamada.webp" },
+    { name: "多慶屋", offer: "JCB卡+券享12% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp" },
+    { name: "AEON LakeTown kaze", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall05#body" },
+    { name: "AEON LakeTown mori", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
+    { name: "AEON LakeTown OUTLET", offer: "專屬優惠券", img: "https://laketown-outlet.jp/img/common/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall07" }
+];
+
+// === 資料庫 (行程) ===
+const itineraryData = [
+    // --- PROJECT 1 ---
+    { date: "12/14 (日)", id: "d1", theme: "theme-blue", project: 1, fullDate: "2025-12-14", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813863/1214_asbsik.webp", events: [
+        { time: "12:30", title: "成田機場 T2 抵達", desc: "抵達東京！領取 Wi-Ho!" },
+        { time: "13:30", title: "搭乘 Skyliner (15:00 抵達上野)", desc: "搭乘 Skyliner 前往上野。需在機場 T2 B1 購買 (約 ¥2,570/人)。" },
+        { time: "15:30", title: "入住：Hotel Resol Ueno", desc: "辦理入住，將行李寄放後輕裝出門。", map: "Hotel Resol Ueno" },
+        { time: "17:00", title: "阿美橫丁", desc: "上野最具代表性的商店街，適合買零食、藥妝、海鮮。", next: { time: "步行", dist: "多慶屋" }, map: "阿美橫丁" },
+        { time: "19:00", title: "晚餐：上野廣小路 - 山家豬排", desc: "連鎖平價豬排店，炸功穩定，高麗菜絲可無限續。預算約 ¥1,000/人。", map: "山家豬排 上野広小路店" }
+    ] },
+    { date: "12/15 (一)", id: "d2", theme: "theme-green", project: 1, fullDate: "2025-12-15", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813955/1215_c8211t.webp", events: [
+        { time: "09:00", title: "上野公園 / 不忍池", desc: "早晨在上野公園散步，可參觀清水觀音堂、不忍池（荷花已枯萎）。", map: "上野恩賜公園" },
+        { time: "11:00", title: "東京車站（丸之內口）", desc: "被譽為東京玄關的紅磚建築，經典拍照點。周邊有丸之內 Building 可登高望景。", review: "A.車站前廣場（廣角）、B.車站內部圓頂（超廣角）、C.丸之內仲通 (聖誕燈飾/夜景)" },
+        { time: "13:00", title: "午餐：東京車站一番街", desc: "在一番街的拉麵街或角色街解決午餐，時間彈性。", map: "東京駅一番街" },
+        { time: "14:30", title: "秋葉原 (扭蛋/模型)", desc: "電器與動漫次文化中心。目標是找扭蛋、模型，或在萬代、Gundam Café 等處逛逛。", transportGuide: [ "從東京車站搭 <span class='keyword-orange'>JR京浜東北線</span> 或 <span class='keyword-orange'>JR山手線</span> 至秋葉原 (約 4 分鐘)。", "建議使用 <span class='keyword-blue'>電氣街口</span> 出站。" ], map: "秋葉原" },
+        { time: "18:00", title: "晚餐：秋葉原 - 麵屋武藏武骨", desc: "濃厚的黑湯底沾麵，份量大，適合重口味愛好者。預算約 ¥1,200/人。", map: "麺屋武蔵武骨" },
+        { time: "20:00", title: "上野 / 多慶屋 (採買)", desc: "返回上野，在多慶屋採買伴手禮、藥妝。", map: "多慶屋" }
+    ] },
+    { date: "12/16 (二)", id: "d3", theme: "theme-orange", project: 1, fullDate: "2025-12-16", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813876/1216_rfxv8d.webp", events: [
+        { time: "08:30", title: "鎌倉：北鎌倉站抵達", desc: "一日輕旅行。在 <span class='keyword-green'>橫濱站</span> 轉乘 <span class='keyword-green'>JR横須賀線</span> (直達北鎌倉站)。", transportGuide: [ "從上野搭 <span class='keyword-blue'>JR上野東京線</span> 往橫濱 (直達)。", "在橫濱轉 <span class='keyword-green'>JR横須賀線</span> (往久里浜/逗子方向) 至北鎌倉。" ] },
+        { time: "09:30", title: "圓覺寺 (Engaku-ji)", desc: "臨濟宗大本山，境內開闊，尤其以舍利殿與洪鐘聞名。在北鎌倉站出站即可見。", map: "円覚寺" },
+        { time: "11:00", title: "建長寺 (Kenchō-ji)", desc: "臨濟宗最古老的寺院。可登上半僧坊俯瞰湘南海岸線。從圓覺寺步行約 15 分鐘。", next: { time: "步行", dist: "鶴岡八幡宮" }, map: "建長寺" },
+        { time: "13:00", title: "鶴岡八幡宮 & 小町通", desc: "鎌倉的心臟地帶，參拜後逛街吃小吃。", map: "鶴岡八幡宮" },
+        { time: "15:00", title: "寶戒寺", desc: "以萩花聞名的『萩之寺』，供奉地藏菩薩。", review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。", map: "宝戒寺" },
+        { time: "16:30", title: "七里濱 (夕陽)", desc: "前往海邊欣賞江之島與富士山的夕陽絕景。<br>⚠️ <strong>交通注意：</strong>若從鎌倉市區/寶戒寺步行至七里濱非常遠（約需 1 小時 20 分），強烈建議搭乘 <span class='keyword-green'>江之電</span>（從鎌倉站搭到七里濱站約 15 分鐘）。", map: "七里ヶ浜海岸駐車場" }
+    ] },
+    { date: "12/17 (三)", id: "d4", theme: "theme-red", project: 1, fullDate: "2025-12-17", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813960/1217_wqq6xy.webp", events: [
+        { time: "09:00", title: "Pelican 麵包 (預約制)", desc: "淺草傳奇吐司店，口感紮實Q彈。", pelicanData: [ "💰 1斤 (Small Loaf): ¥540", "💰 1.5斤 (Medium Loaf): ¥810", "💰 3斤 (Large Loaf): ¥1,620", "💰 小餐包 (10入): ¥850", "---", "📌 <strong>12/20 (六) 取貨訂單：</strong>", "¥540 * 1", "¥700 * 1 (請確認是否為特製款/其他)", "¥850 * 1 (請確認是否為大型/組合)", "📌 <strong>12/27(六) 取貨訂單：</strong>", "¥540 * 3", "¥700 * 1 (請確認是否為特製款/其他)", "(請現場確認總金額)" ], next: { time: "步行", dist: "今戶神社" }, map: "Pelican Bread" },
+        { time: "10:30", title: "今戶神社 & 淺草神社", desc: "招財貓發源地與結緣神社，隨後前往淺草神社。與淺草寺並立的神社，主祭三位創建者，見證信仰融合與庶民文化。每年三社祭熱鬧非凡，平日氛圍相對靜謐，適合細看社殿雕刻與歷史。", review: "用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。", map: "今戸神社" },
+        { time: "12:30", title: "午餐：淺草雷門 - 大黑家天麩羅 (本店)", desc: "百年老店，獨特的黑天丼 (濃醬)，口感較濕潤。預算約 ¥2,000/人。", map: "大黒家天麩羅 本店" },
+        { time: "14:30", title: "東京晴空塔", desc: "登塔眺望東京全景，或在 Solamachi 購物。建議選擇白天登塔 (票價約 ¥3,100)。", map: "東京スカイツリー" },
+        { time: "18:00", title: "晚餐：上野 - 山下居酒屋", desc: "日式家常料理，可以體驗在地氛圍。預算約 ¥3,000/人。", map: "居酒屋 山下" }
+    ] },
+    { date: "12/18 (四)", id: "d5", theme: "theme-blue", project: 1, fullDate: "2025-12-18", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813877/1218_wou4v5.webp", events: [
+        { time: "09:00", title: "築地場外市場", desc: "舊築地市場，現在仍有許多生鮮、海產、玉子燒等美食，適合早餐。", map: "築地場外市場" },
+        { time: "11:00", title: "銀座 (逛街/攝影)", desc: "高級百貨、精品店集中地。目標是拍攝經典建築：和光百貨 (時鐘塔)、銀座三越、歌舞伎座。", review: "A.和光百貨 (時鐘塔：方正/穩定感)、B.三越銀座店 (波浪線條的外牆)、C.歌舞伎座 (日式傳統建築與現代感並存)" },
+        { time: "13:00", title: "午餐：銀座 - 壹七五 Deno", desc: "辛辣擔擔麵/麻辣擔擔麵，微辣開胃。預算約 ¥1,000/人。", map: "銀座 担担麺 壱七五 DENO" },
+        { time: "15:00", title: "☕ 藍瓶咖啡 (清澄白河)", desc: "前往一號店朝聖，感受靜謐的咖啡文化。可散步至清澄庭園。", coffeeData: [ "<span class='coffee-tag'>必點</span> 冰/熱拿鐵", "<span class='coffee-tag'>招牌</span> Blue Bottle Blend" ], map: "ブルーボトルコーヒー 清澄白河フラッグシップカフェ" },
+        { time: "19:00", title: "晚餐：池袋西口 - 屯ちん拉麵", desc: "東京豚骨醬油拉麵代表之一，份量大，CP值高。預算約 ¥1,000/人。", map: "屯ちん 池袋西口店" }
+    ] },
+    { date: "12/19 (五)", id: "d6", theme: "theme-green", project: 1, fullDate: "2025-12-19", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813871/1219_j7612c.webp", events: [
+        { time: "09:00", title: "皇居外苑 / 二重橋", desc: "拍攝日本皇室的標誌性景觀：二重橋。周邊的丸之內辦公大樓群也值得拍攝。", review: "A.二重橋 (左右對稱/水面倒影)、B.松樹與石牆線條、C.和田倉噴水公園 (噴水＋金屬反光)", map: "皇居外苑" },
+        { time: "11:30", title: "日本橋三越", desc: "日本最古老的百貨公司，建築本身即是藝術。頂樓可拍周邊風景。", review: "A.正門獅子雕像、B.三越百貨 正門天花板（圓形天頂 × 裝飾藝術）、C.中央大理石階梯、D.中央大廳 (Grand Hall)＋ 奶油色柱式、E.圓頂燈飾（彩色玻璃 / 金色線條）、F.百貨外牆（巨大浮雕與石材）、G.玻璃櫥窗" },
+        { time: "13:30", title: "午餐：三越周邊", desc: "日本橋週邊午餐 (可選三越百貨美食街或周邊小店)。" },
+        { time: "15:00", title: "🛍️ MSPC (Master-Piece) 尋包之旅", desc: "目標：Potential ver.3 (大容量/多隔層)。以下為距離日本橋三越最近的店舖排序：", transportGuide: [ "1. <strong>MSPC PRODUCT GINZA</strong> (Ginza Six 5F) <br> <span style='font-size:0.8rem;color:#888'>距離約 1.5km (最近/最推薦)</span>", "2. <strong>MSPC PRODUCT UENO</strong> (PARCO_ya 5F) <br> <span style='font-size:0.8rem;color:#888'>距離約 2.5km</span>", "3. <strong>MSPC PRODUCT SHINJUKU</strong> (Lumine 1 5F) <br> <span style='font-size:0.8rem;color:#888'>距離約 6km (較遠)</span>" ], map: "MSPC PRODUCT GINZA" },
+        { time: "18:00", title: "晚餐：上野", desc: "在上野或銀座周邊解決晚餐。預算約 ¥1,500/人。" }
+    ] },
+    { date: "12/20 (六)", id: "d7", theme: "theme-orange", project: 1, fullDate: "2025-12-20", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813870/1220_l38x9p.webp", events: [
+        { time: "09:00", title: "退房 (Hotel Resol Ueno)", desc: "退房並將行李寄放在飯店。" },
+        { time: "10:00", title: "✈️ 前往成田 T2", desc: "搭乘 Skyliner (12:00 抵達成田)。", transportGuide: [ "上野站 搭乘 <span class='keyword-orange'>Skyliner</span>。", "下車站：<span class='keyword-blue'>成田機場 T2</span>。" ] },
+        { time: "12:00", title: "成田 T2 報到/免稅店", desc: "預計抵達機場，可先在免稅店採買。", checkInNote: "去程", next: { time: "飛行", dist: "TPE" }, map: "成田空港第2ターミナル" },
+        { time: "14:15", title: "返程 (星宇 JX801)", desc: "搭乘星宇航空 JX801 (14:15 起飛)。", insuranceNote: "去程" }
+    ] },
+    // --- PROJECT 2 ---
+    { date: "12/21 (日)", id: "d8", theme: "theme-red", project: 2, fullDate: "2025-12-21", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813872/1221_slcapi.webp", events: [
+        { time: "10:00", title: "Henn na Hotel 淺草田原町", desc: "移動日：入住機器人櫃台飯店。", map: "変なホテル東京 浅草田原町" },
+        { time: "20:00", title: "👨‍👩‍👧‍👦 家人抵達 & 交通指引", desc: "預計晚上8點後匯合。晚餐可直接在飯店旁的 Yayoi 軒解決。<br><br><strong>⚠️ 家人前往飯店之交通/電梯攻略：</strong>", transportGuide: [ "從成田機場搭乘 <span class='keyword-orange'>京成電鐵 Access 特急</span> (往羽田空港方向)。", "至 <span class='keyword-blue'>都營淺草站 (A18)</span> 下車 (免轉車)。", "🛗 <strong>行李專用出口：</strong> 請務必尋找 <span class='keyword-orange'>A2b 出口</span> (有大電梯)。", "出站後建議直接搭乘計程車至飯店 (約 ¥800-1000)，避免拖行李走冤枉路 (約 1.5km 距離)。" ], map: "変なホテル東京 浅草田原町" }
+    ] },
+    { date: "12/22 (一)", id: "d9", theme: "theme-green", project: 2, fullDate: "2025-12-22", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813866/1222_mhk37n.webp", events: [
+        { time: "09:00", title: "鎌倉：北鎌倉站抵達", desc: "使用 JR 橫須賀線。從上野/淺草週邊出發需轉車。", transportGuide: [ "從 <span class='keyword-orange'>都營淺草站 (A18)</span> 搭乘 <span class='keyword-orange'>都營淺草線</span> (直達新橋)。", "在 <span class='keyword-blue'>新橋站</span> 轉乘 <span class='keyword-green'>JR横須賀線</span> (往久里浜/逗子方向) 至 <span class='keyword-green'>北鎌倉站</span>。" ] },
+        { time: "10:30", title: "長谷寺 (Hasedera)", desc: "以「長谷觀音」與四季花卉聞名，雖然非繡球花季，但境內的枯山水庭園與見晴台（可眺望由比濱海岸）依然值得一訪。感受古剎的莊嚴與海景的遼闊。", map: "長谷寺 鎌倉" },
+        { time: "12:30", title: "午餐：鎌倉車站周邊", desc: "在長谷/鎌倉周邊吃午餐。可選擇 <span class='keyword-orange'>しらす丼 (吻仔魚丼)</span> 等當地特色美食。", map: "長谷食堂" },
+        { time: "15:00", title: "鎌倉大佛", desc: "高約十一公尺的青銅阿彌陀如來端坐露天，自13世紀保存至今，姿態沉靜卻氣勢十足。可近距離環繞，感受歷史風霧與古都信仰力量。", map: "鎌倉大仏殿高徳院" },
+        { time: "17:00", title: "江之島 湘南寶石 (聖誕燈光秀)", desc: "關東三大燈飾之一「湘南寶石 (Jewel of Shonan)」。以江之島 Sea Candle 為中心，數萬顆水晶珠簾與燈海覆蓋整座島嶼，夢幻浪漫的冬季限定景色。", map: "江の島シーキャンドル" },
+        { time: "19:00", title: "晚餐：鎌倉/鶴岡八幡宮周邊", desc: "看完燈光後返回鎌倉市區用餐。預算約 ¥2000/人。推薦：<strong>Wasabi (日式定食)</strong> 或 <strong>Bowls (文青丼飯)</strong>，或在小町通尋找喜歡的餐廳。", map: "Kamakura Wasabi" }
+    ] },
+    { date: "12/23 (二)", id: "d10", theme: "theme-orange", project: 2, fullDate: "2025-12-23", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813871/1223_x2rojh.webp", events: [
+        { time: "09:00", title: "淺草雷門", desc: "早晨人少時拍攝雷門大燈籠。⚠️ <strong>出發提醒：請攜帶兩個登機箱</strong>，今日為 Outlet 爆買日。", map: "雷門" },
+        { time: "11:00", title: "AEON MALL LakeTown OUTLET", desc: "日本最大購物中心 (Kaze/Mori/Outlet 三館)。午餐直接在美食街享用。", map: "越谷レイクタウン アウトレット" },
+        { time: "16:00", title: "LakeTown 購物續攤", desc: "持續在 LakeTown Mori/Kaze 區購物 (注意：二木菓子在此無分店，建議改去超市或專賣店買伴手禮)。", map: "Aeon Lake Town Mori" }
+    ] },
+    { date: "12/24 (三)", id: "d11", theme: "theme-red", project: 2, fullDate: "2025-12-24", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813867/1224_nsq8qg.webp", events: [
+        { time: "09:00", title: "上野公園 (博物館群)", desc: "造訪東京國立博物館 (本館、東洋館) 或國立科學博物館。二選一。", map: "東京国立博物館" },
+        { time: "12:00", title: "午餐：上野車站周邊", desc: "上野車站周邊的連鎖餐廳 (如: 一蘭拉麵、彌生軒)。" },
+        { time: "14:00", title: "阿美橫丁 (採買)", desc: "家人在阿美橫丁採買零食、藥妝、海產。", map: "阿美橫丁" },
+        { time: "18:00", title: "晚餐：上野 - 山家豬排", desc: "連鎖平價豬排店。預算約 ¥1,000/人。", map: "山家豬排 上野広小路店" }
+    ] },
+    { date: "12/25 (四)", id: "d12", theme: "theme-blue", project: 2, fullDate: "2025-12-25", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813864/1225_w2g1tq.webp", events: [
+        { time: "09:30", title: "澀谷 Shibuya Sky (預約)", desc: "必去的頂樓展望台。建議預約 10:00~11:00 時段，避開人潮。", map: "SHIBUYA SKY" },
+        { time: "12:00", title: "午餐：澀谷周邊", desc: "澀谷 Hikarie 或周邊商場的午餐。" },
+        { time: "14:00", title: "原宿竹下通 & 表參道", desc: "竹下通買年輕潮流小物，表參道逛精品與設計建築。", map: "原宿竹下通り" },
+        { time: "18:00", title: "晚餐：原宿/表參道", desc: "表參道周邊有很多特色餐廳，可選擇日式或西式。預算較高 (約 ¥3,000/人)。" }
+    ] },
+    { date: "12/26 (五)", id: "d13", theme: "theme-green", project: 2, fullDate: "2025-12-26", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813863/1226_x8h2b4.webp", events: [
+        { time: "10:00", title: "淺草寺 / 仲見世通", desc: "東京最古老的寺院。在仲見世通採買伴手禮、逛街。", map: "浅草寺" },
+        { time: "12:00", title: "午餐：淺草 - 壽司/鰻魚飯", desc: "在淺草體驗高價位的日式料理 (如: 鰻魚飯、高級壽司)。預算約 ¥4,000/人。", map: "淺草一丁目" },
+        { time: "15:00", title: "晴空塔 Solamachi (採買)", desc: "在晴空塔下的 Solamachi 商場進行最後採買 (二木菓子分店在此)。", map: "東京ソラマチ" },
+        { time: "19:00", title: "晚餐：飯店周邊", desc: "在飯店週邊的便利商店、超市或連鎖店解決晚餐。" }
+    ] },
+    { date: "12/27 (六)", id: "d14", theme: "theme-orange", project: 2, fullDate: "2025-12-27", coverImage: "https://res.cloudinary.com/dshfj9ace/image/upload/v1764813864/1227_bhxjjx.webp", events: [
+        { time: "10:00", title: "返程 (前往成田 T2)", desc: "帶著滿滿回憶返程。星宇航空 JX803。", checkInNote: "回程", transportGuide: [ "<span class='keyword-orange'>A18 淺草站</span> 進站。", "搭乘：<span class='keyword-orange'>Access 特急</span>。", "方向：往 <span class='keyword-orange'>成田空港 Narita Airport</span>（務必確認終點）。", "下車站：<span class='keyword-blue'>成田機場 T2</span>。" ], next: { time: "飛行", dist: "TPE" }, map: "成田空港第2ターミナル" }
+    ] }
+];
+
+// === 工具函數 ===
+function getCheckInDateStr(flightDateStr) {
+    const flightDate = new Date(flightDateStr);
+    const checkInDate = new Date(flightDate);
+    checkInDate.setDate(flightDate.getDate() - 2);
+    return (checkInDate.getMonth()+1) + '/' + checkInDate.getDate();
+}
+
+function getDateStatus(dateStr) {
+    const target = new Date(dateStr).setHours(0,0,0,0);
+    const today = MOCK_TODAY ? new Date(MOCK_TODAY).setHours(0,0,0,0) : new Date().setHours(0,0,0,0);
+    if (target < today) return 'chip-past';
+    if (target === today) return 'chip-today';
+    return 'chip-future';
+}
+
+// === 匯率邏輯 ===
+async function fetchExchangeRate() {
+    const rateEl = document.getElementById('header-rate');
+    const infoEl = document.getElementById('calc-rate-info');
+    let ok = false;
+    try {
+        const res = await fetch('https://open.er-api.com/v6/latest?base=JPY');
+        if (res.ok) {
+            const data = await res.json();
+            if (data && data.rates && data.rates.TWD) {
+                currentExchangeRate = data.rates.TWD;
+                ok = true;
+            }
         }
-    ];
-    // === 工具函數 ===
-    function getCheckInDateStr(flightDateStr) {
-        const flightDate = new Date(flightDateStr);
-        const checkInDate = new Date(flightDate);
-        checkInDate.setDate(flightDate.getDate() - 2);
-        return (checkInDate.getMonth()+1) + '/' + checkInDate.getDate();
+    } catch (e) {
+        console.warn('open.er-api 匯率抓取失敗', e);
     }
-
-    function getDateStatus(dateStr) {
-        const target = new Date(dateStr).setHours(0,0,0,0);
-        const today = MOCK_TODAY ? new Date(MOCK_TODAY).setHours(0,0,0,0) : new Date().setHours(0,0,0,0);
-        
-        if (target < today) return 'chip-past';
-        if (target === today) return 'chip-today';
-        return 'chip-future';
-    }
-
-    // === 匯率邏輯 ===
-    async function fetchExchangeRate() {
-        const rateEl = document.getElementById('header-rate');
-        const infoEl = document.getElementById('calc-rate-info');
-        let ok = false;
-
+    
+    if (!ok) {
         try {
-            const res = await fetch('https://open.er-api.com/v6/latest?base=JPY');
-            if (res.ok) {
-                const data = await res.json();
+            const response = await fetch('https://api.frankfurter.app/latest?from=JPY&to=TWD');
+            if (response.ok) {
+                const data = await response.json();
                 if (data && data.rates && data.rates.TWD) {
                     currentExchangeRate = data.rates.TWD;
                     ok = true;
                 }
             }
         } catch (e) {
-            console.warn('open.er-api 匯率抓取失敗', e);
-        }
-
-        if (!ok) {
-            try {
-                const response = await fetch('https://api.frankfurter.app/latest?from=JPY&to=TWD');
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data && data.rates && data.rates.TWD) {
-                        currentExchangeRate = data.rates.TWD;
-                        ok = true;
-                    }
-                }
-            } catch (error) {
-                console.warn('Frankfurter 匯率抓取失敗', error);
-            }
-        }
-
-        if (ok) {
-            const nowStr = new Date().toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
-            rateEl.innerHTML = `<span class="symbol">¥</span>1 = NT$${currentExchangeRate.toFixed(3)}`;
-            infoEl.innerText = `即時匯率: 1 JPY = NT$${currentExchangeRate.toFixed(4)}（約略值｜更新：${nowStr}）`;
-        } else {
-            rateEl.innerHTML = `<span class="symbol">¥</span>1 ≈ NT$${currentExchangeRate.toFixed(3)}`;
-            infoEl.innerText = `預設匯率: 1 JPY = NT$${currentExchangeRate}（無法連線）`;
-        }
-
-        calcToTWD();
-        renderExpenses();
-    }
-
-    function calcToTWD() {
-        const jpy = document.getElementById('calc-jpy').value;
-        const twdInput = document.getElementById('calc-twd');
-        if(jpy && currentExchangeRate > 0) {
-            twdInput.value = Math.round(jpy * currentExchangeRate);
-        } else {
-            twdInput.value = "";
+            console.warn('frankfurter.app 匯率抓取失敗', e);
         }
     }
 
-    // === 記帳本邏輯 ===
-    let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+    if (ok) {
+        rateEl.innerHTML = `<span class="symbol">¥</span> ${currentExchangeRate.toFixed(4)}`;
+        infoEl.innerText = `目前匯率: ${currentExchangeRate.toFixed(4)} (API)`;
+        calcToTWD(); // 更新計算機
+    } else {
+        rateEl.innerHTML = `<span class="symbol">¥</span> 0.22 (預設)`;
+        infoEl.innerText = `目前匯率: 0.22 (預設值)`;
+    }
+}
 
-    function addExpense() {
-        const item = document.getElementById('acc-item').value;
-        const cost = parseInt(document.getElementById('acc-cost').value);
-        const type = document.getElementById('acc-type').value;
+function calcToTWD() {
+    const jpy = parseFloat(document.getElementById('calc-jpy').value) || 0;
+    const twd = jpy * currentExchangeRate;
+    document.getElementById('calc-twd').value = twd.toFixed(0);
+}
 
-        if (!item || !cost) {
-            alert("請輸入完整資訊");
-            return;
-        }
+// === 記帳邏輯 (使用 localStorage 儲存) ===
+let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+let nextExpenseId = localStorage.getItem('nextExpenseId') ? parseInt(localStorage.getItem('nextExpenseId')) : 1;
 
-        expenses.unshift({
-            id: Date.now(),
-            item: item,
-            cost: cost,
-            type: type,
-            date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'})
-        });
-        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
-        document.getElementById('acc-item').value = '';
-        document.getElementById('acc-cost').value = '';
-        renderExpenses();
+function saveExpenses() {
+    localStorage.setItem('expenses', JSON.stringify(expenses));
+    localStorage.setItem('nextExpenseId', nextExpenseId);
+}
+
+function addExpense() {
+    const item = document.getElementById('acc-item').value.trim();
+    const cost = parseFloat(document.getElementById('acc-cost').value);
+    const type = document.getElementById('acc-type').value;
+
+    if (!item || isNaN(cost) || cost <= 0) {
+        alert('請輸入有效的品項與金額！');
+        return;
     }
 
-    function removeExpense(id) {
-        expenses = expenses.filter(e => e.id !== id);
-        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
-        renderExpenses();
-    }
+    const today = new Date();
+    const dateStr = `${today.getMonth() + 1}/${today.getDate()}`;
 
-    function renderExpenses() {
-        const list = document.getElementById('expense-list');
-        const totalVal = document.getElementById('acc-total-val');
-        const totalTwd = document.getElementById('acc-total-twd');
-        
-        list.innerHTML = '';
-        let total = 0;
-        expenses.forEach(e => {
-            total += e.cost;
-            const li = document.createElement('li');
-            li.className = 'expense-item';
-            li.innerHTML = `
-                <div class="expense-info">
-                    <div class="expense-title">${e.type} ${e.item}</div>
-                    <div class="expense-meta">${e.date}</div>
+    const newExpense = {
+        id: nextExpenseId++,
+        item: item,
+        cost: cost,
+        type: type,
+        date: dateStr
+    };
+
+    expenses.push(newExpense);
+    document.getElementById('acc-item').value = '';
+    document.getElementById('acc-cost').value = '';
+
+    saveExpenses();
+    renderExpenses();
+}
+
+function removeExpense(id) {
+    expenses = expenses.filter(e => e.id !== id);
+    saveExpenses();
+    renderExpenses();
+}
+
+function renderExpenses() {
+    const list = document.getElementById('expense-list');
+    const totalVal = document.getElementById('acc-total-val');
+    const totalTwd = document.getElementById('acc-total-twd');
+    list.innerHTML = '';
+    let total = 0;
+
+    expenses.forEach(e => {
+        total += e.cost;
+        const li = document.createElement('li');
+        li.className = 'expense-item';
+        li.innerHTML = `
+            <div class="expense-info">
+                <div class="expense-title">${e.type} ${e.item}</div>
+                <div class="expense-meta">${e.date}</div>
+            </div>
+            <div class="expense-amt">¥${e.cost.toLocaleString()}</div>
+            <button class="expense-del" onclick="removeExpense(${e.id})">×</button>
+        `;
+        list.appendChild(li);
+    });
+
+    totalVal.innerText = `¥${total.toLocaleString()}`;
+    const approxTwd = Math.round(total * currentExchangeRate);
+    totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
+}
+
+
+// === 渲染優惠券 (Modal 版) ===
+function renderCoupons() {
+    const list = document.getElementById('coupon-list');
+    let html = '';
+    
+    // 定義豐富的邊框顏色陣列
+    const borderColors = [
+        '#FF5722', '#2196F3', '#4CAF50', '#9C27B0', '#FF9800', 
+        '#E91E63', '#009688', '#3F51B5', '#CDDC39', '#607D8B', 
+        '#F44336', '#673AB7', '#03A9F4', '#8BC34A', '#FFC107'
+    ];
+
+    couponData.forEach((c, index) => {
+        const color = borderColors[index % borderColors.length];
+        // 增加 loading="lazy" 以優化載入
+        html += `
+            <div class="coupon-card" onclick="openCouponModal(${index})" style="border: 2px solid ${color};">
+                <div class="coupon-img-box">
+                    <img src="${c.img}" alt="${c.name}" class="coupon-img" loading="lazy" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
                 </div>
-                <div class="expense-amt">¥${e.cost.toLocaleString()}</div>
-                <button class="expense-del" onclick="removeExpense(${e.id})">×</button>
-            `;
-            list.appendChild(li);
-        });
-
-        totalVal.innerText = `¥${total.toLocaleString()}`;
-        const approxTwd = Math.round(total * currentExchangeRate);
-        totalTwd.innerText = `約 NT$${approxTwd.toLocaleString()}`;
-    }
-
-    // === 渲染優惠券 (Modal 版) ===
-    function renderCoupons() {
-        const list = document.getElementById('coupon-list');
-        let html = '';
-        // 定義豐富的邊框顏色陣列
-        const borderColors = [
-            '#FF5722', '#2196F3', '#4CAF50', '#9C27B0', '#FF9800', 
-            '#E91E63', '#009688', '#3F51B5', '#CDDC39', '#607D8B', 
-            '#F44336', '#673AB7', '#03A9F4', '#8BC34A', '#FFC107'
-        ];
-
-        couponData.forEach((c, index) => {
-            const color = borderColors[index % borderColors.length];
-            // 增加 loading="lazy" 以優化載入
-            html += `
-                <div class="coupon-card" onclick="openCouponModal(${index})" style="border: 2px solid ${color};">
-                    <div class="coupon-img-box">
-                        <img src="${c.img}" alt="${c.name}" class="coupon-img" loading="lazy" onerror="this.src='https://placehold.co/200x100?text=No+Image'">
-                    </div>
-                    <div class="coupon-content">
-                        <div class="coupon-name">${c.name}</div>
-                        <div><span class="coupon-offer">${c.offer}</span></div>
-                        <div class="coupon-action">點此放大 ➔</div>
-                    </div>
+                <div class="coupon-content">
+                    <div class="coupon-name">${c.name}</div>
+                    <div><span class="coupon-offer">${c.offer}</span></div>
+                    <div class="coupon-action">點此放大 ➔</div>
                 </div>
-            `;
-        });
-        list.innerHTML = html;
+            </div>
+        `;
+    });
+    list.innerHTML = html;
+}
+
+// === Modal 邏輯 ===
+let currentModal = null; // 儲存目前開啟的 Modal ID
+
+function openPhraseModal(index) {
+    const phrase = phraseData[index];
+    if(!phrase) return;
+
+    const modal = document.getElementById('phrase-modal');
+    document.getElementById('modal-jp').innerText = phrase.jp;
+    document.getElementById('modal-en').innerText = phrase.en;
+    document.getElementById('modal-zh').innerText = phrase.zh;
+
+    // 複製日文句子到剪貼簿
+    navigator.clipboard.writeText(phrase.jp).catch(err => {
+        console.error('無法複製文字:', err);
+    });
+    
+    modal.classList.add('active');
+    currentModal = 'phrase-modal';
+}
+
+function hidePhraseModal() {
+    document.getElementById('phrase-modal').classList.remove('active');
+    currentModal = null;
+}
+
+function closePhraseModal(event) {
+    if (event.target === document.getElementById('phrase-modal')) {
+        hidePhraseModal();
     }
+}
 
-    // === Modal 邏輯 ===
-    function openCouponModal(index) {
-        const coupon = couponData[index];
-        if(!coupon) return;
+function openCouponModal(index) {
+    const coupon = couponData[index];
+    if(!coupon) return;
 
-        const modal = document.getElementById('coupon-modal');
-        document.getElementById('cm-title').innerText = coupon.name;
-        document.getElementById('cm-img').src = coupon.img;
-        document.getElementById('cm-offer').innerText = coupon.offer;
-        document.getElementById('cm-link').href = coupon.url;
-        
-        modal.classList.add('active');
+    const modal = document.getElementById('coupon-modal');
+    document.getElementById('cm-title').innerText = coupon.name;
+    document.getElementById('cm-img').src = coupon.img;
+    document.getElementById('cm-offer').innerText = coupon.offer;
+    document.getElementById('cm-link').href = coupon.url;
+    
+    modal.classList.add('active');
+    currentModal = 'coupon-modal';
+}
+
+function hideCouponModal() {
+    document.getElementById('coupon-modal').classList.remove('active');
+    currentModal = null;
+}
+
+function closeCouponModal(event) {
+    if (event.target === document.getElementById('coupon-modal')) {
+        hideCouponModal();
     }
+}
 
-    function hideCouponModal() {
-        document.getElementById('coupon-modal').classList.remove('active');
+function showInstallGuide() {
+    document.getElementById('install-guide-modal').classList.add('active');
+    currentModal = 'install-guide-modal';
+}
+
+function hideInstallGuide() {
+    document.getElementById('install-guide-modal').classList.remove('active');
+    currentModal = null;
+}
+
+function closeInstallGuide(event) {
+    if (event.target === document.getElementById('install-guide-modal')) {
+        hideInstallGuide();
     }
+}
 
-    function closeCouponModal(e) {
-        if (e.target.id === 'coupon-modal') {
-            hideCouponModal();
-        }
-    }
-
-    // === 加入主畫面 Modal 邏輯 ===
-    function showInstallGuide() {
-        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-        const isAndroid = /android/i.test(userAgent);
-
-        document.getElementById('guide-ios').style.display = 'none';
-        document.getElementById('guide-android').style.display = 'none';
-        document.getElementById('guide-default').style.display = 'none';
-
-        if (isIOS) {
-            document.getElementById('guide-ios').style.display = 'block';
-        } else if (isAndroid) {
-            document.getElementById('guide-android').style.display = 'block';
-        } else {
-            document.getElementById('guide-default').style.display = 'block';
-        }
-
-        document.getElementById('install-guide-modal').classList.add('active');
-    }
-
-    function hideInstallGuide() {
-        document.getElementById('install-guide-modal').classList.remove('active');
-    }
-
-    function closeInstallGuide(e) {
-        if (e.target.id === 'install-guide-modal') {
-            hideInstallGuide();
-        }
-    }
-
-
-    // === 渲染指差卡 ===
-    function renderPhrases(){
-        const grid = document.getElementById('phrase-grid');
-        phraseData.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'phrase-card';
-            card.onclick = () => openPhraseModal(p);
-            card.innerHTML = `
+function renderPhrases() {
+    const list = document.getElementById('phrase-grid');
+    let html = '';
+    phraseData.forEach((p, index) => {
+        html += `
+            <div class="phrase-card" onclick="openPhraseModal(${index})">
                 <div class="phrase-zh">${p.zh}</div>
                 <div class="phrase-en">${p.en}</div>
                 <div class="phrase-jp-small">${p.jp}</div>
-            `;
-            grid.appendChild(card);
-        });
-    }
+            </div>
+        `;
+    });
+    list.innerHTML = html;
+}
 
-    function openPhraseModal(phrase){
-        const modal = document.getElementById('phrase-modal');
-        document.getElementById('modal-jp').textContent = phrase.jp;
-        document.getElementById('modal-en').textContent = phrase.en;
-        document.getElementById('modal-zh').textContent = phrase.zh;
-        modal.classList.add('active');
+// === 渲染行程列表 ===
+function renderItinerary() {
+    const navProj1 = document.getElementById('nav-proj1');
+    const navProj2 = document.getElementById('nav-proj2');
+    const listContainer = document.getElementById('itinerary-list');
+    
+    // 清空舊內容
+    navProj1.innerHTML = '';
+    navProj2.innerHTML = '';
 
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(phrase.jp).catch(()=>{});
-        }
-    }
-
-    function hidePhraseModal(){
-        document.getElementById('phrase-modal').classList.remove('active');
-    }
-
-    function closePhraseModal(e){
-        if (e.target.id === 'phrase-modal') {
-            hidePhraseModal();
-        }
-    }
-
-    // === 行程渲染 ===
-    function renderApp() {
-        const navProj1 = document.getElementById('nav-proj1');
-        const navProj2 = document.getElementById('nav-proj2');
-        const listContainer = document.getElementById('itinerary-list');
+    // 渲染導航日期 Chips (支援圖片背景)
+    itineraryData.forEach(day => {
+        const statusClass = getDateStatus(day.fullDate);
+        const chip = document.createElement('div');
+        chip.className = `date-chip ${statusClass}`;
         
-        // 渲染導航日期 Chips (支援圖片背景)
-        itineraryData.forEach(day => {
-            const statusClass = getDateStatus(day.fullDate);
-            const chip = document.createElement('div');
-            chip.className = `date-chip ${statusClass}`;
-            
-            // 加入圖片背景
-            if(day.coverImage) {
-                chip.style.backgroundImage = `url('${day.coverImage}')`;
-            } else {
-                chip.style.backgroundColor = '#1A374D'; // Fallback
+        // 加入圖片背景
+        if(day.coverImage) {
+            chip.style.backgroundImage = `url('${day.coverImage}')`;
+        } else {
+            chip.style.backgroundColor = '#1A374D'; // Fallback
+        }
+        
+        chip.innerHTML = `<span>${day.date.split(' ')[0]}</span>`;
+        chip.onclick = () => scrollToDay(day.id, chip);
+
+        if (day.project === 1) navProj1.appendChild(chip);
+        else navProj2.appendChild(chip);
+    });
+
+    // 預設顯示 Project 1
+    navProj1.classList.add('active');
+    navProj2.classList.remove('active');
+
+    // 渲染行程卡片 (加入 Cover Image)
+    let html = '';
+    itineraryData.forEach(day => {
+        let eventsHtml = '';
+        const themeColor = getThemeColor(day.theme);
+        
+        day.events.forEach((evt) => {
+            let alertHtml = '';
+            if (evt.checkInNote) {
+                const checkInDate = getCheckInDateStr(day.fullDate);
+                alertHtml = `<div class="check-in-alert">🔴 提醒：線上報到與選位 (起飛前48小時：${checkInDate} 開放)</div>`;
+            }
+            if (evt.insuranceNote) {
+                alertHtml += `<div class="insurance-alert">🛡️ 提醒：請確認投保「日本當地醫療險」(Cashless)</div>`;
             }
 
-            chip.innerHTML = `<span>${day.date.split(' ')[0]}</span>`;
-            chip.onclick = () => scrollToDay(day.id, chip);
-            
-            if (day.project === 1) navProj1.appendChild(chip);
-            else navProj2.appendChild(chip);
-        });
-        navProj1.classList.add('active');
-        navProj2.classList.remove('active');
-
-        // 渲染行程卡片 (加入 Cover Image)
-        let html = '';
-        itineraryData.forEach(day => {
-            let eventsHtml = '';
-            day.events.forEach((evt) => {
-                
-                let alertHtml = '';
-                if (evt.checkInNote) {
-                    const checkInDate = getCheckInDateStr(day.fullDate);
-                    alertHtml = `<div class="check-in-alert">🔴 提醒：線上報到與選位 (起飛前48小時：${checkInDate} 開放)</div>`;
-                }
-                
-                if (evt.insuranceNote) {
-                    alertHtml += `<div class="insurance-alert">🛡️ 提醒：請確認投保「日本當地醫療險」(Cashless)</div>`;
-                }
-
-                let noteHtml = '';
-                if (evt.pelicanData) {
-                    noteHtml = `<div class="pelican-note">`;
-                    evt.pelicanData.forEach(line => noteHtml += `<div>${line}</div>`);
-                    noteHtml += `</div>`;
-                }
-                
-                // 咖啡清單
-                if (evt.coffeeData) {
-                    noteHtml += `
+            let noteHtml = '';
+            // Pelican 筆記
+            if (evt.pelicanData) {
+                noteHtml = `<div class="pelican-note">`;
+                evt.pelicanData.forEach(line => noteHtml += `<div>${line}</div>`);
+                noteHtml += `</div>`;
+            }
+            // 咖啡清單
+            if (evt.coffeeData) {
+                noteHtml += `
                     <div class="coffee-list">
-                        <h4>☕ 手沖咖啡購買攻略</h4>
+                        <h4>☕ 咖啡清單：</h4>
                         <ul>
-                            <li><span class="coffee-tag">攻略</span><a href="https://travel.itigre.com/Coffee/" target="_blank">東京咖啡器具地圖</a></li>
-                            <li><span class="coffee-tag">必買</span><a href="https://travel.itigre.com/Coffee/buy/" target="_blank">合羽橋/Union 購買清單</a></li>
-                            <li><span class="coffee-tag">濾杯</span>HARIO V60 / 聰明杯</li>
-                            <li><span class="coffee-tag">手沖壺</span>TIMEMORE 鵝頸壺 / Kalita</li>
+                            ${evt.coffeeData.map(item => `<li>${item}</li>`).join('')}
                         </ul>
-                    </div>`;
-                }
-
-                let guideHtml = '';
-                if (evt.transportGuide) {
-                    guideHtml = `<div class="transport-guide">`;
-                    evt.transportGuide.forEach((step, i) => {
-                        guideHtml += `<div class="guide-step"><div class="step-num">${i+1}</div><div>${step}</div></div>`;
-                    });
-                    guideHtml += `</div>`;
-                }
-
-                let marketHtml = '';
-                if (evt.supermarkets) {
-                    marketHtml = `<div class="market-grid">`;
-                    evt.supermarkets.forEach(m => {
-                        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
-                        marketHtml += `
-                            <a href="${mapUrl}" target="_blank" class="market-btn">
-                                <div class="market-name">${m.name}</div>
-                                <div class="market-meta">${m.meta}</div>
-                            </a>`;
-                    });
-                    marketHtml += `</div>`;
-                }
-
-                const mapQuery = evt.map || evt.title;
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
-                const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
-                const btnsHtml = `
-                    <div class="btn-group">
-                        <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
-                        <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
                     </div>
                 `;
-                const reviewText = evt.review || '記帳/優惠-優惠券|工具箱-翻譯功能。';
-                const reviewHtml = `
+            }
+
+            let reviewHtml = '';
+            if (evt.review) {
+                reviewHtml = `
                     <div class="review-bubble">
-                        <span>💬</span>
-                        <div>${reviewText}</div>
+                        <span style="font-size: 1.2rem;">📷</span>
+                        <div>
+                            <strong>攝影筆記：</strong>
+                            <p style="margin: 4px 0 0;">${evt.review}</p>
+                        </div>
                     </div>
                 `;
-                eventsHtml += `
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-time">${evt.time}</span>
-                                <h3 class="card-title">${evt.title}</h3>
-                                ${alertHtml}
-                                <div class="card-desc">${evt.desc}</div>
-                                ${noteHtml}
-                                ${guideHtml}
-                                ${btnsHtml}
-                                ${marketHtml}
-                                ${reviewHtml}
+            }
+            
+            let transportHtml = '';
+            if (evt.transportGuide) {
+                transportHtml = `
+                    <div class="transport-guide">
+                        <h4 style="margin: 0 0 8px; font-size: 0.95rem; color: #1A374D;">交通/購物指南：</h4>
+                        ${evt.transportGuide.map((step, idx) => 
+                            `<div class="guide-step"><span class="step-num">${idx + 1}</span> <span>${step}</span></div>`
+                        ).join('')}
+                    </div>
+                `;
+            }
+
+            let nextStopHtml = '';
+            if (evt.next) {
+                nextStopHtml = `
+                    <div class="next-stop">
+                        <span style="font-size: 1.1rem;">👉</span>
+                        下一站: ${evt.next.time} ${evt.next.dist}
+                    </div>
+                `;
+            }
+            
+            let mapLinkHtml = '';
+            if (evt.map) {
+                mapLinkHtml = `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map)}+${encodeURIComponent(evt.title)}+Japan" target="_blank" class="btn btn-primary">地圖導航 📍</a>`;
+            }
+
+            eventsHtml += `
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="background: ${themeColor};"></div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-time">${evt.time}</div>
+                            <h3 class="card-title">${evt.title}</h3>
+                            ${alertHtml}
+                            <div class="card-desc">${evt.desc}</div>
+                            ${transportHtml}
+                            ${noteHtml}
+                            ${reviewHtml}
+                            <div class="btn-group">
+                                ${mapLinkHtml}
                             </div>
                         </div>
-                        ${evt.next ? `<div class="next-stop">🚶 下一站：${evt.next.time} (${evt.next.dist})</div>` : ''}
                     </div>
-                `;
-            });
-
-            // 新版卡片頭部 (包含圖片)
-            const coverHtml = day.coverImage ? 
-                `<img src="${day.coverImage}" class="day-cover-img" loading="lazy" alt="Day Cover">` : '';
-
-            html += `
-                <div id="${day.id}" class="day-section ${day.theme}">
-                    ${coverHtml}
-                    <div class="day-header">
-                        <h2>${day.date}</h2>
-                        <span class="day-tag" style="background:${getThemeColor(day.theme)}">Day Trip</span>
-                    </div>
-                    <div class="timeline-wrapper">
-                        <div class="timeline-line"></div>
-                        ${eventsHtml}
-                    </div>
+                    ${nextStopHtml}
                 </div>
             `;
         });
-        listContainer.innerHTML = html;
-    }
 
-    function getThemeColor(themeClass) {
-        if(themeClass === 'theme-blue') return '#2196F3';
-        if(themeClass === 'theme-orange') return '#FF9800';
-        if(themeClass === 'theme-green') return '#4CAF50';
-        if(themeClass === 'theme-red') return '#F44336';
-        return '#333';
-    }
+        html += `
+            <div class="day-section ${day.theme}" id="${day.id}">
+                <img src="${day.coverImage}" alt="${day.date} 封面" class="day-cover-img" loading="lazy">
+                <div class="day-header">
+                    <h2>${day.date}</h2>
+                    <span class="day-tag" style="background: ${themeColor};">${day.id.toUpperCase()}</span>
+                </div>
+                <div class="timeline-wrapper">
+                    <div class="timeline-line"></div>
+                    ${eventsHtml}
+                </div>
+            </div>
+        `;
+    });
 
-    // === 互動功能 ===
-    function scrollToDay(id, chipEl) {
-        // Chip 動畫
-        document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
-        chipEl.classList.add('active');
+    listContainer.innerHTML = html;
+}
 
-        const el = document.getElementById(id);
-        const headerOffset = 130;
-        const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+function getThemeColor(themeClass) {
+    if(themeClass === 'theme-blue') return '#2196F3';
+    if(themeClass === 'theme-orange') return '#FF9800';
+    if(themeClass === 'theme-green') return '#4CAF50';
+    if(themeClass === 'theme-red') return '#F44336';
+    return '#333';
+}
 
-        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    }
 
-    function switchTab(tabId, navEl) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.getElementById('tab-' + tabId).classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        navEl.classList.add('active');
-        window.scrollTo(0, 0);
-    }
-
-    function setProject(project){
-        const nav1 = document.getElementById('nav-proj1');
-        const nav2 = document.getElementById('nav-proj2');
-        const t1 = document.getElementById('tab-project1');
-        const t2 = document.getElementById('tab-project2');
-        if (!nav1 || !nav2 || !t1 || !t2) return;
-
-        if (project === 1){
-            nav1.classList.add('active');
-            nav2.classList.remove('active');
-            t1.classList.add('active');
-            t2.classList.remove('active');
-        } else {
-            nav1.classList.remove('active');
-            nav2.classList.add('active');
-            t1.classList.remove('active');
-            t2.classList.add('active');
-        }
-    }
-
-    function googleTranslate() {
-        const text = document.getElementById('trans-text').value;
-        if(text) window.open(`https://translate.google.com/?sl=zh-TW&tl=ja&text=${encodeURIComponent(text)}&op=translate`, '_blank');
-    }
+// === 互動功能 (修正 scrollToDay 函式) ===
+function scrollToDay(id, chipEl) {
+    // Chip 動畫
+    document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active')); 
+    chipEl.classList.add('active');
     
-    // Init
-    fetchExchangeRate();
-    renderPhrases();
-    renderCoupons();
-    renderApp();
-    renderExpenses();
+    // 捲動到目標日期的區塊
+    const targetEl = document.getElementById(id);
+    if (targetEl) {
+        window.scrollTo({
+            top: targetEl.offsetTop - 60, // 減去 Header 高度
+            behavior: 'smooth'
+        });
+    }
+}
+
+function switchTab(tabId, navEl) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    navEl.classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function setProject(project){
+    const nav1 = document.getElementById('nav-proj1');
+    const nav2 = document.getElementById('nav-proj2');
+    const t1 = document.getElementById('tab-project1');
+    const t2 = document.getElementById('tab-project2');
+    if (!nav1 || !nav2 || !t1 || !t2) return;
+
+    if (project === 1){
+        nav1.classList.add('active');
+        nav2.classList.remove('active');
+        t1.classList.add('active');
+        t2.classList.remove('active');
+    } else {
+        nav1.classList.remove('active');
+        nav2.classList.add('active');
+        t1.classList.remove('active');
+        t2.classList.add('active');
+    }
+}
+
+function googleTranslate() {
+    const text = document.getElementById('trans-text').value;
+    if(text) window.open(`https://translate.google.com/?sl=zh-TW&tl=ja&text=${encodeURIComponent(text)}&op=translate`, '_blank');
+}
+
+// Init
+fetchExchangeRate();
+renderItinerary();
+renderPhrases();
+renderCoupons();
+renderExpenses();
 </script>
 </body>
 </html>
