@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Canon R7 旅遊拍攝一頁速查（R7 + Sigma 16-300 + RF50/1.8）</title>
+  <meta name="description" content="為你的 2025 年日本行量身的 Canon R7 快速設定與拍攝重點（含 C1/C2/C3、場景要點、夜景與家人合照提示），一頁 RWD 查詢。">
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#ff8a00; --muted:#9aa5b1;
+      --glass: rgba(255,255,255,0.03);
+      --success:#16a34a; --danger:#ef4444;
+      --maxw:980px;
+      --pad:18px;
+      font-family: "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071026 0%, #081427 100%);color:#e6eef6;line-height:1.45}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    header img{width:64px;height:64px;border-radius:10px;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));padding:var(--pad);border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    .card h3{margin:0 0 8px;font-size:16px}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;background:var(--glass);color:var(--muted);margin-right:8px}
+    .kbd{display:inline-block;background:#071420;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);font-family:monospace;font-size:13px}
+    .note{background:linear-gradient(90deg, rgba(255,138,0,0.08), rgba(255,138,0,0.02));padding:12px;border-left:4px solid var(--accent);border-radius:6px;color:#fff;margin:10px 0}
+    .warn{background:linear-gradient(90deg, rgba(239,68,68,0.06), rgba(239,68,68,0.02));padding:12px;border-left:4px solid var(--danger);border-radius:6px;color:#fff;margin:10px 0}
+    ul{margin:8px 0 0 18px;padding:0}
+    li{margin:6px 0}
+    .small{font-size:13px;color:var(--muted)}
+    .big{font-size:15px}
+    .highlight{background:#001825;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);display:block;margin:8px 0}
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    /* responsive */
+    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr} header{gap:10px} header img{width:54px;height:54px} h1{font-size:18px}}
+    /* copy button */
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{background:rgba(255,255,255,0.03);color:var(--accent);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    .btn.secondary{color:var(--muted);border-style: dashed}
+    .meta{font-size:13px;color:var(--muted)}
+    .footnote{font-size:12px;color:var(--muted);margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><rect rx='20' width='160' height='160' fill='%23071b2a'/><text x='50%' y='55%' fill='%23ff8a00' font-family='Noto Sans' font-size='36' text-anchor='middle'>R7</text></svg>" alt="R7">
+      <div>
+        <h1>Canon R7 — 旅行拍攝速查（R7 + Sigma 16–300 + RF50/1.8）</h1>
+        <p class="lead">一頁整理：C1/C2/C3 快設定、逐場景重要注意事項、夜景與合照要點（已為你行程最佳化）。</p>
+      </div>
+    </header>
+
+    <!-- quick action -->
+    <div class="row" style="margin-bottom:10px">
+      <button class="btn" onclick="copyAll()">複製全部設定文字</button>
+      <button class="btn secondary" onclick="window.print()">列印／存成 PDF</button>
+      <div style="flex:1"></div>
+      <div class="meta">製作者提示：帶兩顆電池、口袋濕紙巾（擦鏡頭）、放鏡頭蓋在拉鍊內側</div>
+    </div>
+
+    <section class="grid" aria-label="三種自訂拍攝模式">
+      <div class="card">
+        <h3>C1 — 景觀 / 風景（單人行程主力）</h3>
+        <div class="tag">模式：Av</div>
+        <div class="tag">鏡頭：Sigma 16–300</div>
+
+        <div class="highlight">
+          <strong>主要設定</strong><br>
+          光圈 <span class="kbd">f5.6–f8</span> ｜ ISO 自動（上限 <span class="kbd">3200</span>）｜ 測光：多重測光
+        </div>
+
+        <ul>
+          <li>AF 方法：1 點 AF（必要時擴大區域），AF-A/AF-C 視移動狀況切換。</li>
+          <li>相片風格：<em>Landscape</em>，啟 <strong>高光色調優先 (D+)</strong> 以保留天空細節。  [oai_citation:0‡EOS R7_TW_TC.pdf](file-service://file-PpiF7jbdLHmwCiE1Zviead)</li>
+          <li>若拍日落或海邊：建議先構圖再測光，必要時 EV -0.3～-1。</li>
+        </ul>
+
+        <div class="small">適用：寺廟建築、海景、街道廣角、晨景。避免讓主體被過亮天空拋出（用 D+ 保護高光）。  [oai_citation:1‡EOS R7_TW_TC.pdf](file-service://file-PpiF7jbdLHmwCiE1Zviead)</div>
+      </div>
+
+      <div class="card">
+        <h3>C2 — 人像 / 家庭（同行主力）</h3>
+        <div class="tag">模式：Av</div>
+        <div class="tag">鏡頭：RF 50/1.8（或 Sigma 中長焦）</div>
+
+        <div class="highlight">
+          <strong>主要設定</strong><br>
+          光圈 <span class="kbd">f1.8（人像） / f2.8（多人或Sigma）</span> ｜ ISO 自動（上限 <span class="kbd">6400</span>） ｜ 測光：臉部優先
+        </div>
+
+        <ul>
+          <li><strong>臉部+眼部追蹤 AF</strong>：在拍家人時務必開啟，R7 的臉眼追蹤在走動場景可靠。  [oai_citation:2‡EOS R7_TW_TC.pdf](file-service://file-PpiF7jbdLHmwCiE1Zviead)</li>
+          <li>合照模式 ON（多人時相機會自動加深景深以確保更多人的臉在對焦範圍）。  [oai_citation:3‡CANON_R7.pdf](file-service://file-QowpTjw2DDXznCfhp7xgG8)</li>
+          <li>逆光拍人：把光源放在側後 30°，人物膚色更自然；必要時補一點 EV +0.3。</li>
+        </ul>
+
+        <div class="small">適用：街拍人像、餐廳互動、聖誕市集人像。若燈光弱可用 50mm f1.8 製造漂亮散景。</div>
+      </div>
+
+      <div class="card">
+        <h3>C3 — 夜景 / 市集 / 室內（手持夜景）</h3>
+        <div class="tag">模式：M（手動）</div>
+        <div class="tag">鏡頭：50/1.8 或 16–300（視構圖）</div>
+
+        <div class="highlight">
+          <strong>主要設定</strong><br>
+          快門 <span class="kbd">1/100</span> ｜ 光圈 <span class="kbd">f1.8–f3.5</span> ｜ ISO 自動（上限 <span class="kbd">12800</span>）
+        </div>
+
+        <ul>
+          <li>開啟 <strong>手持夜景模式</strong>：R7 將合成多張以獲得更乾淨的夜景（非常適合聖誕市集、羽子板市等）。  [oai_citation:4‡CANON_R7.pdf](file-service://file-QowpTjw2DDXznCfhp7xgG8)</li>
+          <li>臉部追蹤 ON（拍人物）或 1 點 AF（拍風景）；使用電子先簾/靜音快門減震。 </li>
+          <li>夜景人像技巧：把背景燈排成「光球」在人物頭後 10–30cm，不要切掉頭頂。</li>
+        </ul>
+
+        <div class="warn">注意：高 ISO 雖能救曝光，但臉部細節會受影響。盡可能把快門拉到能穩握不模糊的範圍（1/80–1/160 視焦距而定）。</div>
+      </div>
+    </section>
+
+    <!-- Scene-specific highlights -->
+    <section style="margin-top:18px">
+      <div class="card" style="padding:16px">
+        <h3>重要拍攝注意細節（逐場景摘要）</h3>
+
+        <div class="note">
+          <strong>通用提醒</strong>
+          <ul>
+            <li>出門帶兩顆電池與一張高速 SD 卡（U3 / V30 以上）。</li>
+            <li>行進中盡量不要頻繁換鏡頭：Sigma 16–300 可應對 90% 場景；到室內或人像請優先換 50mm。</li>
+            <li>街拍時開 <span class="kbd">靜音快門</span>，避免干擾與拍攝時尷尬。  [oai_citation:5‡CANON_R7.pdf](file-service://file-QowpTjw2DDXznCfhp7xgG8)</li>
+          </ul>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
+          <div style="flex:1;min-width:220px">
+            <h4 class="small">寺廟 / 古街（白天）</h4>
+            <ul>
+              <li>用中小光圈（f5.6–8）保持解析力；用 70–200 壓縮層次感。</li>
+              <li>若遇逆光→微減曝光（EV -0.3）或用多重測光搭配 D+。  [oai_citation:6‡EOS R7_TW_TC.pdf](file-service://file-PpiF7jbdLHmwCiE1Zviead)</li>
+            </ul>
+          </div>
+
+          <div style="flex:1;min-width:220px">
+            <h4 class="small">市場 / 古董市集（人多）</h4>
+            <ul>
+              <li>用長焦端拍局部（70–200mm），快門≥1/250 避免人物模糊。</li>
+              <li>AF 用伺服 + 區域/追蹤，避免 AF 捕捉到無關標牌。  [oai_citation:7‡EOS R7_TW_TC.pdf](file-service://file-PpiF7jbdLHmwCiE1Zviead)</li>
+            </ul>
+          </div>
+
+          <div style="flex:1;min-width:220px">
+            <h4 class="small">海邊日落 / 七里濱</h4>
+            <ul>
+              <li>構圖先找前景（人、欄杆、石頭），再保留天空色彩（D+）。</li>
+              <li>若拍剪影，把測光點放天空位置或背景遠景。</li>
+            </ul>
+          </div>
+
+          <div style="flex:1;min-width:220px">
+            <h4 class="small">聖誕市集 / 夜市</h4>
+            <ul>
+              <li>50mm f1.8 捕捉暖燈散景與人物；手持夜景模式提高品質。  [oai_citation:8‡CANON_R7.pdf](file-service://file-QowpTjw2DDXznCfhp7xgG8)</li>
+              <li>留意鏡頭口徑與背景燈相對位置，避免光斑切到頭頂。</li>
+            </ul>
+          </div>
+
+          <div style="flex:1;min-width:220px">
+            <h4 class="small">餐廳 / 食物</h4>
+            <ul>
+              <li>用 50mm f1.8、靠窗利用自然側光；使用食物模式或手動微調白平衡。  [oai_citation:9‡EOS R7_TW_TC.pdf](file-service://file-PpiF7jbdLHmwCiE1Zviead)</li>
+              <li>避免用閃光燈破壞食物質感。</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="footnote">R7 功能重點參考：操作手冊中有 <em>手持夜景 / 合照模式 / 靜音快門 / 自動追蹤 AF</em> 的說明，可依手冊快速查閱。 </p>
+      </div>
+    </section>
+
+    <!-- pro tips -->
+    <section style="margin-top:16px">
+      <div class="card">
+        <h3>攝影達人小技巧（3 個最實用招）</h3>
+        <ol>
+          <li><strong>一次拍三張：</strong>標準、+0.7EV、-0.7EV（後製挑最合的）；或用 AEB 包圍曝光。  [oai_citation:10‡CANON_R7.pdf](file-service://file-QowpTjw2DDXznCfhp7xgG8)</li>
+          <li><strong>構圖先找光線：</strong>拍照前 10 秒先觀察：光從哪來、會不會變、背景雜不雜。</li>
+          <li><strong>人與地標距離：</strong>把人放在畫面 1/3 處，讓地標成為背景主角而非「被擠掉」的元素。</li>
+        </ol>
+      </div>
+    </section>
+
+    <footer>
+      <div class="small">欲把此頁轉成隨身速查 PDF 或印出：按上方列印按鈕（瀏覽器列印）。需要我把它輸出成可下載的 PDF 嗎？</div>
+      <div style="margin-top:8px" class="footnote">
+        參考文件來源：Canon EOS R7 使用說明（進階指南）與 R7 使用手冊節錄。 
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function copyAll(){
+      const text =
+`Canon R7 — 旅遊拍攝速查（R7 + Sigma 16–300 + RF50/1.8）
+
+C1 — 景觀
+模式：Av
+光圈：f5.6–f8
+ISO：Auto（上限3200）
+測光：多重測光
+AF：1 點 AF（可擴大）
+相片風格：Landscape；高光色調優先 D+
+
+C2 — 人像 / 家庭
+模式：Av
+光圈：f1.8（或 f2.8）
+ISO：Auto（上限6400）
+測光：臉部優先
+AF：臉部+眼部追蹤
+合照模式：ON
+
+C3 — 夜景 / 市集（手持夜景）
+模式：M
+快門：1/100
+光圈：f1.8–f3.5
+ISO：Auto（上限12800）
+手持夜景：ON
+臉部追蹤或 1 點 AF（依主題）
+
+通用提醒：
+- 帶兩顆電池、至少一張高速 SD 卡（U3/V30）
+- 行進中避免頻繁換鏡頭；Sigma 16–300 可應付 90% 場景
+- 街拍使用靜音快門
+
+(更多細節請回到原頁面)`;
+      navigator.clipboard?.writeText(text).then(()=>{
+        alert('已複製到剪貼簿：旅遊設定摘要');
+      }, ()=>{ alert('您的瀏覽器不支援剪貼簿複製，請手動選取複製'); });
+    }
+  </script>
+</body>
+</html>
