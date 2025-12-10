@@ -583,358 +583,138 @@
 
 
 
-    <script>
+<script>
+    // ==========================================
+    // 1. 資料設定區
+    // ==========================================
+    const destinations = [
+        {
+            name: "Tokyo",
+            chinese: "東京 . 霓虹",
+            url: "http://travel.itigre.com/Tokyo.html",
+            image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1920&auto=format&fit=crop"
+        },
+        {
+            name: "Okinawa",
+            chinese: "沖繩 . 碧海",
+            url: "http://travel.itigre.com/Okinawa.html",
+            image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c78?q=80&w=1920&auto=format&fit=crop"
+        }
+    ];
 
+    // ==========================================
+    // 2. 程式邏輯區
+    // ==========================================
+    
+    const navList = document.getElementById('navList');
+    const bgContainer = document.getElementById('bgContainer');
+    const cursor = document.querySelector('.cursor');
+    
+    // 用來追蹤當前激活的索引
+    let activeIndex = 0; 
 
-        // ==========================================
+    // 初始化：生成 HTML
+    destinations.forEach((dest, index) => {
+        // 1. 建立列表項目
+        const li = document.createElement('li');
+        li.className = 'nav-item';
+        
+        const link = document.createElement('a');
+        link.className = 'nav-link';
+        link.href = dest.url;
+        link.innerHTML = `${dest.name} <span class="nav-subtitle">${dest.chinese}</span>`;
+        
+        // 綁定事件
+        link.addEventListener('mouseenter', () => setActive(index));
+        // 移除 mouseleave 的 clearActive，這樣滑鼠移開後，背景會停留在最後一個選擇的城市，比較美觀
+        // link.addEventListener('mouseleave', () => clearActive());
+        
+        li.appendChild(link);
+        navList.appendChild(li);
 
+        // 2. 建立背景圖片
+        const bgDiv = document.createElement('div');
+        bgDiv.className = 'bg-image';
+        bgDiv.style.backgroundImage = `url(${dest.image})`;
+        bgContainer.appendChild(bgDiv);
+    });
 
-        // 1. 資料設定區 (在此處更新你的連結與內容)
+    const bgImages = document.querySelectorAll('.bg-image');
+    const navLinks = document.querySelectorAll('.nav-link');
 
+    // 游標跟隨邏輯
+    document.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.1
+        });
 
-        // ==========================================
+        // 背景視差效果 (Parallax)
+        const xMove = (e.clientX / window.innerWidth - 0.5) * 20;
+        const yMove = (e.clientY / window.innerHeight - 0.5) * 20;
 
+        // 只對當前顯示的背景做視差，節省效能
+        gsap.to('.bg-image.active', {
+            x: xMove,
+            y: yMove,
+            scale: 1.05,
+            duration: 1
+        });
+    });
 
-        const destinations = [
+    // 互動狀態切換函式
+    function setActive(index) {
+        activeIndex = index;
 
+        // 顯示對應背景
+        bgImages.forEach((img, i) => {
+            if (i === index) img.classList.add('active');
+            else img.classList.remove('active');
+        });
 
-            {
-
-
-                name: "Tokyo",
-
-
-                chinese: "東京 . 霓虹",
-
-
-                url: "http://travel.itigre.com/Tokyo.html",
-
-
-                // 這裡使用 Unsplash 的高畫質圖當範例，實際可換成你自己的圖片連結
-
-
-                image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1920&auto=format&fit=crop"
-
-
-            },
-
-
-            {
-
-
-                name: "Okinawa",
-
-
-                chinese: "沖繩 . 碧海",
-
-
-                url: "http://travel.itigre.com/Okinawa.html",
-
-
-                image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c78?q=80&w=1920&auto=format&fit=crop"
-
-
+        // 游標變大
+        cursor.classList.add('hovered');
+        
+        // 文字其餘變淡
+        navLinks.forEach((link, i) => {
+            if (i !== index) {
+                link.style.opacity = '0.2';
+                link.style.webkitTextStroke = '1px rgba(255,255,255,0)'; // 還原邊框
+                link.style.color = 'var(--text-color)'; // 還原顏色
+            } else {
+                link.style.opacity = '1';
+                // 這裡交給 CSS hover 處理顏色，JS 只要負責透明度
             }
-
-
-        ];
-
-
-
-
-
-        // ==========================================
-
-
-        // 2. 程式邏輯區 (自動生成與動畫)
-
-
-        // ==========================================
-
-
-        
-
-
-        const navList = document.getElementById('navList');
-
-
-        const bgContainer = document.getElementById('bgContainer');
-
-
-        const cursor = document.querySelector('.cursor');
-
-
-        
-
-
-        // 初始化：生成 HTML
-
-
-        destinations.forEach((dest, index) => {
-
-
-            // 1. 建立列表項目
-
-
-            const li = document.createElement('li');
-
-
-            li.className = 'nav-item';
-
-
-            
-
-
-            const link = document.createElement('a');
-
-
-            link.className = 'nav-link';
-
-
-            link.href = dest.url;
-
-
-            link.innerHTML = `${dest.name} <span class="nav-subtitle">${dest.chinese}</span>`;
-
-
-            
-
-
-            // 綁定事件
-
-
-            link.addEventListener('mouseenter', () => setActive(index));
-
-
-            link.addEventListener('mouseleave', () => clearActive());
-
-
-            
-
-
-            li.appendChild(link);
-
-
-            navList.appendChild(li);
-
-
-
-
-
-            // 2. 建立背景圖片
-
-
-            const bgDiv = document.createElement('div');
-
-
-            bgDiv.className = 'bg-image';
-
-
-            bgDiv.style.backgroundImage = `url(${dest.image})`;
-
-
-            bgContainer.appendChild(bgDiv);
-
-
         });
+    }
 
+    // (選用) 離開導覽列區域時，可以選擇是否要還原
+    navList.addEventListener('mouseleave', () => {
+         cursor.classList.remove('hovered');
+         navLinks.forEach(link => link.style.opacity = '1');
+    });
 
+    // 入場動畫與初始狀態
+    window.onload = () => {
+        document.querySelector('.line').style.height = '80%';
+        
+        // ★ 重點修改：網頁載入後，預設顯示第一張圖，避免一片黑
+        setActive(0);
+        // 手動移除 hover 狀態，讓字體先保持白色實心，直到使用者真正去滑動
+        cursor.classList.remove('hovered'); 
+        navLinks.forEach(link => link.style.opacity = '1');
 
-
-
-        const bgImages = document.querySelectorAll('.bg-image');
-
-
-        const navLinks = document.querySelectorAll('.nav-link');
-
-
-
-
-
-        // 游標跟隨邏輯 (使用 GSAP 讓移動更滑順)
-
-
-        document.addEventListener('mousemove', (e) => {
-
-
-            gsap.to(cursor, {
-
-
-                x: e.clientX,
-
-
-                y: e.clientY,
-
-
-                duration: 0.1
-
-
-            });
-
-
-
-
-
-            // 背景視差效果 (Parallax)
-
-
-            const xMove = (e.clientX / window.innerWidth - 0.5) * 20; // 移動範圍
-
-
-            const yMove = (e.clientY / window.innerHeight - 0.5) * 20;
-
-
-
-
-
-            gsap.to('.bg-image.active', {
-
-
-                x: xMove,
-
-
-                y: yMove,
-
-
-                scale: 1.05, // 微微放大
-
-
-                duration: 1
-
-
-            });
-
-
+        gsap.from('.nav-item', {
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: "power4.out"
         });
+    };
+</script>
 
-
-
-
-
-        // 互動狀態切換
-
-
-        function setActive(index) {
-
-
-            // 顯示對應背景
-
-
-            bgImages.forEach((img, i) => {
-
-
-                if (i === index) img.classList.add('active');
-
-
-                else img.classList.remove('active');
-
-
-            });
-
-
-
-
-
-            // 游標變大
-
-
-            cursor.classList.add('hovered');
-
-
-            
-
-
-            // 文字其餘變淡
-
-
-            navLinks.forEach((link, i) => {
-
-
-                if (i !== index) link.style.opacity = '0.2';
-
-
-            });
-
-
-        }
-
-
-
-
-
-        function clearActive() {
-
-
-            // 隱藏所有背景
-
-
-            bgImages.forEach(img => img.classList.remove('active'));
-
-
-            
-
-
-            // 游標恢復
-
-
-            cursor.classList.remove('hovered');
-
-
-
-
-
-            // 文字恢復
-
-
-            navLinks.forEach(link => link.style.opacity = '1');
-
-
-        }
-
-
-
-
-
-        // 入場動畫
-
-
-        window.onload = () => {
-
-
-            document.querySelector('.line').style.height = '80%'; // 裝飾線拉長
-
-
-            
-
-
-            gsap.from('.nav-item', {
-
-
-                y: 100,
-
-
-                opacity: 0,
-
-
-                duration: 1.5,
-
-
-                stagger: 0.2,
-
-
-                ease: "power4.out"
-
-
-            });
-
-
-        };
-
-
-
-
-
-    </script>
 
 
 </body>
