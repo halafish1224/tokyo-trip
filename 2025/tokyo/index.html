@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="東京2025">
@@ -1736,26 +1735,27 @@
                 if (evt.supermarkets) {
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
+                        // 修復: 修正 Google Map 連結並使用 ${} 變數語法
                         const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
                         marketHtml += `
                             <a href="${mapUrl}" target="_blank" class="market-btn">
-              
                                 <div class="market-name">${m.name}</div>
                                 <div class="market-meta">${m.meta}</div>
                             </a>`;
-                    
                     });
                     marketHtml += `</div>`;
                 }
 
                 const mapQuery = evt.map || evt.title;
+                // 修復: 修正 Google Map 連結並使用 ${} 變數語法
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+                // 修復: 使用 ${} 變數語法
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
+                
                 const btnsHtml = `
                     <div class="btn-group">
                         <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
                         <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
-                  
                     </div>
                 `;
                 const reviewText = evt.review || '記帳/優惠-優惠券|工具箱-翻譯功能。';
@@ -1764,7 +1764,6 @@
                         <span>💬</span>
                         <div>${reviewText}</div>
                     </div>
-  
                 `;
                 eventsHtml += `
                     <div class="timeline-item">
