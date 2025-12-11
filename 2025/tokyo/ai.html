@@ -362,6 +362,22 @@
             padding:5px 12px; border-radius:20px; font-size:0.85rem; cursor:pointer; font-weight:bold;
         }
 
+        /* Toast Notification */
+        .toast-notification {
+            position: fixed; bottom: 100px; left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(0, 0, 0, 0.85); color: white;
+            padding: 12px 24px; border-radius: 50px;
+            font-size: 0.9rem; font-weight: bold;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease;
+            z-index: 3000; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex; align-items: center; gap: 8px; white-space: nowrap;
+        }
+        .toast-notification.show {
+            opacity: 1; visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
         @media (min-width: 768px){
             .top-bar{ padding-inline:4px; }
             .top-title{ font-size:1.15rem; }
@@ -448,7 +464,7 @@
                 <button class="btn btn-primary" onclick="callGeminiTranslate('normal')">一般翻譯</button>
                 <button class="btn" style="background:#FFF3E0; color:#E65100; border:1px solid #FFCC80" onclick="callGeminiTranslate('polite')">🙇 禮貌敬語</button>
             </div>
-            <p style="font-size:0.8rem; color:#888; margin-top:8px;">*將自動開啟 Gemini 並貼上翻譯指令</p>
+            <p style="font-size:0.8rem; color:#888; margin-top:8px;">*系統將自動複製翻譯指令，請於 Gemini 貼上</p>
         </div>
         
         <div class="tools-card">
@@ -483,9 +499,11 @@
     </div>
 </main>
 
-  <div class="gemini-fab" onclick="askGemini('請協助我辨識這張照片中的內容（例如菜單、路牌、商品），並告訴我這也是什麼、是否值得購買或注意項目。')">
+<div class="gemini-fab" onclick="askGemini('請協助我辨識這張照片中的內容（例如菜單、路牌、商品），並告訴我這也是什麼、是否值得購買或注意項目。')">
     ✨
 </div>
+
+<div id="toast" class="toast-notification">✅ 指令已複製！請在 Gemini 貼上</div>
 
 <div id="phrase-modal" class="phrase-modal" onclick="closePhraseModal(event)">
     <div class="phrase-modal-content">
@@ -521,15 +539,40 @@
         <span class="nav-icon">🧰</span>工具箱
     </div>
 </nav>
-
 <script>
-    // === Gemini AI 整合核心 ===
-    function askGemini(promptText) {
-        // 強制要求繁體中文回應，並保持簡短
-        const finalPrompt = `${promptText} (請用繁體中文回答，並簡短扼要)`;
-        // 使用 Deep Link 喚起 Gemini
-        const url = `https://gemini.google.com/app?text=${encodeURIComponent(finalPrompt)}`;
-        window.open(url, '_blank');
+    // === 強化版 Gemini 整合核心 (複製 + 跳轉) ===
+    async function askGemini(promptText) {
+        // 1. 準備完整的 Prompt，加入強制繁體中文指令
+        const finalPrompt = `${promptText}\n\n(請用繁體中文回答，並簡短扼要)`;
+
+        // 2. 嘗試寫入剪貼簿
+        try {
+            await navigator.clipboard.writeText(finalPrompt);
+            showToast(`✅ 指令已複製！請在 Gemini 貼上`);
+        } catch (err) {
+            console.warn('自動複製失敗', err);
+            showToast(`⚠️ 請手動複製指令`);
+        }
+
+        // 3. 延遲一下讓使用者看到提示，然後開啟 Gemini
+        setTimeout(() => {
+            const url = `https://gemini.google.com/app?text=${encodeURIComponent(finalPrompt)}`;
+            window.open(url, '_blank');
+        }, 800);
+    }
+
+    // 顯示 Toast 提示的小工具
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        if(toast){
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        } else {
+            alert(msg);
+        }
     }
 
     function callGeminiTranslate(mode) {
@@ -547,8 +590,6 @@
 
     function analyzeExpenses() {
         if (expenses.length === 0) return alert("目前還沒有記帳資料喔！");
-        
-        // 將資料轉為字串格式供 AI 讀取
         const dataStr = expenses.map(e => `${e.type}:${e.item}(${e.cost})`).join(', ');
         
         const prompt = `這是我的東京旅遊記帳清單：[${dataStr}]。
@@ -1286,7 +1327,7 @@
     function hidePhraseModal(){ document.getElementById('phrase-modal').classList.remove('active'); }
     function closePhraseModal(e){ if (e.target.id === 'phrase-modal') hidePhraseModal(); }
 
-    // === 行程渲染 (含 Gemini 按鈕) ===
+    // === 行程渲染 (含 情境判斷 Gemini 按鈕) ===
     function renderApp() {
         const navProj1 = document.getElementById('nav-proj1');
         const navProj2 = document.getElementById('nav-proj2');
@@ -1367,14 +1408,21 @@
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
                 
-                // 動態生成 Gemini Prompt
-                const aiPrompt = `我是觀光客，正在前往「${mapQuery}」。請推薦我 3 個附近的隱藏版美食，以及 1 個攝影取景的最佳角度。`;
+                // --- 強化情境判斷 ---
+                let specificPrompt = "";
+                const hour = parseInt(evt.time.split(':')[0]);
+                // 判斷是否為「飲食相關」或「用餐時間」
+                if (evt.title.includes("餐") || evt.title.includes("麵包") || evt.title.includes("咖啡") || (hour >= 11 && hour <= 13) || (hour >= 18 && hour <= 20)) {
+                    specificPrompt = `我現在在東京的「${mapQuery}」。請以此地為中心，推薦 3 個走路 5 分鐘內可到的「高評價隱藏美食」（排除連鎖店），並告訴我它們的招牌菜是什麼。`;
+                } else {
+                    specificPrompt = `我現在在東京的「${mapQuery}」。請扮演專業導遊，告訴我：\n1. 這裡最值得拍的一張照片要在哪裡取景？\n2. 有什麼鮮為人知的歷史小故事？\n3. 附近有沒有走路可到的特色小店？`;
+                }
 
                 const btnsHtml = `
                     <div class="btn-group">
                         <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
                         <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
-                        <button onclick="askGemini('${aiPrompt}')" class="btn btn-gemini-ai">✨ AI攻略</button>
+                        <button onclick="askGemini(\`${specificPrompt}\`)" class="btn btn-gemini-ai">✨ AI攻略</button>
                     </div>
                 `;
 
