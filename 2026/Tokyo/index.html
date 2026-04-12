@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="東京2026">
+    
+    <title>東京冬日紀行 2026 | 家族回憶版</title>
+    <meta name="theme-color" content="#1A374D">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* === 核心樣式與手繪風配色 === */
+        :root {
+            --bg-overlay: rgba(253, 251, 247, 0.92); /* 更溫暖的紙張底色 */
+            --card-bg: #FFFFFF;
+            --text-main: #2c3e50; /* 鋼筆墨水藍灰 */
+            --text-sub: #555555;
+            --theme-blue: #2980b9;
+            --theme-orange: #e67e22;
+            --theme-green: #27ae60;
+            --theme-red: #c0392b;
+            --color-gold: #d35400;
+            --color-dark-grey: #1A374D;
+            --gemini-gradient: linear-gradient(135deg, #4285F4, #9B72CB, #D96570);
+            
+            /* 手繪風不規則邊框與陰影參數 */
+            --hand-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            --hand-border: 2px solid #2c3e50;
+            --hand-shadow: 4px 4px 0px rgba(44, 62, 80, 0.15);
+        }
+
+        html { font-size: 100%; transition: font-size 0.2s ease; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; word-break: break-word; }
+
+        body {
+            /* 融合手繪字體與黑體 */
+            font-family: 'Klee One', 'Noto Sans TC', sans-serif;
+            margin: 0; padding-bottom: 90px; line-height: 1.6;
+            color: var(--text-main); min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://64.media.tumblr.com/c68ffd369609d9eeb2d2c29908144535/f9a8b36b323a973f-a8/s2048x3072/0a05579aea81bcbb57f39043f14fa5f51e9b718b.jpg');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            z-index: -2;
+        }
+        
+        body::after {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-overlay); z-index: -1; backdrop-filter: blur(4px);
+        }
+
+        /* --- Header 導覽區塊 --- */
+        header {
+            background: rgba(253, 251, 247, 0.96);
+            position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px dashed #2c3e50;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner { max-width: 800px; margin: 0 auto; padding: 12px 15px 0; }
+        .top-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+
+        .top-title {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            font-size: 1.2rem;
+            color: var(--color-dark-grey); font-weight: 900;
+        }
+        .top-title span.year { color: var(--color-gold); margin-left: 4px; }
+
+        .project-tabs { display: flex; gap: 6px; flex-shrink: 0; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .project-tabs::-webkit-scrollbar { display: none; }
+        .project-tab {
+            border: var(--hand-border);
+            border-radius: var(--hand-radius);
+            background: transparent;
+            font-size: 0.8rem; padding: 6px 12px; cursor: pointer; white-space: nowrap; font-weight: 600;
+            color: var(--text-main);
+        }
+        .project-tab.active { background: var(--color-dark-grey); color: #fff; box-shadow: 2px 2px 0px rgba(0,0,0,0.2); }
+
+        .top-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .header-rate { 
+            font-size: 0.8rem; color: #fff; background: var(--theme-green); 
+            padding: 4px 10px; border-radius: 20px; font-weight: bold;
+            border: var(--hand-border); box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .project-nav-row { max-width: 800px; margin: 0 auto; padding: 8px 15px 12px; }
+        .date-scroller { display: none; overflow-x: auto; padding-bottom: 5px; gap: 10px; scrollbar-width: none; }
+        .date-scroller::-webkit-scrollbar { display: none; }
+        .date-scroller.active { display: flex; }
+
+        .date-chip {
+            flex: 0 0 auto; width: 75px; height: 50px; 
+            border-radius: 8px; font-size: 0.9rem; font-weight: 900; cursor: pointer;
+            transition: all 0.2s; border: var(--hand-border);
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            background-size: cover; background-position: center;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.2); position: relative; overflow: hidden;
+            background-color: #7f8c8d; /* 預設底色 */
+        }
+        .date-chip::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 0; }
+        .date-chip span { z-index: 1; position: relative; }
+        .date-chip.active { border-color: var(--color-gold); transform: translateY(-3px); box-shadow: 4px 4px 0px var(--color-gold); }
+
+        .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
+        
+        .font-control-panel {
+            background: #fff; padding: 12px; display: flex;
+            justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px;
+            border: var(--hand-border); border-radius: var(--hand-radius); box-shadow: var(--hand-shadow);
+        }
+        .font-btn {
+            background: #fdfbf7; border: var(--hand-border); border-radius: 8px;
+            padding: 6px 16px; font-weight: bold; cursor: pointer; font-size: 1rem;
+        }
+        .font-display { font-weight: bold; color: var(--color-dark-grey); min-width: 60px; text-align: center; }
+
+        /* --- 手繪風格卡片與行程 --- */
+        .day-section {
+            background: #fff; overflow: hidden; margin-bottom: 35px;
+            border: var(--hand-border); border-radius: 8px; box-shadow: var(--hand-shadow);
+        }
+        .day-cover-img { width: 100%; height: 160px; object-fit: cover; display: block; border-bottom: 2px solid #2c3e50; }
+        .day-header {
+            padding: 15px 20px;
+            background: repeating-linear-gradient(45deg, #fdfbf7, #fdfbf7 10px, #fff 10px, #fff 20px);
+            border-bottom: 2px dashed #2c3e50; display: flex; justify-content: space-between; align-items: center;
+        }
+        .day-header h2 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+        .day-tag { 
+            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; 
+            color: #fff; border: var(--hand-border);
+        }
+
+        .timeline-wrapper { position: relative; padding: 25px 20px 20px 30px; background: #fffdf7; }
+        .timeline-line {
+            position: absolute; left: 16px; top: 25px; bottom: 20px; width: 0;
+            border-left: 2px dashed #a0aec0; z-index: 0;
+        }
+        .timeline-item { position: relative; margin-bottom: 35px; z-index: 1; }
+        .timeline-dot {
+            position: absolute; left: -21px; top: 18px; width: 16px; height: 16px;
+            border-radius: 50%; border: 3px solid #2c3e50; background: #fffdf7;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1); z-index: 2;
+        }
+
+        .card {
+            background: #fff; 
+            border: var(--hand-border); border-radius: var(--hand-radius);
+            box-shadow: var(--hand-shadow); overflow: hidden;
+        }
+        .card-content { padding: 18px; }
+        .card-time { 
+            font-size: 0.9rem; font-weight: 700; color: #fff; background: var(--text-main);
+            display: inline-block; margin-bottom: 8px; padding: 3px 10px; 
+            border-radius: var(--hand-radius); border: 1px solid #2c3e50;
+        }
+        .card-title { font-size: 1.2rem; font-weight: 900; margin: 0 0 10px; color: #111; }
+        .card-desc { font-size: 1rem; color: #444; margin-bottom: 12px; line-height: 1.7; }
+
+        .check-in-alert, .insurance-alert { 
+            background: #FFEBEE; color: #C62828; padding: 12px; 
+            border-radius: 8px; font-weight: bold; margin-bottom: 15px; 
+            border: 2px solid #C62828; border-radius: var(--hand-radius);
+        }
+
+        /* 飯店信件專用區塊 */
+        .hotel-note {
+            background: #fff3cd; color: #856404; padding: 12px; 
+            border-radius: var(--hand-radius); border: 2px dashed #ffeeba; 
+            margin-bottom: 12px; font-size: 0.95rem; font-weight: 600;
+        }
+
+        /* 標籤與細節樣式 */
+        .os-tag { background: #D32F2F; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 5px; border: 1px solid #fff;}
+        .must-buy-section { background: rgba(255,255,255,0.6); border-radius: 8px; padding: 15px; margin-top: 15px; border: 2px dashed #2c3e50; }
+        .must-buy-title { font-weight: 900; font-size: 1rem; margin-bottom: 8px; }
+        .must-buy-item { display: flex; justify-content: space-between; font-size: 0.9rem; border-bottom: 1px dotted #888; padding: 6px 0; }
+        .must-buy-item:last-child { border-bottom: none; }
+
+        .transport-guide { background: transparent; border: 2px solid #2c3e50; border-radius: var(--hand-radius); padding: 15px; margin-top: 15px; }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 0.95rem; }
+        .step-num { background: #2c3e50; color: #fff; width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 0.8rem; margin-right: 10px; flex-shrink: 0; font-family: sans-serif; }
+
+        /* 按鈕樣式 (手寫圓潤感) */
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { 
+            flex: 1; text-align: center; padding: 10px 0; text-decoration: none; font-size: 0.95rem; font-weight: bold; 
+            background: #fff; color: #2c3e50; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer;
+            border: var(--hand-border); border-radius: 255px 25px 225px 15px/15px 225px 15px 255px;
+            box-shadow: 2px 2px 0px rgba(44,62,80,0.2); transition: all 0.2s;
+            min-width: 120px;
+        }
+        .btn:active { transform: translate(2px, 2px); box-shadow: none; }
+        .btn-primary { background: var(--color-dark-grey); color: white; }
+        .btn-gemini-ai { background: #fdfbf7; border: 2px solid #9B72CB; color: #6a1b9a; }
+
+        .review-bubble { 
+            position: relative; background: #fff; padding: 12px 15px; margin-top: 18px; 
+            font-size: 0.95rem; color: #333; display: flex; gap: 8px; font-weight: 600;
+            border: var(--hand-border); border-radius: var(--hand-radius);
+        }
+        .review-bubble::after { 
+            content: ""; position: absolute; left: 20px; top: -10px; 
+            border-width: 0 10px 10px 10px; border-style: solid; border-color: transparent transparent #2c3e50 transparent; 
+        }
+        .review-bubble::before { 
+            content: ""; position: absolute; left: 20px; top: -6px; z-index: 1;
+            border-width: 0 10px 10px 10px; border-style: solid; border-color: transparent transparent #fff transparent; 
+        }
+        
+        /* --- 工具與記帳區塊 --- */
+        .tools-card, .account-card { 
+            background: #fffdf7; padding: 22px; margin-bottom: 20px; 
+            border: var(--hand-border); border-radius: var(--hand-radius); box-shadow: var(--hand-shadow);
+        }
+        .trans-input, .acc-input, .acc-select { 
+            width: 100%; padding: 12px; border: 2px solid #2c3e50; border-radius: 8px; 
+            font-size: 1rem; margin-bottom: 12px; font-family: inherit;
+        }
+        
+        /* 網格 RWD 調整 */
+        .phrase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+        .phrase-card { 
+            border: var(--hand-border); padding: 15px; border-radius: var(--hand-radius); 
+            cursor: zoom-in; text-align: left; background: #fff; box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+        .phrase-zh { font-size: 1rem; font-weight: bold; margin-bottom: 6px; }
+        .phrase-jp-small { font-size: 0.95rem; color: #B91C1C; font-weight: bold; }
+
+        .coupon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px; }
+        .coupon-card { 
+            background: #fff; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; 
+            border: var(--hand-border); border-radius: 8px; box-shadow: var(--hand-shadow); transition: transform 0.2s;
+        }
+        .coupon-card:active { transform: translateY(2px); box-shadow: 2px 2px 0px rgba(44,62,80,0.15); }
+        .coupon-img { width: 100%; height: 140px; object-fit: cover; border-bottom: 2px solid #2c3e50; }
+        .coupon-content { padding: 15px; }
+        .coupon-name { font-size: 1.1rem; font-weight: 900; margin-bottom: 8px; }
+        .coupon-offer { font-size: 0.9rem; color: #D32F2F; font-weight: bold; background: #FFEBEE; display: inline-block; padding: 4px 10px; border-radius: 20px; border: 1px solid #D32F2F; }
+
+        /* Modal 彈出視窗 */
+        .phrase-modal, .coupon-modal { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,0.85); backdrop-filter: blur(3px); }
+        .phrase-modal.active, .coupon-modal.active { display: flex; }
+        .modal-content { position: relative; background: #fffdf7; border: var(--hand-border); border-radius: 12px; padding: 30px 20px; max-width: 480px; width: 100%; text-align: center; max-height: 90vh; overflow-y: auto; box-shadow: 8px 8px 0px rgba(0,0,0,0.3); }
+        .modal-close { position: absolute; top: 10px; right: 15px; border: none; background: transparent; font-size: 2rem; cursor: pointer; color: #333; font-weight: bold; }
+        .cm-img-container img { max-width: 100%; height: auto; border: 2px solid #eee; border-radius: 8px; }
+
+        /* 底部導覽列 */
+        .footer-nav { 
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #fffdf7; 
+            display: flex; justify-content: space-around; padding: 12px 0 25px; 
+            border-top: 2px dashed #2c3e50; z-index: 1000; box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+        }
+        .nav-item { text-align: center; font-size: 0.9rem; color: #888; cursor: pointer; flex: 1; font-weight: bold; }
+        .nav-item.active { color: var(--color-dark-grey); }
+        .nav-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+        
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .gemini-fab { 
+            position: fixed; bottom: 95px; right: 20px; width: 60px; height: 60px; 
+            background: var(--gemini-gradient); border-radius: 50%; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; 
+            z-index: 2000; cursor: pointer; font-size: 26px; border: 3px solid #fff; transition: transform 0.2s;
+        }
+        .gemini-fab:active { transform: scale(0.9); }
+        .toast-notification { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(44, 62, 80, 0.9); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.95rem; font-weight: bold; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 3000; border: 2px solid #fff; }
+        .toast-notification.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+        /* 手機 RWD 細節微調 */
+        @media (max-width: 480px) {
+            .top-bar { flex-direction: column; align-items: flex-start; }
+            .top-right { width: 100%; justify-content: flex-end; margin-top: 5px; }
+            .day-header h2 { font-size: 1.25rem; }
+            .card-title { font-size: 1.1rem; }
+            .timeline-wrapper { padding: 20px 15px 20px 25px; }
+            .timeline-line { left: 12px; }
+            .timeline-dot { left: -19px; width: 14px; height: 14px; top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="top-bar">
+            <div class="top-title">TOKYO<span class="year">2026</span></div>
+            <div class="project-tabs">
+                <button id="tab-project1" class="project-tab active" onclick="setProject(1)">家族冬日｜12/19–12/26</button>
+            </div>
+            <div class="top-right">
+                <div id="header-rate" class="header-rate"><span class="symbol">¥</span> 載入中...</div>
+            </div>
+       </div>
+       <div class="project-nav-row">
+            <div class="date-scroller active" id="nav-proj1"></div>
+       </div>
+    </div>
+</header>
+
+<main class="container">
+    <div class="font-control-panel">
+        <button class="font-btn" onclick="changeFontSize(-10)">A- 小</button>
+        <div class="font-display" id="font-size-display">100%</div>
+        <button class="font-btn" onclick="changeFontSize(10)">A+ 大</button>
+    </div>
+
+    <div id="tab-trip" class="section active">
+       <div id="itinerary-list"></div>
+    </div>
+
+    <div id="tab-account" class="section">
+        <div class="account-card">
+            <div class="acc-summary" style="text-align:center; padding:20px; background:#fff; border:2px dashed #2c3e50; border-radius:12px;">
+                <div style="font-size:0.9rem; color:#666; font-weight:bold;">目前總花費 (JPY)</div>
+                <div id="acc-total-val" style="font-size:2.2rem; font-weight:900; color:#1A374D; margin:5px 0;">¥0</div>
+                <div id="acc-total-twd" style="font-size:1rem; color:#888;">約 NT$0</div>
+                <button class="btn btn-primary" style="margin-top:15px; width:100%;" onclick="analyzeExpenses()">📊 Gemini 分析消費</button>
+            </div>
+            <div class="acc-form" style="margin-top:20px;">
+                <input type="text" id="acc-item" class="acc-input" placeholder="品項 (如: 拉麵)">
+                <input type="number" id="acc-cost" class="acc-input" placeholder="金額 (日幣)">
+                <select id="acc-type" class="acc-select">
+                    <option value="食">🍔 食</option>
+                    <option value="行">🚄 行</option>
+                    <option value="購">🛍️ 購</option>
+                    <option value="住">🏨 住</option>
+                </select>
+                <button class="btn btn-primary" style="width:100%; background:#e67e22; color:#fff;" onclick="addExpense()">＋ 記錄這筆支出</button>
+            </div>
+            <ul id="expense-list" style="list-style:none; padding:0; margin-top:25px;"></ul>
+        </div>
+        <div class="account-card">
+            <h3 style="margin-top:0; color:#B71C1C; border-bottom:2px dashed #B71C1C; padding-bottom:10px;">💰 日本購物優惠券大全</h3>
+            <p style="font-size:0.95rem; color:#555;">點擊卡片可預覽大圖，確認要使用再前往連結。</p>
+            <div id="coupon-list" class="coupon-grid"></div>
+        </div>
+    </div>
+
+    <div id="tab-tools" class="section">
+        <div class="tools-card">
+            <h2 style="margin-top:0; border-bottom:2px dashed #2c3e50; padding-bottom:10px;">🗣️ AI 口譯員 (Gemini)</h2>
+            <input type="text" id="trans-text" class="trans-input" placeholder="輸入中文 (例如: 可以幫我把醬汁分開裝嗎?)">
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="callGeminiTranslate('normal')">一般翻譯</button>
+                <button class="btn" style="background:#fffdf7; border-color:#e67e22; color:#d35400;" onclick="callGeminiTranslate('polite')">🙇 禮貌敬語</button>
+            </div>
+        </div>
+        
+        <div class="tools-card">
+            <h3 style="margin-top:0; border-bottom:2px dashed #2c3e50; padding-bottom:10px;">🇯🇵 長輩友善指差卡</h3>
+            <div id="phrase-grid" class="phrase-grid"></div>
+        </div>
+    </div>
+</main>
+
+<div class="gemini-fab" onclick="askGemini('請協助我辨識這張照片中的內容（例如菜單、路牌、商品），並告訴我這也是什麼、是否值得購買或注意項目。')">
+    ✨
+</div>
+
+<div id="toast" class="toast-notification">✅ 指令已複製！請在 Gemini 貼上</div>
+
+<div id="phrase-modal" class="phrase-modal" onclick="closeModal(event, 'phrase-modal')">
+    <div class="modal-content">
+        <button class="modal-close" type="button" onclick="hideModal('phrase-modal')">×</button>
+        <div id="modal-jp" style="font-size:2.2rem; font-weight:900; color:#B91C1C; margin-bottom:15px; line-height:1.2;"></div>
+        <div id="modal-en" style="font-size:1rem; color:#666; margin-bottom:10px;"></div>
+        <div id="modal-zh" style="font-size:1.3rem; font-weight:bold; border-top:2px dashed #ccc; padding-top:15px;"></div>
+        <p style="font-size:0.9rem; color:#888; margin-top:20px; background:#eee; padding:5px; border-radius:5px;">已自動複製日文，可直接給店員看。</p>
+    </div>
+</div>
+
+<div id="coupon-modal" class="coupon-modal" onclick="closeModal(event, 'coupon-modal')">
+    <div class="modal-content">
+        <button class="modal-close" type="button" onclick="hideModal('coupon-modal')">×</button>
+        <div id="cm-title" style="font-size:1.6rem; font-weight:900; color:#1A374D; margin-bottom:15px;"></div>
+        <div class="cm-img-container">
+             <img id="cm-img" src="" alt="Coupon">
+        </div>
+        <div id="cm-offer" style="font-size:1.3rem; color:#D32F2F; font-weight:bold; background:#FFEBEE; display:inline-block; padding:8px 20px; border-radius:30px; border:2px dashed #D32F2F; margin:15px 0;"></div>
+        <a id="cm-link" href="#" target="_blank" class="btn btn-primary" style="width:100%; font-size:1.1rem; padding:12px 0;">前往領取頁面 ➔</a>
+    </div>
+</div>
+
+<nav class="footer-nav">
+    <div class="nav-item active" onclick="switchTab('trip', this)">
+        <span class="nav-icon">🗺️</span>行程
+    </div>
+    <div class="nav-item" onclick="switchTab('account', this)">
+        <span class="nav-icon">📒</span>記帳/優惠
+    </div>
+    <div class="nav-item" onclick="switchTab('tools', this)">
+        <span class="nav-icon">🧰</span>工具箱
+    </div>
+</nav>
+
+<script>
+    // === 2026 行程資料庫更新 ===
+    const itineraryData = [
+        {
+            date: "12/19 (六)", id: "d1", theme: "theme-blue", project: 1, fullDate: "2026-12-19",
+            coverImage: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop", 
+            events: [
+                { time: "17:00", title: "抵達成田機場", desc: "抵達東京夜晚。領取行李後，準備搭車前往森下（飯店周邊）。", checkInNote: "去程", map: "成田空港" },
+                { time: "19:30", title: "入住飯店 (森下區域)", desc: "安排長輩與大家入住。", hotelNote: "こんにちは<br>5部屋を予約しております。予約番号は以下の通りです。<br>6068533、6068534、6092624、6097070、6097071。<br>可能であれば、同じフロアにご用意いただけますでしょうか。<br>よろしくお願いいたします", map: "森下駅" },
+                { time: "20:30", title: "周邊晚餐與休息", desc: "飯店附近便利店或小餐館解決。今晚無行程（很重要），好好休息，儲備明日體力。", map: "森下" }
+            ]
+        },
+        {
+            date: "12/20 (日)", id: "d2", theme: "theme-red", project: 1, fullDate: "2026-12-20",
+            coverImage: "https://images.unsplash.com/photo-1533050487297-09b450131914?q=80&w=800&auto=format&fit=crop",
+            events: [
+                { time: "09:30", title: "淺草寺與仲見世通", desc: "從森下搭乘電車前往淺草，感受傳統江戶風情與熱鬧氛圍。", transportGuide: ["森下 → 淺草（約 10 分鐘）"], map: "浅草寺" },
+                { time: "11:30", title: "Ninja Trick House Tokyo", desc: "隱藏在淺草的忍者體驗館，全家一起挑戰忍術機關！", map: "Ninja Trick House Tokyo" },
+                { time: "13:00", title: "淺草午餐", desc: "淺草炸物 / 壽司 / 拉麵（視現場排隊狀況彈性解決）。", map: "浅草" },
+                { time: "15:00", title: "淺草咖啡休息", desc: "找間特色咖啡廳稍作休息，享受悠閒的午後。", map: "浅草" }
+            ]
+        },
+        {
+            date: "12/21 (一)", id: "d3", theme: "theme-green", project: 1, fullDate: "2026-12-21",
+            coverImage: "https://images.unsplash.com/photo-1542931287-023b922fa89b?q=80&w=800&auto=format&fit=crop", 
+            events: [
+                { time: "10:00", title: "東京晴空塔 (展望台)", desc: "登上晴空塔俯瞰東京市景，天氣好時有機會看見富士山。", transportGuide: ["森下 → 押上（都營淺草線直達）"], map: "東京スカイツリー" },
+                { time: "12:00", title: "叙叙苑 Solamachi店", desc: "享受高空景觀的頂級燒肉午餐，絕佳的視野與美食體驗。", map: "叙々苑 東京スカイツリータウン・ソラマチ店" },
+                { time: "14:00", title: "墨田水族館", desc: "位於晴空塔內的精緻水族館，帶孩子們觀賞企鵝與優美的花園鰻。", map: "すみだ水族館" },
+                { time: "16:00", title: "晴空塔商場 Solamachi", desc: "商場購物與散策，或許還能安排去柯尼卡美能達天文館「天空」。", map: "東京ソラマチ" }
+            ]
+        },
+        {
+            date: "12/22 (二)", id: "d4", theme: "theme-blue", project: 1, fullDate: "2026-12-22",
+            coverImage: "https://images.unsplash.com/photo-1551634979-2b11f8c946e7?q=80&w=800&auto=format&fit=crop", 
+            events: [
+                { time: "09:00", title: "teamLab Planets TOKYO", desc: "沉浸式光影藝術體驗 (主行程，預計停留至 11:00)。", map: "teamLab Planets TOKYO" },
+                { time: "11:30", title: "豐洲市場 / LaLaport", desc: "午餐時間。可以在豐洲市場吃新鮮海產，或前往 LaLaport 綜合商場。", map: "アーバンドック ららぽーと豊洲" },
+                { time: "14:00", title: "小孩最開心日：台場主題館", desc: "LEGO Discovery Center Tokyo 或 Joypolis（二選一），或者前往日本科學未來館。", map: "レゴランド・ディスカバリー・センター東京" },
+                { time: "16:30", title: "台場海濱散步 & 鋼彈", desc: "觀看 DiverCity 巨大的獨角獸鋼彈，沿著海濱公園欣賞夕陽與彩虹大橋。", map: "ダイバーシティ東京 プラザ" },
+                { time: "18:30", title: "台場美食街晚餐", desc: "直接在台場享用晚餐，不需移動回市區，輕鬆結束充實的一天。", map: "アクアシティお台場" }
+            ]
+        },
+        {
+            date: "12/23 (三) 後續擴充", id: "d5", theme: "theme-orange", project: 1, fullDate: "2026-12-23",
+            coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop",
+            events: [
+                { time: "規劃中", title: "銀座與六本木", desc: "（待補完）包含銀座步行街、伊東屋文具採購、GINZA Yoshoku Mikasakaikan 午餐，以及六本木 L'Atelier de Joel Robuchon 的法式饗宴。", map: "銀座" }
+            ]
+        }
+    ];
+
+    const phraseData = [
+        { zh: '請問洋式(坐式)廁所在哪？', jp: 'ようしきトイレはどこですか？', en: 'Western-style toilet?' },
+        { zh: '我想休息一下，請問有椅子嗎？', jp: 'すこしやすみたいです。イスはありますか？', en: 'Any chairs?' },
+        { zh: '請給我去冰的開水。', jp: 'こおりなしの おみずをください。', en: 'Water no ice.' },
+        { zh: '可以給我一杯熱水嗎？', jp: 'おゆを いただけますか？', en: 'Hot water please.' },
+        { zh: '請問電梯在哪裡？', jp: 'エレベーターは どこですか？', en: 'Where is elevator?' },
+        { zh: '請問車站往哪個方向？', jp: 'えきは どっちですか？', en: 'Where is station?' },
+        { zh: '計程車招呼站在哪裡？', jp: 'タクシーのりばは どこですか？', en: 'Taxi stand?' },
+        { zh: '請幫我寫在紙上。', jp: 'かみに かいていただけますか？', en: 'Write down please.' },
+        { zh: '這個多少錢？', jp: 'これは いくらですか？', en: 'How much?' },
+        { zh: '這是日本製造的嗎？', jp: 'これは にほんせいですか？', en: 'Made in Japan?' },
+        { zh: '請問最推薦的是哪個？', jp: 'おすすめは どれですか？', en: 'Recommendation?' },
+        { zh: '可以刷卡嗎？', jp: 'カードで はらえますか？', en: 'Credit card?' },
+        { zh: '有附照片的菜單嗎？', jp: 'しゃしんのメニューは ありますか？', en: 'Photo menu?' },
+        { zh: '味道可以做清淡一點嗎？', jp: 'あじを うすくできますか？', en: 'Less salty?' },
+        { zh: '我要外帶。', jp: 'もちかえりで おねがいします。', en: 'Take out.' }
+    ];
+
+    const couponData = [
+        { name: "Bic Camera", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/biccamera.webp", url: "https://www.biccamera.com.t.lj.hp.transer.com/bc/c/info/campaign/coupon.jsp" },
+        { name: "Donki 唐吉訶德", offer: "免稅10% + 5% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/donki_logo.webp", url: "https://japanportal.donki-global.com/coupon/cp001_zhtw.html" },
+        { name: "Edion 愛電王", offer: "免稅10% + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/edion.webp" },
+        { name: "SUNDRUG", offer: "免稅 + 3~7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/sundrug.webp", url: "https://sundrug-online.com/" },
+        { name: "松本清", offer: "免稅 + 最高7% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/matsucoupontw.webp", url: "https://www.matsukiyococokara-online.com/point/coupon/" },
+        { name: "大國藥妝", offer: "免稅 + 最高8% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/daikoku.webp" },
+        { name: "多慶屋", offer: "JCB卡+券享12% OFF", img: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp", url: "https://travel.itigre.com/2025/tokyo/coupon/takeya.webp" },
+        { name: "AEON LakeTown", offer: "專屬優惠券", img: "https://www.aeon-laketown.jp/img/logo.png", url: "https://en.aeonmall.global/coupons/discount?couponid=22&mall=mall06" },
+        { name: "BRIEFING", offer: "免稅10% + 10% OFF", img: "https://res.cloudinary.com/dshfj9ace/image/upload/v1765378137/IMG_0108_rmh080.jpg", url: "https://res.cloudinary.com/dshfj9ace/image/upload/v1765378137/IMG_0108_rmh080.jpg" }
+    ];
+
+    let expenses = JSON.parse(localStorage.getItem('tokyo_expenses')) || [];
+    let currentExchangeRate = 0.215;
+
+    async function fetchExchangeRate() {
+        const rateEl = document.getElementById('header-rate');
+        let ok = false;
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest?base=JPY');
+            if (res.ok) {
+                const data = await res.json();
+                currentExchangeRate = data.rates.TWD;
+                ok = true;
+            }
+        } catch (e) { console.warn('主要匯率 API 失敗'); }
+
+        if (!ok) {
+            try {
+                const res2 = await fetch('https://api.frankfurter.app/latest?from=JPY&to=TWD');
+                if (res2.ok) {
+                    const data2 = await res2.json();
+                    currentExchangeRate = data2.rates.TWD;
+                }
+            } catch (e) { console.warn('備用匯率 API 失敗'); }
+        }
+        rateEl.innerHTML = `<span class="symbol">¥</span>1 = NT$${currentExchangeRate.toFixed(3)}`;
+        renderExpenses();
+    }
+
+    function addExpense() {
+        const item = document.getElementById('acc-item').value;
+        const cost = parseInt(document.getElementById('acc-cost').value);
+        const type = document.getElementById('acc-type').value;
+        if (!item || !cost) return alert("請輸入完整資訊");
+        expenses.unshift({ id: Date.now(), item, cost, type, date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'}) });
+        localStorage.setItem('tokyo_expenses', JSON.stringify(expenses));
+        document.getElementById('acc-item').value = '';
+        document.getElementById('acc-cost').value = '';
+        renderExpenses();
+    }
+
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        list.innerHTML = '';
+        let total = 0;
+        expenses.forEach(e => {
+            total += e.cost;
+            list.innerHTML += `<li style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed #ccc;">
+                <div><span style="margin-right:8px; background:#eee; padding:2px 6px; border-radius:4px;">${e.type}</span><b style="color:#2c3e50;">${e.item}</b> <span style="font-size:0.8rem; color:#888;">(${e.date})</span></div>
+                <div style="font-weight:900; color:#e67e22;">¥${e.cost.toLocaleString()}</div>
+            </li>`;
+        });
+        document.getElementById('acc-total-val').innerText = `¥${total.toLocaleString()}`;
+        document.getElementById('acc-total-twd').innerText = `約 NT$${Math.round(total * currentExchangeRate).toLocaleString()}`;
+    }
+
+    function analyzeExpenses() {
+        if (expenses.length === 0) return alert("還沒有記帳資料喔！");
+        const dataStr = expenses.map(e => `${e.type}:${e.item}(${e.cost})`).join(', ');
+        const prompt = `這是我的東京旅遊消費清單：[${dataStr}]。請幫我分析消費類別比例，並給出省錢建議。`;
+        askGemini(prompt);
+    }
+
+    function renderApp(projectId) {
+        const listContainer = document.getElementById('itinerary-list');
+        const navContainer = document.getElementById('nav-proj' + projectId);
+        listContainer.innerHTML = ''; 
+        navContainer.innerHTML = '';
+
+        const currentData = itineraryData.filter(d => d.project === projectId);
+        
+        currentData.forEach(day => {
+            const chip = document.createElement('div');
+            chip.className = 'date-chip';
+            if(day.coverImage) chip.style.backgroundImage = `url('${day.coverImage}')`;
+            chip.innerHTML = `<span>${day.date.split(' ')[0]}</span>`;
+            chip.onclick = () => scrollToDay(day.id, chip);
+            navContainer.appendChild(chip);
+
+            let eventsHtml = '';
+            day.events.forEach(evt => {
+                let alertHtml = '';
+                if (evt.checkInNote) alertHtml += `<div class="check-in-alert">🔴 提醒：起飛前48小時記得線上報到</div>`;
+                
+                let hotelHtml = '';
+                if (evt.hotelNote) {
+                    hotelHtml = `<div class="hotel-note"><b>🏨 飯店溝通信件 (可直接出示)：</b><br><br>${evt.hotelNote}</div>`;
+                }
+
+                let guideHtml = '';
+                if (evt.transportGuide) {
+                    guideHtml = `<div class="transport-guide">`;
+                    evt.transportGuide.forEach((step, i) => guideHtml += `<div class="guide-step"><div class="step-num">${i+1}</div><div>${step}</div></div>`);
+                    guideHtml += `</div>`;
+                }
+
+                let buyHtml = '';
+                if (evt.mustBuys) {
+                    buyHtml = `<div class="must-buy-section"><div class="must-buy-title">🛍️ 必買與攻略</div>`;
+                    evt.mustBuys.forEach(b => {
+                        buyHtml += `<div class="must-buy-item">
+                            <span><b>${b.cat}</b>: ${b.item}</span>
+                            ${b.os ? '<span class="os-tag">推薦</span>' : ''}
+                        </div>`;
+                    });
+                    buyHtml += `</div>`;
+                }
+
+                const hour = parseInt(evt.time.split(':')[0]);
+                let aiPrompt = `我現在在東京的「${evt.title}」。`;
+                if (!isNaN(hour) && ((hour >= 11 && hour <= 13) || (hour >= 18 && hour <= 20))) {
+                    aiPrompt += `請推薦 3 個走路 5 分鐘內可到的「在地美食」，排除連鎖店。`;
+                } else {
+                    aiPrompt += `請告訴我這裡最值得拍的一張照片要在哪裡取景？還有什麼鮮為人知的歷史故事？`;
+                }
+
+                eventsHtml += `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-time">${evt.time}</span>
+                                <h3 class="card-title">${evt.title}</h3>
+                                ${alertHtml}
+                                ${hotelHtml}
+                                <div class="card-desc">${evt.desc}</div>
+                                ${guideHtml}
+                                ${buyHtml}
+                                <div class="btn-group">
+                                    <a href="http://googleusercontent.com/maps.google.com/2{encodeURIComponent(evt.map)}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
+                                    <button onclick="askGemini('${aiPrompt}')" class="btn btn-gemini-ai">✨ AI攻略</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+
+            listContainer.innerHTML += `
+                <div id="${day.id}" class="day-section ${day.theme}">
+                    ${day.coverImage ? `<img src="${day.coverImage}" class="day-cover-img" loading="lazy">` : ''}
+                    <div class="day-header"><h2>${day.date}</h2><span class="day-tag" style="background:#2c3e50">Trip</span></div>
+                    <div class="timeline-wrapper"><div class="timeline-line"></div>${eventsHtml}</div>
+                </div>`;
+        });
+    }
+
+    function setProject(project) {
+        document.querySelectorAll('.project-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.date-scroller').forEach(s => s.classList.remove('active'));
+        document.getElementById('tab-project' + project).classList.add('active');
+        document.getElementById('nav-proj' + project).classList.add('active');
+        renderApp(project);
+    }
+
+    function switchTab(tabId, navEl) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function scrollToDay(id, chip) {
+        document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const offset = document.getElementById(id).offsetTop - 130;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+
+    async function askGemini(promptText) {
+        const finalPrompt = `${promptText}\n\n(請用繁體中文回答，並簡短扼要)`;
+        if(navigator.clipboard) {
+            try { await navigator.clipboard.writeText(finalPrompt); showToast("✅ 指令已複製！"); } 
+            catch(e) { showToast("⚠️ 請手動複製"); }
+        }
+        setTimeout(() => window.open(`https://gemini.google.com/app?text=${encodeURIComponent(finalPrompt)}`, '_blank'), 800);
+    }
+
+    function callGeminiTranslate(mode) {
+        const text = document.getElementById('trans-text').value;
+        if (!text) return alert("請輸入內容");
+        const prompt = mode === 'polite' ? 
+            `請幫我把「${text}」翻譯成非常有禮貌的日文敬語，附上羅馬拼音。` : 
+            `請幫我把「${text}」翻譯成日文口語，附上羅馬拼音。`;
+        askGemini(prompt);
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg; toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function hideModal(id) { document.getElementById(id).classList.remove('active'); }
+    function closeModal(e, id) { if(e.target.id === id) hideModal(id); }
+    
+    function renderTools() {
+        const pGrid = document.getElementById('phrase-grid');
+        phraseData.forEach(p => {
+            pGrid.innerHTML += `<div class="phrase-card" onclick="openPhrase('${p.jp}', '${p.zh}', '${p.en}')">
+                <div class="phrase-zh">${p.zh}</div><div class="phrase-jp-small">${p.jp}</div>
+            </div>`;
+        });
+        const cGrid = document.getElementById('coupon-list');
+        couponData.forEach(c => {
+            cGrid.innerHTML += `<div class="coupon-card" onclick="openCoupon('${c.name}', '${c.img}', '${c.offer}', '${c.url}')">
+                <div style="width:100%; height:140px; overflow:hidden;"><img src="${c.img}" class="coupon-img"></div>
+                <div class="coupon-content"><div class="coupon-name">${c.name}</div><div class="coupon-offer">${c.offer}</div></div>
+            </div>`;
+        });
+    }
+
+    function openPhrase(jp, zh, en) {
+        document.getElementById('modal-jp').innerText = jp;
+        document.getElementById('modal-zh').innerText = zh;
+        document.getElementById('modal-en').innerText = en;
+        document.getElementById('phrase-modal').classList.add('active');
+        if(navigator.clipboard) navigator.clipboard.writeText(jp);
+    }
+
+    function openCoupon(name, img, offer, url) {
+        document.getElementById('cm-title').innerText = name;
+        document.getElementById('cm-img').src = img;
+        document.getElementById('cm-offer').innerText = offer;
+        document.getElementById('cm-link').href = url;
+        document.getElementById('coupon-modal').classList.add('active');
+    }
+
+    let currentFontSize = 100;
+    function changeFontSize(v) {
+        currentFontSize = Math.max(100, Math.min(200, currentFontSize + v));
+        document.documentElement.style.fontSize = currentFontSize + "%";
+        document.getElementById('font-size-display').innerText = currentFontSize + "%";
+    }
+
+    // 初始化
+    fetchExchangeRate();
+    renderTools();
+    setProject(1); 
+</script>
+</body>
+</html>
