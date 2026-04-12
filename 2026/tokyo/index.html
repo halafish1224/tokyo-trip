@@ -17,19 +17,19 @@
     <style>
         /* === 核心樣式與手繪風配色 === */
         :root {
-            --bg-overlay: rgba(253, 251, 247, 0.92); /* 更溫暖的紙張底色 */
+            --bg-overlay: rgba(253, 251, 247, 0.92);
             --card-bg: #FFFFFF;
-            --text-main: #2c3e50; /* 鋼筆墨水藍灰 */
+            --text-main: #2c3e50;
             --text-sub: #555555;
             --theme-blue: #2980b9;
             --theme-orange: #e67e22;
             --theme-green: #27ae60;
             --theme-red: #c0392b;
             --color-gold: #d35400;
+            --color-pink: #e84393; /* 親子專屬粉色 */
             --color-dark-grey: #1A374D;
             --gemini-gradient: linear-gradient(135deg, #4285F4, #9B72CB, #D96570);
             
-            /* 手繪風不規則邊框與陰影參數 */
             --hand-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
             --hand-border: 2px solid #2c3e50;
             --hand-shadow: 4px 4px 0px rgba(44, 62, 80, 0.15);
@@ -39,7 +39,6 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; word-break: break-word; }
 
         body {
-            /* 融合手繪字體與黑體 */
             font-family: 'Klee One', 'Noto Sans TC', sans-serif;
             margin: 0; padding-bottom: 90px; line-height: 1.6;
             color: var(--text-main); min-height: 100vh;
@@ -59,7 +58,6 @@
             background-color: var(--bg-overlay); z-index: -1; backdrop-filter: blur(4px);
         }
 
-        /* --- Header 導覽區塊 --- */
         header {
             background: rgba(253, 251, 247, 0.96);
             position: sticky; top: 0; z-index: 100;
@@ -108,7 +106,7 @@
             color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             background-size: cover; background-position: center;
             box-shadow: 2px 2px 0px rgba(0,0,0,0.2); position: relative; overflow: hidden;
-            background-color: #7f8c8d; /* 預設底色 */
+            background-color: #7f8c8d;
         }
         .date-chip::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 0; }
         .date-chip span { z-index: 1; position: relative; }
@@ -127,7 +125,6 @@
         }
         .font-display { font-weight: bold; color: var(--color-dark-grey); min-width: 60px; text-align: center; }
 
-        /* --- 手繪風格卡片與行程 --- */
         .day-section {
             background: #fff; overflow: hidden; margin-bottom: 35px;
             border: var(--hand-border); border-radius: 8px; box-shadow: var(--hand-shadow);
@@ -155,35 +152,42 @@
             border-radius: 50%; border: 3px solid #2c3e50; background: #fffdf7;
             box-shadow: 2px 2px 0px rgba(0,0,0,0.1); z-index: 2;
         }
+        /* 親子專屬點點 */
+        .timeline-dot.kid-dot { border-color: var(--color-pink); background: #ffe4e1; }
 
         .card {
             background: #fff; 
             border: var(--hand-border); border-radius: var(--hand-radius);
             box-shadow: var(--hand-shadow); overflow: hidden;
         }
+        /* 親子專屬卡片邊框 */
+        .card.kid-card { border-color: var(--color-pink); box-shadow: 4px 4px 0px rgba(232, 67, 147, 0.15); }
+
         .card-content { padding: 18px; }
         .card-time { 
             font-size: 0.9rem; font-weight: 700; color: #fff; background: var(--text-main);
             display: inline-block; margin-bottom: 8px; padding: 3px 10px; 
             border-radius: var(--hand-radius); border: 1px solid #2c3e50;
         }
+        .kid-card .card-time { background: var(--color-pink); border-color: #b71540; }
+
         .card-title { font-size: 1.2rem; font-weight: 900; margin: 0 0 10px; color: #111; }
+        .kid-title { color: var(--color-pink); display: flex; align-items: center; gap: 6px; }
+
         .card-desc { font-size: 1rem; color: #444; margin-bottom: 12px; line-height: 1.7; }
 
-        .check-in-alert, .insurance-alert { 
+        .check-in-alert { 
             background: #FFEBEE; color: #C62828; padding: 12px; 
             border-radius: 8px; font-weight: bold; margin-bottom: 15px; 
             border: 2px solid #C62828; border-radius: var(--hand-radius);
         }
 
-        /* 飯店信件專用區塊 */
         .hotel-note {
             background: #fff3cd; color: #856404; padding: 12px; 
             border-radius: var(--hand-radius); border: 2px dashed #ffeeba; 
             margin-bottom: 12px; font-size: 0.95rem; font-weight: 600;
         }
 
-        /* 標籤與細節樣式 */
         .os-tag { background: #D32F2F; color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 5px; border: 1px solid #fff;}
         .must-buy-section { background: rgba(255,255,255,0.6); border-radius: 8px; padding: 15px; margin-top: 15px; border: 2px dashed #2c3e50; }
         .must-buy-title { font-weight: 900; font-size: 1rem; margin-bottom: 8px; }
@@ -194,7 +198,6 @@
         .guide-step { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 0.95rem; }
         .step-num { background: #2c3e50; color: #fff; width: 22px; height: 22px; border-radius: 50%; text-align: center; line-height: 22px; font-size: 0.8rem; margin-right: 10px; flex-shrink: 0; font-family: sans-serif; }
 
-        /* 按鈕樣式 (手寫圓潤感) */
         .btn-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
         .btn { 
             flex: 1; text-align: center; padding: 10px 0; text-decoration: none; font-size: 0.95rem; font-weight: bold; 
@@ -221,7 +224,6 @@
             border-width: 0 10px 10px 10px; border-style: solid; border-color: transparent transparent #fff transparent; 
         }
         
-        /* --- 工具與記帳區塊 --- */
         .tools-card, .account-card { 
             background: #fffdf7; padding: 22px; margin-bottom: 20px; 
             border: var(--hand-border); border-radius: var(--hand-radius); box-shadow: var(--hand-shadow);
@@ -231,7 +233,6 @@
             font-size: 1rem; margin-bottom: 12px; font-family: inherit;
         }
         
-        /* 網格 RWD 調整 */
         .phrase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
         .phrase-card { 
             border: var(--hand-border); padding: 15px; border-radius: var(--hand-radius); 
@@ -251,14 +252,12 @@
         .coupon-name { font-size: 1.1rem; font-weight: 900; margin-bottom: 8px; }
         .coupon-offer { font-size: 0.9rem; color: #D32F2F; font-weight: bold; background: #FFEBEE; display: inline-block; padding: 4px 10px; border-radius: 20px; border: 1px solid #D32F2F; }
 
-        /* Modal 彈出視窗 */
         .phrase-modal, .coupon-modal { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,0.85); backdrop-filter: blur(3px); }
         .phrase-modal.active, .coupon-modal.active { display: flex; }
         .modal-content { position: relative; background: #fffdf7; border: var(--hand-border); border-radius: 12px; padding: 30px 20px; max-width: 480px; width: 100%; text-align: center; max-height: 90vh; overflow-y: auto; box-shadow: 8px 8px 0px rgba(0,0,0,0.3); }
         .modal-close { position: absolute; top: 10px; right: 15px; border: none; background: transparent; font-size: 2rem; cursor: pointer; color: #333; font-weight: bold; }
         .cm-img-container img { max-width: 100%; height: auto; border: 2px solid #eee; border-radius: 8px; }
 
-        /* 底部導覽列 */
         .footer-nav { 
             position: fixed; bottom: 0; left: 0; width: 100%; background: #fffdf7; 
             display: flex; justify-content: space-around; padding: 12px 0 25px; 
@@ -282,7 +281,6 @@
         .toast-notification { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(44, 62, 80, 0.9); color: white; padding: 12px 24px; border-radius: 50px; font-size: 0.95rem; font-weight: bold; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 3000; border: 2px solid #fff; }
         .toast-notification.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
-        /* 手機 RWD 細節微調 */
         @media (max-width: 480px) {
             .top-bar { flex-direction: column; align-items: flex-start; }
             .top-right { width: 100%; justify-content: flex-end; margin-top: 5px; }
@@ -301,14 +299,16 @@
         <div class="top-bar">
             <div class="top-title">TOKYO<span class="year">2026</span></div>
             <div class="project-tabs">
-                <button id="tab-project1" class="project-tab active" onclick="setProject(1)">家族冬日｜12/19–12/26</button>
+                <button id="tab-project2" class="project-tab active" onclick="setProject(2)">家族冬日｜12/19–12/26</button>
+                <button id="tab-project1" class="project-tab" onclick="setProject(1)">獨旅紀錄｜12/13–12/19</button>
             </div>
             <div class="top-right">
                 <div id="header-rate" class="header-rate"><span class="symbol">¥</span> 載入中...</div>
             </div>
        </div>
        <div class="project-nav-row">
-            <div class="date-scroller active" id="nav-proj1"></div>
+            <div class="date-scroller active" id="nav-proj2"></div>
+            <div class="date-scroller" id="nav-proj1"></div>
        </div>
     </div>
 </header>
@@ -410,57 +410,94 @@
 </nav>
 
 <script>
-    // === 2026 行程資料庫更新 ===
+    // === 2026 行程資料庫更新 (整合新景點與兒童標記) ===
     const itineraryData = [
+        // --- Project 1: 獨旅保留版 ---
         {
-            date: "12/19 (六)", id: "d1", theme: "theme-blue", project: 1, fullDate: "2026-12-19",
+            date: "12/13 (日)", id: "solo1", theme: "theme-blue", project: 1, fullDate: "2026-12-13",
+            events: [
+                { time: "未定", title: "行程規劃中", desc: "獨旅的精彩篇章，敬請期待。" }
+            ]
+        },
+
+        // --- Project 2: 家族冬日版 ---
+        {
+            date: "12/19 (六)", id: "d1", theme: "theme-blue", project: 2, fullDate: "2026-12-19",
             coverImage: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop", 
             events: [
                 { time: "17:00", title: "抵達成田機場", desc: "抵達東京夜晚。領取行李後，準備搭車前往森下（飯店周邊）。", checkInNote: "去程", map: "成田空港" },
                 { time: "19:30", title: "入住飯店 (森下區域)", desc: "安排長輩與大家入住。", hotelNote: "こんにちは<br>5部屋を予約しております。予約番号は以下の通りです。<br>6068533、6068534、6092624、6097070、6097071。<br>可能であれば、同じフロアにご用意いただけますでしょうか。<br>よろしくお願いいたします", map: "森下駅" },
-                { time: "20:30", title: "周邊晚餐與休息", desc: "飯店附近便利店或小餐館解決。今晚無行程（很重要），好好休息，儲備明日體力。", map: "森下" }
+                { time: "20:30", title: "周邊晚餐與超市採買", desc: "飯店附近便利店或小餐館解決。今晚無行程（很重要），好好休息。<br><br><b>🛒 周邊超推薦的三大超市：</b><br>1. <b>赤札堂 森下店</b>：出站即達，買宵夜飲料最方便。<br>2. <b>LIFE (ライフ) 菊川店</b>：明亮大型，熟食與自有品牌極佳。<br>3. <b>Ozeki (オオゼキ) 菊川店</b>：想買高品質水果生鮮來這裡準沒錯。", map: "赤札堂 森下店" }
             ]
         },
         {
-            date: "12/20 (日)", id: "d2", theme: "theme-red", project: 1, fullDate: "2026-12-20",
+            date: "12/20 (日)", id: "d2", theme: "theme-red", project: 2, fullDate: "2026-12-20",
             coverImage: "https://images.unsplash.com/photo-1533050487297-09b450131914?q=80&w=800&auto=format&fit=crop",
             events: [
                 { time: "09:30", title: "淺草寺與仲見世通", desc: "從森下搭乘電車前往淺草，感受傳統江戶風情與熱鬧氛圍。", transportGuide: ["森下 → 淺草（約 10 分鐘）"], map: "浅草寺" },
-                { time: "11:30", title: "Ninja Trick House Tokyo", desc: "隱藏在淺草的忍者體驗館，全家一起挑戰忍術機關！", map: "Ninja Trick House Tokyo" },
+                { time: "11:30", title: "Ninja Trick House Tokyo", desc: "隱藏在淺草的忍者體驗館，全家一起挑戰忍術機關！", kidFriendly: true, map: "Ninja Trick House Tokyo" },
                 { time: "13:00", title: "淺草午餐", desc: "淺草炸物 / 壽司 / 拉麵（視現場排隊狀況彈性解決）。", map: "浅草" },
-                { time: "15:00", title: "淺草咖啡休息", desc: "找間特色咖啡廳稍作休息，享受悠閒的午後。", map: "浅草" }
+                { time: "15:00", title: "下島包裝 (Shimojima) 淺草橋", desc: "採買精美包裝與文具的好地方。（週日營業至 17:30，趁回程順路逛逛）", map: "シモジマ 浅草橋本店" }
             ]
         },
         {
-            date: "12/21 (一)", id: "d3", theme: "theme-green", project: 1, fullDate: "2026-12-21",
+            date: "12/21 (一)", id: "d3", theme: "theme-green", project: 2, fullDate: "2026-12-21",
             coverImage: "https://images.unsplash.com/photo-1542931287-023b922fa89b?q=80&w=800&auto=format&fit=crop", 
             events: [
                 { time: "10:00", title: "東京晴空塔 (展望台)", desc: "登上晴空塔俯瞰東京市景，天氣好時有機會看見富士山。", transportGuide: ["森下 → 押上（都營淺草線直達）"], map: "東京スカイツリー" },
                 { time: "12:00", title: "叙叙苑 Solamachi店", desc: "享受高空景觀的頂級燒肉午餐，絕佳的視野與美食體驗。", map: "叙々苑 東京スカイツリータウン・ソラマチ店" },
-                { time: "14:00", title: "墨田水族館", desc: "位於晴空塔內的精緻水族館，帶孩子們觀賞企鵝與優美的花園鰻。", map: "すみだ水族館" },
-                { time: "16:00", title: "晴空塔商場 Solamachi", desc: "商場購物與散策，或許還能安排去柯尼卡美能達天文館「天空」。", map: "東京ソラマチ" }
+                { time: "14:00", title: "墨田水族館", desc: "位於晴空塔內的精緻水族館，帶孩子們觀賞企鵝與優美的花園鰻。", kidFriendly: true, map: "すみだ水族館" },
+                { time: "16:00", title: "上野 阿美橫町 / 二木果子", desc: "搭車前往上野。在二木果子店 (Niki no Kashi) 瘋狂採購平價又豐富的日本零食！", map: "二木の菓子 第一営業所" }
             ]
         },
         {
-            date: "12/22 (二)", id: "d4", theme: "theme-blue", project: 1, fullDate: "2026-12-22",
+            date: "12/22 (二)", id: "d4", theme: "theme-blue", project: 2, fullDate: "2026-12-22",
             coverImage: "https://images.unsplash.com/photo-1551634979-2b11f8c946e7?q=80&w=800&auto=format&fit=crop", 
             events: [
-                { time: "09:00", title: "teamLab Planets TOKYO", desc: "沉浸式光影藝術體驗 (主行程，預計停留至 11:00)。", map: "teamLab Planets TOKYO" },
+                { time: "09:00", title: "teamLab Planets TOKYO", desc: "沉浸式光影藝術體驗 (主行程，預計停留至 11:00)。", kidFriendly: true, map: "teamLab Planets TOKYO" },
                 { time: "11:30", title: "豐洲市場 / LaLaport", desc: "午餐時間。可以在豐洲市場吃新鮮海產，或前往 LaLaport 綜合商場。", map: "アーバンドック ららぽーと豊洲" },
-                { time: "14:00", title: "小孩最開心日：台場主題館", desc: "LEGO Discovery Center Tokyo 或 Joypolis（二選一），或者前往日本科學未來館。", map: "レゴランド・ディスカバリー・センター東京" },
-                { time: "16:30", title: "台場海濱散步 & 鋼彈", desc: "觀看 DiverCity 巨大的獨角獸鋼彈，沿著海濱公園欣賞夕陽與彩虹大橋。", map: "ダイバーシティ東京 プラザ" },
+                { time: "14:00", title: "台場主題館 (二選一)", desc: "LEGO Discovery Center 或 Joypolis。這天是小孩最開心日！", kidFriendly: true, map: "レゴランド・ディスカバリー・センター東京" },
+                { time: "16:30", title: "台場海濱散步 & 獨角獸鋼彈", desc: "觀看 DiverCity 巨大的獨角獸鋼彈 (目前仍在此展出且有燈光秀！)，沿著海濱公園欣賞夕陽與彩虹大橋。", map: "ダイバーシティ東京 プラザ" },
                 { time: "18:30", title: "台場美食街晚餐", desc: "直接在台場享用晚餐，不需移動回市區，輕鬆結束充實的一天。", map: "アクアシティお台場" }
             ]
         },
         {
-            date: "12/23 (三) 後續擴充", id: "d5", theme: "theme-orange", project: 1, fullDate: "2026-12-23",
+            date: "12/23 (三)", id: "d5", theme: "theme-orange", project: 2, fullDate: "2026-12-23",
             coverImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop",
             events: [
-                { time: "規劃中", title: "銀座與六本木", desc: "（待補完）包含銀座步行街、伊東屋文具採購、GINZA Yoshoku Mikasakaikan 午餐，以及六本木 L'Atelier de Joel Robuchon 的法式饗宴。", map: "銀座" }
+                { time: "09:30", title: "豪德寺 (招財貓)", desc: "前往世田谷區的豪德寺，感受成千上萬隻招財貓帶來的視覺震撼與寧靜氛圍。", map: "豪徳寺" },
+                { time: "13:00", title: "豚野郎 (午餐)", desc: "移動回市區 (御茶水站附近)，品嚐以豪邁碳烤豬肉聞名的排隊名店「豚野郎」豬肉丼飯。", map: "豚野郎" },
+                { time: "15:30", title: "戶外眺望 東京鐵塔日落", desc: "這裡非常適合攝影，建議到「港區立芝公園1號地」的草地上拍下鐵塔全景，或在「增上寺」拍下古寺與鐵塔的歷史對比。如果體力允許，東京鐵塔的 600階戶外樓梯 目前已開放平日攀爬囉！", map: "芝公園" },
+                { time: "18:00", title: "東京鐵塔 浪漫夜景", desc: "看著東京鐵塔逐漸點燈。隨後可在附近或回到飯店周邊享用晚餐。", map: "東京タワー" }
+            ]
+        },
+        {
+            date: "12/24 (四)", id: "d6", theme: "theme-red", project: 2, fullDate: "2026-12-24",
+            coverImage: "https://images.unsplash.com/photo-1481437156560-3205f6a55735?q=80&w=800&auto=format&fit=crop",
+            events: [
+                { time: "10:00", title: "AEON MALL Laketown", desc: "全日大採購！搭車前往越谷，這裡是日本最大規模的購物中心 (Kaze/Mori/Outlet 三館)。請務必準備好休足時間與登機箱！", map: "イオンレイクタウン" },
+                { time: "18:00", title: "平安夜晚餐", desc: "帶著滿滿的戰利品，在商場內或回市區享用豐盛的聖誕夜大餐。", map: "イオンレイクタウン" }
+            ]
+        },
+        {
+            date: "12/25 (五)", id: "d7", theme: "theme-green", project: 2, fullDate: "2026-12-25",
+            coverImage: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=800&auto=format&fit=crop",
+            events: [
+                { time: "10:30", title: "銀座步行街與伊東屋", desc: "銀座的精緻巡禮，百年文具老店伊東屋 (Itoya) 絕對不能錯過。", map: "銀座伊東屋 本店" },
+                { time: "12:30", title: "GINZA Yoshoku Mikasakaikan", desc: "享用銀座經典的洋食午餐。", map: "三笠会館 銀座本店" },
+                { time: "15:00", title: "六本木之丘 & 櫸坂", desc: "轉往六本木，品嚐 L'Atelier de Joel Robuchon。傍晚欣賞櫸坂 (Keyakizaka) 的絕美聖誕燈飾。", map: "六本木ヒルズ" }
+            ]
+        },
+        {
+            date: "12/26 (六)", id: "d8", theme: "theme-blue", project: 2, fullDate: "2026-12-26",
+            coverImage: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop",
+            events: [
+                { time: "10:00", title: "整理行裝 & 返程", desc: "帶著滿滿的回憶，前往成田機場搭機回台。", checkInNote: "回程", map: "成田空港" }
             ]
         }
     ];
 
+    // Phrase 與 Coupon 資料庫維持原狀
     const phraseData = [
         { zh: '請問洋式(坐式)廁所在哪？', jp: 'ようしきトイレはどこですか？', en: 'Western-style toilet?' },
         { zh: '我想休息一下，請問有椅子嗎？', jp: 'すこしやすみたいです。イスはありますか？', en: 'Any chairs?' },
@@ -586,17 +623,12 @@
                     guideHtml += `</div>`;
                 }
 
-                let buyHtml = '';
-                if (evt.mustBuys) {
-                    buyHtml = `<div class="must-buy-section"><div class="must-buy-title">🛍️ 必買與攻略</div>`;
-                    evt.mustBuys.forEach(b => {
-                        buyHtml += `<div class="must-buy-item">
-                            <span><b>${b.cat}</b>: ${b.item}</span>
-                            ${b.os ? '<span class="os-tag">推薦</span>' : ''}
-                        </div>`;
-                    });
-                    buyHtml += `</div>`;
-                }
+                // 判斷是否為親子景點，套用專屬樣式
+                const kidCardClass = evt.kidFriendly ? 'kid-card' : '';
+                const kidDotClass = evt.kidFriendly ? 'kid-dot' : '';
+                const titleHtml = evt.kidFriendly 
+                    ? `<h3 class="card-title kid-title">👧👦 ${evt.title}</h3>` 
+                    : `<h3 class="card-title">${evt.title}</h3>`;
 
                 const hour = parseInt(evt.time.split(':')[0]);
                 let aiPrompt = `我現在在東京的「${evt.title}」。`;
@@ -608,18 +640,17 @@
 
                 eventsHtml += `
                     <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="card">
+                        <div class="timeline-dot ${kidDotClass}"></div>
+                        <div class="card ${kidCardClass}">
                             <div class="card-content">
                                 <span class="card-time">${evt.time}</span>
-                                <h3 class="card-title">${evt.title}</h3>
+                                ${titleHtml}
                                 ${alertHtml}
                                 ${hotelHtml}
                                 <div class="card-desc">${evt.desc}</div>
                                 ${guideHtml}
-                                ${buyHtml}
                                 <div class="btn-group">
-                                    <a href="http://googleusercontent.com/maps.google.com/2{encodeURIComponent(evt.map)}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
+                                    <a href="http://googleusercontent.com/maps.google.com/3{encodeURIComponent(evt.map)}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
                                     <button onclick="askGemini('${aiPrompt}')" class="btn btn-gemini-ai">✨ AI攻略</button>
                                 </div>
                             </div>
@@ -728,7 +759,7 @@
     // 初始化
     fetchExchangeRate();
     renderTools();
-    setProject(1); 
+    setProject(2); // 預設開啟 Project 2 (家族版)
 </script>
 </body>
 </html>
