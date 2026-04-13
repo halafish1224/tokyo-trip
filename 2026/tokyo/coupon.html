@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="2026東京冬日14天深度自由行行程表 - 鎌倉獨旅、家族會合完整規劃。">
+    <title>東京冬日紀行 2026 | 完整版</title>
+    <meta name="theme-color" content="#F5EFE6">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-overlay: rgba(253, 251, 246, 0.96);
+            --card-bg: #FFFDF8;
+            --text-main: #3E3A39;
+            --text-sub: #6B635E;
+            --status-future: #D95F59;
+            --status-today: #5A8065;    
+            --status-past: #A8A096;     
+            --theme-orange: #E08E55;
+            --sketch-border: 2px solid #5A5451;
+            --sketch-shadow: 4px 5px 0px rgba(62, 58, 57, 0.12);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
+            margin: 0;
+            padding-bottom: 110px;
+            line-height: 1.8;
+            color: var(--text-main);
+            background-color: #F5EFE6;
+            font-size: 18px; /* 再次放大字體，適合長輩 */
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://loremflickr.com/2048/3072/tokyo,winter,sky');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            opacity: 0.4;
+        }
+        
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-overlay);
+            z-index: -1;
+            backdrop-filter: blur(4px);
+        }
+
+        header {
+            background: rgba(253, 251, 246, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px dashed #BBAFA1;
+        }
+
+        .header-inner { max-width: 800px; margin: 0 auto; padding: 12px 16px 0; }
+        .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4rem; font-weight: 900; }
+        .header-clock { font-size: 0.9rem; font-weight: bold; color: var(--theme-orange); }
+
+        .project-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+        .project-tab {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: var(--sketch-border);
+            background: #F4EBE0;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .project-tab.active { background: #E08E55; color: #fff; }
+
+        .date-scroller { display: none; overflow-x: auto; padding-bottom: 12px; gap: 12px; scrollbar-width: none; }
+        .date-scroller.active { display: flex; }
+        .date-chip {
+            flex: 0 0 auto; padding: 8px 18px; 
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: var(--sketch-border);
+            font-weight: bold;
+            background: #FFF;
+        }
+        .chip-today { background: #5A8065 !important; color: white !important; }
+
+        .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
+
+        /* 行程卡片樣式 */
+        .day-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 15px; }
+        .day-header h2 { margin: 0; font-size: 1.5rem; font-weight: 900; }
+        
+        .timeline-wrapper { position: relative; padding-left: 24px; border-left: 2px dashed #BBAFA1; }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot { 
+            position: absolute; left: -34px; top: 10px; width: 18px; height: 18px; 
+            border-radius: 50%; border: 3px solid #FFFDF8; background: #E08E55;
+        }
+
+        .card { 
+            background: var(--card-bg); border: var(--sketch-border);
+            border-radius: 10px 30px 10px 30px;
+            box-shadow: var(--sketch-shadow); overflow: hidden;
+        }
+        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: var(--sketch-border); }
+        .card-content { padding: 20px; }
+        .card-time { color: #E08E55; font-weight: 900; font-size: 1.1rem; }
+        .card-title { font-size: 1.4rem; font-weight: 900; margin: 5px 0 10px; }
+        .card-desc { font-size: 1.1rem; color: #4A4542; line-height: 1.8; }
+
+        /* 導航按鈕 */
+        .btn-group { display: flex; gap: 12px; margin-top: 20px; }
+        .btn-map { 
+            flex: 1; text-align: center; padding: 12px; 
+            border-radius: 255px 15px 225px 15px;
+            border: var(--sketch-border); background: #6A8EAE; color: #FFF;
+            text-decoration: none; font-weight: bold; font-size: 1.1rem;
+        }
+
+        /* 記帳/待購頁面專屬樣式 */
+        .coupon-box {
+            background: #FFF9E6; border: 2px dashed #E08E55;
+            border-radius: 15px; padding: 15px; margin-bottom: 25px;
+            text-align: center; text-decoration: none; display: block;
+            color: #3E3A39;
+        }
+        .coupon-icon { font-size: 2rem; margin-bottom: 5px; display: block; }
+        
+        .acc-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px dashed #DCD8D3; }
+        .acc-title { font-size: 1.4rem; font-weight: 900; margin-bottom: 15px; color: #E08E55; border-left: 6px solid #E08E55; padding-left: 12px; }
+        
+        .buy-item-card {
+            background: #FFF; border: 2px solid #5A5451; border-radius: 12px;
+            padding: 15px; margin-bottom: 15px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1);
+        }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .store-list { list-style: none; padding: 0; margin: 10px 0 0; background: #F9F6F0; border-radius: 8px; padding: 10px; }
+        .store-item { font-size: 0.95rem; border-bottom: 1px dotted #CCC; display: flex; justify-content: space-between; }
+        .store-item:last-child { border-bottom: none; }
+
+        .input-group { display: flex; gap: 8px; margin-bottom: 15px; }
+        .input-field { flex: 1; padding: 12px; border: 2px solid #DCD8D3; border-radius: 8px; font-family: inherit; font-size: 1rem; }
+        .btn-add { background: #3E3A39; color: #FFF; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; }
+
+        /* 頁籤導覽 */
+        .footer-nav { 
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: #FDFBF7; border-top: 2px solid #5A5451;
+            display: flex; justify-content: space-around; padding: 15px 0 35px; 
+            z-index: 1000;
+        }
+        .nav-item { text-align: center; color: #A8A096; flex: 1; font-weight: bold; cursor: pointer; }
+        .nav-item.active { color: #E08E55; }
+        .nav-icon { font-size: 1.8rem; display: block; }
+
+        .section { display: none; }
+        .section.active { display: block; }
+
+        .keyword-orange { background: linear-gradient(transparent 60%, #FFE0B2 40%); padding: 0 4px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="top-bar">
+            <div class="top-title">TOKYO<span>2026</span></div>
+            <div id="header-clock" class="header-clock">--/-- 讀取中</div>
+        </div>
+        <div class="project-tabs">
+            <button id="tab-p1" class="project-tab active" onclick="setProject(1)">📓 獨旅篇</button>
+            <button id="tab-p2" class="project-tab" onclick="setProject(2)">👨‍👩‍👧‍👦 家族篇</button>
+        </div>
+        <div class="date-scroller active" id="nav-p1"></div>
+        <div class="date-scroller" id="nav-p2"></div>
+    </div>
+</header>
+
+<main class="container">
+    <div id="tab-trip" class="section active">
+        <div id="itinerary-list"></div>
+    </div>
+
+    <div id="tab-account" class="section">
+        <a href="https://itigre.pse.is/japancoupon" target="_blank" class="coupon-box">
+            <span class="coupon-icon">🎫</span>
+            <div style="font-weight: 900; font-size: 1.2rem;">購物折扣券清單 (Bic Camera/藥妝)</div>
+            <div style="font-size: 0.9rem; color: #E08E55;">點此開啟連結</div>
+        </a>
+
+        <div class="acc-section">
+            <div class="acc-title">今日支出</div>
+            <div style="background: #F4EBE0; padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 15px;">
+                <div style="font-size: 0.9rem;">目前總計</div>
+                <div id="acc-total" style="font-size: 2rem; font-weight: 900; color: #D95F59;">¥0</div>
+                <div id="acc-total-twd" style="font-size: 1rem; font-weight: bold;">約 NT$0</div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="acc-item" class="input-field" placeholder="品項 (例: 拉麵)">
+                <input type="number" id="acc-cost" class="input-field" style="width: 100px;" placeholder="日幣">
+                <button class="btn-add" onclick="addExpense()">＋</button>
+            </div>
+            <ul id="expense-list" style="list-style: none; padding: 0;"></ul>
+        </div>
+
+        <div class="acc-section">
+            <div class="acc-title">待購/比價清單</div>
+            <div class="input-group">
+                <input type="text" id="buy-name" class="input-field" placeholder="商品名稱">
+                <input type="number" id="buy-price" class="input-field" style="width: 100px;" placeholder="預計價">
+                <button class="btn-add" onclick="addToBuy()">＋</button>
+            </div>
+            <div id="tobuy-list"></div>
+        </div>
+    </div>
+</main>
+
+<nav class="footer-nav">
+    <div class="nav-item active" onclick="switchTab('trip', this)"><span class="nav-icon">🗺️</span>行程</div>
+    <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>記帳/待購</div>
+</nav>
+
+<script>
+    const itineraryData = [
+        // P1: 12/13-12/18
+        { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", theme: "theme-orange", events: [
+            { time: "15:00", title: "抵達藤澤 & 入住東橫INN", desc: "入住藤澤站北口飯店，展開鎌倉獨旅。", map: "東横INN藤沢駅北口" },
+            { time: "16:30", title: "清淨光寺散策", desc: "避開觀光客，享受大正感悠閒午後。", map: "遊行寺" }
+        ]},
+        { date: "12/14 (一)", id: "d2", project: 1, fullDate: "2026-12-14", theme: "theme-orange", events: [
+            { time: "09:00", title: "大船觀音與商店街", desc: "捕捉在地市井氛圍，<span class='keyword-orange'>OS Drug 大船店在此採買</span>。", map: "大船仲通り商店街" }
+        ]},
+        { date: "12/15 (二)", id: "d3", project: 1, fullDate: "2026-12-15", theme: "theme-orange", events: [
+            { time: "09:30", title: "江之島全島徒步", desc: "深度攀登海蠟燭與岩屋，維持 6 公里步行量。", map: "江島神社" }
+        ]},
+        { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", theme: "theme-orange", events: [
+            { time: "08:30", title: "箱根一日遊", desc: "經典大涌谷與箱根神社水上鳥居環線。", map: "大涌谷" }
+        ]},
+        { date: "12/17 (四)", id: "d5", project: 1, fullDate: "2026-12-17", theme: "theme-orange", events: [
+            { time: "10:00", title: "藤澤宿歷史老街", desc: "舊東海道驛站漫步，街拍古老酒造建築。", map: "藤澤宿" }
+        ]},
+        { date: "12/18 (五)", id: "d6", project: 1, fullDate: "2026-12-18", theme: "theme-orange", events: [
+            { time: "10:00", title: "光明寺與腰越漁港", desc: "江之電、汽車與行人的昭和生活場景。", map: "腰越駅" }
+        ]},
+        // P2: 12/19-12/26
+        { date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", theme: "theme-green", events: [
+            { time: "16:35", title: "家人抵達東京", desc: "東橫INN新大橋前會合，晚上超市補貨。", map: "東横INN東京駅新大橋前" }
+        ]},
+        { date: "12/20 (日)", id: "d8", project: 2, fullDate: "2026-12-20", theme: "theme-green", events: [
+            { time: "10:00", title: "豪德寺招財貓", desc: "與萬千招財貓合影，長輩友善平坦動線。", map: "豪徳寺" }
+        ]},
+        { date: "12/21 (一)", id: "d9", project: 2, fullDate: "2026-12-21", theme: "theme-green", events: [
+            { time: "09:30", title: "柴又老街 (B組方案)", desc: "懷舊昭和街道、和菓子、木雕寺廟參拜。", map: "柴又帝釈天" }
+        ]},
+        { date: "12/22 (二)", id: "d10", project: 2, fullDate: "2026-12-22", theme: "theme-green", events: [
+            { time: "13:00", title: "敘敘苑燒肉 (晴空塔)", desc: "高空美景與頂級燒肉，用餐環境舒適。", map: "叙々苑 東京スカイツリータウン" }
+        ]},
+        { date: "12/23 (三)", id: "d11", project: 2, fullDate: "2026-12-23", theme: "theme-green", events: [
+            { time: "09:30", title: "舊岩崎宅邸庭園", desc: "欣賞大正浪漫建築，環境優美靜謐。", map: "旧岩崎邸庭園" },
+            { time: "11:30", title: "上野阿美橫町 (重點買藥妝)", desc: "OS Drug、NG 蛋糕、二木菓子一網打盡。", map: "アメ横 OS Drug" },
+            { time: "15:00", title: "下島包裝 Shimojima", desc: "文具與雜貨批發價最後補貨。", map: "シモジマ 浅草橋本店" }
+        ]},
+        { date: "12/24 (四)", id: "d12", project: 2, fullDate: "2026-12-24", theme: "theme-green", events: [
+            { time: "10:30", title: "LakeTown 全日 OUTLET", desc: "室內環境推車極友善，大採買日。", map: "イオンレイクタウン" }
+        ]},
+        { date: "12/25 (五)", id: "d13", project: 2, fullDate: "2026-12-25", theme: "theme-green", events: [
+            { time: "17:30", title: "丸之內點燈 & Bic Camera", desc: "香檳金燈海，全平坦步道，順路逛 Bic Camera。", map: "丸の内仲通り" }
+        ]},
+        { date: "12/26 (六)", id: "d14", project: 2, fullDate: "2026-12-26", theme: "theme-green", events: [
+            { time: "09:30", title: "人形町甘酒橫丁 & 返台", desc: "最後採買與深川飯，搭 Access 特急前往機場。", map: "甘酒横丁" }
+        ]}
+    ];
+
+    // --- 核心邏輯 ---
+    function renderApp() {
+        const p1Nav = document.getElementById('nav-p1');
+        const p2Nav = document.getElementById('nav-p2');
+        const list = document.getElementById('itinerary-list');
+        const today = new Date().toISOString().split('T')[0];
+
+        itineraryData.forEach(day => {
+            const chip = document.createElement('div');
+            chip.className = `date-chip ${day.fullDate === today ? 'chip-today' : ''}`;
+            chip.innerText = day.date.split(' ')[0];
+            chip.onclick = () => scrollToId(day.id);
+            if(day.project === 1) p1Nav.appendChild(chip);
+            else p2Nav.appendChild(chip);
+        });
+
+        let html = '';
+        itineraryData.forEach(day => {
+            html += `<div id="${day.id}" class="day-header ${day.theme}"><h2>${day.date}</h2></div><div class="timeline-wrapper">`;
+            day.events.forEach(evt => {
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map)}`;
+                html += `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-time">${evt.time}</span>
+                            <h3 class="card-title">${evt.title}</h3>
+                            <div class="card-desc">${evt.desc}</div>
+                            <div class="btn-group"><a href="${mapUrl}" target="_blank" class="btn-map">🧭 地圖導航</a></div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            html += `</div>`;
+        });
+        list.innerHTML = html;
+    }
+
+    function scrollToId(id) {
+        const el = document.getElementById(id);
+        const offset = 160;
+        const pos = el.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: pos, behavior: "smooth" });
+    }
+
+    function switchTab(tabId, el) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function setProject(p) {
+        document.getElementById('tab-p1').classList.toggle('active', p === 1);
+        document.getElementById('tab-p2').classList.toggle('active', p === 2);
+        document.getElementById('nav-p1').classList.toggle('active', p === 1);
+        document.getElementById('nav-p2').classList.toggle('active', p === 2);
+    }
+
+    // --- 記帳功能 ---
+    let expenses = JSON.parse(localStorage.getItem('trip_acc')) || [];
+    function addExpense() {
+        const item = document.getElementById('acc-item').value;
+        const cost = parseInt(document.getElementById('acc-cost').value);
+        if(!item || !cost) return;
+        expenses.unshift({ item, cost, date: new Date().toLocaleDateString() });
+        localStorage.setItem('trip_acc', JSON.stringify(expenses));
+        renderExpenses();
+    }
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        list.innerHTML = ''; let total = 0;
+        expenses.forEach(e => {
+            total += e.cost;
+            list.innerHTML += `<li style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #DDD;"><span>${e.item}</span><span style="font-weight:bold;">¥${e.cost.toLocaleString()}</span></li>`;
+        });
+        document.getElementById('acc-total').innerText = `¥${total.toLocaleString()}`;
+        document.getElementById('acc-total-twd').innerText = `約 NT$${Math.round(total * 0.215).toLocaleString()}`;
+    }
+
+    // --- 待購清單 ---
+    let tobuy = JSON.parse(localStorage.getItem('trip_buy')) || [];
+    function addToBuy() {
+        const name = document.getElementById('buy-name').value;
+        const est = document.getElementById('buy-price').value;
+        if(!name) return;
+        tobuy.unshift({ name, est, stores: [] });
+        localStorage.setItem('trip_buy', JSON.stringify(tobuy));
+        renderToBuy();
+    }
+    function addStorePrice(idx) {
+        const storeName = prompt("請輸入店名:");
+        const price = prompt("請輸入未稅價格 (日幣):");
+        if(storeName && price) {
+            tobuy[idx].stores.push({ storeName, price });
+            localStorage.setItem('trip_buy', JSON.stringify(tobuy));
+            renderToBuy();
+        }
+    }
+    function renderToBuy() {
+        const container = document.getElementById('tobuy-list');
+        container.innerHTML = '';
+        tobuy.forEach((b, i) => {
+            let storesHtml = b.stores.map(s => `<div class="store-item"><span>${s.storeName}</span><span>¥${s.price}</span></div>`).join('');
+            container.innerHTML += `
+            <div class="buy-item-card">
+                <div class="price-row">
+                    <span style="font-weight:900;">${b.name}</span>
+                    <span style="color:#6B635E; font-size:0.9rem;">預計 ¥${b.est}</span>
+                </div>
+                <div class="store-list">${storesHtml || '<span style="font-size:0.8rem; color:#999;">尚未記錄價格</span>'}</div>
+                <button onclick="addStorePrice(${i})" style="margin-top:10px; font-size:0.8rem; border:1px solid #3E3A39; background:none; border-radius:5px; cursor:pointer;">＋記下一家店價格</button>
+            </div>`;
+        });
+    }
+
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('header-clock').innerText = now.toLocaleDateString() + ' ' + now.getHours() + ':' + now.getMinutes().toString().padStart(2, '0');
+    }
+
+    setInterval(updateClock, 1000);
+    renderApp();
+    renderExpenses();
+    renderToBuy();
+</script>
+</body>
+</html>
