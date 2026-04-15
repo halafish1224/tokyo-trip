@@ -41,7 +41,7 @@
             font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
             margin: 0; padding-bottom: 110px; line-height: 1.8;
             color: var(--text-main); background-color: #F5EFE6;
-            font-size: 18px; /* 長輩友善大字體 */
+            font-size: 18px;
         }
 
         body::before {
@@ -86,13 +86,11 @@
 
         .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
 
-        /* 行前準備區 */
         .prep-box { background: #FFF; border: 3px solid #3E3A39; border-radius: 12px; padding: 15px; margin-bottom: 25px; box-shadow: var(--sketch-shadow); }
         .prep-title { font-weight: 900; color: var(--theme-orange); margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
         .prep-link { display: block; background: #F9F6F0; border: 2px dashed #BBAFA1; padding: 12px; border-radius: 8px; text-decoration: none; color: var(--text-main); font-weight: bold; margin-bottom: 8px; }
         .prep-link span { color: var(--theme-blue); font-size: 0.9rem; display: block; margin-top: 4px; }
 
-        /* 行程卡片樣式 */
         .day-header { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 15px; border-left: 8px solid var(--theme-orange); padding-left: 10px; }
         .day-header h2 { margin: 0; font-size: 1.6rem; font-weight: 900; }
         
@@ -102,7 +100,6 @@
 
         .card { background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); box-shadow: var(--sketch-shadow); overflow: hidden; }
         
-        /* 動態背景色設定 */
         .bg-kid { background: var(--bg-kid) !important; border-color: var(--border-kid) !important; }
         .bg-senior { background: var(--bg-senior) !important; border-color: var(--border-senior) !important; }
         .bg-both { background: linear-gradient(135deg, var(--bg-kid) 40%, var(--bg-senior) 60%) !important; border-color: #D3C5C5 !important; }
@@ -132,7 +129,6 @@
         .btn-primary { background: var(--theme-blue); color: white; }
         .btn-weather { background: #FFF; color: var(--text-main); }
 
-        /* 記帳與翻譯頁面元件 */
         .coupon-box { background: #FFF9E6; border: 2px dashed var(--theme-orange); border-radius: 15px; padding: 15px; margin-bottom: 25px; text-align: center; text-decoration: none; display: block; color: var(--text-main); }
         .acc-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px dashed #DCD8D3; }
         .acc-title { font-size: 1.4rem; font-weight: 900; margin-bottom: 15px; color: var(--theme-orange); border-left: 6px solid var(--theme-orange); padding-left: 12px; }
@@ -155,6 +151,7 @@
         .keyword-orange { background: linear-gradient(transparent 60%, #FFE0B2 40%); padding: 0 4px; font-weight: bold; }
     </style>
 </head>
+
 <body>
 
 <header>
@@ -190,7 +187,7 @@
         
         <div class="acc-section" style="border-bottom: none; margin-bottom: 15px;">
             <div class="acc-title">家族即時比價系統</div>
-            <a href="請貼上您的_Google_表單填寫網址" target="_blank" style="text-decoration: none;">
+            <a href="https://forms.google.com/" target="_blank" style="text-decoration: none;">
                 <div style="background: #FFFDF8; border: 3px solid #E08E55; border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
                     <span style="font-size: 3rem; display: block; margin-bottom: 10px;">📸</span>
                     <div style="font-size: 1.6rem; font-weight: 900; color: #3E3A39;">點我：回報目前店內價格</div>
@@ -293,8 +290,8 @@
             { time: "10:00", title: "獨旅退房前往東京", img: "https://loremflickr.com/800/600/tokyo,station", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅" },
             { time: "12:35", title: "✈️ CI104 航班起飛", desc: "家人於桃園機場出發。", checkInNote: "去程航班報到" },
             { time: "16:35", title: "家人抵達 NRT T2", desc: "通關並領取行李。", map: "成田空港第2ターミナル" },
-            { time: "17:30", title: "搭乘 LCB 低價巴士", suitable: ['senior', 'kid'], desc: "在成田 T2 巴士售票櫃檯買票，搭乘前往東京車站（八重洲口）的低價巴士 (Airport Bus TYO-NRT)。<br>💡 <b>優點</b>：票價便宜、班次多、保證有座位，大行李直接放車廂，免去搬運擠電車的困擾。", map: "東京駅" },
-            { time: "18:50", title: "抵達飯店與晚餐", desc: "抵達東京站後，轉乘地鐵或計程車前往【東橫 INN 東京站新大橋前】。晚餐推薦 Jonathan's 或 Gusto。", supermarkets: [
+            { time: "17:30", title: "搭乘 LCB 低價巴士", suitable: ['senior', 'kid'], desc: "在成田 T2 巴士售票櫃檯買票，搭乘前往東京車站（八重洲口）的低價巴士。<br>💡 <b>優點</b>：票價便宜、班次多、有座位，大行李直接放車廂，免去搬運擠電車。", map: "東京駅" },
+            { time: "18:50", title: "抵達飯店與晚餐", desc: "抵達東京站後，轉乘地鐵前往【東橫 INN 東京站新大橋前】。晚餐推薦 Jonathan's 或 Gusto。", supermarkets: [
                 { name: "🛒 成城石井 (東京車站)", meta: "高質感生鮮", map: "成城石井 東京駅" },
                 { name: "🛒 Peacock Store 濱町店", meta: "在地熟食區表現優秀", map: "ピーコックストア トルナーレ日本橋浜町店" }
             ]}
@@ -302,7 +299,7 @@
         { date: "12/20 (日)", id: "d8", project: 2, fullDate: "2026-12-20", events: [
             { time: "09:30", title: "豪德寺拍招財貓", suitable: ['senior', 'kid'], img: "https://loremflickr.com/800/600/cat,temple", desc: "探訪招財貓發源地。平坦動線好走，充滿貓咪元素。", map: "豪徳寺" },
             { time: "13:00", title: "增上寺", suitable: ['senior'], desc: "與東京鐵塔同框的最佳攝影點。", map: "增上寺" },
-            { time: "15:00", title: "東京鐵塔", suitable: ['senior', 'kid'], desc: "有體力者可挑戰 600 階戶外樓梯（11:00-16:00 開放）。<br>💡 <b>長輩與幼童</b>：可直接搭乘電梯輕鬆上樓，在觀景台分流會合。", map: "東京タワー" }
+            { time: "15:00", title: "東京鐵塔", suitable: ['senior', 'kid'], desc: "有體力者可挑戰戶外樓梯（11:00-16:00 開放）。<br>💡 <b>長輩與幼童</b>：可直接搭乘電梯輕鬆上樓，在觀景台分流會合。", map: "東京タワー" }
         ]},
         { date: "12/21 (一)", id: "d9", project: 2, fullDate: "2026-12-21", events: [
             { time: "09:30", title: "【A組】teamLab 豐洲", suitable: ['kid'], img: "https://loremflickr.com/800/600/art,museum", desc: "新潮體驗：沉浸式藝術展 ➔ 豐洲市場吃海鮮。", map: "teamLab Planets TOKYO" },
@@ -342,7 +339,7 @@
 
     let currentProject = 2; // 預設為家族篇
 
-    // === 行程渲染 ===
+    // === 行程渲染邏輯 ===
     function renderApp() {
         const navP1 = document.getElementById('nav-p1');
         const navP2 = document.getElementById('nav-p2');
@@ -408,6 +405,7 @@
                 }
 
                 const mapQuery = evt.map || evt.title;
+                // 使用最標準的 Google Map APP 喚起連結
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
                 const reviewHtml = evt.review ? `<div class="review-bubble"><span>💡</span><div>${evt.review}</div></div>` : '';
@@ -472,37 +470,32 @@
     }
 
 
-    // === 雲端比價系統 (Google Sheets 串接) 智慧排序版 ===
+    // === 雲端比價系統 (Google Sheets 串接與智慧排序) ===
     
-    // ⚠️⚠️⚠️ 替換此處網址：請將您發佈的 Google 試算表 CSV 網址貼在引號內 ⚠️⚠️⚠️
+    // ⚠️ 請確保此處為您 Google 試算表「發佈到網路的 CSV 網址」
     const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv';
 
     async function syncCloudData() {
         const container = document.getElementById('tobuy-list');
         container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:bold; color:#888;">☁️ 正在同步家族最新比價...</div>';
 
-        if(GOOGLE_SHEET_CSV_URL.includes('https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv')) {
-            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ Google 試算表</div>';
-            return;
-        }
-
         try {
             const response = await fetch(GOOGLE_SHEET_CSV_URL);
+            if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.text();
             
             const rows = data.split('\n').slice(1); 
-            
-            // 1. 自動集中相同品項
             const items = {};
+            
             rows.forEach(row => {
-                // 處理可能有引號的 CSV 格式
+                if(!row.trim()) return;
+                // 解析 CSV 並移除雙引號
                 const cols = row.split(',').map(item => item.replace(/^"|"$/g, '').trim());
                 if (cols.length < 4) return;
                 
                 const name = cols[1]; // 商品名稱
                 const store = cols[2]; // 店鋪名稱
-                // 確保價格轉為純數字以利排序
-                const price = parseInt(cols[3].replace(/\D/g, '')); 
+                const price = parseInt(cols[3].replace(/[^0-9]/g, '')); // 價格(純數字)
                 
                 if (!name || isNaN(price)) return;
                 if (!items[name]) items[name] = [];
@@ -511,12 +504,10 @@
 
             let html = '';
             for (const [name, prices] of Object.entries(items)) {
-                
-                // 2. 智慧排序：價格由低到高排列
+                // 價格由低到高排序
                 prices.sort((a, b) => a.price - b.price);
 
                 let storesHtml = prices.map((p, index) => {
-                    // 3. 標記出最低價
                     const isCheapest = index === 0 && prices.length > 1; 
                     const badge = isCheapest ? `<span style="background:#D95F59; color:#FFF; font-size:0.75rem; font-weight:bold; padding:3px 8px; border-radius:12px; margin-right:8px;">👑 最低價</span>` : '';
                     const priceColor = isCheapest ? '#D95F59' : '#5A8065';
@@ -544,12 +535,26 @@
             }
             container.innerHTML = html || '<div style="text-align:center; padding:20px; color:#888;">尚未有家族回報資料</div>';
         } catch (e) {
-            container.innerHTML = '<div style="text-align:center; color:red; padding:20px;">同步失敗，請檢查網路與網址是否正確</div>';
+            console.error(e);
+            container.innerHTML = '<div style="text-align:center; color:red; padding:20px; font-weight:bold;">⚠️ 同步失敗：請檢查網路與 CSV 網址</div>';
         }
     }
 
 
-    // === 個人記帳系統 (保留存在手機內) ===
+    // === 個人記帳系統 ===
+    async function fetchExchangeRate() {
+        const rateEl = document.getElementById('header-rate');
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest?base=JPY');
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.rates && data.rates.TWD) currentExchangeRate = data.rates.TWD;
+            }
+        } catch (e) {}
+        rateEl.innerHTML = `<span style="font-size:0.8rem">¥1 =</span> NT$${currentExchangeRate.toFixed(3)}`;
+        renderExpenses();
+    }
+
     let expenses = JSON.parse(localStorage.getItem('trip_acc_2026')) || [];
     function addExpense() {
         const item = document.getElementById('acc-item').value;
@@ -585,7 +590,7 @@
     }
 
 
-    // === 翻譯功能 ===
+    // === 翻譯與初始化 ===
     function goTranslate(sl, tl, inputId) {
         const text = document.getElementById(inputId).value;
         if (!text) return alert('請先輸入要翻譯的文字喔！');
@@ -607,7 +612,7 @@
     fetchExchangeRate();
     renderApp();
     renderExpenses();
-    setTimeout(syncCloudData, 800); // 延遲一下自動去抓雲端比價資料
+    setTimeout(syncCloudData, 800); 
     setTimeout(initAutoScroll, 200);
 
 </script>
