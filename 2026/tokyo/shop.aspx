@@ -475,14 +475,14 @@
     // === 雲端比價系統 (Google Sheets 串接) 智慧排序版 ===
     
     // ⚠️⚠️⚠️ 替換此處網址：請將您發佈的 Google 試算表 CSV 網址貼在引號內 ⚠️⚠️⚠️
-    const GOOGLE_SHEET_CSV_URL = '請貼上您發佈到網路的_CSV_網址';
+    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv';
 
     async function syncCloudData() {
         const container = document.getElementById('tobuy-list');
         container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:bold; color:#888;">☁️ 正在同步家族最新比價...</div>';
 
-        if(GOOGLE_SHEET_CSV_URL.includes('請貼上')) {
-            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ 請先在程式碼中貼上您的 Google 試算表 CSV 網址！</div>';
+        if(GOOGLE_SHEET_CSV_URL.includes('https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv')) {
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ Google 試算表</div>';
             return;
         }
 
