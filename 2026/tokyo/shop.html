@@ -475,29 +475,72 @@
     // ⚠️ 請確保此處為您 Google 試算表「發佈到網路的 CSV 網址」
     const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv';
 
+// === 雲端比價系統 (Google Sheets 串接 - 終極防彈版) ===
+    
+    // ⚠️⚠️⚠️ 替換此處網址：請將您發佈的 Google 試算表 CSV 網址貼在引號內 ⚠️⚠️⚠️
+    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv';
+
+    // 專業的 CSV 解析函數：能完美處理長輩輸入的「逗號」或「引號」
+    function parseCSVRow(str) {
+        let result = [];
+        let cell = '';
+        let inQuotes = false;
+        for (let i = 0; i < str.length; i++) {
+            let char = str[i];
+            if (char === '"' && str[i+1] === '"') {
+                cell += '"'; i++; // 處理雙引號跳脫
+            } else if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                result.push(cell);
+                cell = '';
+            } else {
+                cell += char;
+            }
+        }
+        result.push(cell);
+        return result.map(s => s.trim());
+    }
+
     async function syncCloudData() {
         const container = document.getElementById('tobuy-list');
         container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:bold; color:#888;">☁️ 正在同步家族最新比價...</div>';
 
+        if(GOOGLE_SHEET_CSV_URL.includes('請貼上您發佈到網路的_CSV_網址')) {
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ 尚未設定 Google 試算表網址</div>';
+            return;
+        }
+
         try {
             const response = await fetch(GOOGLE_SHEET_CSV_URL);
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.ok) throw new Error('網路讀取失敗');
             const data = await response.text();
             
-            const rows = data.split('\n').slice(1); 
+            // 將檔案分行，並過濾掉完全空白的空行
+            const rows = data.split('\n').filter(r => r.trim().length > 0).slice(1); 
             const items = {};
             
             rows.forEach(row => {
-                if(!row.trim()) return;
-                // 解析 CSV 並移除雙引號
-                const cols = row.split(',').map(item => item.replace(/^"|"$/g, '').trim());
+                const cols = parseCSVRow(row);
+                
+                // 容錯：如果欄位少於 4 個 (A, B, C, D)，可能不是有效的回報
                 if (cols.length < 4) return;
                 
-                const name = cols[1]; // 商品名稱
-                const store = cols[2]; // 店鋪名稱
-                const price = parseInt(cols[3].replace(/[^0-9]/g, '')); // 價格(純數字)
+                // 👉 這裡對應 Google 試算表的欄位：
+                // cols[0] 是 A欄 (時間)
+                // cols[1] 是 B欄 (品名)
+                // cols[2] 是 C欄 (店名)
+                // cols[3] 是 D欄 (價格)
+                const name = cols[1]; 
+                const store = cols[2]; 
                 
+                // 強制把價格欄位裡所有「非數字」的符號(如日幣符號、逗號、文字)通通拔掉
+                const priceStr = cols[3].replace(/[^0-9]/g, '');
+                const price = parseInt(priceStr); 
+                
+                // 如果品名是空的，或是價格真的抓不到數字，就跳過這一行
                 if (!name || isNaN(price)) return;
+                
                 if (!items[name]) items[name] = [];
                 items[name].push({ store, price });
             });
@@ -533,7 +576,7 @@
                     </div>
                 </div>`;
             }
-            container.innerHTML = html || '<div style="text-align:center; padding:20px; color:#888;">尚未有家族回報資料</div>';
+            container.innerHTML = html || '<div style="text-align:center; padding:20px; font-weight:bold; color:#888;">尚未有家族回報資料</div>';
         } catch (e) {
             console.error(e);
             container.innerHTML = '<div style="text-align:center; color:red; padding:20px; font-weight:bold;">⚠️ 同步失敗：請檢查網路與 CSV 網址</div>';
