@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="2026東京冬日14天深度自由行行程表 - 鎌倉獨旅、家族會合完整規劃。">
+    <title>東京冬日紀行 2026 | 完整版</title>
+    <meta name="theme-color" content="#F5EFE6">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-overlay: rgba(253, 251, 246, 0.96);
+            --card-bg: #FFFDF8;
+            --text-main: #3E3A39;
+            --text-sub: #6B635E;
+            
+            --theme-blue: #6A8EAE;
+            --theme-orange: #E08E55;
+            --theme-green: #7D9D7F;
+            --theme-red: #C56C6C;
+
+            /* 友善底色設定 */
+            --bg-kid: #FFF0F5;
+            --border-kid: #FFB6C1;
+            --bg-senior: #F0F8F5;
+            --border-senior: #A3C9B6;
+
+            --sketch-border: 2px solid #5A5451;
+            --sketch-shadow: 4px 5px 0px rgba(62, 58, 57, 0.12);
+            --radius-sketch: 8px 25px 8px 20px / 25px 8px 20px 8px;
+            --radius-btn: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
+            margin: 0; padding-bottom: 110px; line-height: 1.8;
+            color: var(--text-main); background-color: #F5EFE6;
+            font-size: 18px; /* 長輩友善大字體 */
+        }
+
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://loremflickr.com/2048/3072/tokyo,winter,sky');
+            background-size: cover; background-position: center; z-index: -2; opacity: 0.3;
+        }
+        
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-overlay); z-index: -1; backdrop-filter: blur(4px);
+        }
+
+        header {
+            background: rgba(253, 251, 246, 0.98); position: sticky; top: 0; z-index: 100;
+            border-bottom: 3px dashed #BBAFA1; padding: 12px 16px 0;
+        }
+
+        .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.5rem; font-weight: 900; }
+        .top-title span.year { color: var(--theme-orange); margin-left: 5px; }
+        .header-rate { font-size: 0.9rem; color: #fff; background: var(--theme-green); padding: 4px 12px; border-radius: var(--radius-btn); font-weight: bold; border: var(--sketch-border); }
+
+        .project-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+        .project-tab {
+            border-radius: var(--radius-btn); border: var(--sketch-border);
+            background: #F4EBE0; font-size: 1.05rem; font-weight: 700;
+            padding: 8px 16px; cursor: pointer; font-family: inherit; flex: 1; text-align: center;
+        }
+        .project-tab.active { background: var(--theme-orange); color: #fff; }
+
+        .date-scroller { display: none; overflow-x: auto; padding-bottom: 12px; gap: 12px; scrollbar-width: none; }
+        .date-scroller.active { display: flex; }
+        .date-scroller::-webkit-scrollbar { display: none; }
+        .date-chip {
+            flex: 0 0 auto; padding: 8px 18px; border-radius: var(--radius-btn);
+            border: var(--sketch-border); font-weight: bold; background: #FFF;
+            box-shadow: 2px 3px 0px rgba(0,0,0,0.1); cursor: pointer;
+        }
+        .chip-today { background: var(--theme-green) !important; color: white !important; border: 2px solid #3E3A39; }
+        .chip-past { background: #E4DFD5; color: #888; border-style: dashed; }
+
+        .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
+
+        /* 行前準備區 */
+        .prep-box { background: #FFF; border: 3px solid #3E3A39; border-radius: 12px; padding: 15px; margin-bottom: 25px; box-shadow: var(--sketch-shadow); }
+        .prep-title { font-weight: 900; color: var(--theme-orange); margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        .prep-link { display: block; background: #F9F6F0; border: 2px dashed #BBAFA1; padding: 12px; border-radius: 8px; text-decoration: none; color: var(--text-main); font-weight: bold; margin-bottom: 8px; }
+        .prep-link span { color: var(--theme-blue); font-size: 0.9rem; display: block; margin-top: 4px; }
+
+        /* 行程卡片樣式 */
+        .day-header { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 15px; border-left: 8px solid var(--theme-orange); padding-left: 10px; }
+        .day-header h2 { margin: 0; font-size: 1.6rem; font-weight: 900; }
+        
+        .timeline-wrapper { position: relative; padding-left: 24px; border-left: 2px dashed #BBAFA1; }
+        .timeline-item { position: relative; margin-bottom: 35px; }
+        .timeline-dot { position: absolute; left: -34px; top: 20px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid #FFFDF8; background: var(--theme-orange); box-shadow: 1px 2px 0px rgba(0,0,0,0.2); }
+
+        .card { background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); box-shadow: var(--sketch-shadow); overflow: hidden; }
+        
+        /* 動態背景色設定 */
+        .bg-kid { background: var(--bg-kid) !important; border-color: var(--border-kid) !important; }
+        .bg-senior { background: var(--bg-senior) !important; border-color: var(--border-senior) !important; }
+        .bg-both { background: linear-gradient(135deg, var(--bg-kid) 40%, var(--bg-senior) 60%) !important; border-color: #D3C5C5 !important; }
+
+        .card-img { width: 100%; height: 200px; object-fit: cover; border-bottom: var(--sketch-border); }
+        .card-content { padding: 20px; }
+        .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.15rem; font-weight: 900; color: var(--theme-orange); display: block; margin-bottom: 5px; }
+        .card-title { font-size: 1.45rem; font-weight: 900; margin: 0 0 8px; color: var(--text-main); line-height: 1.4; }
+        .card-tags { display: flex; gap: 8px; margin-bottom: 12px; }
+        .tag-kid { background: #FF4081; color: white; font-size: 0.85rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+        .tag-senior { background: #2E7D32; color: white; font-size: 0.85rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+        .card-desc { font-size: 1.1rem; color: #4A4542; margin-bottom: 12px; line-height: 1.8; }
+
+        .check-in-alert { background: #FFF0F0; border: 2px dashed var(--theme-red); color: var(--theme-red); padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; }
+        .review-bubble { background: rgba(255,255,255,0.6); border: var(--sketch-border); border-radius: 15px 25px 15px 20px; padding: 12px 16px; margin-top: 15px; font-size: 1.05rem; display: flex; gap: 8px; line-height: 1.6; }
+        
+        .market-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 15px; }
+        .market-btn { background: #F9F6F0; border: 2px dashed var(--theme-green); padding: 12px 15px; border-radius: 12px; text-decoration: none; display: block; }
+        .market-name { font-weight: bold; font-size: 1.1rem; color: var(--theme-green); }
+        
+        .transport-guide { background: rgba(255,255,255,0.7); border: 2px solid #E4DFD5; border-radius: 10px; padding: 16px; margin-top: 15px; }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.05rem; font-weight: 600; }
+        .step-num { background: var(--theme-orange); color: #fff; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.9rem; margin-right: 12px; flex-shrink: 0; }
+
+        .btn-group { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+        .btn { flex: 1; text-align: center; padding: 12px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.1rem; font-weight: bold; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1); }
+        .btn-primary { background: var(--theme-blue); color: white; }
+        .btn-weather { background: #FFF; color: var(--text-main); }
+
+        /* 記帳與翻譯頁面元件 */
+        .coupon-box { background: #FFF9E6; border: 2px dashed var(--theme-orange); border-radius: 15px; padding: 15px; margin-bottom: 25px; text-align: center; text-decoration: none; display: block; color: var(--text-main); }
+        .acc-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px dashed #DCD8D3; }
+        .acc-title { font-size: 1.4rem; font-weight: 900; margin-bottom: 15px; color: var(--theme-orange); border-left: 6px solid var(--theme-orange); padding-left: 12px; }
+        .buy-item-card { background: #FFF; border: var(--sketch-border); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1); }
+        .input-group { display: flex; gap: 8px; margin-bottom: 15px; }
+        .input-field { flex: 1; padding: 12px; border: 2px solid #DCD8D3; border-radius: 8px; font-family: inherit; font-size: 1.1rem; }
+        .btn-add { background: var(--text-main); color: #FFF; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; }
+
+        .trans-box { font-size: 2.2rem; width: 100%; border: var(--sketch-border); border-radius: 15px; padding: 15px; margin-top: 10px; background: white; font-family: sans-serif; line-height: 1.3; }
+        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 15px; width: 100%; font-size: 1.5rem; font-weight: bold; margin-top: 15px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1); }
+
+        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #FDFBF7; border-top: 2px solid #5A5451; display: flex; justify-content: space-around; padding: 15px 0 30px; z-index: 1000; }
+        .nav-item { text-align: center; color: #A8A096; flex: 1; font-weight: bold; cursor: pointer; font-size: 1.05rem; }
+        .nav-item.active { color: var(--theme-orange); }
+        .nav-icon { font-size: 1.8rem; display: block; margin-bottom: 4px; }
+
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+        .keyword-orange { background: linear-gradient(transparent 60%, #FFE0B2 40%); padding: 0 4px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="top-bar">
+        <div class="top-title">TOKYO<span class="year">2026</span></div>
+        <div id="header-rate" class="header-rate">¥ ...</div>
+    </div>
+    <div class="project-tabs">
+        <button id="tab-p2" class="project-tab active" onclick="setProject(2)">👨‍👩‍👧‍👦 家族篇</button>
+        <button id="tab-p1" class="project-tab" onclick="setProject(1)">📓 獨旅篇</button>
+    </div>
+    <div class="date-scroller" id="nav-p1"></div>
+    <div class="date-scroller active" id="nav-p2"></div>
+</header>
+
+<main class="container">
+    <div id="sec-trip" class="section active">
+        <div class="prep-box">
+            <div class="prep-title">✈️ 行前與隨身必備連結</div>
+            <a href="https://vjw-lp.digital.go.jp/zh-hant/" target="_blank" class="prep-link">
+                🛂 Visit Japan Web (VJW) 填寫
+                <span>入境前必填，點此開啟官網</span>
+            </a>
+            <a href="https://tokiomarinenichido.jp/zh-hant/china2/?srsltid=AfmBOorqZbUIUHkKzIDtEwL9Izd5Ce-RW-4uLIdW9zhHOuJSdWS5XaI_" target="_blank" class="prep-link">
+                🛡️ 東京海上日動 (旅遊保險)
+                <span>TOKIO OMOTENASHI POLICY 保險連結</span>
+            </a>
+        </div>
+        <div id="itinerary-list"></div>
+    </div>
+
+    <div id="sec-account" class="section">
+        
+        <div class="acc-section" style="border-bottom: none; margin-bottom: 15px;">
+            <div class="acc-title">家族即時比價系統</div>
+            <a href="請貼上您的_Google_表單填寫網址" target="_blank" style="text-decoration: none;">
+                <div style="background: #FFFDF8; border: 3px solid #E08E55; border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
+                    <span style="font-size: 3rem; display: block; margin-bottom: 10px;">📸</span>
+                    <div style="font-size: 1.6rem; font-weight: 900; color: #3E3A39;">點我：回報目前店內價格</div>
+                    <div style="font-size: 1rem; color: #E08E55; margin-top: 10px; font-weight: bold;">(填寫後，全家人的畫面都會同步更新)</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="acc-section">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
+                <div class="acc-title" style="margin-bottom: 0;">各店價格即時看</div>
+                <button onclick="syncCloudData()" style="background: #F4EBE0; border: var(--sketch-border); border-radius: 20px; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">🔄 手動更新</button>
+            </div>
+            <div id="tobuy-list">
+                <div style="text-align:center; padding:30px; color:#888;">☁️ 正在載入雲端資料...</div>
+            </div>
+        </div>
+
+        <a href="https://itigre.pse.is/japancoupon" target="_blank" class="coupon-box">
+            <span style="font-size: 2.2rem; display:block;">🎫</span>
+            <div style="font-weight: 900; font-size: 1.3rem;">日本購物折價券清單</div>
+            <div style="font-size: 1rem; color: #E08E55; margin-top: 5px;">點此開啟 (藥妝/Bic Camera)</div>
+        </a>
+
+        <div class="acc-section">
+            <div class="acc-title">今日個人支出</div>
+            <div style="background: #F4EBE0; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; border: var(--sketch-border);">
+                <div style="font-size: 1rem; font-weight: bold;">目前總計</div>
+                <div id="acc-total" style="font-size: 2.2rem; font-weight: 900; color: var(--theme-red); font-family: 'Zen Maru Gothic';">¥0</div>
+                <div id="acc-total-twd" style="font-size: 1.1rem; font-weight: bold; color: var(--text-sub);">約 NT$0</div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="acc-item" class="input-field" placeholder="品項 (例: 拉麵)">
+                <input type="number" id="acc-cost" class="input-field" style="width: 100px;" placeholder="日幣">
+                <button class="btn-add" onclick="addExpense()">＋</button>
+            </div>
+            <ul id="expense-list" style="list-style: none; padding: 0; margin: 0;"></ul>
+        </div>
+    </div>
+
+    <div id="sec-trans" class="section">
+        <div style="background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 25px; box-shadow: var(--sketch-shadow);">
+            <div style="color:var(--theme-orange); font-weight:900; font-size:1.3rem; margin-bottom:10px;">🇹🇼 說中文 (翻成日文)</div>
+            <textarea id="input-zh" class="trans-box" rows="2" placeholder="例：請問這個多少錢？"></textarea>
+            <button class="trans-btn" onclick="goTranslate('zh-TW', 'ja', 'input-zh')">轉換為日文 ➔</button>
+            
+            <hr style="border: 1px dashed #CCC; margin: 35px 0;">
+
+            <div style="color:var(--theme-blue); font-weight:900; font-size:1.3rem; margin-bottom:10px;">🇯🇵 說日文 (翻成中文)</div>
+            <textarea id="input-ja" class="trans-box" rows="2" placeholder="給日本店員輸入..."></textarea>
+            <button class="trans-btn" style="background:var(--theme-blue);" onclick="goTranslate('ja', 'zh-TW', 'input-ja')">轉換為中文 ➔</button>
+            
+            <p style="margin-top:20px; font-size:1rem; color:#888; text-align:center; font-weight:bold;">* 點擊按鈕將開啟 Google 雙向翻譯</p>
+        </div>
+    </div>
+</main>
+
+<nav class="footer-nav">
+    <div class="nav-item active" onclick="switchTab('trip', this)"><span class="nav-icon">🗺️</span>行程</div>
+    <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>記帳/比價</div>
+    <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🗣️</span>翻譯</div>
+</nav>
+
+<script>
+    let currentExchangeRate = 0.215; 
+
+    // === 行程資料庫 ===
+    const itineraryData = [
+        { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
+            { time: "15:00", title: "抵達藤澤 Check-in", img: "https://loremflickr.com/800/600/fujisawa,station", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口" },
+            { time: "16:30", title: "清淨光寺 (遊行寺)", desc: "從藤澤站步行15分鐘。拍攝午後斜射光影與古建築。", map: "遊行寺" },
+            { time: "18:00", title: "超市與百元店採買", desc: "湘南 GATE 4樓逛 3COINS，至 OK Store 買便當。", supermarkets: [{ name: "🛒 OK Store 藤澤店", meta: "在地人最愛平價便當", map: "オーケー 藤沢店" }] },
+            { time: "19:30", title: "晚餐提醒", desc: "周遭有薩莉亞與 Denny's。<br><br><span class='keyword-orange'>⚠️ 藥妝注意：藤澤站無 OS Drug，請保留清單明日採購。</span>" }
+        ]},
+        { date: "12/14 (一)", id: "d2", project: 1, fullDate: "2026-12-14", events: [
+            { time: "09:30", title: "大船觀音寺", img: "https://loremflickr.com/800/600/buddha,kamakura", desc: "搭 JR 一站到大船，參拜純白巨大的大船觀音像。", map: "大船観音寺" },
+            { time: "11:30", title: "大船仲通商店街", desc: "湘南的「阿美橫町」。生鮮蔬果、平價熟食極具市井氣息。", map: "大船仲通り商店街" },
+            { time: "14:00", title: "大船 OS Drug 藥妝必買", desc: "將重點清單在此買齊，價格實惠，買完搭 JR 放回飯店。", map: "OS Drug 大船店" }
+        ]},
+        { date: "12/15 (二)", id: "d3", project: 1, fullDate: "2026-12-15", events: [
+            { time: "09:00", title: "江之島全島深度徒步", img: "https://loremflickr.com/800/600/enoshima,shrine", desc: "漫步弁天橋，開啟高低差路線：江島神社 ➔ 海蠟燭 ➔ 奧津宮。", map: "江島神社" },
+            { time: "10:30", title: "Sea Candle 海蠟燭", desc: "登塔俯瞰湘南海岸絕景。", map: "江の島シーキャンドル" },
+            { time: "13:00", title: "稚兒之淵與岩屋", desc: "下探海蝕洞。這天走完一圈剛好維持日常 6 公里的紮實運動量。", map: "稚児ヶ淵" }
+        ]},
+        { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", events: [
+            { time: "08:30", title: "箱根逆時針環線", img: "https://loremflickr.com/800/600/hakone,shrine", desc: "藤澤搭 JR 至小田原買周遊券，轉登山鐵道。", map: "箱根湯本駅" },
+            { time: "10:00", title: "舊東海道與箱根神社", desc: "徒步歷史林蔭道，拍攝水上鳥居。", map: "箱根神社" },
+            { time: "13:30", title: "大涌谷地熱景觀", desc: "搭海賊船轉纜車看噴氣，轉鐵道回程。", map: "大涌谷" }
+        ]},
+        { date: "12/17 (四)", id: "d5", project: 1, fullDate: "2026-12-17", events: [
+            { time: "10:00", title: "藤澤宿歷史老街", img: "https://loremflickr.com/800/600/japan,street", desc: "保留了古老酒造、百年米店的舊東海道驛站町。", map: "藤澤宿" },
+            { time: "14:00", title: "龍口寺 (在地攝影)", desc: "江之島站旁木造古建築與五重塔，極具禪意。", review: "💡 攝影重點：適合用慢快門拍攝江之電電車穿梭於古寺門前的畫面。", map: "龍口寺" }
+        ]},
+        { date: "12/18 (五)", id: "d6", project: 1, fullDate: "2026-12-18", events: [
+            { time: "10:00", title: "光明寺與材木座", img: "https://loremflickr.com/800/600/temple,kamakura", desc: "寧靜大寺院與在地人專屬的海濱散策。", map: "光明寺" },
+            { time: "14:00", title: "鵠沼海岸 (衝浪魂)", desc: "當地居民遛狗、衝浪的聖地。", review: "💡 攝影重點：擁有平坦沙灘，拍攝「江之島 + 富士山」夕陽倒影的絕佳地。", map: "鵠沼海岸" }
+        ]},
+        
+        { date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
+            { time: "10:00", title: "獨旅退房前往東京", img: "https://loremflickr.com/800/600/tokyo,station", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅" },
+            { time: "12:35", title: "✈️ CI104 航班起飛", desc: "家人於桃園機場出發。", checkInNote: "去程航班報到" },
+            { time: "16:35", title: "家人抵達 NRT T2", desc: "通關並領取行李。", map: "成田空港第2ターミナル" },
+            { time: "17:30", title: "搭乘 LCB 低價巴士", suitable: ['senior', 'kid'], desc: "在成田 T2 巴士售票櫃檯買票，搭乘前往東京車站（八重洲口）的低價巴士 (Airport Bus TYO-NRT)。<br>💡 <b>優點</b>：票價便宜、班次多、保證有座位，大行李直接放車廂，免去搬運擠電車的困擾。", map: "東京駅" },
+            { time: "18:50", title: "抵達飯店與晚餐", desc: "抵達東京站後，轉乘地鐵或計程車前往【東橫 INN 東京站新大橋前】。晚餐推薦 Jonathan's 或 Gusto。", supermarkets: [
+                { name: "🛒 成城石井 (東京車站)", meta: "高質感生鮮", map: "成城石井 東京駅" },
+                { name: "🛒 Peacock Store 濱町店", meta: "在地熟食區表現優秀", map: "ピーコックストア トルナーレ日本橋浜町店" }
+            ]}
+        ]},
+        { date: "12/20 (日)", id: "d8", project: 2, fullDate: "2026-12-20", events: [
+            { time: "09:30", title: "豪德寺拍招財貓", suitable: ['senior', 'kid'], img: "https://loremflickr.com/800/600/cat,temple", desc: "探訪招財貓發源地。平坦動線好走，充滿貓咪元素。", map: "豪徳寺" },
+            { time: "13:00", title: "增上寺", suitable: ['senior'], desc: "與東京鐵塔同框的最佳攝影點。", map: "增上寺" },
+            { time: "15:00", title: "東京鐵塔", suitable: ['senior', 'kid'], desc: "有體力者可挑戰 600 階戶外樓梯（11:00-16:00 開放）。<br>💡 <b>長輩與幼童</b>：可直接搭乘電梯輕鬆上樓，在觀景台分流會合。", map: "東京タワー" }
+        ]},
+        { date: "12/21 (一)", id: "d9", project: 2, fullDate: "2026-12-21", events: [
+            { time: "09:30", title: "【A組】teamLab 豐洲", suitable: ['kid'], img: "https://loremflickr.com/800/600/art,museum", desc: "新潮體驗：沉浸式藝術展 ➔ 豐洲市場吃海鮮。", map: "teamLab Planets TOKYO" },
+            { time: "09:30", title: "【B組】柴又老街", suitable: ['senior'], desc: "長輩最愛：懷舊昭和風景、和菓子與帝釋天木雕寺廟。", map: "柴又帝釈天" },
+            { time: "15:00", title: "銀座一站式採購 (會合)", suitable: ['senior'], desc: "前往逛 LOFT、UNIQLO 旗艦店。室內逛街有冷暖氣與座位區，對長輩體力較友善。", map: "ユニクロ 銀座店" }
+        ]},
+        { date: "12/22 (二)", id: "d10", project: 2, fullDate: "2026-12-22", events: [
+            { time: "10:00", title: "墨田北齋美術館", suitable: ['senior'], img: "https://loremflickr.com/800/600/museum,art", desc: "室內展覽動線友善，欣賞浮世繪大師作品。", map: "すみだ北斎美術館" },
+            { time: "13:00", title: "敘敘苑燒肉 (晴空塔)", suitable: ['senior'], desc: "享用高空景觀燒肉套餐。坐擁無敵美景，長輩入座用餐極舒適。", map: "叙々苑 東京スカイツリータウン" },
+            { time: "15:30", title: "淺草寺參拜", desc: "散步至雷門。傍晚點燈後人潮較少，氣氛絕佳。", map: "浅草寺" }
+        ]},
+        { date: "12/23 (三)", id: "d11", project: 2, fullDate: "2026-12-23", events: [
+            { time: "09:30", title: "舊岩崎宅邸庭園", suitable: ['senior'], img: "https://loremflickr.com/800/600/garden,japan", desc: "保留完整洋式與日式和館，步調非常悠閒的大正浪漫風情。", map: "旧岩崎邸庭園" },
+            { time: "11:30", title: "上野阿美橫町", desc: "從庭園順路抵達。進行 <span class='keyword-orange'>OS Drug 藥妝大採購</span>、買 NG 蛋糕與二木菓子。", map: "アメ横 OS Drug" },
+            { time: "15:00", title: "下島包裝 Shimojima", desc: "淺草橋站會合。以批發價大肆採買文具、紙袋與各式雜貨。", map: "シモジマ 浅草橋本店" }
+        ]},
+        { date: "12/24 (四)", id: "d12", project: 2, fullDate: "2026-12-24", events: [
+            { time: "10:30", title: "AEON Mall LakeTown", suitable: ['kid', 'senior'], img: "https://loremflickr.com/800/600/mall,shopping", desc: "埼玉越谷全日 OUTLET 行：全日本最大購物中心。<br>💡 <b>友善亮點</b>：室內推車極方便，走累了隨時有咖啡廳與沙發可休息，洗手間設施完善。", map: "イオンレイクタウン" }
+        ]},
+        { date: "12/25 (五)", id: "d13", project: 2, fullDate: "2026-12-25", events: [
+            { time: "10:00", title: "日本橋歷史建築與百貨", suitable: ['senior'], img: "https://loremflickr.com/800/600/tokyo,marunouchi", desc: "漫步感受古典與現代交錯的街區。<br><br><span class='keyword-orange'>🎯 特別任務：至「丸善 日本橋店」尋找《藥師少女的獨語》英文版漫畫！</span>", map: "丸善 日本橋店" },
+            { time: "14:00", title: "KITTE 丸之內", suitable: ['kid', 'senior'], desc: "商場中庭看巨大聖誕樹，頂樓屋頂花園拍攝東京車站全貌。", map: "KITTE丸の内" },
+            { time: "17:30", title: "丸之內仲通聖誕點燈", suitable: ['senior'], desc: "香檳金燈海步道。<br>💡 <b>友善亮點</b>：全平坦無障礙，推車與長輩走起來非常輕鬆！", map: "丸の内仲通り" }
+        ]},
+        { date: "12/26 (六)", id: "d14", project: 2, fullDate: "2026-12-26", events: [
+            { time: "09:30", title: "人形町甘酒橫丁", suitable: ['senior'], img: "https://loremflickr.com/800/600/food,japan", desc: "最後的懷舊老街巡禮與採買。", map: "甘酒横丁" },
+            { time: "11:30", title: "深川飯午餐", desc: "中午享用在地特色「深川飯」。", map: "甘酒横丁" },
+            { time: "13:00", title: "出發前往機場", suitable: ['senior'], desc: "從飯店步行出發前往地鐵站，準備搭車前往機場。", transportGuide: [
+                "🚶 步行至【濱町站】搭乘地鐵",
+                "🚇 搭乘地鐵至【東日本橋站】",
+                "🚆 站內轉乘【京成 Access 特急 (アクセス特急)】",
+                "✈️ 免出站直達成田機場，動線平坦順暢！"
+            ], map: "東日本橋駅" },
+            { time: "14:35", title: "抵達成田機場 T2", desc: "報到櫃檯託運行李。準備搭乘 <span class='keyword-orange'>CI105 (17:45 起飛)</span> 滿載回台！", checkInNote: "回程航班報到", map: "成田空港第2ターミナル" }
+        ]}
+    ];
+
+    let currentProject = 2; // 預設為家族篇
+
+    // === 行程渲染 ===
+    function renderApp() {
+        const navP1 = document.getElementById('nav-p1');
+        const navP2 = document.getElementById('nav-p2');
+        const listContainer = document.getElementById('itinerary-list');
+        const today = new Date().toISOString().split('T')[0];
+        
+        navP1.innerHTML = ''; navP2.innerHTML = ''; listContainer.innerHTML = '';
+        
+        itineraryData.forEach(day => {
+            const chip = document.createElement('div');
+            const isToday = day.fullDate === today;
+            const isPast = new Date(day.fullDate).setHours(0,0,0,0) < new Date().setHours(0,0,0,0);
+            
+            chip.className = `date-chip ${isToday ? 'chip-today' : (isPast ? 'chip-past' : 'chip-future')}`;
+            chip.innerText = day.date.split(' ')[0];
+            chip.onclick = () => scrollToDay(day.id, chip);
+            
+            if (day.project === 1) navP1.appendChild(chip);
+            else navP2.appendChild(chip);
+        });
+
+        const filteredData = itineraryData.filter(d => d.project === currentProject);
+        
+        let html = '';
+        filteredData.forEach(day => {
+            let eventsHtml = '';
+            day.events.forEach((evt) => {
+                const imgHtml = evt.img ? `<img src="${evt.img}" class="card-img" alt="${evt.title}" loading="lazy">` : '';
+                let alertHtml = evt.checkInNote ? `<div class="check-in-alert">✈️ 提醒：${evt.checkInNote} - 請確認線上報到</div>` : '';
+                
+                let bgClass = '';
+                let tagsHtml = '';
+                if (evt.suitable) {
+                    if (evt.suitable.includes('kid') && evt.suitable.includes('senior')) {
+                        bgClass = 'bg-both';
+                        tagsHtml = `<div class="card-tags"><span class="tag-kid">👶 兒童友善</span><span class="tag-senior">🧓 長青友善</span></div>`;
+                    } else if (evt.suitable.includes('kid')) {
+                        bgClass = 'bg-kid';
+                        tagsHtml = `<div class="card-tags"><span class="tag-kid">👶 適合4歲童</span></div>`;
+                    } else if (evt.suitable.includes('senior')) {
+                        bgClass = 'bg-senior';
+                        tagsHtml = `<div class="card-tags"><span class="tag-senior">🧓 適合65歲長者</span></div>`;
+                    }
+                }
+
+                let guideHtml = '';
+                if (evt.transportGuide) {
+                    guideHtml = `<div class="transport-guide">`;
+                    evt.transportGuide.forEach((step, i) => {
+                        guideHtml += `<div class="guide-step"><div class="step-num">${i+1}</div><div>${step}</div></div>`;
+                    });
+                    guideHtml += `</div>`;
+                }
+
+                let marketHtml = '';
+                if (evt.supermarkets) {
+                    marketHtml = `<div class="market-grid">`;
+                    evt.supermarkets.forEach(m => {
+                        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
+                        marketHtml += `<a href="${mapUrl}" target="_blank" class="market-btn"><div class="market-name">${m.name}</div><div style="color:#666; font-size:0.95rem;">${m.meta}</div></a>`;
+                    });
+                    marketHtml += `</div>`;
+                }
+
+                const mapQuery = evt.map || evt.title;
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+                const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
+                const reviewHtml = evt.review ? `<div class="review-bubble"><span>💡</span><div>${evt.review}</div></div>` : '';
+
+                eventsHtml += `
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="card ${bgClass}">
+                            ${imgHtml}
+                            <div class="card-content">
+                                <span class="card-time">${evt.time}</span>
+                                <h3 class="card-title">${evt.title}</h3>
+                                ${tagsHtml}
+                                ${alertHtml}
+                                <div class="card-desc">${evt.desc}</div>
+                                ${guideHtml}
+                                <div class="btn-group">
+                                    <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
+                                    <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
+                                </div>
+                                ${marketHtml}
+                                ${reviewHtml}
+                            </div>
+                        </div>
+                    </div>`;
+            });
+
+            html += `
+                <div id="${day.id}" class="day-section">
+                    <div class="day-header">
+                        <h2>${day.date}</h2>
+                    </div>
+                    <div class="timeline-wrapper">${eventsHtml}</div>
+                </div>`;
+        });
+        listContainer.innerHTML = html;
+    }
+
+    function scrollToDay(id, chipEl) {
+        chipEl.style.transform = "scale(0.9)";
+        setTimeout(()=> chipEl.style.transform = "scale(1)", 200);
+        const el = document.getElementById(id);
+        const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - 180;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+
+    function switchTab(tabId, navEl) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('sec-' + tabId).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function setProject(project){
+        currentProject = project;
+        document.getElementById('tab-p1').classList.toggle('active', project === 1);
+        document.getElementById('tab-p2').classList.toggle('active', project === 2);
+        document.getElementById('nav-p1').classList.toggle('active', project === 1);
+        document.getElementById('nav-p2').classList.toggle('active', project === 2);
+        renderApp();
+    }
+
+
+    // === 雲端比價系統 (Google Sheets 串接) ===
+    
+    // ⚠️⚠️⚠️ 替換此處網址：請將您發佈的 Google 試算表 CSV 網址貼在引號內 ⚠️⚠️⚠️
+    const GOOGLE_SHEET_CSV_URL = '請貼上您發佈到網路的_CSV_網址';
+
+    async function syncCloudData() {
+        const container = document.getElementById('tobuy-list');
+        container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:bold; color:#888;">☁️ 正在同步家族最新比價...</div>';
+
+        // 如果您還沒貼上網址，就先顯示提示
+        if(GOOGLE_SHEET_CSV_URL.includes('請貼上')) {
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ 請先在程式碼第 398 行貼上您的 Google 試算表 CSV 網址！</div>';
+            return;
+        }
+
+        try {
+            const response = await fetch(GOOGLE_SHEET_CSV_URL);
+            const data = await response.text();
+            
+            // 簡單解析 CSV (假設表單欄位順序: 時間戳記, 品項名稱, 店鋪名稱, 價格)
+            // 依據您的表單實際欄位順序可能需要微調索引
+            const rows = data.split('\n').slice(1); 
+            
+            const items = {};
+            rows.forEach(row => {
+                const cols = row.split(',');
+                if (cols.length < 4) return;
+                
+                // 假設欄位 B 是品名, 欄位 C 是店名, 欄位 D 是價格
+                const name = cols[1].trim();
+                const store = cols[2].trim();
+                const price = cols[3].trim();
+                
+                if (!name || !price) return;
+                if (!items[name]) items[name] = [];
+                items[name].push({ store, price });
+            });
+
+            let html = '';
+            for (const [name, prices] of Object.entries(items)) {
+                let storesHtml = prices.map(p => `
+                    <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dotted #CCC;">
+                        <span style="font-weight:bold; color:#6A8EAE; font-size:1.1rem;">📍 ${p.store}</span>
+                        <span style="font-weight:900; color:#5A8065; font-size:1.2rem;">¥${parseInt(p.price).toLocaleString()}</span>
+                    </div>
+                `).join('');
+
+                html += `
+                <div class="buy-item-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <span style="font-weight:900; font-size:1.4rem; color:#3E3A39;">${name}</span>
+                        <span style="background:#FFF0F0; font-size:0.85rem; font-weight:bold; padding:4px 10px; border-radius:12px; color:#D95F59;">已同步</span>
+                    </div>
+                    <div style="background:#F9F6F0; padding:15px; border-radius:12px; border:2px solid #E4DFD5;">
+                        ${storesHtml}
+                    </div>
+                </div>`;
+            }
+            container.innerHTML = html || '<div style="text-align:center; padding:20px; color:#888;">尚未有家族回報資料</div>';
+        } catch (e) {
+            container.innerHTML = '<div style="text-align:center; color:red; padding:20px;">同步失敗，請檢查網路與網址是否正確</div>';
+        }
+    }
+
+
+    // === 個人記帳系統 (保留存在手機內) ===
+    let expenses = JSON.parse(localStorage.getItem('trip_acc_2026')) || [];
+    function addExpense() {
+        const item = document.getElementById('acc-item').value;
+        const cost = parseInt(document.getElementById('acc-cost').value);
+        if(!item || !cost) return;
+        expenses.unshift({ id: Date.now(), item, cost, date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'}) });
+        localStorage.setItem('trip_acc_2026', JSON.stringify(expenses));
+        document.getElementById('acc-item').value = ''; document.getElementById('acc-cost').value = '';
+        renderExpenses();
+    }
+    function removeExpense(id) {
+        expenses = expenses.filter(e => e.id !== id);
+        localStorage.setItem('trip_acc_2026', JSON.stringify(expenses));
+        renderExpenses();
+    }
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        list.innerHTML = ''; let total = 0;
+        expenses.forEach(e => {
+            total += e.cost;
+            list.innerHTML += `
+            <li style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px dashed #CCC;">
+                <div style="flex:1;">
+                    <div style="font-weight:bold; font-size:1.1rem;">${e.item}</div>
+                    <div style="color:#888; font-size:0.9rem;">${e.date}</div>
+                </div>
+                <div style="font-weight:900; color:#5A8065; font-size:1.2rem; margin-right:15px;">¥${e.cost.toLocaleString()}</div>
+                <button style="background:#FFF0F0; border:2px solid #D95F59; color:#D95F59; width:35px; height:35px; border-radius:50%; font-weight:bold;" onclick="removeExpense(${e.id})">×</button>
+            </li>`;
+        });
+        document.getElementById('acc-total').innerText = `¥${total.toLocaleString()}`;
+        document.getElementById('acc-total-twd').innerText = `約 NT$${Math.round(total * currentExchangeRate).toLocaleString()}`;
+    }
+
+
+    // === 翻譯功能 ===
+    function goTranslate(sl, tl, inputId) {
+        const text = document.getElementById(inputId).value;
+        if (!text) return alert('請先輸入要翻譯的文字喔！');
+        window.open(`https://translate.google.com/?sl=${sl}&tl=${tl}&text=${encodeURIComponent(text)}&op=translate`, '_blank');
+    }
+
+    function initAutoScroll() {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const isP1 = itineraryData.some(d => d.project === 1 && d.fullDate === todayStr);
+        if (isP1) setProject(1); 
+        
+        setTimeout(() => {
+            const todayChips = document.querySelectorAll('.chip-today');
+            if (todayChips.length > 0) todayChips[0].click();
+        }, 500);
+    }
+
+    // 初始化執行
+    fetchExchangeRate();
+    renderApp();
+    renderExpenses();
+    setTimeout(syncCloudData, 800); // 延遲一下自動去抓雲端比價資料
+    setTimeout(initAutoScroll, 200);
+
+</script>
+</body>
+</html>
