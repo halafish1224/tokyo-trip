@@ -472,7 +472,7 @@
     }
 
 
-    // === 雲端比價系統 (Google Sheets 串接) ===
+    // === 雲端比價系統 (Google Sheets 串接) 智慧排序版 ===
     
     // ⚠️⚠️⚠️ 替換此處網址：請將您發佈的 Google 試算表 CSV 網址貼在引號內 ⚠️⚠️⚠️
     const GOOGLE_SHEET_CSV_URL = '請貼上您發佈到網路的_CSV_網址';
@@ -481,9 +481,8 @@
         const container = document.getElementById('tobuy-list');
         container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:bold; color:#888;">☁️ 正在同步家族最新比價...</div>';
 
-        // 如果您還沒貼上網址，就先顯示提示
         if(GOOGLE_SHEET_CSV_URL.includes('請貼上')) {
-            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ 請先在程式碼第 398 行貼上您的 Google 試算表 CSV 網址！</div>';
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:#D95F59; border:2px dashed #D95F59; border-radius:10px; margin-top:10px;">⚠️ 請先在程式碼中貼上您的 Google 試算表 CSV 網址！</div>';
             return;
         }
 
@@ -491,33 +490,46 @@
             const response = await fetch(GOOGLE_SHEET_CSV_URL);
             const data = await response.text();
             
-            // 簡單解析 CSV (假設表單欄位順序: 時間戳記, 品項名稱, 店鋪名稱, 價格)
-            // 依據您的表單實際欄位順序可能需要微調索引
             const rows = data.split('\n').slice(1); 
             
+            // 1. 自動集中相同品項
             const items = {};
             rows.forEach(row => {
-                const cols = row.split(',');
+                // 處理可能有引號的 CSV 格式
+                const cols = row.split(',').map(item => item.replace(/^"|"$/g, '').trim());
                 if (cols.length < 4) return;
                 
-                // 假設欄位 B 是品名, 欄位 C 是店名, 欄位 D 是價格
-                const name = cols[1].trim();
-                const store = cols[2].trim();
-                const price = cols[3].trim();
+                const name = cols[1]; // 商品名稱
+                const store = cols[2]; // 店鋪名稱
+                // 確保價格轉為純數字以利排序
+                const price = parseInt(cols[3].replace(/\D/g, '')); 
                 
-                if (!name || !price) return;
+                if (!name || isNaN(price)) return;
                 if (!items[name]) items[name] = [];
                 items[name].push({ store, price });
             });
 
             let html = '';
             for (const [name, prices] of Object.entries(items)) {
-                let storesHtml = prices.map(p => `
-                    <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dotted #CCC;">
+                
+                // 2. 智慧排序：價格由低到高排列
+                prices.sort((a, b) => a.price - b.price);
+
+                let storesHtml = prices.map((p, index) => {
+                    // 3. 標記出最低價
+                    const isCheapest = index === 0 && prices.length > 1; 
+                    const badge = isCheapest ? `<span style="background:#D95F59; color:#FFF; font-size:0.75rem; font-weight:bold; padding:3px 8px; border-radius:12px; margin-right:8px;">👑 最低價</span>` : '';
+                    const priceColor = isCheapest ? '#D95F59' : '#5A8065';
+
+                    return `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px dotted #CCC;">
                         <span style="font-weight:bold; color:#6A8EAE; font-size:1.1rem;">📍 ${p.store}</span>
-                        <span style="font-weight:900; color:#5A8065; font-size:1.2rem;">¥${parseInt(p.price).toLocaleString()}</span>
-                    </div>
-                `).join('');
+                        <div style="display:flex; align-items:center;">
+                            ${badge}
+                            <span style="font-weight:900; color:${priceColor}; font-size:1.25rem;">¥${p.price.toLocaleString()}</span>
+                        </div>
+                    </div>`;
+                }).join('');
 
                 html += `
                 <div class="buy-item-card">
