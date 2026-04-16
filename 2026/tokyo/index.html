@@ -185,7 +185,8 @@
         .modal-close { color: #222; margin-top: 25px; font-size: 1.4rem; font-weight: 900; cursor: pointer; border: 3px solid #222; padding: 12px 35px; border-radius: 30px; background: #FFF; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
     </style>
 </head>
-<body>
+
+	<body>
 
 <div id="imageModal" class="img-modal" onclick="closeImageModal()">
     <img id="modalImg" class="modal-content" src="" alt="放大觀看">
@@ -266,6 +267,30 @@
     </div>
 
     <div id="sec-trans" class="section">
+        
+        <div style="background: #E8F5E9; border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 25px; margin-bottom: 25px; box-shadow: var(--sketch-shadow);">
+            <div style="color:var(--theme-green); font-weight:900; font-size:1.6rem; margin-bottom:15px; border-bottom: 3px solid var(--theme-green); padding-bottom: 8px;">🛒 日本比價情報中心</div>
+            
+            <div style="margin-bottom: 25px;">
+                <div style="font-weight:900; font-size:1.3rem; color:#1B5E20; margin-bottom:10px;">🔍 查電器/藥妝低價 (Kakaku)</div>
+                <div class="input-group" style="margin-bottom: 5px;">
+                    <input type="text" id="input-kakaku" class="input-field" placeholder="輸入商品名稱或型號...">
+                    <button class="btn-add" style="background:var(--theme-green);" onclick="goKakaku()">搜尋</button>
+                </div>
+                <div style="font-size:1rem; color:#444; font-weight:bold;">輸入後點擊搜尋，將開啟價格.com比價。</div>
+            </div>
+
+            <hr style="border: 2px dashed #A5D6A7; margin: 20px 0;">
+
+            <div>
+                <div style="font-weight:900; font-size:1.3rem; color:#1B5E20; margin-bottom:10px;">🥦 查附近超市特價 (Tokubai)</div>
+                <a href="https://tokubai.co.jp/" target="_blank" class="trans-btn" style="background:#FFFFFF; color:var(--theme-green); border: 3px solid var(--theme-green); display: block; text-align: center; text-decoration: none;">開啟 Tokubai 傳單網 ➔</a>
+                <div style="background: #FFF9C4; border: 2px solid #FBC02D; padding: 12px; border-radius: 8px; margin-top: 15px; font-weight:900; color:#212121; font-size:1.1rem; text-align: center;">
+                    💡 飯店郵遞區號提示：<br><span style="font-size: 1.6rem; color: var(--theme-red);">103-0007</span><br>(開啟後可輸入此號碼搜尋)
+                </div>
+            </div>
+        </div>
+
         <div style="background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 25px; box-shadow: var(--sketch-shadow);">
             <div style="color:var(--theme-orange); font-weight:900; font-size:1.5rem; margin-bottom:12px;">🇹🇼 說中文 (翻成日文)</div>
             <textarea id="input-zh" class="trans-box" rows="3" placeholder="例：請問這個多少錢？"></textarea>
@@ -285,13 +310,13 @@
 <nav class="footer-nav">
     <div class="nav-item active" onclick="switchTab('trip', this)"><span class="nav-icon">🗺️</span>行程</div>
     <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>記帳/比價</div>
-    <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🗣️</span>翻譯</div>
+    <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🛠️</span>工具/翻譯</div>
 </nav>
 
 <script>
     let currentExchangeRate = 0.215; 
 
-    // === 行程資料庫 (完整無刪減版本) ===
+    // === 行程資料庫 (確保結構完整不遺漏) ===
     const itineraryData = [
         { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
             { time: "15:00", title: "抵達藤澤 Check-in", img: "images/1213.webp", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口", nearby: [
@@ -363,82 +388,34 @@
             ]}
         ]},
         { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", events: [
-            { 
-                time: "08:30", 
-                title: "小田原城：晨間歷史散策", 
-                img: "images/odawara.webp", 
-                desc: "從小田原站步行10分即達。早晨光線柔和，最適合拍攝天守閣與白牆。登上頂樓可遠眺相模灣全景，視野極佳。", 
-                map: "小田原城",
-                transportGuide: [
-                    "🚆 搭乘【JR 東海道線】: 藤澤 ➔ 小田原 (約20-25分, ¥590)",
-                    "🚶 步行: 小田原站東口 ➔ 小田原城址公園 (約10分)"
-                ],
-                nearby: [
-                    { name: "Minaka 小田原", dist: "800m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站旁的江戶風情建築，3樓有免費足湯可泡，適合回程短暫休息。", mapQuery: "ミナカ小田原" },
-                    { name: "報德二宮神社", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "城內幽靜的神社，附設質感咖啡廳，是避開遊客人潮的攝影好點。", mapQuery: "報徳二宮神社" },
-                    { name: "小田原城址公園 護城河", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "16-300mm鏡頭大顯身手之處，可用長焦段拍攝紅橋與城牆的倒影。", mapQuery: "小田原城址公園" },
-                    { name: "鈴廣魚板博物館", dist: "搭車15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "名產魚板的歷史基地，可體驗製作，若對DIY感興趣可順遊。", mapQuery: "鈴廣かまぼこの里" },
-                    { name: "小田原漁港", dist: "搭車10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若想吃最鮮的海鮮丼，這裡比箱根山上更便宜划算。", mapQuery: "小田原漁港" }
-                ]
-            },
-            { 
-                time: "11:30", 
-                title: "はつ花 蕎麥麵 (Hatsuhana Soba)", 
-                desc: "箱根湯本傳承80年的名店。招牌「自然薯蕎麥麵」口感細緻。建議在11:30前抵達以避開排隊人潮，獨旅者較易排到座位。", 
-                map: "はつ花そば 本店",
-                transportGuide: [
-                    "🚆 搭乘【箱根登山鐵道】: 小田原 ➔ 箱根湯本 (約15分, ¥320)",
-                    "🚶 步行: 車站至本店約7分，過橋後的早川溪景非常美。"
-                ],
-                nearby: [
-                    { name: "箱根湯本商店街", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "出站即達，可一路試吃現烤溫泉饅頭，購買在地伴手禮首選。", mapQuery: "箱根湯本駅前商店街" },
-                    { name: "湯葉丼 直吉", dist: "300m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若蕎麥麵排太長，這家汲取箱根清泉製作的豆皮丼是最佳B計畫。", mapQuery: "湯葉丼 直吉" },
-                    { name: "早川橋樑", dist: "2km", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影愛好者必訪，可在河岸拍攝登山電車行經古老鐵橋的經典畫面。", mapQuery: "早川橋梁" },
-                    { name: "菊川商店", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "現做的「箱根饅頭」，使用懷舊機器全自動生產，視覺與味覺雙享受。", mapQuery: "菊川商店" },
-                    { name: "萬葉之湯", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "若當天天氣太冷想取暖，這家日歸溫泉是箱根湯本最便利的選擇。", mapQuery: "箱根湯本温泉 万葉の湯" }
-                ]
-            },
-            { 
-                time: "13:45", 
-                title: "箱根神社：水上和平鳥居", 
-                desc: "矗立於蘆之湖中的紅色大鳥居是此行攝影重頭戲。漫步杉木林參道，感受神聖莊嚴的氛圍。", 
-                map: "箱根神社",
-                transportGuide: [
-                    "🚌 搭乘【箱根登山巴士 R線 (急行)】: 箱根湯本 ➔ 元箱根港 (約25分, ¥1,080)",
-                    "🚶 步行: 下車後沿湖濱步道走10分即可看到水中鳥居。"
-                ],
-                nearby: [
-                    { name: "元箱根港 湖畔步道", dist: "200m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "此處是拍攝「水中鳥居+富士山」同框的最佳視角，推薦使用長焦段。", mapQuery: "元箱根港" },
-                    { name: "成川美術館", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "美術館展望台擁有全箱根公認最美的「蘆之湖廣角窗景」，極力推薦。", mapQuery: "成川美術館" },
-                    { name: "Bakery & Table 箱根", dist: "400m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "一樓設有湖景足湯咖啡座，可買顆米粉咖哩麵包在此小憩。", mapQuery: "Bakery & Table 箱根" },
-                    { name: "箱根關所", dist: "步行15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "完全復原江戶時代的交通檢查哨，歷史氛圍濃厚，適合攝影。 ", mapQuery: "箱根関所" },
-                    { name: "九頭龍神社 新宮", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "位於箱根神社境內，主祀水神，其靈水泉可求緣與淨化心靈。", mapQuery: "九頭龍神社 新宮" }
-                ]
-            },
-            { 
-                time: "15:20", 
-                title: "箱根海賊船：蘆之湖黃金航線", 
-                desc: "從元箱根港登船。12月中旬的午後，斜射光讓湖面波光粼粼。建議直奔甲板，拍攝海賊船航行與水中鳥居交會的絕美瞬間。", 
-                map: "元箱根港",
-                transportGuide: [
-                    "⛴️ 搭乘【箱根觀光船】: 元箱根港 ➔ 桃源台 (約30分, ¥1,200)",
-                    "⚠️ 注意: 冬季末班船通常在15:20~16:00，請務必準時抵達。"
-                ],
-                nearby: [
-                    { name: "桃源台站 觀景台", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "船班抵達站。若天氣好，這裡看富士山非常巨大且壯觀。", mapQuery: "桃源台港" },
-                    { name: "大涌谷 (纜車銜接)", dist: "搭纜車20分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "若體力充裕可買單程票上去看地熱黑蛋，但12月風大且冷。", mapQuery: "大涌谷" },
-                    { name: "箱根空中纜車", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "從空中俯瞰蘆之湖全貌，即便只搭一站也能看見壯闊地景。", mapQuery: "箱根ロープウェイ 桃源台駅" },
-                    { name: "蘆之湖露營地", dist: "步行8分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "緊鄰桃源台，冬季清晨或傍晚常有湖面薄霧，是極佳的慢門攝影地。", mapQuery: "芦ノ湖キャンプ村" },
-                    { 
-                        name: "回程指南(回藤澤)", 
-                        dist: "小田原站", 
-                        fame: "⭐⭐⭐⭐⭐", 
-                        recom: "⭐⭐⭐⭐⭐", 
-                        desc: "在桃源台搭巴士T線直達小田原(¥1250)，轉JR回藤澤(¥590)，最不費力。", 
-                        mapQuery: "小田原駅" 
-                    }
-                ]
-            }
+            { time: "08:30", title: "小田原城：晨間歷史散策", img: "images/odawara.webp", desc: "從小田原站步行10分即達。早晨光線柔和，最適合拍攝天守閣與白牆。登上頂樓可遠眺相模灣全景，視野極佳。", map: "小田原城", transportGuide: [ "🚆 搭乘【JR 東海道線】: 藤澤 ➔ 小田原 (約20-25分, ¥590)", "🚶 步行: 小田原站東口 ➔ 小田原城址公園 (約10分)" ], nearby: [
+                { name: "Minaka 小田原", dist: "800m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站旁的江戶風情建築，3樓有免費足湯可泡，適合回程短暫休息。", mapQuery: "ミナカ小田原" },
+                { name: "報德二宮神社", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "城內幽靜的神社，附設質感咖啡廳，是避開遊客人潮的攝影好點。", mapQuery: "報徳二宮神社" },
+                { name: "小田原城址公園 護城河", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "16-300mm鏡頭大顯身手之處，可用長焦段拍攝紅橋與城牆的倒影。", mapQuery: "小田原城址公園" },
+                { name: "鈴廣魚板博物館", dist: "搭車15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "名產魚板的歷史基地，可體驗製作，若對DIY感興趣可順遊。", mapQuery: "鈴廣かまぼこの里" },
+                { name: "小田原漁港", dist: "搭車10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若想吃最鮮的海鮮丼，這裡比箱根山上更便宜划算。", mapQuery: "小田原漁港" }
+            ]},
+            { time: "11:30", title: "はつ花 蕎麥麵 (Hatsuhana Soba)", desc: "箱根湯本傳承80年的名店。招牌「自然薯蕎麥麵」口感細緻。建議在11:30前抵達以避開排隊人潮，獨旅者較易排到座位。", map: "はつ花そば 本店", transportGuide: [ "🚆 搭乘【箱根登山鐵道】: 小田原 ➔ 箱根湯本 (約15分, ¥320)", "🚶 步行: 車站至本店約7分，過橋後的早川溪景非常美。" ], nearby: [
+                { name: "箱根湯本商店街", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "出站即達，可一路試吃現烤溫泉饅頭，購買在地伴手禮首選。", mapQuery: "箱根湯本駅前商店街" },
+                { name: "湯葉丼 直吉", dist: "300m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若蕎麥麵排太長，這家汲取箱根清泉製作的豆皮丼是最佳B計畫。", mapQuery: "湯葉丼 直吉" },
+                { name: "早川橋樑", dist: "2km", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影愛好者必訪，可在河岸拍攝登山電車行經古老鐵橋的經典畫面。", mapQuery: "早川橋梁" },
+                { name: "菊川商店", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "現做的「箱根饅頭」，使用懷舊機器全自動生產，視覺與味覺雙享受。", mapQuery: "菊川商店" },
+                { name: "萬葉之湯", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "若當天天氣太冷想取暖，這家日歸溫泉是箱根湯本最便利的選擇。", mapQuery: "箱根湯本温泉 万葉の湯" }
+            ]},
+            { time: "13:45", title: "箱根神社：水上和平鳥居", desc: "矗立於蘆之湖中的紅色大鳥居是此行攝影重頭戲。漫步杉木林參道，感受神聖莊嚴的氛圍。", map: "箱根神社", transportGuide: [ "🚌 搭乘【箱根登山巴士 R線 (急行)】: 箱根湯本 ➔ 元箱根港 (約25分, ¥1,080)", "🚶 步行: 下車後沿湖濱步道走10分即可看到水中鳥居。" ], nearby: [
+                { name: "元箱根港 湖畔步道", dist: "200m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "此處是拍攝「水中鳥居+富士山」同框的最佳視角，推薦使用長焦段。", mapQuery: "元箱根港" },
+                { name: "成川美術館", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "美術館展望台擁有全箱根公認最美的「蘆之湖廣角窗景」，極力推薦。", mapQuery: "成川美術館" },
+                { name: "Bakery & Table 箱根", dist: "400m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "一樓設有湖景足湯咖啡座，可買顆米粉咖哩麵包在此小憩。", mapQuery: "Bakery & Table 箱根" },
+                { name: "箱根關所", dist: "步行15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "完全復原江戶時代的交通檢查哨，歷史氛圍濃厚，適合攝影。 ", mapQuery: "箱根関所" },
+                { name: "九頭龍神社 新宮", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "位於箱根神社境內，主祀水神，其靈水泉可求緣與淨化心靈。", mapQuery: "九頭龍神社 新宮" }
+            ]},
+            { time: "15:20", title: "箱根海賊船：蘆之湖黃金航線", desc: "從元箱根港登船。12月中旬的午後，斜射光讓湖面波光粼粼。建議直奔甲板，拍攝海賊船航行與水中鳥居交會的絕美瞬間。", map: "元箱根港", transportGuide: [ "⛴️ 搭乘【箱根觀光船】: 元箱根港 ➔ 桃源台 (約30分, ¥1,200)", "⚠️ 注意: 冬季末班船通常在15:20~16:00，請務必準時抵達。" ], nearby: [
+                { name: "桃源台站 觀景台", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "船班抵達站。若天氣好，這裡看富士山非常巨大且壯觀。", mapQuery: "桃源台港" },
+                { name: "大涌谷 (纜車銜接)", dist: "搭纜車20分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "若體力充裕可買單程票上去看地熱黑蛋，但12月風大且冷。", mapQuery: "大涌谷" },
+                { name: "箱根空中纜車", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "從空中俯瞰蘆之湖全貌，即便只搭一站也能看見壯闊地景。", mapQuery: "箱根ロープウェイ 桃源台駅" },
+                { name: "蘆之湖露營地", dist: "步行8分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "緊鄰桃源台，冬季清晨或傍晚常有湖面薄霧，是極佳的慢門攝影地。", mapQuery: "芦ノ湖キャンプ村" },
+                { name: "回程指南(回藤澤)", dist: "小田原站", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "在桃源台搭巴士T線直達小田原(¥1250)，轉JR回藤澤(¥590)，最不費力。", mapQuery: "小田原駅" }
+            ]}
         ]},
         { date: "12/17 (四)", id: "d5", project: 1, fullDate: "2026-12-17", events: [
             { time: "10:00", title: "藤澤宿歷史老街", img: "images/1217.webp", desc: "保留了古老酒造、百年米店的舊東海道驛站町。", map: "藤澤宿", nearby: [
@@ -472,14 +449,14 @@
                 { name: "Mos Burger 江之島店", dist: "1km", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "擁有極佳海景的摩斯漢堡，想快速解決一餐兼看海的好選擇。", mapQuery: "モスバーガー 江ノ島店" }
             ]}
         ]},
-		
+
 		{ date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
             { time: "10:00", title: "東京站", img: "images/1219.webp", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅", nearby: [
                 { name: "東京車站一番街", dist: "站內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "集結拉麵街、動漫角色街與各家零食大廠概念店，極度好逛。", mapQuery: "東京駅一番街" },
                 { name: "丸之內站舍 (紅磚建築)", dist: "出站即達", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "修復後的壯麗歐風車站外觀，是來東京必拍的經典地標。", mapQuery: "東京駅 丸の内駅舎" },
                 { name: "皇居外苑", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "廣闊的碎石步道與黑松林，可拍攝著名的二重橋與護城河。", mapQuery: "皇居外苑" },
                 { name: "KITTE 丸之內", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "由舊郵局改建，中庭設計極美，頂樓花園可俯瞰新幹線進出。", mapQuery: "KITTE丸の内" },
-                { name: "丸善書店 日本橋店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "《藥師少女的獨語》英文版漫畫)", mapQuery: "丸善 日本橋店" }
+                { name: "丸善書店 日本橋店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "《藥師少女的獨語》英文版漫畫", mapQuery: "丸善 日本橋店" }
             ]},
             { time: "12:35", title: "✈️ CI104 航班起飛", desc: "家人於桃園機場出發。", checkInNote: "去程航班報到" },
             { time: "16:35", title: "家人抵達 NRT T2", desc: "通關並領取行李。", map: "成田空港第2ターミナル", nearby: [
@@ -615,7 +592,7 @@
                 { name: "日本橋三越本店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "日本第一家百貨公司，文藝復興式本館與大廳的天女像皆為文化財。", mapQuery: "日本橋三越本店" },
                 { name: "COREDO 室町", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "集結江戶時代傳統老字號與現代工藝的質感商場，和風氣息濃。", mapQuery: "COREDO室町" },
                 { name: "日本橋 麒麟之翼", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本道路的起點標誌，橋上的青銅麒麟雕像極具氣勢（東野圭吾小說場景）。", mapQuery: "日本橋 麒麟の像" },
-                { name: "丸善書店 日本橋店", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "《藥師少女的獨語》英文版漫畫)。", mapQuery: "丸善 日本橋店" },
+                { name: "日本銀行 貨幣博物館", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "免費參觀，展示豐富的日本貨幣歷史，建築外觀非常宏偉。", mapQuery: "貨幣博物館" },
                 { name: "千疋屋總本店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "創立於1834年的頂級水果老店，價格昂貴但水果聖代絕對是極品。", mapQuery: "千疋屋総本店 日本橋本店" }
             ]},
             { time: "14:00", title: "KITTE 丸之內", suitable: ['kid', 'senior'], desc: "商場中庭看巨大聖誕樹，頂樓屋頂花園拍攝東京車站全貌。", map: "KITTE丸の内", nearby: [
@@ -745,7 +722,6 @@
                     marketHtml += `</div>`;
                 }
 
-                // 高對比度、有明確邊框的附近景點渲染
                 let nearbyHtml = '';
                 if (evt.nearby && evt.nearby.length > 0) {
                     nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊 / 備用推薦</div>`;
@@ -961,11 +937,17 @@
         document.getElementById('acc-total-twd').innerText = `約 NT$${Math.round(total * currentExchangeRate).toLocaleString()}`;
     }
 
-    // === 翻譯與初始化 ===
+    // === 翻譯與比價功能 ===
     function goTranslate(sl, tl, inputId) {
         const text = document.getElementById(inputId).value;
         if (!text) return alert('請先輸入要翻譯的文字喔！');
         window.open(`https://translate.google.com/?sl=${sl}&tl=${tl}&text=${encodeURIComponent(text)}&op=translate`, '_blank');
+    }
+
+    function goKakaku() {
+        const text = document.getElementById('input-kakaku').value;
+        if (!text) return alert('請輸入要搜尋的商品名稱或型號！');
+        window.open(`https://kakaku.com/search_results/${encodeURIComponent(text)}/`, '_blank');
     }
 
     function initAutoScroll() {
