@@ -13,23 +13,26 @@
 
     <style>
         :root {
-            --bg-overlay: rgba(253, 251, 246, 0.96);
-            --card-bg: #FFFDF8;
-            --text-main: #3E3A39;
-            --text-sub: #6B635E;
+            /* 讓背景稍微亮一點，減少灰暗感 */
+            --bg-overlay: rgba(255, 253, 249, 0.96);
+            --card-bg: #FFFFFF; 
+            /* 文字加深，提升對比度，長輩閱讀更輕鬆 */
+            --text-main: #111111; 
+            --text-sub: #444444;
             
-            --theme-blue: #6A8EAE;
-            --theme-orange: #E08E55;
-            --theme-green: #7D9D7F;
-            --theme-red: #C56C6C;
+            /* 調整為高彩度、高辨識度的活潑主題色 */
+            --theme-blue: #0056B3; 
+            --theme-orange: #E65100; 
+            --theme-green: #2E7D32; 
+            --theme-red: #D32F2F; 
 
-            --bg-kid: #FFF0F5;
-            --border-kid: #FFB6C1;
-            --bg-senior: #F0F8F5;
-            --border-senior: #A3C9B6;
+            --bg-kid: #FCE4EC;
+            --border-kid: #F06292;
+            --bg-senior: #E8F5E9;
+            --border-senior: #66BB6A;
 
-            --sketch-border: 2px solid #5A5451;
-            --sketch-shadow: 4px 5px 0px rgba(62, 58, 57, 0.12);
+            --sketch-border: 2px solid #333333;
+            --sketch-shadow: 4px 5px 0px rgba(17, 17, 17, 0.15);
             --radius-sketch: 8px 25px 8px 20px / 25px 8px 20px 8px;
             --radius-btn: 255px 15px 225px 15px / 15px 225px 15px 255px;
         }
@@ -40,13 +43,13 @@
             font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
             margin: 0; padding-bottom: 12vh; line-height: 1.8;
             color: var(--text-main); background-color: #F5EFE6;
-            font-size: 18px;
+            font-size: 19px; /* 基底字級調大 */
         }
 
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://loremflickr.com/2048/3072/tokyo,winter,sky');
-            background-size: cover; background-position: center; z-index: -2; opacity: 0.3;
+            background-size: cover; background-position: center; z-index: -2; opacity: 0.25;
         }
         
         body::after {
@@ -55,124 +58,128 @@
         }
 
         header {
-            background: rgba(253, 251, 246, 0.98); position: sticky; top: 0; z-index: 100;
+            background: rgba(255, 255, 255, 0.98); position: sticky; top: 0; z-index: 100;
             border-bottom: 3px dashed #BBAFA1; padding: 12px 16px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.5rem; font-weight: 900; }
+        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--theme-blue); }
         .top-title span.year { color: var(--theme-orange); margin-left: 5px; }
-        .header-rate { font-size: 0.9rem; color: #fff; background: var(--theme-green); padding: 4px 12px; border-radius: var(--radius-btn); font-weight: bold; border: var(--sketch-border); }
+        .header-rate { font-size: 1rem; color: #fff; background: var(--theme-green); padding: 4px 14px; border-radius: var(--radius-btn); font-weight: bold; border: var(--sketch-border); }
 
         .project-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
         .project-tab {
             border-radius: var(--radius-btn); border: var(--sketch-border);
-            background: #F4EBE0; font-size: 1.05rem; font-weight: 700;
+            background: #FFF; font-size: 1.1rem; font-weight: 700; color: var(--text-main);
             padding: 8px 16px; cursor: pointer; font-family: inherit; flex: 1; text-align: center;
         }
-        .project-tab.active { background: var(--theme-orange); color: #fff; }
+        .project-tab.active { background: var(--theme-orange); color: #fff; border-color: var(--theme-orange); }
 
         .date-scroller { display: none; overflow-x: auto; padding-bottom: 12px; gap: 12px; scrollbar-width: none; }
         .date-scroller.active { display: flex; }
         .date-scroller::-webkit-scrollbar { display: none; }
         .date-chip {
             flex: 0 0 auto; padding: 8px 18px; border-radius: var(--radius-btn);
-            border: var(--sketch-border); font-weight: bold; background: #FFF;
-            box-shadow: 2px 3px 0px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.2s;
+            border: var(--sketch-border); font-weight: 900; background: #FFF;
+            box-shadow: 2px 3px 0px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.2s; color: var(--text-sub);
         }
-        .chip-today { background: var(--theme-green) !important; color: white !important; border: 2px solid #3E3A39; }
-        .chip-past { background: #E4DFD5; color: #888; border-style: dashed; }
+        .chip-today { background: var(--theme-green) !important; color: white !important; border: 2px solid #111; }
+        .chip-past { background: #EAEAEA; color: #888; border-style: dashed; }
         
         .chip-selected {
             background: var(--theme-blue) !important; color: white !important;
-            border: 2px solid #3E3A39 !important; transform: scale(1.05);
-            box-shadow: 2px 5px 0px rgba(0,0,0,0.2) !important;
+            border: 2px solid #111 !important; transform: scale(1.05);
+            box-shadow: 2px 5px 0px rgba(0,0,0,0.25) !important;
         }
 
         .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
 
-        .prep-box { background: #FFF; border: 3px solid #3E3A39; border-radius: 12px; padding: 15px; margin-bottom: 25px; box-shadow: var(--sketch-shadow); }
-        .prep-title { font-weight: 900; color: var(--theme-orange); margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
-        .prep-link { display: block; background: #F9F6F0; border: 2px dashed #BBAFA1; padding: 12px; border-radius: 8px; text-decoration: none; color: var(--text-main); font-weight: bold; margin-bottom: 8px; }
-        .prep-link span { color: var(--theme-blue); font-size: 0.9rem; display: block; margin-top: 4px; }
+        .prep-box { background: #FFF; border: 3px solid var(--theme-blue); border-radius: 12px; padding: 15px; margin-bottom: 25px; box-shadow: var(--sketch-shadow); }
+        .prep-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 12px; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; }
+        .prep-link { display: block; background: #F4F8FB; border: 2px dashed var(--theme-blue); padding: 12px; border-radius: 8px; text-decoration: none; color: var(--text-main); font-weight: 900; margin-bottom: 8px; }
+        .prep-link span { color: var(--theme-orange); font-size: 1rem; display: block; margin-top: 4px; font-weight: bold; }
 
-        .day-header { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 15px; border-left: 8px solid var(--theme-orange); padding-left: 10px; }
-        .day-header h2 { margin: 0; font-size: 1.6rem; font-weight: 900; }
+        .day-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 15px; border-left: 8px solid var(--theme-orange); padding-left: 12px; }
+        .day-header h2 { margin: 0; font-size: 1.7rem; font-weight: 900; color: var(--text-main); }
         
-        .timeline-wrapper { position: relative; padding-left: 24px; border-left: 2px dashed #BBAFA1; }
-        .timeline-item { position: relative; margin-bottom: 35px; }
-        .timeline-dot { position: absolute; left: -34px; top: 20px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid #FFFDF8; background: var(--theme-orange); box-shadow: 1px 2px 0px rgba(0,0,0,0.2); }
+        .timeline-wrapper { position: relative; padding-left: 24px; border-left: 3px dashed #BBAFA1; }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: -35px; top: 20px; width: 20px; height: 20px; border-radius: 50%; border: 4px solid #FFFDF8; background: var(--theme-orange); box-shadow: 1px 2px 0px rgba(0,0,0,0.25); }
 
         .card { background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); box-shadow: var(--sketch-shadow); overflow: hidden; }
         
         .bg-kid { background: var(--bg-kid) !important; border-color: var(--border-kid) !important; }
         .bg-senior { background: var(--bg-senior) !important; border-color: var(--border-senior) !important; }
-        .bg-both { background: linear-gradient(135deg, var(--bg-kid) 40%, var(--bg-senior) 60%) !important; border-color: #D3C5C5 !important; }
+        .bg-both { background: linear-gradient(135deg, var(--bg-kid) 40%, var(--bg-senior) 60%) !important; border-color: #BDBDBD !important; }
 
-        .card-img { width: 100%; height: 200px; object-fit: cover; border-bottom: var(--sketch-border); cursor: zoom-in; }
+        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: var(--sketch-border); cursor: zoom-in; }
         .card-content { padding: 20px; }
-        .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.15rem; font-weight: 900; color: var(--theme-orange); display: block; margin-bottom: 5px; }
-        .card-title { font-size: 1.45rem; font-weight: 900; margin: 0 0 8px; line-height: 1.4; }
-        .card-title a { color: var(--text-main); text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.2s; }
-        .card-title a:hover { border-bottom: 2px solid var(--theme-orange); }
+        .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.3rem; font-weight: 900; color: var(--theme-orange); display: block; margin-bottom: 5px; }
+        .card-title { font-size: 1.6rem; font-weight: 900; margin: 0 0 10px; line-height: 1.4; }
+        /* 明確的超連結樣式，長輩容易辨識 */
+        .card-title a { color: var(--theme-blue); text-decoration: underline; text-underline-offset: 4px; transition: opacity 0.2s; }
+        .card-title a:hover { opacity: 0.7; }
 
         .card-tags { display: flex; gap: 8px; margin-bottom: 12px; }
-        .tag-kid { background: #FF4081; color: white; font-size: 0.85rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
-        .tag-senior { background: #2E7D32; color: white; font-size: 0.85rem; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
-        .card-desc { font-size: 1.1rem; color: #4A4542; margin-bottom: 12px; line-height: 1.8; }
+        .tag-kid { background: #D81B60; color: white; font-size: 0.95rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
+        .tag-senior { background: #1B5E20; color: white; font-size: 0.95rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
+        .card-desc { font-size: 1.15rem; color: var(--text-main); margin-bottom: 15px; line-height: 1.8; font-weight: 600; }
         
-        /* === 周邊景點推薦樣式設計 === */
-        .nearby-box { margin-top: 15px; padding: 12px; background: #FAF9F6; border-radius: 12px; border: 2px dashed #BBAFA1; }
-        .nearby-box-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 8px; font-size: 1rem; font-family: 'Zen Maru Gothic', sans-serif; }
-        .nearby-item { font-family: 'Klee One', serif; font-size: 0.95rem; margin-bottom: 8px; line-height: 1.5; padding: 8px 12px; border-radius: 8px; }
+        /* 活潑且高辨識度的周邊景點區塊 */
+        .nearby-box { margin-top: 20px; padding: 15px; background: #FDFBF7; border-radius: 12px; border: 3px solid #E0E0E0; }
+        .nearby-box-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 10px; font-size: 1.15rem; font-family: 'Zen Maru Gothic', sans-serif; display: inline-block; background: #E3F2FD; padding: 4px 10px; border-radius: 8px;}
+        .nearby-item { font-family: 'Klee One', serif; font-size: 1rem; font-weight: 600; margin-bottom: 10px; line-height: 1.6; padding: 10px 12px; border-radius: 8px; }
         .nearby-item:last-child { margin-bottom: 0; }
-        .nearby-item:nth-child(odd) { background: #F0F8F5; color: #1E462E; border-left: 4px solid var(--theme-green); }
-        .nearby-item:nth-child(even) { background: #FFF0F5; color: #5C2237; border-left: 4px solid #D95F59; }
-        .nearby-link { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; text-decoration: none; margin-right: 6px; display: inline-block; color: inherit; text-decoration: underline; text-decoration-color: rgba(0,0,0,0.3); }
+        /* 使用跳色區分各個景點，增加活潑感 */
+        .nearby-item:nth-child(odd) { background: #E8F5E9; color: #1B5E20; border-left: 6px solid var(--theme-green); }
+        .nearby-item:nth-child(even) { background: #FFF3E0; color: #E65100; border-left: 6px solid var(--theme-orange); }
+        .nearby-link { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; margin-right: 6px; display: inline-block; color: inherit; }
         
-        .check-in-alert { background: #FFF0F0; border: 2px dashed var(--theme-red); color: var(--theme-red); padding: 12px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; }
-        .review-bubble { background: rgba(255,255,255,0.6); border: var(--sketch-border); border-radius: 15px 25px 15px 20px; padding: 12px 16px; margin-top: 15px; font-size: 1.05rem; display: flex; gap: 8px; line-height: 1.6; }
+        .check-in-alert { background: #FFEBEE; border: 2px dashed var(--theme-red); color: var(--theme-red); padding: 12px; border-radius: 8px; font-weight: 900; margin-bottom: 15px; font-size: 1.1rem; }
+        .review-bubble { background: #FFF9C4; border: 2px solid #FBC02D; color: #424242; border-radius: 15px 25px 15px 20px; padding: 12px 16px; margin-top: 15px; font-size: 1.1rem; display: flex; gap: 8px; line-height: 1.6; font-weight: 600; }
         
-        .market-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 15px; }
-        .market-btn { background: #F9F6F0; border: 2px dashed var(--theme-green); padding: 12px 15px; border-radius: 12px; text-decoration: none; display: block; }
-        .market-name { font-weight: bold; font-size: 1.1rem; color: var(--theme-green); }
+        .market-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
+        .market-btn { background: #E8F5E9; border: 2px dashed var(--theme-green); padding: 15px; border-radius: 12px; text-decoration: none; display: block; transition: background 0.2s; }
+        .market-btn:hover { background: #C8E6C9; }
+        .market-name { font-weight: 900; font-size: 1.2rem; color: #1B5E20; text-decoration: underline; text-underline-offset: 2px; }
         
-        .transport-guide { background: rgba(255,255,255,0.7); border: 2px solid #E4DFD5; border-radius: 10px; padding: 16px; margin-top: 15px; }
-        .guide-step { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.05rem; font-weight: 600; }
-        .step-num { background: var(--theme-orange); color: #fff; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.9rem; margin-right: 12px; flex-shrink: 0; }
+        .transport-guide { background: rgba(255,255,255,0.9); border: 2px solid #BDBDBD; border-radius: 10px; padding: 18px; margin-top: 15px; }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 1.1rem; font-weight: 900; color: var(--theme-blue); }
+        .step-num { background: var(--theme-orange); color: #fff; width: 26px; height: 26px; border-radius: 50%; text-align: center; line-height: 26px; font-size: 1rem; margin-right: 12px; flex-shrink: 0; }
 
-        .btn-group { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-        .btn { flex: 1; text-align: center; padding: 12px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.1rem; font-weight: bold; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1); }
+        .btn-group { display: flex; gap: 12px; margin-top: 25px; flex-wrap: wrap; }
+        .btn { flex: 1; text-align: center; padding: 14px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.2rem; font-weight: 900; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 2px 3px 0px rgba(0,0,0,0.2); }
         .btn-primary { background: var(--theme-blue); color: white; }
-        .btn-weather { background: #FFF; color: var(--text-main); }
+        .btn-weather { background: #FFF9C4; color: var(--text-main); }
 
-        .coupon-box { background: #FFF9E6; border: 2px dashed var(--theme-orange); border-radius: 15px; padding: 15px; margin-bottom: 25px; text-align: center; text-decoration: none; display: block; color: var(--text-main); }
-        .acc-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px dashed #DCD8D3; }
-        .acc-title { font-size: 1.4rem; font-weight: 900; margin-bottom: 15px; color: var(--theme-orange); border-left: 6px solid var(--theme-orange); padding-left: 12px; }
+        .coupon-box { background: #FFF3E0; border: 3px dashed var(--theme-orange); border-radius: 15px; padding: 20px; margin-bottom: 25px; text-align: center; text-decoration: none; display: block; color: var(--text-main); }
+        .acc-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px dashed #E0E0E0; }
+        .acc-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 15px; color: var(--theme-blue); border-left: 8px solid var(--theme-blue); padding-left: 12px; }
         
-        .buy-item-card { background: #FDF4E3; border: var(--sketch-border); border-left: 6px solid var(--theme-green); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1); }
+        .buy-item-card { background: #FFF; border: var(--sketch-border); border-left: 8px solid var(--theme-green); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); }
         
-        .input-group { display: flex; gap: 8px; margin-bottom: 15px; }
-        .input-field { flex: 1; padding: 12px; border: 2px solid #DCD8D3; border-radius: 8px; font-family: inherit; font-size: 1.1rem; width: 100%; box-sizing: border-box; }
-        .btn-add { background: var(--text-main); color: #FFF; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; white-space: nowrap; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
+        .input-field { flex: 1; padding: 15px; border: 2px solid #9E9E9E; border-radius: 8px; font-family: inherit; font-size: 1.2rem; font-weight: 600; width: 100%; box-sizing: border-box; }
+        .btn-add { background: var(--theme-blue); color: #FFF; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 900; font-size: 1.3rem; white-space: nowrap; }
 
-        .trans-box { font-size: 1.5rem; width: 100%; border: var(--sketch-border); border-radius: 15px; padding: 15px; margin-top: 10px; background: white; font-family: sans-serif; line-height: 1.3; box-sizing: border-box; }
-        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 15px; width: 100%; font-size: 1.3rem; font-weight: bold; margin-top: 15px; box-shadow: 2px 3px 0px rgba(0,0,0,0.1); }
+        .trans-box { font-size: 1.5rem; font-weight: 600; width: 100%; border: 2px solid #9E9E9E; border-radius: 15px; padding: 15px; margin-top: 10px; background: white; font-family: sans-serif; line-height: 1.3; box-sizing: border-box; }
+        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 18px; width: 100%; font-size: 1.4rem; font-weight: 900; margin-top: 15px; box-shadow: 2px 4px 0px rgba(0,0,0,0.2); }
 
-        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 12vh; min-height: 80px; max-height: 90px; background: #FDFBF7; border-top: 2px solid #5A5451; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        .nav-item { text-align: center; color: #A8A096; flex: 1; font-weight: bold; cursor: pointer; font-size: 1rem; padding: 8px 5px; margin: 0 5px; border-radius: 15px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85%; border: 2px solid transparent; }
-        .nav-item.active { color: var(--theme-orange); background: #FFF3E8; border: 2px solid var(--theme-orange); box-shadow: 0px 4px 0px var(--theme-orange); transform: translateY(-4px); }
-        .nav-icon { font-size: 1.6rem; display: block; margin-bottom: 2px; }
+        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 12vh; min-height: 80px; max-height: 95px; background: #FFFFFF; border-top: 3px solid #333; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; z-index: 1000; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); }
+        .nav-item { text-align: center; color: #757575; flex: 1; font-weight: 900; cursor: pointer; font-size: 1.1rem; padding: 8px 5px; margin: 0 5px; border-radius: 15px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85%; border: 2px solid transparent; }
+        .nav-item.active { color: var(--theme-blue); background: #E3F2FD; border: 2px solid var(--theme-blue); box-shadow: 0px 4px 0px var(--theme-blue); transform: translateY(-4px); }
+        .nav-icon { font-size: 1.8rem; display: block; margin-bottom: 2px; }
 
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
-        .keyword-orange { background: linear-gradient(transparent 60%, #FFE0B2 40%); padding: 0 4px; font-weight: bold; }
+        .keyword-orange { background: linear-gradient(transparent 60%, #FFE0B2 40%); padding: 0 4px; font-weight: 900; color: #D84315; }
         
         .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
         .img-modal.active { display: flex; animation: fadeIn 0.2s; }
         .modal-content { max-width: 90%; max-height: 80vh; border-radius: 12px; border: 3px solid #FFF; box-shadow: 0 5px 20px rgba(0,0,0,0.6); object-fit: contain; }
-        .modal-close { color: white; margin-top: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border: 2px solid #FFF; padding: 8px 25px; border-radius: 25px; background: rgba(255,255,255,0.2); }
+        .modal-close { color: white; margin-top: 20px; font-size: 1.3rem; font-weight: 900; cursor: pointer; border: 2px solid #FFF; padding: 10px 30px; border-radius: 30px; background: rgba(255,255,255,0.25); }
     </style>
 </head>
 
@@ -180,7 +187,7 @@
 
 <div id="imageModal" class="img-modal" onclick="closeImageModal()">
     <img id="modalImg" class="modal-content" src="" alt="放大觀看">
-    <div class="modal-close">✕ 關閉</div>
+    <div class="modal-close">✕ 關閉圖片</div>
 </div>
 
 <header>
@@ -206,7 +213,7 @@
             </a>
             <a href="https://tokiomarinenichido.jp/zh-hant/china2/?srsltid=AfmBOorqZbUIUHkKzIDtEwL9Izd5Ce-RW-4uLIdW9zhHOuJSdWS5XaI_" target="_blank" class="prep-link">
                 🛡️ 東京海上日動 (旅遊保險)
-                <span>TOKIO OMOTENASHI POLICY 保險連結</span>
+                <span>TOKIO 保險連結</span>
             </a>
         </div>
         <div id="itinerary-list"></div>
@@ -216,10 +223,10 @@
         <div class="acc-section" style="border-bottom: none; margin-bottom: 15px;">
             <div class="acc-title">家族即時比價系統</div>
             <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" style="text-decoration: none;">
-                <div style="background: #FFFDF8; border: 3px solid #E08E55; border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
-                    <span style="font-size: 3rem; display: block; margin-bottom: 10px;">📸</span>
-                    <div style="font-size: 1.6rem; font-weight: 900; color: #3E3A39;">點我：回報目前店內價格</div>
-                    <div style="font-size: 1rem; color: #E08E55; margin-top: 10px; font-weight: bold;">(填寫後，全家人的畫面都會同步更新)</div>
+                <div style="background: #FFF3E0; border: 3px solid #E65100; border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
+                    <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">📸</span>
+                    <div style="font-size: 1.8rem; font-weight: 900; color: #111;">點我：回報店內價格</div>
+                    <div style="font-size: 1.1rem; color: #E65100; margin-top: 10px; font-weight: bold;">(填寫後全家畫面會同步更新)</div>
                 </div>
             </a>
         </div>
@@ -227,29 +234,29 @@
         <div class="acc-section">
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
                 <div class="acc-title" style="margin-bottom: 0;">各店價格即時看</div>
-                <button onclick="syncCloudData()" style="background: #F4EBE0; border: var(--sketch-border); border-radius: 20px; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 0.9rem;">🔄 手動更新</button>
+                <button onclick="syncCloudData()" style="background: #E3F2FD; border: var(--sketch-border); border-radius: 20px; padding: 8px 18px; font-weight: 900; cursor: pointer; font-size: 1rem; color: var(--theme-blue);">🔄 手動更新</button>
             </div>
             <div id="tobuy-list">
-                <div style="text-align:center; padding:30px; color:#888;">☁️ 正在載入雲端資料...</div>
+                <div style="text-align:center; padding:30px; color:#666; font-weight: bold;">☁️ 正在載入雲端資料...</div>
             </div>
         </div>
 
         <a href="https://itigre.pse.is/japancoupon" target="_blank" class="coupon-box">
-            <span style="font-size: 2.2rem; display:block;">🎫</span>
-            <div style="font-weight: 900; font-size: 1.3rem;">日本購物折價券清單</div>
-            <div style="font-size: 1rem; color: #E08E55; margin-top: 5px;">點此開啟 (藥妝/Bic Camera)</div>
+            <span style="font-size: 2.5rem; display:block;">🎫</span>
+            <div style="font-weight: 900; font-size: 1.5rem;">日本購物折價券清單</div>
+            <div style="font-size: 1.1rem; color: #E65100; margin-top: 5px; font-weight: bold;">點此開啟 (藥妝/Bic Camera)</div>
         </a>
 
         <div class="acc-section">
             <div class="acc-title">今日個人支出</div>
-            <div style="background: #F4EBE0; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 20px; border: var(--sketch-border);">
-                <div style="font-size: 1rem; font-weight: bold;">目前總計</div>
-                <div id="acc-total" style="font-size: 2.2rem; font-weight: 900; color: var(--theme-red); font-family: 'Zen Maru Gothic';">¥0</div>
-                <div id="acc-total-twd" style="font-size: 1.1rem; font-weight: bold; color: var(--text-sub);">約 NT$0</div>
+            <div style="background: #F4F8FB; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; border: var(--sketch-border);">
+                <div style="font-size: 1.2rem; font-weight: 900;">目前總計</div>
+                <div id="acc-total" style="font-size: 2.8rem; font-weight: 900; color: var(--theme-red); font-family: 'Zen Maru Gothic';">¥0</div>
+                <div id="acc-total-twd" style="font-size: 1.3rem; font-weight: bold; color: var(--text-sub);">約 NT$0</div>
             </div>
             <div class="input-group">
                 <input type="text" id="acc-item" class="input-field" placeholder="品項 (例: 拉麵)">
-                <input type="number" id="acc-cost" class="input-field" style="max-width: 100px;" placeholder="日幣">
+                <input type="number" id="acc-cost" class="input-field" style="max-width: 110px;" placeholder="日幣">
                 <button class="btn-add" onclick="addExpense()">＋</button>
             </div>
             <ul id="expense-list" style="list-style: none; padding: 0; margin: 0;"></ul>
@@ -258,17 +265,17 @@
 
     <div id="sec-trans" class="section">
         <div style="background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 25px; box-shadow: var(--sketch-shadow);">
-            <div style="color:var(--theme-orange); font-weight:900; font-size:1.3rem; margin-bottom:10px;">🇹🇼 說中文 (翻成日文)</div>
+            <div style="color:var(--theme-orange); font-weight:900; font-size:1.4rem; margin-bottom:12px;">🇹🇼 說中文 (翻成日文)</div>
             <textarea id="input-zh" class="trans-box" rows="2" placeholder="例：請問這個多少錢？"></textarea>
             <button class="trans-btn" onclick="goTranslate('zh-TW', 'ja', 'input-zh')">轉換為日文 ➔</button>
             
-            <hr style="border: 1px dashed #CCC; margin: 35px 0;">
+            <hr style="border: 2px dashed #BDBDBD; margin: 40px 0;">
 
-            <div style="color:var(--theme-blue); font-weight:900; font-size:1.3rem; margin-bottom:10px;">🇯🇵 說日文 (翻成中文)</div>
+            <div style="color:var(--theme-blue); font-weight:900; font-size:1.4rem; margin-bottom:12px;">🇯🇵 說日文 (翻成中文)</div>
             <textarea id="input-ja" class="trans-box" rows="2" placeholder="給日本店員輸入..."></textarea>
             <button class="trans-btn" style="background:var(--theme-blue);" onclick="goTranslate('ja', 'zh-TW', 'input-ja')">轉換為中文 ➔</button>
             
-            <p style="margin-top:20px; font-size:1rem; color:#888; text-align:center; font-weight:bold;">* 點擊按鈕將開啟 Google 雙向翻譯</p>
+            <p style="margin-top:25px; font-size:1.1rem; color:#666; text-align:center; font-weight:bold;">* 點擊按鈕將開啟 Google 雙向翻譯</p>
         </div>
     </div>
 </main>
@@ -278,7 +285,6 @@
     <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>記帳/比價</div>
     <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🗣️</span>翻譯</div>
 </nav>
-
 <script>
     let currentExchangeRate = 0.215; 
 
@@ -407,9 +413,9 @@
                 { name: "埜庵 (天然冰刨冰)", dist: "步行15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "使用日光天然冰製作的神級刨冰店，即便冬天也大排長龍。", mapQuery: "埜庵" },
                 { name: "Mos Burger 江之島店", dist: "1km", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "擁有極佳海景的摩斯漢堡，想快速解決一餐兼看海的好選擇。", mapQuery: "モスバーガー 江ノ島店" }
             ]}
-        ]}
-		
-		, { date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
+        ]},
+
+		{ date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
             { time: "10:00", title: "獨旅退房前往東京", img: "images/1219.webp", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅", nearby: [
                 { name: "東京車站一番街", dist: "站內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "集結拉麵街、動漫角色街與各家零食大廠概念店，極度好逛。", mapQuery: "東京駅一番街" },
                 { name: "丸之內站舍 (紅磚建築)", dist: "出站即達", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "修復後的壯麗歐風車站外觀，是來東京必拍的經典地標。", mapQuery: "東京駅 丸の内駅舎" },
@@ -425,12 +431,11 @@
                 { name: "Blue Bottle Coffee", dist: "T2", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "通關前若需提神，這是一杯高質感手沖咖啡的好選擇。", mapQuery: "ブルーボトルコーヒー 成田" },
                 { name: "T2 觀景台", dist: "4F", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "寬敞的戶外平台，可近距離觀看飛機起降，適合長輩活動筋骨。", mapQuery: "成田空港 第2ターミナル 見学デッキ" }
             ]},
-            { time: "17:30", title: "搭 Airport Bus TYO-NRT", suitable: ['senior', 'kid'], desc: "搭「 Airport Bus TYO-NRT」前往東京車站（八重洲口）。免去搬運擠電車。", map: "東京駅" },
-            { time: "18:50", title: "東橫 INN 東京站新大橋前", desc: "抵達東京站後，轉乘接駁車前往【東橫 INN 東京站新大橋前】。", supermarkets: [
-                { name: "🛒 Peacock Store Hamacho (ピーコックストア 浜町店)", meta: "距離近且規模較大，生鮮食品、熟食、便當種類豐富，適合補貨", map: "Peacock Store Hamacho (ピーコックストア 浜町店)" },
+            { time: "17:30", title: "搭 Airport Bus", suitable: ['senior', 'kid'], desc: "搭前往東京車站（八重洲口）。免去搬運擠電車。", map: "東京駅" },
+            { time: "18:50", title: "抵達飯店與晚餐", desc: "抵達東京站後，轉乘地鐵前往【東橫 INN 東京站新大橋前】。", supermarkets: [
+                { name: "🛒 成城石井 (東京車站)", meta: "高質感生鮮", map: "成城石井 東京駅" },
                 { name: "🛒 Peacock Store 濱町店", meta: "在地熟食區表現優秀", map: "ピーコックストア トルナーレ日本橋浜町店" }
             ], nearby: [
-			    { name: "東橫 INN 東京站新大橋前接駁車等候位置", dist: "步行35分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "認明「淺藍色」且印有 「東橫 INN (Toyoko Inn)」 字樣的小巴士", mapQuery: "35.680016, 139.769449" },
                 { name: "濱町公園", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "隅田川畔的大型綠地，設有兒童遊具，適合飯後全家散步。", mapQuery: "浜町公園" },
                 { name: "明治座", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "歷史悠久的傳統劇場，建築外觀氣派，周邊常有特產小攤。", mapQuery: "明治座" },
                 { name: "水天宮", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "著名的安產與求子神社，現代化建築配有防震設施，相當特別。", mapQuery: "水天宮" },
@@ -589,7 +594,7 @@
                 "🚇 搭乘地鐵至【東日本橋站】",
                 "🚆 站內轉乘【京成 Access 特急 (アクセス特急)】",
                 "✈️ 免出站直達成田機場，動線平坦順暢！"
-            ], map: "東日本橋駅" },
+            ], map: "東日本橋駅", nearby: [] },
             { time: "14:35", title: "抵達成田機場 T2", desc: "報到櫃檯託運行李。準備搭乘 CI105 滿載回台！", checkInNote: "回程航班報到", map: "成田空港第2ターミナル", nearby: [
                 { name: "免稅店 AKIHABARA", dist: "出關後", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "最後衝刺！薯條三兄弟、東京芭娜娜、白色戀人全都在這裡掃貨。", mapQuery: "成田空港 免税店 AKIHABARA" },
                 { name: "FaSoLa 免稅店", dist: "出關後", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "化妝品、保養品與菸酒的專賣免稅區，幫親友代購的最後一站。", mapQuery: "FaSoLa 成田" },
@@ -676,29 +681,29 @@
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
                         const smMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
-                        marketHtml += `<a href="${smMapUrl}" target="_blank" class="market-btn"><div class="market-name">🔗 ${m.name}</div><div style="color:#666; font-size:0.95rem;">${m.meta}</div></a>`;
+                        marketHtml += `<a href="${smMapUrl}" target="_blank" class="market-btn"><div class="market-name">🔗 ${m.name}</div><div style="color:#424242; font-size:1rem; font-weight:600; margin-top:4px;">${m.meta}</div></a>`;
                     });
                     marketHtml += `</div>`;
                 }
 
-                // === 更新後的 周邊景點推薦樣式與渲染邏輯 ===
+                // 新版高辨識度附近景點渲染
                 let nearbyHtml = '';
                 if (evt.nearby && evt.nearby.length > 0) {
-                    nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊 / 備用推薦 (Top 5)</div>`;
+                    nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊 / 備用推薦</div>`;
                     evt.nearby.forEach(spot => {
                         const spotMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.mapQuery)}`;
                         nearbyHtml += `<div class="nearby-item">
                             <a href="${spotMapUrl}" target="_blank" class="nearby-link">🔗 ${spot.name}</a>
-                            <div style="font-size: 0.85rem; color: #6A8EAE; font-family: 'Zen Maru Gothic'; font-weight: bold; margin-bottom: 3px;">
+                            <div style="font-size: 0.95rem; font-family: 'Zen Maru Gothic'; font-weight: 900; margin: 4px 0;">
                                 🚶 距離: ${spot.dist} | 🌟 知名: ${spot.fame} | 👍 推薦: ${spot.recom}
                             </div>
-                            <span style="display: block; line-height: 1.4;">${spot.desc}</span>
+                            <span style="display: block; line-height: 1.5;">${spot.desc}</span>
                         </div>`;
                     });
                     nearbyHtml += `</div>`;
                 }
 
-                const reviewHtml = evt.review ? `<div class="review-bubble"><span>💡</span><div>${evt.review}</div></div>` : '';
+                const reviewHtml = evt.review ? `<div class="review-bubble"><span style="font-size:1.4rem;">💡</span><div>${evt.review}</div></div>` : '';
 
                 eventsHtml += `
                     <div class="timeline-item">
@@ -818,26 +823,26 @@
 
                 let storesHtml = prices.map((p, index) => {
                     const isCheapest = index === 0 && prices.length > 1; 
-                    const badge = isCheapest ? `<span style="background:#D95F59; color:#FFF; font-size:0.75rem; font-weight:bold; padding:3px 8px; border-radius:12px; margin-right:8px;">👑 最低價</span>` : '';
-                    const priceColor = isCheapest ? '#D95F59' : '#5A8065';
+                    const badge = isCheapest ? `<span style="background:#D32F2F; color:#FFF; font-size:0.85rem; font-weight:900; padding:4px 10px; border-radius:12px; margin-right:10px;">👑 最低價</span>` : '';
+                    const priceColor = isCheapest ? '#D32F2F' : '#2E7D32';
 
                     return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px dotted #CCC;">
-                        <span style="font-weight:bold; color:#6A8EAE; font-size:1.1rem;">📍 ${p.store}</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:2px dotted #E0E0E0;">
+                        <span style="font-weight:900; color:var(--theme-blue); font-size:1.2rem;">📍 ${p.store}</span>
                         <div style="display:flex; align-items:center;">
                             ${badge}
-                            <span style="font-weight:900; color:${priceColor}; font-size:1.25rem;">¥${p.price.toLocaleString()}</span>
+                            <span style="font-weight:900; color:${priceColor}; font-size:1.4rem;">¥${p.price.toLocaleString()}</span>
                         </div>
                     </div>`;
                 }).join('');
 
                 html += `
                 <div class="buy-item-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                        <span style="font-weight:900; font-size:1.4rem; color:#3E3A39;">${name}</span>
-                        <span style="background:#FFF0F0; font-size:0.85rem; font-weight:bold; padding:4px 10px; border-radius:12px; color:#D95F59;">已同步</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                        <span style="font-weight:900; font-size:1.6rem; color:#111;">${name}</span>
+                        <span style="background:#E3F2FD; font-size:1rem; font-weight:900; padding:6px 12px; border-radius:12px; color:var(--theme-blue);">已同步</span>
                     </div>
-                    <div style="background:#FFFDF8; padding:15px; border-radius:12px; border:2px solid #E4DFD5;">
+                    <div style="background:#FDFBF7; padding:15px; border-radius:12px; border:2px solid #E0E0E0;">
                         ${storesHtml}
                     </div>
                 </div>`;
@@ -845,7 +850,7 @@
             container.innerHTML = html || '<div style="text-align:center; padding:20px; font-weight:bold; color:#888;">尚未有家族回報資料</div>';
         } catch (e) {
             console.error(e);
-            container.innerHTML = '<div style="text-align:center; color:red; padding:20px; font-weight:bold;">⚠️ 同步失敗：請檢查網路與 CSV 網址</div>';
+            container.innerHTML = '<div style="text-align:center; color:#D32F2F; padding:20px; font-weight:bold; font-size:1.2rem;">⚠️ 同步失敗：請檢查網路與 CSV 網址</div>';
         }
     }
 
@@ -859,7 +864,7 @@
                 if (data && data.rates && data.rates.TWD) currentExchangeRate = data.rates.TWD;
             }
         } catch (e) {}
-        rateEl.innerHTML = `<span style="font-size:0.8rem">¥1 =</span> NT$${currentExchangeRate.toFixed(3)}`;
+        rateEl.innerHTML = `<span style="font-size:0.9rem">¥1 =</span> NT$${currentExchangeRate.toFixed(3)}`;
         renderExpenses();
     }
 
@@ -884,13 +889,13 @@
         expenses.forEach(e => {
             total += e.cost;
             list.innerHTML += `
-            <li style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px dashed #CCC;">
+            <li style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:2px dashed #E0E0E0;">
                 <div style="flex:1;">
-                    <div style="font-weight:bold; font-size:1.1rem;">${e.item}</div>
-                    <div style="color:#888; font-size:0.9rem;">${e.date}</div>
+                    <div style="font-weight:900; font-size:1.3rem; color:#111;">${e.item}</div>
+                    <div style="color:#666; font-size:1rem; font-weight:bold;">${e.date}</div>
                 </div>
-                <div style="font-weight:900; color:#5A8065; font-size:1.2rem; margin-right:15px;">¥${e.cost.toLocaleString()}</div>
-                <button style="background:#FFF0F0; border:2px solid #D95F59; color:#D95F59; width:35px; height:35px; border-radius:50%; font-weight:bold;" onclick="removeExpense(${e.id})">×</button>
+                <div style="font-weight:900; color:var(--theme-green); font-size:1.4rem; margin-right:15px;">¥${e.cost.toLocaleString()}</div>
+                <button style="background:#FFEBEE; border:2px solid var(--theme-red); color:var(--theme-red); width:40px; height:40px; border-radius:50%; font-weight:900; font-size:1.2rem; cursor:pointer;" onclick="removeExpense(${e.id})">×</button>
             </li>`;
         });
         document.getElementById('acc-total').innerText = `¥${total.toLocaleString()}`;
@@ -924,5 +929,4 @@
 
 </script>
 </body>
-</html>
 </html>
