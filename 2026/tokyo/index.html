@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="2026東京冬日14天深度自由行行程表 - 鎌倉獨旅、家族會合完整規劃。">
     <title>東京冬日紀行 2026 | 完整版</title>
-    <meta name="theme-color" content="#F5EFE6">
+    <meta name="theme-color" content="#FAF5EB">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,26 +13,27 @@
 
     <style>
         :root {
-            /* 讓背景稍微亮一點，減少灰暗感 */
-            --bg-overlay: rgba(255, 253, 249, 0.96);
+            /* 醫學建議：暖象牙白背景，降低白內障眩光效應 */
+            --bg-overlay: rgba(250, 245, 235, 0.98);
             --card-bg: #FFFFFF; 
-            /* 文字加深，提升對比度，長輩閱讀更輕鬆 */
-            --text-main: #111111; 
-            --text-sub: #444444;
+            /* 醫學建議：不使用純黑，改用高對比柔黑，降低視覺壓力 */
+            --text-main: #1A1A1A; 
+            --text-sub: #333333;
             
-            /* 調整為高彩度、高辨識度的活潑主題色 */
-            --theme-blue: #0056B3; 
-            --theme-orange: #E65100; 
-            --theme-green: #2E7D32; 
-            --theme-red: #D32F2F; 
+            /* 醫學建議：對抗水晶體黃化，暖色系需加深，藍色需極深以保持對比 */
+            --theme-blue: #0D47A1; /* 深海藍 */
+            --theme-orange: #BF360C; /* 深磚橘 */
+            --theme-green: #1B5E20; /* 深墨綠 */
+            --theme-red: #B71C1C; /* 絳紅色 */
 
             --bg-kid: #FCE4EC;
-            --border-kid: #F06292;
+            --border-kid: #D81B60;
             --bg-senior: #E8F5E9;
-            --border-senior: #66BB6A;
+            --border-senior: #2E7D32;
 
-            --sketch-border: 2px solid #333333;
-            --sketch-shadow: 4px 5px 0px rgba(17, 17, 17, 0.15);
+            /* 加粗所有邊框，幫助邊緣視覺退化的長者辨識區塊 */
+            --sketch-border: 3px solid #222222; 
+            --sketch-shadow: 4px 5px 0px rgba(26, 26, 26, 0.2);
             --radius-sketch: 8px 25px 8px 20px / 25px 8px 20px 8px;
             --radius-btn: 255px 15px 225px 15px / 15px 225px 15px 255px;
         }
@@ -42,147 +43,148 @@
         body {
             font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
             margin: 0; padding-bottom: 12vh; line-height: 1.8;
-            color: var(--text-main); background-color: #F5EFE6;
-            font-size: 19px; /* 基底字級調大 */
+            color: var(--text-main); background-color: #FAF5EB;
+            font-size: 20px; /* 基礎字級再提升，符合高齡友善規範 */
         }
 
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('https://loremflickr.com/2048/3072/tokyo,winter,sky');
-            background-size: cover; background-position: center; z-index: -2; opacity: 0.25;
+            background-size: cover; background-position: center; z-index: -2; opacity: 0.2;
         }
         
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-overlay); z-index: -1; backdrop-filter: blur(4px);
+            background-color: var(--bg-overlay); z-index: -1; backdrop-filter: blur(5px);
         }
 
         header {
             background: rgba(255, 255, 255, 0.98); position: sticky; top: 0; z-index: 100;
-            border-bottom: 3px dashed #BBAFA1; padding: 12px 16px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 4px dashed #A1887F; padding: 12px 16px 0;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
 
-        .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.6rem; font-weight: 900; color: var(--theme-blue); }
-        .top-title span.year { color: var(--theme-orange); margin-left: 5px; }
-        .header-rate { font-size: 1rem; color: #fff; background: var(--theme-green); padding: 4px 14px; border-radius: var(--radius-btn); font-weight: bold; border: var(--sketch-border); }
+        .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.7rem; font-weight: 900; color: var(--theme-blue); }
+        .top-title span.year { color: var(--theme-orange); margin-left: 6px; }
+        .header-rate { font-size: 1.1rem; color: #fff; background: var(--theme-green); padding: 5px 15px; border-radius: var(--radius-btn); font-weight: 900; border: var(--sketch-border); }
 
-        .project-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+        .project-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
         .project-tab {
             border-radius: var(--radius-btn); border: var(--sketch-border);
-            background: #FFF; font-size: 1.1rem; font-weight: 700; color: var(--text-main);
-            padding: 8px 16px; cursor: pointer; font-family: inherit; flex: 1; text-align: center;
+            background: #FFF; font-size: 1.2rem; font-weight: 900; color: var(--text-main);
+            padding: 10px 16px; cursor: pointer; font-family: inherit; flex: 1; text-align: center;
         }
-        .project-tab.active { background: var(--theme-orange); color: #fff; border-color: var(--theme-orange); }
+        .project-tab.active { background: var(--theme-orange); color: #fff; border-color: #222; }
 
-        .date-scroller { display: none; overflow-x: auto; padding-bottom: 12px; gap: 12px; scrollbar-width: none; }
+        .date-scroller { display: none; overflow-x: auto; padding-bottom: 15px; gap: 12px; scrollbar-width: none; }
         .date-scroller.active { display: flex; }
         .date-scroller::-webkit-scrollbar { display: none; }
         .date-chip {
-            flex: 0 0 auto; padding: 8px 18px; border-radius: var(--radius-btn);
-            border: var(--sketch-border); font-weight: 900; background: #FFF;
-            box-shadow: 2px 3px 0px rgba(0,0,0,0.15); cursor: pointer; transition: all 0.2s; color: var(--text-sub);
+            flex: 0 0 auto; padding: 10px 20px; border-radius: var(--radius-btn);
+            border: var(--sketch-border); font-weight: 900; background: #FFF; font-size: 1.1rem;
+            box-shadow: 2px 3px 0px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.2s; color: var(--text-sub);
         }
-        .chip-today { background: var(--theme-green) !important; color: white !important; border: 2px solid #111; }
-        .chip-past { background: #EAEAEA; color: #888; border-style: dashed; }
+        .chip-today { background: var(--theme-green) !important; color: white !important; border: 3px solid #222; }
+        .chip-past { background: #E0E0E0; color: #616161; border-style: dashed; }
         
         .chip-selected {
             background: var(--theme-blue) !important; color: white !important;
-            border: 2px solid #111 !important; transform: scale(1.05);
-            box-shadow: 2px 5px 0px rgba(0,0,0,0.25) !important;
+            border: 3px solid #222 !important; transform: scale(1.05);
+            box-shadow: 2px 5px 0px rgba(0,0,0,0.3) !important;
         }
 
         .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
 
-        .prep-box { background: #FFF; border: 3px solid var(--theme-blue); border-radius: 12px; padding: 15px; margin-bottom: 25px; box-shadow: var(--sketch-shadow); }
-        .prep-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 12px; font-size: 1.3rem; display: flex; align-items: center; gap: 8px; }
-        .prep-link { display: block; background: #F4F8FB; border: 2px dashed var(--theme-blue); padding: 12px; border-radius: 8px; text-decoration: none; color: var(--text-main); font-weight: 900; margin-bottom: 8px; }
-        .prep-link span { color: var(--theme-orange); font-size: 1rem; display: block; margin-top: 4px; font-weight: bold; }
+        .prep-box { background: #FFF; border: 4px solid var(--theme-blue); border-radius: 15px; padding: 18px; margin-bottom: 30px; box-shadow: var(--sketch-shadow); }
+        .prep-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 15px; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; }
+        .prep-link { display: block; background: #E3F2FD; border: 3px solid var(--theme-blue); padding: 15px; border-radius: 10px; text-decoration: none; color: var(--theme-blue); font-weight: 900; margin-bottom: 12px; }
+        .prep-link span { color: var(--text-main); font-size: 1.05rem; display: block; margin-top: 6px; font-weight: bold; }
 
-        .day-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 15px; border-left: 8px solid var(--theme-orange); padding-left: 12px; }
-        .day-header h2 { margin: 0; font-size: 1.7rem; font-weight: 900; color: var(--text-main); }
+        .day-header { display: flex; justify-content: space-between; align-items: center; margin: 35px 0 20px; border-left: 10px solid var(--theme-orange); padding-left: 15px; }
+        .day-header h2 { margin: 0; font-size: 1.8rem; font-weight: 900; color: var(--text-main); }
         
-        .timeline-wrapper { position: relative; padding-left: 24px; border-left: 3px dashed #BBAFA1; }
-        .timeline-item { position: relative; margin-bottom: 40px; }
-        .timeline-dot { position: absolute; left: -35px; top: 20px; width: 20px; height: 20px; border-radius: 50%; border: 4px solid #FFFDF8; background: var(--theme-orange); box-shadow: 1px 2px 0px rgba(0,0,0,0.25); }
+        .timeline-wrapper { position: relative; padding-left: 28px; border-left: 4px solid #BCAAA4; }
+        .timeline-item { position: relative; margin-bottom: 45px; }
+        .timeline-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; border: 4px solid #FFF; background: var(--theme-orange); box-shadow: 0px 2px 4px rgba(0,0,0,0.3); }
 
         .card { background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); box-shadow: var(--sketch-shadow); overflow: hidden; }
         
         .bg-kid { background: var(--bg-kid) !important; border-color: var(--border-kid) !important; }
         .bg-senior { background: var(--bg-senior) !important; border-color: var(--border-senior) !important; }
-        .bg-both { background: linear-gradient(135deg, var(--bg-kid) 40%, var(--bg-senior) 60%) !important; border-color: #BDBDBD !important; }
+        .bg-both { background: linear-gradient(135deg, var(--bg-kid) 40%, var(--bg-senior) 60%) !important; border-color: #9E9E9E !important; }
 
-        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: var(--sketch-border); cursor: zoom-in; }
-        .card-content { padding: 20px; }
-        .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.3rem; font-weight: 900; color: var(--theme-orange); display: block; margin-bottom: 5px; }
-        .card-title { font-size: 1.6rem; font-weight: 900; margin: 0 0 10px; line-height: 1.4; }
-        /* 明確的超連結樣式，長輩容易辨識 */
-        .card-title a { color: var(--theme-blue); text-decoration: underline; text-underline-offset: 4px; transition: opacity 0.2s; }
-        .card-title a:hover { opacity: 0.7; }
-
-        .card-tags { display: flex; gap: 8px; margin-bottom: 12px; }
-        .tag-kid { background: #D81B60; color: white; font-size: 0.95rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
-        .tag-senior { background: #1B5E20; color: white; font-size: 0.95rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
-        .card-desc { font-size: 1.15rem; color: var(--text-main); margin-bottom: 15px; line-height: 1.8; font-weight: 600; }
+        .card-img { width: 100%; height: 240px; object-fit: cover; border-bottom: var(--sketch-border); cursor: zoom-in; }
+        .card-content { padding: 22px; }
+        .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4rem; font-weight: 900; color: var(--theme-orange); display: block; margin-bottom: 8px; }
+        .card-title { font-size: 1.7rem; font-weight: 900; margin: 0 0 12px; line-height: 1.4; }
         
-        /* 活潑且高辨識度的周邊景點區塊 */
-        .nearby-box { margin-top: 20px; padding: 15px; background: #FDFBF7; border-radius: 12px; border: 3px solid #E0E0E0; }
-        .nearby-box-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 10px; font-size: 1.15rem; font-family: 'Zen Maru Gothic', sans-serif; display: inline-block; background: #E3F2FD; padding: 4px 10px; border-radius: 8px;}
-        .nearby-item { font-family: 'Klee One', serif; font-size: 1rem; font-weight: 600; margin-bottom: 10px; line-height: 1.6; padding: 10px 12px; border-radius: 8px; }
+        /* 醫學建議：超連結必須具備底線且高對比，絕不能只用顏色區分 */
+        .card-title a { color: var(--theme-blue); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 3px; transition: opacity 0.2s; }
+        .card-title a:hover { background-color: #E3F2FD; }
+
+        .card-tags { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tag-kid { background: #880E4F; color: white; font-size: 1.05rem; padding: 5px 12px; border-radius: 15px; font-weight: 900; }
+        .tag-senior { background: #1B5E20; color: white; font-size: 1.05rem; padding: 5px 12px; border-radius: 15px; font-weight: 900; }
+        .card-desc { font-size: 1.2rem; color: var(--text-main); margin-bottom: 15px; line-height: 1.8; font-weight: 600; }
+        
+        /* 活潑且極高辨識度的周邊景點區塊 */
+        .nearby-box { margin-top: 25px; padding: 15px; background: #FFFFFF; border-radius: 12px; border: 3px solid #BCAAA4; }
+        .nearby-box-title { font-weight: 900; color: #FFF; margin-bottom: 15px; font-size: 1.25rem; font-family: 'Zen Maru Gothic', sans-serif; display: inline-block; background: var(--theme-blue); padding: 8px 16px; border-radius: 8px; border: 2px solid #222;}
+        .nearby-item { font-family: 'Klee One', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; line-height: 1.6; padding: 12px 15px; border-radius: 8px; border: 2px solid transparent; }
         .nearby-item:last-child { margin-bottom: 0; }
-        /* 使用跳色區分各個景點，增加活潑感 */
-        .nearby-item:nth-child(odd) { background: #E8F5E9; color: #1B5E20; border-left: 6px solid var(--theme-green); }
-        .nearby-item:nth-child(even) { background: #FFF3E0; color: #E65100; border-left: 6px solid var(--theme-orange); }
-        .nearby-link { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; text-decoration: underline; text-underline-offset: 3px; margin-right: 6px; display: inline-block; color: inherit; }
         
-        .check-in-alert { background: #FFEBEE; border: 2px dashed var(--theme-red); color: var(--theme-red); padding: 12px; border-radius: 8px; font-weight: 900; margin-bottom: 15px; font-size: 1.1rem; }
-        .review-bubble { background: #FFF9C4; border: 2px solid #FBC02D; color: #424242; border-radius: 15px 25px 15px 20px; padding: 12px 16px; margin-top: 15px; font-size: 1.1rem; display: flex; gap: 8px; line-height: 1.6; font-weight: 600; }
+        /* 跳色區分，增加活潑感，並加上實體邊框增加邊界辨識度 */
+        .nearby-item:nth-child(odd) { background: #F1F8E9; color: #1B5E20; border-color: #AED581; }
+        .nearby-item:nth-child(even) { background: #FFF3E0; color: #BF360C; border-color: #FFB74D; }
+        .nearby-link { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; margin-right: 6px; display: inline-block; color: var(--theme-blue); }
         
-        .market-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
-        .market-btn { background: #E8F5E9; border: 2px dashed var(--theme-green); padding: 15px; border-radius: 12px; text-decoration: none; display: block; transition: background 0.2s; }
-        .market-btn:hover { background: #C8E6C9; }
-        .market-name { font-weight: 900; font-size: 1.2rem; color: #1B5E20; text-decoration: underline; text-underline-offset: 2px; }
+        .check-in-alert { background: #FFEBEE; border: 3px dashed var(--theme-red); color: var(--theme-red); padding: 15px; border-radius: 10px; font-weight: 900; margin-bottom: 18px; font-size: 1.2rem; }
+        .review-bubble { background: #FFF9C4; border: 3px solid #FBC02D; color: #212121; border-radius: 15px 25px 15px 20px; padding: 15px 18px; margin-top: 18px; font-size: 1.15rem; display: flex; gap: 10px; line-height: 1.6; font-weight: 900; }
         
-        .transport-guide { background: rgba(255,255,255,0.9); border: 2px solid #BDBDBD; border-radius: 10px; padding: 18px; margin-top: 15px; }
-        .guide-step { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 1.1rem; font-weight: 900; color: var(--theme-blue); }
-        .step-num { background: var(--theme-orange); color: #fff; width: 26px; height: 26px; border-radius: 50%; text-align: center; line-height: 26px; font-size: 1rem; margin-right: 12px; flex-shrink: 0; }
+        .market-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+        .market-btn { background: #E8F5E9; border: 3px solid var(--theme-green); padding: 15px; border-radius: 12px; text-decoration: none; display: block; box-shadow: 2px 2px 0 rgba(0,0,0,0.1); }
+        .market-name { font-weight: 900; font-size: 1.3rem; color: #0D47A1; text-decoration: underline; text-underline-offset: 3px; }
+        
+        .transport-guide { background: rgba(255,255,255,1); border: 3px solid #9E9E9E; border-radius: 12px; padding: 20px; margin-top: 18px; }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 1.15rem; font-weight: 900; color: var(--text-main); }
+        .step-num { background: var(--theme-blue); color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-size: 1.1rem; margin-right: 12px; flex-shrink: 0; border: 2px solid #222; }
 
-        .btn-group { display: flex; gap: 12px; margin-top: 25px; flex-wrap: wrap; }
-        .btn { flex: 1; text-align: center; padding: 14px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.2rem; font-weight: 900; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 2px 3px 0px rgba(0,0,0,0.2); }
+        /* 按鈕：加強實體感與點擊區域大小 (Touch Target Size) */
+        .btn-group { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+        .btn { flex: 1; text-align: center; padding: 15px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.25rem; font-weight: 900; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 3px 4px 0px rgba(0,0,0,0.25); min-height: 55px; }
         .btn-primary { background: var(--theme-blue); color: white; }
         .btn-weather { background: #FFF9C4; color: var(--text-main); }
 
-        .coupon-box { background: #FFF3E0; border: 3px dashed var(--theme-orange); border-radius: 15px; padding: 20px; margin-bottom: 25px; text-align: center; text-decoration: none; display: block; color: var(--text-main); }
-        .acc-section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px dashed #E0E0E0; }
-        .acc-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 15px; color: var(--theme-blue); border-left: 8px solid var(--theme-blue); padding-left: 12px; }
+        .coupon-box { background: #FFF3E0; border: 4px dashed var(--theme-orange); border-radius: 15px; padding: 25px; margin-bottom: 30px; text-align: center; text-decoration: none; display: block; color: var(--text-main); }
+        .acc-section { margin-bottom: 35px; padding-bottom: 25px; border-bottom: 3px solid #BCAAA4; }
+        .acc-title { font-size: 1.6rem; font-weight: 900; margin-bottom: 18px; color: var(--theme-blue); border-left: 10px solid var(--theme-blue); padding-left: 15px; }
         
-        .buy-item-card { background: #FFF; border: var(--sketch-border); border-left: 8px solid var(--theme-green); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); }
+        .buy-item-card { background: #FFFFFF; border: var(--sketch-border); border-left: 10px solid var(--theme-green); border-radius: 12px; padding: 18px; margin-bottom: 22px; box-shadow: 3px 4px 0px rgba(0,0,0,0.2); }
         
-        .input-group { display: flex; gap: 10px; margin-bottom: 15px; }
-        .input-field { flex: 1; padding: 15px; border: 2px solid #9E9E9E; border-radius: 8px; font-family: inherit; font-size: 1.2rem; font-weight: 600; width: 100%; box-sizing: border-box; }
-        .btn-add { background: var(--theme-blue); color: #FFF; border: none; padding: 12px 25px; border-radius: 8px; font-weight: 900; font-size: 1.3rem; white-space: nowrap; }
+        .input-group { display: flex; gap: 12px; margin-bottom: 18px; }
+        .input-field { flex: 1; padding: 16px; border: 3px solid #757575; border-radius: 8px; font-family: inherit; font-size: 1.3rem; font-weight: 900; width: 100%; box-sizing: border-box; }
+        .btn-add { background: var(--theme-blue); color: #FFF; border: 3px solid #222; padding: 12px 25px; border-radius: 8px; font-weight: 900; font-size: 1.4rem; white-space: nowrap; box-shadow: 2px 3px 0 rgba(0,0,0,0.2);}
 
-        .trans-box { font-size: 1.5rem; font-weight: 600; width: 100%; border: 2px solid #9E9E9E; border-radius: 15px; padding: 15px; margin-top: 10px; background: white; font-family: sans-serif; line-height: 1.3; box-sizing: border-box; }
-        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 18px; width: 100%; font-size: 1.4rem; font-weight: 900; margin-top: 15px; box-shadow: 2px 4px 0px rgba(0,0,0,0.2); }
+        .trans-box { font-size: 1.6rem; font-weight: 900; width: 100%; border: 3px solid #757575; border-radius: 15px; padding: 18px; margin-top: 12px; background: white; font-family: sans-serif; line-height: 1.4; box-sizing: border-box; }
+        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 20px; width: 100%; font-size: 1.5rem; font-weight: 900; margin-top: 18px; box-shadow: 3px 5px 0px rgba(0,0,0,0.25); }
 
-        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 12vh; min-height: 80px; max-height: 95px; background: #FFFFFF; border-top: 3px solid #333; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; z-index: 1000; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); }
-        .nav-item { text-align: center; color: #757575; flex: 1; font-weight: 900; cursor: pointer; font-size: 1.1rem; padding: 8px 5px; margin: 0 5px; border-radius: 15px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85%; border: 2px solid transparent; }
-        .nav-item.active { color: var(--theme-blue); background: #E3F2FD; border: 2px solid var(--theme-blue); box-shadow: 0px 4px 0px var(--theme-blue); transform: translateY(-4px); }
-        .nav-icon { font-size: 1.8rem; display: block; margin-bottom: 2px; }
+        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 12vh; min-height: 85px; max-height: 100px; background: #FFFFFF; border-top: 4px solid #222; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); }
+        .nav-item { text-align: center; color: #616161; flex: 1; font-weight: 900; cursor: pointer; font-size: 1.15rem; padding: 10px 5px; margin: 0 5px; border-radius: 15px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85%; border: 3px solid transparent; }
+        .nav-item.active { color: var(--theme-blue); background: #E3F2FD; border: 3px solid var(--theme-blue); box-shadow: 0px 5px 0px var(--theme-blue); transform: translateY(-5px); }
+        .nav-icon { font-size: 2rem; display: block; margin-bottom: 2px; }
 
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
-        .keyword-orange { background: linear-gradient(transparent 60%, #FFE0B2 40%); padding: 0 4px; font-weight: 900; color: #D84315; }
+        .keyword-orange { background: linear-gradient(transparent 60%, #FFCC80 40%); padding: 0 4px; font-weight: 900; color: var(--theme-orange); }
         
-        .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
+        .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
         .img-modal.active { display: flex; animation: fadeIn 0.2s; }
-        .modal-content { max-width: 90%; max-height: 80vh; border-radius: 12px; border: 3px solid #FFF; box-shadow: 0 5px 20px rgba(0,0,0,0.6); object-fit: contain; }
-        .modal-close { color: white; margin-top: 20px; font-size: 1.3rem; font-weight: 900; cursor: pointer; border: 2px solid #FFF; padding: 10px 30px; border-radius: 30px; background: rgba(255,255,255,0.25); }
+        .modal-content { max-width: 95%; max-height: 80vh; border-radius: 12px; border: 4px solid #FFF; box-shadow: 0 5px 25px rgba(0,0,0,0.8); object-fit: contain; }
+        .modal-close { color: #222; margin-top: 25px; font-size: 1.4rem; font-weight: 900; cursor: pointer; border: 3px solid #222; padding: 12px 35px; border-radius: 30px; background: #FFF; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
     </style>
 </head>
-
 <body>
 
 <div id="imageModal" class="img-modal" onclick="closeImageModal()">
@@ -223,10 +225,10 @@
         <div class="acc-section" style="border-bottom: none; margin-bottom: 15px;">
             <div class="acc-title">家族即時比價系統</div>
             <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" style="text-decoration: none;">
-                <div style="background: #FFF3E0; border: 3px solid #E65100; border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
+                <div style="background: #FFF3E0; border: 4px solid var(--theme-orange); border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
                     <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">📸</span>
                     <div style="font-size: 1.8rem; font-weight: 900; color: #111;">點我：回報店內價格</div>
-                    <div style="font-size: 1.1rem; color: #E65100; margin-top: 10px; font-weight: bold;">(填寫後全家畫面會同步更新)</div>
+                    <div style="font-size: 1.2rem; color: var(--theme-orange); margin-top: 10px; font-weight: 900;">(填寫後全家畫面會同步更新)</div>
                 </div>
             </a>
         </div>
@@ -234,29 +236,29 @@
         <div class="acc-section">
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px;">
                 <div class="acc-title" style="margin-bottom: 0;">各店價格即時看</div>
-                <button onclick="syncCloudData()" style="background: #E3F2FD; border: var(--sketch-border); border-radius: 20px; padding: 8px 18px; font-weight: 900; cursor: pointer; font-size: 1rem; color: var(--theme-blue);">🔄 手動更新</button>
+                <button onclick="syncCloudData()" style="background: #E3F2FD; border: var(--sketch-border); border-radius: 20px; padding: 10px 20px; font-weight: 900; cursor: pointer; font-size: 1.1rem; color: var(--theme-blue);">🔄 手動更新</button>
             </div>
             <div id="tobuy-list">
-                <div style="text-align:center; padding:30px; color:#666; font-weight: bold;">☁️ 正在載入雲端資料...</div>
+                <div style="text-align:center; padding:30px; color:#666; font-weight: 900; font-size: 1.2rem;">☁️ 正在載入雲端資料...</div>
             </div>
         </div>
 
         <a href="https://itigre.pse.is/japancoupon" target="_blank" class="coupon-box">
-            <span style="font-size: 2.5rem; display:block;">🎫</span>
-            <div style="font-weight: 900; font-size: 1.5rem;">日本購物折價券清單</div>
-            <div style="font-size: 1.1rem; color: #E65100; margin-top: 5px; font-weight: bold;">點此開啟 (藥妝/Bic Camera)</div>
+            <span style="font-size: 2.8rem; display:block;">🎫</span>
+            <div style="font-weight: 900; font-size: 1.6rem; color: var(--theme-orange);">日本購物折價券清單</div>
+            <div style="font-size: 1.2rem; color: var(--text-main); margin-top: 5px; font-weight: 900;">點此開啟 (藥妝/Bic Camera)</div>
         </a>
 
         <div class="acc-section">
             <div class="acc-title">今日個人支出</div>
-            <div style="background: #F4F8FB; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; border: var(--sketch-border);">
-                <div style="font-size: 1.2rem; font-weight: 900;">目前總計</div>
-                <div id="acc-total" style="font-size: 2.8rem; font-weight: 900; color: var(--theme-red); font-family: 'Zen Maru Gothic';">¥0</div>
-                <div id="acc-total-twd" style="font-size: 1.3rem; font-weight: bold; color: var(--text-sub);">約 NT$0</div>
+            <div style="background: #F4F8FB; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 25px; border: var(--sketch-border);">
+                <div style="font-size: 1.3rem; font-weight: 900;">目前總計</div>
+                <div id="acc-total" style="font-size: 3rem; font-weight: 900; color: var(--theme-red); font-family: 'Zen Maru Gothic';">¥0</div>
+                <div id="acc-total-twd" style="font-size: 1.4rem; font-weight: 900; color: var(--text-sub);">約 NT$0</div>
             </div>
             <div class="input-group">
                 <input type="text" id="acc-item" class="input-field" placeholder="品項 (例: 拉麵)">
-                <input type="number" id="acc-cost" class="input-field" style="max-width: 110px;" placeholder="日幣">
+                <input type="number" id="acc-cost" class="input-field" style="max-width: 120px;" placeholder="日幣">
                 <button class="btn-add" onclick="addExpense()">＋</button>
             </div>
             <ul id="expense-list" style="list-style: none; padding: 0; margin: 0;"></ul>
@@ -265,17 +267,17 @@
 
     <div id="sec-trans" class="section">
         <div style="background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 25px; box-shadow: var(--sketch-shadow);">
-            <div style="color:var(--theme-orange); font-weight:900; font-size:1.4rem; margin-bottom:12px;">🇹🇼 說中文 (翻成日文)</div>
-            <textarea id="input-zh" class="trans-box" rows="2" placeholder="例：請問這個多少錢？"></textarea>
-            <button class="trans-btn" onclick="goTranslate('zh-TW', 'ja', 'input-zh')">轉換為日文 ➔</button>
+            <div style="color:var(--theme-orange); font-weight:900; font-size:1.5rem; margin-bottom:12px;">🇹🇼 說中文 (翻成日文)</div>
+            <textarea id="input-zh" class="trans-box" rows="3" placeholder="例：請問這個多少錢？"></textarea>
+            <button class="trans-btn" style="background:var(--theme-orange);" onclick="goTranslate('zh-TW', 'ja', 'input-zh')">轉換為日文 ➔</button>
             
-            <hr style="border: 2px dashed #BDBDBD; margin: 40px 0;">
+            <hr style="border: 3px dashed #BDBDBD; margin: 40px 0;">
 
-            <div style="color:var(--theme-blue); font-weight:900; font-size:1.4rem; margin-bottom:12px;">🇯🇵 說日文 (翻成中文)</div>
-            <textarea id="input-ja" class="trans-box" rows="2" placeholder="給日本店員輸入..."></textarea>
+            <div style="color:var(--theme-blue); font-weight:900; font-size:1.5rem; margin-bottom:12px;">🇯🇵 說日文 (翻成中文)</div>
+            <textarea id="input-ja" class="trans-box" rows="3" placeholder="給日本店員輸入..."></textarea>
             <button class="trans-btn" style="background:var(--theme-blue);" onclick="goTranslate('ja', 'zh-TW', 'input-ja')">轉換為中文 ➔</button>
             
-            <p style="margin-top:25px; font-size:1.1rem; color:#666; text-align:center; font-weight:bold;">* 點擊按鈕將開啟 Google 雙向翻譯</p>
+            <p style="margin-top:25px; font-size:1.2rem; color:#444; text-align:center; font-weight:900;">* 點擊按鈕將開啟 Google 雙向翻譯</p>
         </div>
     </div>
 </main>
@@ -289,7 +291,7 @@
 <script>
     let currentExchangeRate = 0.215; 
 
-    // === 行程資料庫 (已修正 12/16 重複問題與加入新版資料) ===
+    // === 行程資料庫 (完整無刪減版本) ===
     const itineraryData = [
         { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
             { time: "15:00", title: "抵達藤澤 Check-in", img: "images/1213.webp", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口", nearby: [
@@ -472,7 +474,7 @@
         ]},
 		
 		{ date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
-            { time: "10:00", title: "獨旅退房前往東京", img: "images/1219.webp", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅", nearby: [
+            { time: "10:00", title: "東京站", img: "images/1219.webp", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅", nearby: [
                 { name: "東京車站一番街", dist: "站內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "集結拉麵街、動漫角色街與各家零食大廠概念店，極度好逛。", mapQuery: "東京駅一番街" },
                 { name: "丸之內站舍 (紅磚建築)", dist: "出站即達", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "修復後的壯麗歐風車站外觀，是來東京必拍的經典地標。", mapQuery: "東京駅 丸の内駅舎" },
                 { name: "皇居外苑", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "廣闊的碎石步道與黑松林，可拍攝著名的二重橋與護城河。", mapQuery: "皇居外苑" },
@@ -738,12 +740,12 @@
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
                         const smMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
-                        marketHtml += `<a href="${smMapUrl}" target="_blank" class="market-btn"><div class="market-name">🔗 ${m.name}</div><div style="color:#424242; font-size:1rem; font-weight:600; margin-top:4px;">${m.meta}</div></a>`;
+                        marketHtml += `<a href="${smMapUrl}" target="_blank" class="market-btn"><div class="market-name">🔗 ${m.name}</div><div style="color:#1A1A1A; font-size:1.05rem; font-weight:900; margin-top:6px;">${m.meta}</div></a>`;
                     });
                     marketHtml += `</div>`;
                 }
 
-                // 新版高辨識度附近景點渲染
+                // 高對比度、有明確邊框的附近景點渲染
                 let nearbyHtml = '';
                 if (evt.nearby && evt.nearby.length > 0) {
                     nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊 / 備用推薦</div>`;
@@ -751,16 +753,16 @@
                         const spotMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.mapQuery)}`;
                         nearbyHtml += `<div class="nearby-item">
                             <a href="${spotMapUrl}" target="_blank" class="nearby-link">🔗 ${spot.name}</a>
-                            <div style="font-size: 0.95rem; font-family: 'Zen Maru Gothic'; font-weight: 900; margin: 4px 0;">
+                            <div style="font-size: 1.05rem; font-family: 'Zen Maru Gothic'; font-weight: 900; margin: 6px 0;">
                                 🚶 距離: ${spot.dist} | 🌟 知名: ${spot.fame} | 👍 推薦: ${spot.recom}
                             </div>
-                            <span style="display: block; line-height: 1.5;">${spot.desc}</span>
+                            <span style="display: block; line-height: 1.5; color: #1A1A1A;">${spot.desc}</span>
                         </div>`;
                     });
                     nearbyHtml += `</div>`;
                 }
 
-                const reviewHtml = evt.review ? `<div class="review-bubble"><span style="font-size:1.4rem;">💡</span><div>${evt.review}</div></div>` : '';
+                const reviewHtml = evt.review ? `<div class="review-bubble"><span style="font-size:1.6rem;">💡</span><div>${evt.review}</div></div>` : '';
 
                 eventsHtml += `
                     <div class="timeline-item">
@@ -849,7 +851,7 @@
 
     async function syncCloudData() {
         const container = document.getElementById('tobuy-list');
-        container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:bold; color:#888;">☁️ 正在同步家族最新比價...</div>';
+        container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:900; color:#1A1A1A; font-size:1.2rem;">☁️ 正在同步家族最新比價...</div>';
 
         try {
             const response = await fetch(GOOGLE_SHEET_CSV_URL);
@@ -880,34 +882,34 @@
 
                 let storesHtml = prices.map((p, index) => {
                     const isCheapest = index === 0 && prices.length > 1; 
-                    const badge = isCheapest ? `<span style="background:#D32F2F; color:#FFF; font-size:0.85rem; font-weight:900; padding:4px 10px; border-radius:12px; margin-right:10px;">👑 最低價</span>` : '';
-                    const priceColor = isCheapest ? '#D32F2F' : '#2E7D32';
+                    const badge = isCheapest ? `<span style="background:#B71C1C; color:#FFF; font-size:0.9rem; font-weight:900; padding:6px 12px; border-radius:12px; margin-right:10px; border:2px solid #222;">👑 最低價</span>` : '';
+                    const priceColor = isCheapest ? '#B71C1C' : '#1B5E20';
 
                     return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:2px dotted #E0E0E0;">
-                        <span style="font-weight:900; color:var(--theme-blue); font-size:1.2rem;">📍 ${p.store}</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-bottom:3px dotted #BCAAA4;">
+                        <span style="font-weight:900; color:var(--theme-blue); font-size:1.3rem;">📍 ${p.store}</span>
                         <div style="display:flex; align-items:center;">
                             ${badge}
-                            <span style="font-weight:900; color:${priceColor}; font-size:1.4rem;">¥${p.price.toLocaleString()}</span>
+                            <span style="font-weight:900; color:${priceColor}; font-size:1.6rem;">¥${p.price.toLocaleString()}</span>
                         </div>
                     </div>`;
                 }).join('');
 
                 html += `
                 <div class="buy-item-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <span style="font-weight:900; font-size:1.6rem; color:#111;">${name}</span>
-                        <span style="background:#E3F2FD; font-size:1rem; font-weight:900; padding:6px 12px; border-radius:12px; color:var(--theme-blue);">已同步</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+                        <span style="font-weight:900; font-size:1.8rem; color:#1A1A1A;">${name}</span>
+                        <span style="background:#E3F2FD; font-size:1.1rem; font-weight:900; padding:6px 15px; border-radius:12px; color:var(--theme-blue); border: 2px solid var(--theme-blue);">已同步</span>
                     </div>
-                    <div style="background:#FDFBF7; padding:15px; border-radius:12px; border:2px solid #E0E0E0;">
+                    <div style="background:#FAF5EB; padding:18px; border-radius:12px; border:3px solid #BCAAA4;">
                         ${storesHtml}
                     </div>
                 </div>`;
             }
-            container.innerHTML = html || '<div style="text-align:center; padding:20px; font-weight:bold; color:#888;">尚未有家族回報資料</div>';
+            container.innerHTML = html || '<div style="text-align:center; padding:20px; font-weight:900; color:#444; font-size:1.2rem;">尚未有家族回報資料</div>';
         } catch (e) {
             console.error(e);
-            container.innerHTML = '<div style="text-align:center; color:#D32F2F; padding:20px; font-weight:bold; font-size:1.2rem;">⚠️ 同步失敗：請檢查網路與 CSV 網址</div>';
+            container.innerHTML = '<div style="text-align:center; color:#B71C1C; padding:20px; font-weight:900; font-size:1.3rem;">⚠️ 同步失敗：請檢查網路與 CSV 網址</div>';
         }
     }
 
@@ -921,7 +923,7 @@
                 if (data && data.rates && data.rates.TWD) currentExchangeRate = data.rates.TWD;
             }
         } catch (e) {}
-        rateEl.innerHTML = `<span style="font-size:0.9rem">¥1 =</span> NT$${currentExchangeRate.toFixed(3)}`;
+        rateEl.innerHTML = `<span style="font-size:1rem">¥1 =</span> NT$${currentExchangeRate.toFixed(3)}`;
         renderExpenses();
     }
 
@@ -946,13 +948,13 @@
         expenses.forEach(e => {
             total += e.cost;
             list.innerHTML += `
-            <li style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:2px dashed #E0E0E0;">
+            <li style="display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-bottom:3px dashed #BCAAA4;">
                 <div style="flex:1;">
-                    <div style="font-weight:900; font-size:1.3rem; color:#111;">${e.item}</div>
-                    <div style="color:#666; font-size:1rem; font-weight:bold;">${e.date}</div>
+                    <div style="font-weight:900; font-size:1.4rem; color:#1A1A1A;">${e.item}</div>
+                    <div style="color:#444; font-size:1.1rem; font-weight:bold;">${e.date}</div>
                 </div>
-                <div style="font-weight:900; color:var(--theme-green); font-size:1.4rem; margin-right:15px;">¥${e.cost.toLocaleString()}</div>
-                <button style="background:#FFEBEE; border:2px solid var(--theme-red); color:var(--theme-red); width:40px; height:40px; border-radius:50%; font-weight:900; font-size:1.2rem; cursor:pointer;" onclick="removeExpense(${e.id})">×</button>
+                <div style="font-weight:900; color:var(--theme-green); font-size:1.5rem; margin-right:15px;">¥${e.cost.toLocaleString()}</div>
+                <button style="background:#FFEBEE; border:3px solid var(--theme-red); color:var(--theme-red); width:45px; height:45px; border-radius:50%; font-weight:900; font-size:1.5rem; cursor:pointer; box-shadow: 2px 2px 0px rgba(0,0,0,0.15);" onclick="removeExpense(${e.id})">×</button>
             </li>`;
         });
         document.getElementById('acc-total').innerText = `¥${total.toLocaleString()}`;
