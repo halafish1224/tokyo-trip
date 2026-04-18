@@ -13,25 +13,21 @@
 
     <style>
         :root {
-            /* 醫學建議：暖象牙白背景，降低白內障眩光效應 */
             --bg-overlay: rgba(250, 245, 235, 0.98);
             --card-bg: #FFFFFF; 
-            /* 醫學建議：不使用純黑，改用高對比柔黑，降低視覺壓力 */
             --text-main: #1A1A1A; 
             --text-sub: #333333;
             
-            /* 醫學建議：對抗水晶體黃化，暖色系需加深，藍色需極深以保持對比 */
-            --theme-blue: #0D47A1; /* 深海藍 */
-            --theme-orange: #BF360C; /* 深磚橘 */
-            --theme-green: #1B5E20; /* 深墨綠 */
-            --theme-red: #B71C1C; /* 絳紅色 */
+            --theme-blue: #0D47A1; 
+            --theme-orange: #BF360C; 
+            --theme-green: #1B5E20; 
+            --theme-red: #B71C1C; 
 
             --bg-kid: #FCE4EC;
             --border-kid: #D81B60;
             --bg-senior: #E8F5E9;
             --border-senior: #2E7D32;
 
-            /* 加粗所有邊框，幫助邊緣視覺退化的長者辨識區塊 */
             --sketch-border: 3px solid #222222; 
             --sketch-shadow: 4px 5px 0px rgba(26, 26, 26, 0.2);
             --radius-sketch: 8px 25px 8px 20px / 25px 8px 20px 8px;
@@ -42,9 +38,10 @@
 
         body {
             font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
-            margin: 0; padding-bottom: 12vh; line-height: 1.8;
+            margin: 0; padding-bottom: 95px; /* 調整底部留白配合新版頁籤 */
+            line-height: 1.8;
             color: var(--text-main); background-color: #FAF5EB;
-            font-size: 20px; /* 基礎字級再提升，符合高齡友善規範 */
+            font-size: 20px; 
         }
 
         body::before {
@@ -118,23 +115,16 @@
         .card-content { padding: 22px; }
         .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4rem; font-weight: 900; color: var(--theme-orange); display: block; margin-bottom: 8px; }
         .card-title { font-size: 1.7rem; font-weight: 900; margin: 0 0 12px; line-height: 1.4; }
-        
-        /* 醫學建議：超連結必須具備底線且高對比，絕不能只用顏色區分 */
         .card-title a { color: var(--theme-blue); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 3px; transition: opacity 0.2s; }
-        .card-title a:hover { background-color: #E3F2FD; }
-
+        
         .card-tags { display: flex; gap: 10px; margin-bottom: 15px; }
         .tag-kid { background: #880E4F; color: white; font-size: 1.05rem; padding: 5px 12px; border-radius: 15px; font-weight: 900; }
         .tag-senior { background: #1B5E20; color: white; font-size: 1.05rem; padding: 5px 12px; border-radius: 15px; font-weight: 900; }
         .card-desc { font-size: 1.2rem; color: var(--text-main); margin-bottom: 15px; line-height: 1.8; font-weight: 600; }
         
-        /* 活潑且極高辨識度的周邊景點區塊 */
         .nearby-box { margin-top: 25px; padding: 15px; background: #FFFFFF; border-radius: 12px; border: 3px solid #BCAAA4; }
         .nearby-box-title { font-weight: 900; color: #FFF; margin-bottom: 15px; font-size: 1.25rem; font-family: 'Zen Maru Gothic', sans-serif; display: inline-block; background: var(--theme-blue); padding: 8px 16px; border-radius: 8px; border: 2px solid #222;}
         .nearby-item { font-family: 'Klee One', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; line-height: 1.6; padding: 12px 15px; border-radius: 8px; border: 2px solid transparent; }
-        .nearby-item:last-child { margin-bottom: 0; }
-        
-        /* 跳色區分，增加活潑感，並加上實體邊框增加邊界辨識度 */
         .nearby-item:nth-child(odd) { background: #F1F8E9; color: #1B5E20; border-color: #AED581; }
         .nearby-item:nth-child(even) { background: #FFF3E0; color: #BF360C; border-color: #FFB74D; }
         .nearby-link { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; margin-right: 6px; display: inline-block; color: var(--theme-blue); }
@@ -150,21 +140,22 @@
         .guide-step { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 1.15rem; font-weight: 900; color: var(--text-main); }
         .step-num { background: var(--theme-blue); color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-size: 1.1rem; margin-right: 12px; flex-shrink: 0; border: 2px solid #222; }
 
-        /* 按鈕：加強實體感與點擊區域大小 (Touch Target Size) */
         .btn-group { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
         .btn { flex: 1; text-align: center; padding: 15px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.25rem; font-weight: 900; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 3px 4px 0px rgba(0,0,0,0.25); min-height: 55px; }
         .btn-primary { background: var(--theme-blue); color: white; }
         .btn-weather { background: #FFF9C4; color: var(--text-main); }
 
-        /* 3b: 折價券清單按鈕實體化與立體化 */
-        .coupon-box { background: linear-gradient(135deg, #FF9800, #F57C00); border: 3px solid #E65100; border-radius: 16px; padding: 20px; margin-bottom: 30px; text-align: center; text-decoration: none; display: block; color: #FFF; box-shadow: 0 6px 0px #C83800, 0 10px 15px rgba(0,0,0,0.2); position: relative; transition: all 0.1s; }
-        .coupon-box:active { transform: translateY(6px); box-shadow: 0 0px 0px #C83800, 0 4px 6px rgba(0,0,0,0.2); }
+        /* 3a: 回報與折價券的並排按鈕樣式 */
+        .action-btn-container { display: flex; gap: 12px; margin-bottom: 25px; align-items: stretch; }
+        .action-card { flex: 1; border-radius: 12px; padding: 15px 10px; text-align: center; text-decoration: none; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); display: flex; flex-direction: column; justify-content: center; align-items: center; border: 3px solid; transition: transform 0.1s; }
+        .action-card:active { transform: translateY(3px); box-shadow: none; }
+        .action-card-report { background: #FFF3E0; border-color: var(--theme-orange); color: #111; }
+        .action-card-coupon { background: linear-gradient(135deg, #FF9800, #F57C00); border-color: #E65100; color: #FFF; }
 
         .acc-section { margin-bottom: 35px; padding-bottom: 25px; border-bottom: 3px solid #BCAAA4; }
         .acc-title { font-size: 1.6rem; font-weight: 900; margin-bottom: 18px; color: var(--theme-blue); border-left: 10px solid var(--theme-blue); padding-left: 15px; }
         
-        /* 3a: 比價商品卡片縮小 (減小 padding 與 margin) */
-        .buy-item-card { background: #FFFFFF; border: var(--sketch-border); border-left: 8px solid var(--theme-green); border-radius: 10px; padding: 12px; margin-bottom: 12px; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); }
+        .buy-item-card { background: #FFFFFF; border: var(--sketch-border); border-left: 10px solid var(--theme-green); border-radius: 12px; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); }
         
         .input-group { display: flex; gap: 12px; margin-bottom: 18px; }
         .input-field { flex: 1; padding: 16px; border: 3px solid #757575; border-radius: 8px; font-family: inherit; font-size: 1.3rem; font-weight: 900; width: 100%; box-sizing: border-box; }
@@ -173,12 +164,12 @@
         .trans-box { font-size: 1.6rem; font-weight: 900; width: 100%; border: 3px solid #757575; border-radius: 15px; padding: 18px; margin-top: 12px; background: white; font-family: sans-serif; line-height: 1.4; box-sizing: border-box; }
         .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 20px; width: 100%; font-size: 1.5rem; font-weight: 900; margin-top: 18px; box-shadow: 3px 5px 0px rgba(0,0,0,0.25); }
 
-        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 12vh; min-height: 85px; max-height: 100px; background: #FFFFFF; border-top: 4px solid #222; display: flex; justify-content: space-around; align-items: center; padding: 0 10px; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); }
-        .nav-item { text-align: center; color: #616161; flex: 1; font-weight: 900; cursor: pointer; font-size: 1.15rem; padding: 10px 5px; margin: 0 5px; border-radius: 15px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 85%; border: 3px solid transparent; }
-        .nav-item.active { color: var(--theme-blue); background: #E3F2FD; border: 3px solid var(--theme-blue); box-shadow: 0px 5px 0px var(--theme-blue); transform: translateY(-5px); }
-        .nav-icon { font-size: 2rem; display: block; margin-bottom: 2px; }
+        /* 2. 自適應下方頁籤：取消固定高度，採用 padding 與自動高度，防大字體破圖 */
+        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: auto; min-height: 70px; background: #FFFFFF; border-top: 4px solid #222; display: flex; justify-content: space-around; align-items: stretch; padding: 6px 5px; z-index: 1000; box-shadow: 0 -4px 15px rgba(0,0,0,0.15); }
+        .nav-item { text-align: center; color: #616161; flex: 1; font-weight: 900; cursor: pointer; font-size: 0.9rem; padding: 5px; margin: 0 5px; border-radius: 12px; transition: all 0.2s ease; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 3px solid transparent; line-height: 1.2; word-break: keep-all; }
+        .nav-item.active { color: var(--theme-blue); background: #E3F2FD; border: 3px solid var(--theme-blue); box-shadow: 0px 4px 0px var(--theme-blue); transform: translateY(-4px); }
+        .nav-icon { font-size: 1.6rem; display: block; margin-bottom: 2px; }
 
-        /* 2: 將總地圖改成「現在位置」，並加上點擊回饋效果 */
         .floating-map-btn { position: fixed; right: 15px; bottom: 110px; width: 75px; height: 75px; background: #FFD54F; border: 3px solid #222; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; box-shadow: 3px 4px 0 rgba(0,0,0,0.2); z-index: 999; transition: transform 0.1s, box-shadow 0.1s; }
         .floating-map-btn:active { transform: translateY(4px); box-shadow: 0 0 0 rgba(0,0,0,0.2); }
         .floating-map-btn span { font-size: 1.6rem; margin-top: -2px; }
@@ -189,7 +180,6 @@
         @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
         .keyword-orange { background: linear-gradient(transparent 60%, #FFCC80 40%); padding: 0 4px; font-weight: 900; color: var(--theme-orange); }
         
-        /* 1: 預設隱藏 Modal，解決殘影問題 */
         .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
         .img-modal.active { display: flex; animation: fadeIn 0.2s; }
         .modal-content { max-width: 95%; max-height: 80vh; border-radius: 12px; border: 4px solid #FFF; box-shadow: 0 5px 25px rgba(0,0,0,0.8); object-fit: contain; }
@@ -242,14 +232,16 @@
     </div>
 
     <div id="sec-account" class="section">
-        <div class="acc-section" style="border-bottom: none; margin-bottom: 15px;">
-            <div class="acc-title">家族即時比價系統</div>
-            <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" style="text-decoration: none;">
-                <div style="background: #FFF3E0; border: 4px solid var(--theme-orange); border-radius: 15px; padding: 25px; text-align: center; box-shadow: var(--sketch-shadow);">
-                    <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">📸</span>
-                    <div style="font-size: 1.8rem; font-weight: 900; color: #111;">點我：回報店內價格</div>
-                    <div style="font-size: 1.2rem; color: var(--theme-orange); margin-top: 10px; font-weight: 900;">(填寫後全家畫面會同步更新)</div>
-                </div>
+        <div class="action-btn-container">
+            <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" class="action-card action-card-report">
+                <span style="font-size: 2.2rem; margin-bottom: 5px;">📸</span>
+                <div style="font-size: 1.2rem; font-weight: 900;">回報價格</div>
+                <div style="font-size: 0.95rem; color: var(--theme-orange); font-weight: 900; margin-top: 5px;">(全家同步)</div>
+            </a>
+            <a href="https://itigre.pse.is/japancoupon" target="_blank" class="action-card action-card-coupon">
+                <span style="font-size: 2.2rem; margin-bottom: 5px;">🎫</span>
+                <div style="font-size: 1.2rem; font-weight: 900; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">折價券</div>
+                <div style="background: #FFF; color: #E65100; padding: 4px 8px; border-radius: 15px; font-size: 0.9rem; font-weight: 900; margin-top: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">👉 點擊開啟</div>
             </a>
         </div>
 
@@ -262,12 +254,6 @@
                 <div style="text-align:center; padding:30px; color:#666; font-weight: 900; font-size: 1.2rem;">☁️ 正在載入雲端資料...</div>
             </div>
         </div>
-
-        <a href="https://itigre.pse.is/japancoupon" target="_blank" class="coupon-box">
-            <span style="font-size: 2.5rem; display:block; margin-bottom: 5px;">🎫</span>
-            <div style="font-weight: 900; font-size: 1.6rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">日本購物折價券清單</div>
-            <div style="background: #FFF; color: #E65100; display: inline-block; padding: 8px 20px; border-radius: 25px; font-size: 1.15rem; font-weight: 900; margin-top: 12px; border: 2px solid #FFF; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">👉 點擊開啟 (藥妝/BicCamera)</div>
-        </a>
 
         <div class="acc-section">
             <div class="acc-title">今日個人支出</div>
@@ -327,7 +313,7 @@
 <script>
     let currentExchangeRate = 0.215; 
 
-    // === 行程資料庫 ===
+    // === 行程資料庫 (1. 修正 12/16 檔名為 images/1216.webp) ===
     const itineraryData = [
         { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
             { time: "15:00", title: "抵達藤澤 Check-in", img: "images/1213.webp", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口", nearby: [
@@ -398,11 +384,13 @@
                 { name: "江島神社 奧津宮", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "祭祀海神的莊嚴本殿，天花板的「八方睨龜」畫作值得一看。", mapQuery: "江島神社 奥津宮" }
             ]}
         ]},
-        { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", events: [
+
+
+                { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", events: [
             { 
                 time: "08:30", 
                 title: "小田原城：晨間歷史散策", 
-                img: "images/odawara.webp", 
+                img: "images/1216.webp", 
                 desc: "從小田原站步行10分即達。早晨光線柔和，最適合拍攝天守閣與白牆。登上頂樓可遠眺相模灣全景，視野極佳。", 
                 map: "小田原城",
                 transportGuide: [
@@ -914,16 +902,16 @@
             for (const [name, prices] of Object.entries(items)) {
                 prices.sort((a, b) => a.price - b.price);
 
-                // 3a: 比價商品卡片縮小 (重新調整 CSS 寫法)
+                // 3b: 比價商品卡片縮小單行化，最低價改為 👍 圖示
                 let storesHtml = prices.map((p, index) => {
                     const isCheapest = index === 0 && prices.length > 1; 
-                    const badge = isCheapest ? `<span style="background:#B71C1C; color:#FFF; font-size:0.8rem; font-weight:900; padding:4px 8px; border-radius:10px; margin-right:8px; border:1px solid #222;">👑 最低價</span>` : '';
+                    const badge = isCheapest ? `<span style="font-size:1.2rem; margin-right:4px;">👍</span>` : '';
                     const priceColor = isCheapest ? '#B71C1C' : '#1B5E20';
 
                     return `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:2px dotted #BCAAA4;">
-                        <span style="font-weight:900; color:var(--theme-blue); font-size:1.1rem;">📍 ${p.store}</span>
-                        <div style="display:flex; align-items:center;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:2px dotted #BCAAA4;">
+                        <span style="font-weight:900; color:var(--theme-blue); font-size:1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%;">📍 ${p.store}</span>
+                        <div style="display:flex; align-items:center; flex-shrink: 0;">
                             ${badge}
                             <span style="font-weight:900; color:${priceColor}; font-size:1.3rem;">¥${p.price.toLocaleString()}</span>
                         </div>
@@ -931,12 +919,12 @@
                 }).join('');
 
                 html += `
-                <div class="buy-item-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                        <span style="font-weight:900; font-size:1.3rem; color:#1A1A1A;">${name}</span>
-                        <span style="background:#E3F2FD; font-size:0.9rem; font-weight:900; padding:4px 10px; border-radius:12px; color:var(--theme-blue); border: 2px solid var(--theme-blue);">已同步</span>
+                <div class="buy-item-card" style="padding: 12px; margin-bottom: 12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="font-weight:900; font-size:1.4rem; color:#1A1A1A; line-height: 1.2;">${name}</span>
+                        <span style="background:#E3F2FD; font-size:0.9rem; font-weight:900; padding:4px 8px; border-radius:8px; color:var(--theme-blue); border: 2px solid var(--theme-blue); flex-shrink: 0; margin-left: 10px;">已同步</span>
                     </div>
-                    <div style="background:#FAF5EB; padding:10px 12px; border-radius:8px; border:2px solid #BCAAA4;">
+                    <div style="background:#FAF5EB; padding:8px 10px; border-radius:8px; border:2px solid #BCAAA4;">
                         ${storesHtml}
                     </div>
                 </div>`;
