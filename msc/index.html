@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>地中海榮耀號 家族航海手冊</title>
+    <title>清水市第三國小 3年4班 家族航海手冊</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        /* 引入圓潤可愛的字體 */
+        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+TC:wght@500;700;900&display=swap');
 
         :root {
-            --ocean-dark: #0A2540;   /* 深海藍 */
-            --ocean-light: #2A68A6;  /* 沉穩藍 */
-            --gold-accent: #D4AF37;  /* 典雅金 */
-            --bg-color: #F4F7F6;     /* 柔和白底，保護長輩眼睛 */
-            --text-dark: #333333;    /* 深灰字體，對比清晰 */
+            --maruko-red: #E60012;      /* 小丸子裙子紅 */
+            --maruko-yellow: #FFD700;   /* 小丸子帽子黃 */
+            --maruko-bg: #FFF9E5;       /* 溫柔的乳白底色 */
+            --maruko-brown: #8B4513;    /* 書包褐 */
+            --maruko-pink: #FFC0CB;     /* 臉頰粉紅 */
+            --text-dark: #333333;
             --card-bg: #FFFFFF;
-            --danger-color: #D32F2F; /* 警示紅 */
+            --danger-color: #D32F2F;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: #E0E7ED;
-            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F5EBC1; /* 溫暖的淺黃色背景 */
+            /* 全體使用圓潤字體，增加卡通感 */
+            font-family: 'ZCOOL KuaiLe', 'Noto Sans TC', sans-serif;
             display: flex;
             justify-content: center;
         }
@@ -31,36 +34,40 @@
             width: 100%;
             max-width: 414px;
             height: 100vh;
-            background-color: var(--bg-color);
+            background-color: var(--maruko-bg);
             position: relative;
             overflow: hidden;
+            border: 5px solid var(--maruko-brown); /* 粗粗的書包褐邊框 */
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
+            border-radius: 15px; /* 圓角設計 */
         }
 
-        /* 頂部 Header */
+        /* 頂部 Header：小丸子配色 */
         .header {
-            background-color: var(--ocean-dark);
-            color: #FFFFFF;
+            background-color: var(--maruko-red);
+            color: var(--maruko-yellow);
             padding: 20px 15px;
             text-align: center;
-            border-bottom: 4px solid var(--gold-accent);
+            border-bottom: 5px dashed var(--maruko-yellow); /* 虛線縫線感 */
             position: relative;
             z-index: 10;
         }
 
         .header h1 {
-            font-size: 22px;
+            font-size: 24px;
             margin: 0;
             font-weight: 700;
             letter-spacing: 2px;
+            /* 加上文字外框，更有卡通感 */
+            -webkit-text-stroke: 1px var(--maruko-brown);
         }
 
         .header p {
             margin: 5px 0 0 0;
             font-size: 14px;
-            color: #E0E7ED;
+            color: #FFFFFF;
         }
 
         /* 內容滾動區 */
@@ -69,6 +76,9 @@
             overflow-y: auto;
             padding: 15px;
             padding-bottom: 85px; /* 留給底部導航欄空間 */
+            /* 背景加上淡淡的粉紅點點，增加可愛度 */
+            background-image: radial-gradient(var(--maruko-pink) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         /* 隱藏/顯示分頁 */
@@ -80,22 +90,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 資訊卡片 */
+        /* 小丸子的聯絡簿風格卡片 */
         .info-card {
             background: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 15px;
             padding: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-left: 5px solid var(--ocean-light);
+            box-shadow: 4px 4px 0px rgba(139, 69, 19, 0.3); /* 褐色硬陰影 */
+            border: 3px solid var(--maruko-brown);
             color: var(--text-dark);
+            position: relative;
+        }
+
+        /* 卡片右上角加上小裝飾（像貼紙） */
+        .info-card::after {
+            content: '花輪';
+            position: absolute;
+            top: -10px; right: -10px;
+            background: var(--maruko-yellow);
+            color: var(--maruko-brown);
+            border: 2px solid var(--maruko-brown);
+            border-radius: 5px;
+            font-size: 10px;
+            padding: 2px 5px;
+            transform: rotate(15deg);
         }
 
         .card-title {
-            color: var(--ocean-dark);
-            font-size: 1.25em;
+            color: var(--maruko-red);
+            font-size: 1.3em;
             font-weight: 700;
-            border-bottom: 1px solid #EEEEEE;
+            border-bottom: 2px solid var(--maruko-pink);
             padding-bottom: 10px;
             margin-top: 0;
             display: flex;
@@ -103,19 +128,20 @@
         }
 
         ul { padding-left: 22px; margin: 12px 0; }
-        li { margin-bottom: 12px; line-height: 1.5; font-size: 1.05em; }
+        li { margin-bottom: 12px; line-height: 1.5; font-size: 1.1em; color: var(--text-dark); }
         
-        .highlight { color: var(--ocean-light); font-weight: 700; }
+        .highlight { color: var(--maruko-brown); font-weight: 700; text-decoration: underline var(--maruko-yellow); }
         .danger { color: var(--danger-color); font-weight: 700; }
-        .notice { background: #FFF8E1; padding: 10px; border-radius: 5px; font-size: 0.95em; margin-top: 10px; }
+        /* 溫暖的便條紙樣式 */
+        .notice { background: #FFFDE0; padding: 12px; border-radius: 5px; font-size: 1em; margin-top: 10px; border: 1px dashed var(--maruko-brown); color: var(--maruko-brown); }
 
-        /* 底部導航欄 (4個按鈕) */
+        /* 底部導航欄：帽子黃配色 */
         .bottom-nav {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
             display: flex;
-            background: #FFFFFF;
-            border-top: 2px solid #DDDDDD;
+            background: var(--maruko-yellow);
+            border-top: 5px solid var(--maruko-brown);
             z-index: 10;
         }
 
@@ -123,21 +149,21 @@
             flex: 1;
             padding: 15px 0;
             text-align: center;
-            color: #777777;
+            color: var(--maruko-brown);
             font-weight: 700;
-            font-size: 0.95em;
+            font-size: 1em;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            font-family: 'ZCOOL KuaiLe', sans-serif;
         }
         
         .nav-btn.active {
-            color: var(--ocean-dark);
-            border-top: 3px solid var(--gold-accent);
-            background: #F8F9FA;
+            color: var(--maruko-red);
+            background: rgba(255, 255, 255, 0.5);
         }
 
         /* --- 檢核表 Checkbox 專屬設計 (適合長輩點擊) --- */
@@ -152,19 +178,20 @@
             display: flex;
             align-items: flex-start;
             cursor: pointer;
-            background: #F9FAFB;
+            background: #FFFDE0;
             padding: 12px;
             border-radius: 6px;
-            border: 1px solid #E5E7EB;
+            border: 2px solid var(--maruko-brown);
             transition: background 0.3s;
         }
 
         .check-item input[type="checkbox"] { display: none; }
 
+        /* 黃色方框 */
         .custom-box {
             width: 26px;
             height: 26px;
-            border: 2px solid #9CA3AF;
+            border: 3px solid var(--maruko-brown);
             border-radius: 4px;
             background: #FFFFFF;
             display: inline-block;
@@ -173,15 +200,17 @@
             flex-shrink: 0;
         }
 
+        /* 勾選後變成紅色背景 */
         .check-item input[type="checkbox"]:checked + .custom-box {
-            background-color: var(--ocean-light);
-            border-color: var(--ocean-light);
+            background-color: var(--maruko-red);
+            border-color: var(--maruko-brown);
         }
 
+        /* 勾選後顯示黃色勾勾 */
         .check-item input[type="checkbox"]:checked + .custom-box::after {
             content: '✔';
             position: absolute;
-            color: #FFFFFF;
+            color: var(--maruko-yellow);
             font-size: 20px;
             font-weight: bold;
             top: -2px;
@@ -189,7 +218,7 @@
         }
 
         .check-text {
-            font-size: 1.05em;
+            font-size: 1.1em;
             line-height: 1.4;
             color: var(--text-dark);
             transition: all 0.3s;
@@ -199,7 +228,7 @@
         /* 勾選後的文字樣式 */
         .check-item input[type="checkbox"]:checked ~ .check-text {
             color: #9CA3AF;
-            text-decoration: line-through;
+            text-decoration: line-through var(--maruko-red); /* 用紅色畫線 */
         }
     </style>
 </head>
@@ -207,19 +236,19 @@
 
 <div class="app-container">
     <header class="header">
-        <h1>MSC 家族航海手冊</h1>
-        <p>基隆 ➔ 釜山 ➔ 福岡 (7/17 - 7/22)</p>
+        <h1>家族航海聯絡簿</h1>
+        <p>基隆港 ➔ 釜山港 ➔ 福岡港 (7/17 - 7/22)</p>
     </header>
 
     <div class="content-area">
         
         <div id="tab1" class="tab-content active">
             <div class="info-card">
-                <h2 class="card-title">Day 1：基隆登船出發 (7/17)</h2>
+                <h2 class="card-title">Day 1：基隆出發囉！ (7/17)</h2>
                 <ul>
-                    <li><span class="highlight">13:00 - 16:00：</span>抵達基隆港務大樓報到、托運行李。</li>
-                    <li><span class="highlight">18:00：</span>郵輪正式啟航。</li>
-                    <li><span class="danger">首日必做：</span>手機連上船內網路，打開 MSC App，並協助長輩將房卡與信用卡綁定。</li>
+                    <li><span class="highlight">13:00 - 16:00：</span>請抵達基隆港務大樓報到、托運行李。</li>
+                    <li><span class="highlight">18:00：</span>郵輪正式啟航，回家囉！</li>
+                    <li><span class="danger">重要：</span>上船後第一件事，手機連上船內網路，打開 App，協助長輩將房卡與信用卡綁定。</li>
                 </ul>
             </div>
 
@@ -227,10 +256,10 @@
                 <h2 class="card-title">Day 3：韓國釜山 (7/19)</h2>
                 <ul>
                     <li><span class="highlight">靠港時間：</span>10:00 抵達 / <span class="danger">22:00 離港</span>。</li>
-                    <li><span class="highlight">交通方式：</span>步行至釜山地鐵站，總務將為全家統一購買地鐵票。</li>
-                    <li><span class="highlight">午餐安排：</span>在地美食「平山玉」享用清爽軟嫩的水煮豬肉與清湯麵（適合長輩）。</li>
-                    <li><span class="highlight">下午行程：</span>搭乘地鐵至南浦站，逛韓國服飾店並至「樂天超市」集中採買海苔與零食。</li>
-                    <li><span class="highlight">回船時間：</span>最晚請於 21:00 前返回碼頭。</li>
+                    <li><span class="highlight">交通方式：</span>步行至釜山地鐵站，總務將統一購買全家人的地鐵票。</li>
+                    <li><span class="highlight">午餐安排：</span>去吃友藏阿公也愛的「平山玉」清爽水煮豬肉與麵（非常軟嫩，適合長輩）。</li>
+                    <li><span class="highlight">下午行程：</span>逛南浦洞服飾店，再去「樂天超市」集中採買海苔與零食。</li>
+                    <li><span class="highlight">回船時間：</span>最晚請於 21:00 前回到碼頭。</li>
                 </ul>
             </div>
 
@@ -238,9 +267,9 @@
                 <h2 class="card-title">Day 4：日本福岡 (7/20)</h2>
                 <ul>
                     <li><span class="highlight">靠港時間：</span>07:00 抵達 / <span class="danger">17:00 提早離港</span>。</li>
-                    <li><span class="highlight">交通方式：</span>出碼頭搭乘雙節公車。全家人上車時請**直接用手機 Apple Pay 感應**。</li>
-                    <li><span class="highlight">上午行程：</span>走訪具歷史氣息的櫛田神社。</li>
-                    <li><span class="highlight">採買與午餐：</span>於天神商圈 Mina 百貨（有冷氣與休息區）集中採買 UNIQLO、無印良品與藥妝。中午享用拉麵。</li>
+                    <li><span class="highlight">交通方式：</span>搭乘公車。上車時請**直接用手機感應支付**（Apple Pay）。</li>
+                    <li><span class="highlight">上午行程：</span>走訪櫛田神社。</li>
+                    <li><span class="highlight">採買與午餐：</span>天神商圈 Mina 百貨集中採買無印良品與藥妝。中午吃拉麵。</li>
                     <li><span class="danger">極限警告：請務必在 15:30 前回到碼頭準備登船！</span></li>
                 </ul>
             </div>
@@ -250,61 +279,61 @@
             <div class="info-card">
                 <h2 class="card-title">必要固定支出 (小費)</h2>
                 <ul>
-                    <li>每位成人每晚 $16 美金，兒童(2-11歲)每晚 $8 美金。</li>
-                    <li>這筆費用將會<span class="danger">自動記在房卡帳單中</span>，下船前從綁定的信用卡扣除。</li>
+                    <li>成人每晚 $16 美金，兒童(2-11歲)每晚 $8 美金。</li>
+                    <li>費用將<span class="danger">自動記在房卡帳單中</span>，下船前從綁定的信用卡扣除。</li>
                 </ul>
             </div>
             
             <div class="info-card">
                 <h2 class="card-title">免費服務 (已含在船票)</h2>
                 <ul>
-                    <li><span class="highlight">餐飲：</span>主餐廳（有專人點餐）、自助餐廳（供餐時間長，有熱茶與水）。</li>
-                    <li><span class="highlight">娛樂：</span>每晚的大型劇院表演（需用手機 App 預約）、水上樂園、溫水按摩池、健身房。</li>
-                    <li><span class="highlight">船上聯絡：</span>使用 MSC App 互相傳訊息不需額外付費。</li>
+                    <li><span class="highlight">餐飲：</span>主餐廳（有專人服務）、自助餐廳（熱茶與水免費）。</li>
+                    <li><span class="highlight">娛樂：</span>劇院表演（用 App 預約）、泳池、健身房。</li>
+                    <li><span class="highlight">船上聯絡：</span>使用 MSC App 互相傳訊息免費。</li>
                 </ul>
             </div>
 
             <div class="info-card">
-                <h2 class="card-title">付費服務 (需刷房卡)</h2>
+                <h2 class="card-title">付費服務 (刷房卡)</h2>
                 <ul>
-                    <li><span class="highlight">對外網路：</span>若需使用 LINE 傳圖片或上網，需額外購買 Wi-Fi 套餐。</li>
-                    <li><span class="highlight">餐飲：</span>所有含酒精飲料、現泡咖啡、可樂，以及特色餐廳（如鐵板燒、牛排館）。</li>
-                    <li><span class="danger">醫療：</span>船上看診費用極高（約 $100 美金起跳），請務必帶齊個人常備藥物。</li>
+                    <li><span class="highlight">對外網路：</span>若需連上 LINE 傳圖片或滑網頁，需購買網路套餐。</li>
+                    <li><span class="highlight">餐飲：</span>酒精飲料、咖啡、可樂，以及特色餐廳。</li>
+                    <li><span class="danger">醫療：</span>船上看診極貴（約 $100 美金起），請備齊個人常備藥物。</li>
                 </ul>
             </div>
         </div>
 
         <div id="tab3" class="tab-content">
             <div class="info-card">
-                <h2 class="card-title">健康與衣物須知</h2>
+                <h2 class="card-title">冷氣與藥物</h2>
                 <ul>
-                    <li><span class="highlight">船上空調極冷：</span>郵輪室內恆溫約 20-22 度，請務必隨身攜帶防風薄外套或保暖針織衫。</li>
-                    <li><span class="highlight">備妥私人藥物：</span>長輩的慢性病連續處方藥（請多備 3-5 天份）、暈船藥、感冒與腸胃藥，務必從台灣帶上船。</li>
+                    <li><span class="highlight">船上冷氣強：</span>室內恆溫約 20-22 度，請務必隨身攜帶<span class="highlight">薄外套</span>。</li>
+                    <li><span class="highlight">備妥私人藥物：</span>長輩慢性病藥、暈船藥、感冒與腸胃藥，務必從台灣帶上船。</li>
                 </ul>
             </div>
             <div class="info-card">
-                <h2 class="card-title">證件與貴重物品</h2>
+                <h2 class="card-title">重要證件</h2>
                 <ul>
-                    <li><span class="danger">護照正本：</span>上下船查驗極度嚴格，請妥善保管，切勿遺失。</li>
-                    <li><span class="highlight">護照影本：</span>日韓靠港時當地海關需查驗，請提前列印 2 至 3 份影本帶在身上。</li>
+                    <li><span class="danger">護照正本：</span>查驗嚴格，切勿遺失。</li>
+                    <li><span class="highlight">護照影本：</span>日韓靠港查驗使用，請列印 2-3 份帶在身上。</li>
                 </ul>
             </div>
         </div>
 
         <div id="tab4" class="tab-content">
-            <div class="notice">💡 點擊框框即可打勾。此頁面會自動記憶您的勾選狀態，關閉網頁也不會消失，請安心使用。</div>
+            <div class="notice">💡 點擊框框即可打勾。手機會自動記憶您的勾選狀態，關閉網頁重開也還在喔。</div>
             
             <div class="info-card">
-                <h2 class="card-title">證件與財務 (最重要)</h2>
+                <h2 class="card-title">證件與錢財 (最重要)</h2>
                 <div class="checklist-wrapper">
                     <label class="check-item"><input type="checkbox" id="chk-doc1"><span class="custom-box"></span>
                         <span class="check-text">護照「正本」（效期需超過 6 個月）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-doc2"><span class="custom-box"></span>
                         <span class="check-text">護照「影本」準備 3 份（日韓下船觀光使用）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-doc3"><span class="custom-box"></span>
-                        <span class="check-text">準備一張額度充足的「信用卡」（上船綁定房卡消費使用）。</span></label>
+                        <span class="check-text">額度充足的「信用卡」（上船綁定消費使用）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-doc4"><span class="custom-box"></span>
-                        <span class="check-text">少量日幣與韓元現金（供當地買小吃或備用）。</span></label>
+                        <span class="check-text">日幣與韓元現金（供當地買小吃用）。</span></label>
                 </div>
             </div>
 
@@ -312,13 +341,13 @@
                 <h2 class="card-title">健康與藥物</h2>
                 <div class="checklist-wrapper">
                     <label class="check-item"><input type="checkbox" id="chk-med1"><span class="custom-box"></span>
-                        <span class="check-text">個人慢性病處方藥（高血壓、糖尿病等，請多備一週份量）。</span></label>
+                        <span class="check-text">個人慢性病處方藥（請多備一週份量）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-med2"><span class="custom-box"></span>
-                        <span class="check-text">暈船藥、暈車藥（建議出發前吃半顆預防）。</span></label>
+                        <span class="check-text">暈船藥（建議出發前吃半顆預防）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-med3"><span class="custom-box"></span>
                         <span class="check-text">感冒藥、退燒藥、止痛藥。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-med4"><span class="custom-box"></span>
-                        <span class="check-text">腸胃藥、消化酵素（船上飲食豐盛，易腸胃不適）。</span></label>
+                        <span class="check-text">腸胃藥、消化酵素（船上飲食豐盛用）。</span></label>
                 </div>
             </div>
 
@@ -326,25 +355,25 @@
                 <h2 class="card-title">衣物與生活用品</h2>
                 <div class="checklist-wrapper">
                     <label class="check-item"><input type="checkbox" id="chk-clo1"><span class="custom-box"></span>
-                        <span class="check-text">一套「微正式服裝」（參加船長之夜或主題派對使用）。</span></label>
+                        <span class="check-text">微正式服裝（參加主題派對用）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-clo2"><span class="custom-box"></span>
-                        <span class="check-text">保暖防風外套或羊毛衫（抵抗船上極強的冷氣）。</span></label>
+                        <span class="check-text">保暖薄外套或羊毛衫（船上冷氣強）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-clo3"><span class="custom-box"></span>
-                        <span class="check-text">好走的運動鞋或休閒鞋（日韓岸上觀光需大量步行）。</span></label>
+                        <span class="check-text">好走的運動鞋（岸上觀光用）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-clo4"><span class="custom-box"></span>
-                        <span class="check-text">防曬乳、帽子、太陽眼鏡、雨傘。</span></label>
+                        <span class="check-text">帽子、太陽眼鏡、雨傘。</span></label>
                 </div>
             </div>
 
             <div class="info-card">
-                <h2 class="card-title">手機與網路準備</h2>
+                <h2 class="card-title">手機與設定</h2>
                 <div class="checklist-wrapper">
                     <label class="check-item"><input type="checkbox" id="chk-tech1"><span class="custom-box"></span>
-                        <span class="check-text">手機已提前下載好「MSC for Me」官方 App。</span></label>
+                        <span class="check-text">手機下載好「MSC for Me」App。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-tech2"><span class="custom-box"></span>
-                        <span class="check-text">手機已設定好 Apple Pay 等感應支付（福岡搭公車必備）。</span></label>
+                        <span class="check-text">手機設定好感應支付（福岡搭公車必備）。</span></label>
                     <label class="check-item"><input type="checkbox" id="chk-tech3"><span class="custom-box"></span>
-                        <span class="check-text">行動電源與充電線（下船拍照找路很耗電）。</span></label>
+                        <span class="check-text">行動電源與充電線。</span></label>
                 </div>
             </div>
         </div>
@@ -353,16 +382,16 @@
 
     <div class="bottom-nav">
         <div class="nav-btn active" onclick="switchTab('tab1', this)">
-            <span style="font-size: 20px; margin-bottom: 3px;">📅</span>每日行程
+            📅 每日行程
         </div>
         <div class="nav-btn" onclick="switchTab('tab2', this)">
-            <span style="font-size: 20px; margin-bottom: 3px;">🚢</span>郵輪設施
+            🚢 郵輪設施
         </div>
         <div class="nav-btn" onclick="switchTab('tab3', this)">
-            <span style="font-size: 20px; margin-bottom: 3px;">⚠️</span>安全須知
+            ⚠️ 安全須知
         </div>
         <div class="nav-btn" onclick="switchTab('tab4', this)">
-            <span style="font-size: 20px; margin-bottom: 3px;">✅</span>檢查表
+            ✅ 檢查表
         </div>
     </div>
 </div>
