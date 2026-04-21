@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MSC OCEAN CRUSADERS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&family=Oswald:wght@700&display=swap');
+
+        :root {
+            --azure-dark: #001f3f;
+            --azure-light: #0074D9;
+            --jojo-gold: #FFDC00;
+            --jojo-magenta: #F012BE;
+            --text-light: #FFFFFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            font-family: 'Noto Sans TC', sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 模擬手機 APP 容器 */
+        .app-container {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--azure-dark) 0%, #003366 100%);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--jojo-gold);
+            box-shadow: 0 0 20px rgba(0, 116, 217, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 頂部 Header */
+        .header {
+            background-color: var(--azure-dark);
+            color: var(--jojo-gold);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 4px solid var(--jojo-magenta);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            margin: 0;
+            font-style: italic;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px var(--azure-light);
+            letter-spacing: 2px;
+        }
+
+        .menacing {
+            position: absolute;
+            color: rgba(240, 18, 190, 0.7);
+            font-weight: 900;
+            font-size: 1.2em;
+            letter-spacing: 5px;
+            top: 5px;
+            right: 10px;
+            transform: rotate(-10deg);
+        }
+
+        /* 內容滾動區 */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            padding-bottom: 80px;
+        }
+
+        /* 隱藏/顯示分頁 */
+        .tab-content { display: none; animation: fadeIn 0.3s ease-in; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* JOJO 風格卡片 */
+        .jojo-card {
+            background: rgba(0, 31, 63, 0.8);
+            border: 3px solid var(--azure-light);
+            margin-bottom: 20px;
+            padding: 15px;
+            position: relative;
+            box-shadow: 6px 6px 0px var(--azure-light);
+            color: var(--text-light);
+        }
+
+        .jojo-card::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: -6px;
+            width: 12px; height: 12px;
+            background-color: var(--jojo-gold);
+        }
+
+        .card-title {
+            color: var(--jojo-gold);
+            font-size: 1.2em;
+            font-weight: 900;
+            border-bottom: 2px dashed var(--azure-light);
+            padding-bottom: 5px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title span {
+            background: var(--jojo-magenta);
+            color: white;
+            padding: 2px 8px;
+            margin-right: 10px;
+            font-size: 0.8em;
+            transform: skewX(-15deg);
+        }
+
+        ul { padding-left: 20px; margin: 10px 0; }
+        li { margin-bottom: 8px; line-height: 1.4; font-size: 0.95em; }
+        .highlight { color: var(--jojo-gold); font-weight: bold; }
+        .danger { color: var(--jojo-magenta); font-weight: bold; text-decoration: underline; }
+
+        /* 底部導航欄 (替身選擇器) */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            display: flex;
+            background: var(--azure-dark);
+            border-top: 3px solid var(--jojo-gold);
+            z-index: 10;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 15px 0;
+            text-align: center;
+            color: var(--text-light);
+            font-weight: bold;
+            font-size: 0.9em;
+            cursor: pointer;
+            border-right: 1px solid var(--azure-light);
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:last-child { border-right: none; }
+        .nav-btn.active {
+            background: var(--azure-light);
+            color: var(--jojo-gold);
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        /* 替身面板數據 */
+        .stand-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+            font-family: 'Oswald', sans-serif;
+        }
+        .stat-box {
+            background: rgba(0, 116, 217, 0.3);
+            border: 1px solid var(--jojo-gold);
+            padding: 5px;
+            text-align: center;
+        }
+        .stat-value { color: var(--jojo-gold); font-size: 1.2em; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header class="header">
+        <h1>OCEAN CRUSADERS</h1>
+        <div class="menacing">ゴゴゴゴ</div>
+    </header>
+
+    <div class="content-area">
+        <div id="tab1" class="tab-content active">
+            <div class="jojo-card">
+                <h2 class="card-title"><span>ACT 1</span> 釜山：養生湯飯之鎮</h2>
+                <div class="stand-stats">
+                    <div class="stat-box">靠港 <br><span class="stat-value">10:00</span></div>
+                    <div class="stat-box">離港 <br><span class="stat-value">22:00</span></div>
+                </div>
+                <ul>
+                    <li><span class="highlight">交通戰術：</span>步行空中步道 ➔ 釜山站。總務發動能力購買 <span class="highlight">12張單程票</span>（來回約NT$70/人）。</li>
+                    <li><span class="highlight">11:30：</span>突入「平山玉」！享用軟嫩水煮豬肉與清湯麵（約NT$240）。</li>
+                    <li><span class="highlight">13:30：</span>地鐵直襲南浦站，TOPTEN10 韓流服飾搜刮。</li>
+                    <li><span class="highlight">16:00：</span>「大房韓定食」滿桌健康小菜補血（約NT$360）。</li>
+                    <li><span class="highlight">17:30：</span>最終戰：樂天超市一站式掃貨。21:00前撤退回船！</li>
+                </ul>
+            </div>
+
+            <div class="jojo-card">
+                <h2 class="card-title"><span>ACT 2</span> 福岡：雙節巴士的突圍</h2>
+                <div class="stand-stats">
+                    <div class="stat-box">靠港 <br><span class="stat-value">07:00</span></div>
+                    <div class="stat-box">極限離港 <br><span class="stat-value danger">17:00</span></div>
+                </div>
+                <ul>
+                    <li><span class="highlight">交通戰術：</span>碼頭外搭乘 Fukuoka BRT。全體發動 <span class="highlight">Apple Pay 感應</span> 瞬間上車！（來回約NT$100/人）。</li>
+                    <li><span class="highlight">09:00：</span>櫛田神社走讀，16-300mm 鏡頭捕捉壯觀山笠。</li>
+                    <li><span class="highlight">10:30：</span>攻佔 Mina Tenjin！長輩於咖啡廳待命，主力部隊掃蕩 UNIQLO、MUJI 與免稅藥妝。</li>
+                    <li><span class="highlight">13:00：</span>Shin-Shin 豚骨拉麵（約NT$210）。</li>
+                    <li><span class="danger">警告：15:30 前務必抵達碼頭辦理登船！</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <div class="jojo-card">
+                <h2 class="card-title"><span>STAND</span> 榮耀號 Bellissima</h2>
+                <ul>
+                    <li><span class="highlight">本體必備代價 (小費)：</span>成人 $16 USD/晚 (共$80)，兒童 $8 USD/晚 (共$40)。<br><i>* 無法閃避的自動扣款攻擊！</i></li>
+                </ul>
+            </div>
+
+            <div class="jojo-card">
+                <h2 class="card-title"><span>FREE</span> 無下限防禦 (免費設施)</h2>
+                <ul>
+                    <li>主餐廳 (晚餐固定梯次)、市集自助餐廳 (全天候披薩)。</li>
+                    <li>倫敦大劇院大秀 (需用 App 預約)、水上樂園、全景健身房。</li>
+                    <li><span class="highlight">MSC for Me 內網通訊：</span>免費！全家族走散時的唯一聯繫波紋。</li>
+                </ul>
+            </div>
+
+            <div class="jojo-card">
+                <h2 class="card-title"><span>PAY</span> 黃金體驗 (付費項目)</h2>
+                <ul>
+                    <li><span class="highlight">外網 Wi-Fi：</span>文字版約 $50-$60，影音版約 $75-$90。</li>
+                    <li><span class="highlight">飲料單點：</span>拿鐵 $4-$5、可樂 $3.5 (外加15%服務費)。</li>
+                    <li><span class="highlight">海渡鐵板燒：</span>$35-$60/人，拋接雞蛋的極致幻術！</li>
+                    <li><span class="highlight">旋轉木馬酒廊：</span>$18-$20/人，含特技秀與調酒。</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="jojo-card">
+                <h2 class="card-title"><span>RULE 1</span> 雙棲銜接的覺悟</h2>
+                <ul>
+                    <li><span class="danger">7/16-7/17 終極考驗：</span>結束大阪虎航班機後，當晚務必將行李箱內的「大阪衣物」與「郵輪衣物」徹底分類分離！</li>
+                </ul>
+            </div>
+
+            <div class="jojo-card">
+                <h2 class="card-title"><span>RULE 2</span> 拒絕天價醫療的替身</h2>
+                <ul>
+                    <li>船上醫務室掛號費高達 <span class="danger">$100-$150 USD</span> 起跳！</li>
+                    <li><span class="highlight">防禦裝備：</span>12 人的感冒藥、腸胃藥、長輩慢性病處方藥、暈船藥，務必在台灣配妥帶上船。</li>
+                </ul>
+            </div>
+
+            <div class="jojo-card">
+                <h2 class="card-title"><span>RULE 3</span> 護照與鏡頭的鐵則</h2>
+                <ul>
+                    <li><span class="highlight">過關護符：</span>護照正本極度重要，備妥 2-3 份影本供日韓靠港使用。</li>
+                    <li><span class="highlight">氣候防禦：</span>船上冷氣極強 (20度)，請長輩備妥防風外套。</li>
+                    <li><span class="highlight">器材保養：</span>海風帶鹽分具腐蝕性，甲板拍攝後務必以微濕軟布擦拭相機與鏡頭！</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-btn active" onclick="switchTab('tab1', this)">航海紀行</div>
+        <div class="nav-btn" onclick="switchTab('tab2', this)">替身設施</div>
+        <div class="nav-btn" onclick="switchTab('tab3', this)">生存法則</div>
+    </div>
+</div>
+
+<script>
+    function switchTab(tabId, element) {
+        // 隱藏所有內容
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+        
+        // 移除所有按鈕的 active 狀態
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn => btn.classList.remove('active'));
+        
+        // 顯示被點擊的內容，並設定按鈕狀態
+        document.getElementById(tabId).classList.add('active');
+        element.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
