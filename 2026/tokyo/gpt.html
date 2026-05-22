@@ -613,14 +613,14 @@
             <div class="buy-gallery-head">
                 <div>
                     <div class="buy-gallery-title">🛍️ 代購品項照片提醒</div>
-                    <div style="font-size:1.02rem; font-weight:900; color:#444; margin-top:4px;">自動讀取 buy 資料夾內的 .jpg / .png / .webp 圖片</div>
+                    <div style="font-size:1.02rem; font-weight:900; color:#444; margin-top:4px;">自動讀取 buy-images.json 內設定的 .jpg / .png / .webp 圖片</div>
                 </div>
                 <button type="button" class="buy-gallery-refresh" onclick="loadBuyGallery()">🔄 重新整理</button>
             </div>
             <div class="buy-gallery-note">
                 圖片資料夾：<br>
                 <span style="color:var(--theme-blue); word-break:break-all;">https://travel.itigre.com/2026/tokyo/images/buy/</span><br>
-                若主機未開啟「目錄索引」，請建立 <span style="color:var(--theme-red);">buy-images.json</span> 作為圖片清單，系統會自動改讀清單。
+                圖片清單檔：<span style="color:var(--theme-red);">buy-images.json</span>。之後只要把新檔名加進清單，頁面就會自動更新顯示。
             </div>
             <div id="buy-gallery-list">
                 <div class="buy-gallery-status">🧳 正在讀取代購品項照片...</div>
@@ -1833,18 +1833,28 @@
 
 
     // === 代購品項圖片提醒 ===
-    // 純前端無法強制列出伺服器資料夾；若主機開啟目錄索引，可直接解析資料夾連結。
-    // 若主機未開啟目錄索引，請在同資料夾建立 buy-images.json，例如：
-    // ["01.webp","02.jpg","medicine.png"]
+    // GitHub Pages 不支援直接掃描資料夾清單，因此以 buy-images.json 作為圖片索引。
+    // 使用方式：把圖片放在 /2026/tokyo/images/buy/，並在同資料夾維護 buy-images.json。
+    // buy-images.json 範例：
+    // ["01.webp","東京香蕉.jpg","medicine-01.png"]
     const BUY_IMAGE_DIR = 'https://travel.itigre.com/2026/tokyo/images/buy/';
     const BUY_IMAGE_MANIFEST = BUY_IMAGE_DIR + 'buy-images.json';
     const BUY_IMAGE_EXT_RE = /\.(jpe?g|png|webp)(\?.*)?$/i;
 
+    function encodeBuyImagePath(fileName) {
+        return String(fileName || '')
+            .trim()
+            .replace(/^\/+/, '')
+            .split('/')
+            .map(part => encodeURIComponent(part))
+            .join('/');
+    }
+
     function normalizeBuyImageUrl(file) {
-        const cleanFile = String(file || '').trim();
-        if (!cleanFile) return '';
-        if (/^https?:\/\//i.test(cleanFile)) return cleanFile;
-        return BUY_IMAGE_DIR + cleanFile.replace(/^\/+/, '');
+        const raw = String(file || '').trim();
+        if (!raw) return '';
+        if (/^https?:\/\//i.test(raw)) return raw;
+        return BUY_IMAGE_DIR + encodeBuyImagePath(raw);
     }
 
     function getBuyImageName(url) {
@@ -1856,31 +1866,24 @@
         }
     }
 
-    async function fetchBuyImageManifest() {
-        const res = await fetch(BUY_IMAGE_MANIFEST, { cache: 'no-store' });
-        if (!res.ok) throw new Error('manifest not found');
-        const list = await res.json();
-        if (!Array.isArray(list)) throw new Error('manifest format error');
-        return list.map(normalizeBuyImageUrl).filter(url => BUY_IMAGE_EXT_RE.test(url));
+    function normalizeBuyImageList(data) {
+        // 支援兩種格式：
+        // 1. ["01.webp", "02.jpg"]
+        // 2. { "images": ["01.webp", "02.jpg"] }
+        const list = Array.isArray(data) ? data : (Array.isArray(data.images) ? data.images : []);
+        return [...new Set(
+            list
+                .map(normalizeBuyImageUrl)
+                .filter(url => BUY_IMAGE_EXT_RE.test(url))
+        )];
     }
 
-    async function fetchBuyImageDirectoryIndex() {
-        const res = await fetch(BUY_IMAGE_DIR, { cache: 'no-store' });
-        if (!res.ok) throw new Error('directory index not available');
-        const html = await res.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        const urls = Array.from(doc.querySelectorAll('a'))
-            .map(a => a.getAttribute('href'))
-            .filter(Boolean)
-            .map(href => {
-                try {
-                    return new URL(href, BUY_IMAGE_DIR).href;
-                } catch (e) {
-                    return '';
-                }
-            })
-            .filter(url => BUY_IMAGE_EXT_RE.test(url));
-        return [...new Set(urls)];
+    async function fetchBuyImageManifest() {
+        const cacheBuster = BUY_IMAGE_MANIFEST.includes('?') ? '&' : '?';
+        const res = await fetch(BUY_IMAGE_MANIFEST + cacheBuster + 'v=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error('buy-images.json 讀取失敗');
+        const data = await res.json();
+        return normalizeBuyImageList(data);
     }
 
     function renderBuyGallery(urls) {
@@ -1888,42 +1891,42 @@
         if (!container) return;
 
         if (!urls || urls.length === 0) {
-            container.innerHTML = '<div class="buy-gallery-status">目前尚未讀取到圖片。請確認資料夾內已有 .jpg / .png / .webp，或建立 buy-images.json 清單。</div>';
+            container.innerHTML = '<div class="buy-gallery-status">目前 buy-images.json 尚未讀取到 .jpg / .png / .webp 圖片檔名，請確認清單內容。</div>';
             return;
         }
 
-        const html = urls.map(url => {
+        const html = urls.map((url, index) => {
             const safeUrl = url.replace(/"/g, '&quot;');
             const name = getBuyImageName(url);
             return `
                 <div class="buy-gallery-item">
                     <img src="${safeUrl}" alt="代購品項照片：${name}" class="buy-gallery-img" loading="lazy" onclick="openImageModal(this.src)" onerror="this.closest('.buy-gallery-item').style.display='none';">
-                    <div class="buy-gallery-name">${name}</div>
+                    <div class="buy-gallery-name">${index + 1}. ${name}</div>
                 </div>`;
         }).join('');
 
-        container.innerHTML = `<div class="buy-gallery-grid">${html}</div>`;
+        container.innerHTML = `
+            <div class="buy-gallery-summary">已讀取 ${urls.length} 張代購品項照片，點照片可放大查看。</div>
+            <div class="buy-gallery-grid">${html}</div>`;
     }
 
     async function loadBuyGallery() {
         const container = document.getElementById('buy-gallery-list');
         if (!container) return;
-        container.innerHTML = '<div class="buy-gallery-status">🧳 正在讀取代購品項照片...</div>';
+        container.innerHTML = '<div class="buy-gallery-status">🧳 正在讀取 buy-images.json 代購照片清單...</div>';
 
         try {
-            let urls = [];
-            try {
-                urls = await fetchBuyImageManifest();
-            } catch (manifestError) {
-                urls = await fetchBuyImageDirectoryIndex();
-            }
+            const urls = await fetchBuyImageManifest();
             renderBuyGallery(urls);
         } catch (e) {
             console.warn(e);
             container.innerHTML = `
                 <div class="buy-gallery-status" style="color:#B71C1C;">
-                    ⚠️ 尚無法自動讀取資料夾圖片。<br>
-                    多數主機預設會關閉資料夾目錄索引；請在 buy 資料夾放置 buy-images.json 圖片清單，或開啟該資料夾的目錄索引。
+                    ⚠️ 目前讀不到 buy-images.json。<br>
+                    請確認檔案位置為：<br>
+                    <span style="word-break:break-all; color:var(--theme-blue);">${BUY_IMAGE_MANIFEST}</span><br>
+                    內容格式請使用：<br>
+                    <span style="word-break:break-all; color:#111;">["01.webp", "02.jpg", "medicine.png"]</span>
                 </div>`;
         }
     }
