@@ -395,6 +395,18 @@
             border-radius: 14px;
             overflow: hidden;
             box-shadow: 2px 3px 0 rgba(0,0,0,0.16);
+            position: relative;
+        }
+
+        .buy-gallery-item.is-checked {
+            opacity: 0.62;
+            background: #F1F8E9;
+            border-color: var(--theme-green);
+        }
+
+        .buy-gallery-img-wrap {
+            position: relative;
+            background: #F7F3EA;
         }
 
         .buy-gallery-img {
@@ -406,6 +418,32 @@
             cursor: zoom-in;
         }
 
+        .buy-gallery-check {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.94);
+            border: 3px solid #222;
+            border-radius: 999px;
+            padding: 5px 8px;
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #111;
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.16);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .buy-gallery-check input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--theme-green);
+            cursor: pointer;
+        }
+
         .buy-gallery-name {
             padding: 8px 9px 10px;
             font-size: 0.92rem;
@@ -415,6 +453,11 @@
             word-break: break-word;
             border-top: 2px solid #222;
             background: #FFFFFF;
+        }
+
+        .buy-gallery-item.is-checked .buy-gallery-name {
+            text-decoration: line-through;
+            color: #546E7A;
         }
 
         .buy-gallery-status {
@@ -611,16 +654,8 @@
 
         <div class="buy-gallery-card">
             <div class="buy-gallery-head">
-                <div>
-                    <div class="buy-gallery-title">🛍️ 代購品項照片提醒</div>
-                    <div style="font-size:1.02rem; font-weight:900; color:#444; margin-top:4px;">自動讀取 buy-images.json 內設定的 .jpg / .png / .webp 圖片</div>
-                </div>
+                <div class="buy-gallery-title">🛍️ 代購品項照片提醒</div>
                 <button type="button" class="buy-gallery-refresh" onclick="loadBuyGallery()">🔄 重新整理</button>
-            </div>
-            <div class="buy-gallery-note">
-                圖片資料夾：<br>
-                <span style="color:var(--theme-blue); word-break:break-all;">https://travel.itigre.com/2026/tokyo/images/buy/</span><br>
-                圖片清單檔：<span style="color:var(--theme-red);">buy-images.json</span>。之後只要把新檔名加進清單，頁面就會自動更新顯示。
             </div>
             <div id="buy-gallery-list">
                 <div class="buy-gallery-status">🧳 正在讀取代購品項照片...</div>
@@ -1834,12 +1869,23 @@
 
     // === 代購品項圖片提醒 ===
     // GitHub Pages 不支援直接掃描資料夾清單，因此以 buy-images.json 作為圖片索引。
-    // 使用方式：把圖片放在 /2026/tokyo/images/buy/，並在同資料夾維護 buy-images.json。
-    // buy-images.json 範例：
-    // ["01.webp","東京香蕉.jpg","medicine-01.png"]
+    // 支援格式：
+    // 1. ["01.webp", "02.jpg"]
+    // 2. [{ "file": "01.webp", "name": "安耐曬防曬乳" }]
+    // 3. { "images": [...] }
     const BUY_IMAGE_DIR = 'https://travel.itigre.com/2026/tokyo/images/buy/';
     const BUY_IMAGE_MANIFEST = BUY_IMAGE_DIR + 'buy-images.json';
     const BUY_IMAGE_EXT_RE = /\.(jpe?g|png|webp)(\?.*)?$/i;
+    const BUY_GALLERY_CHECK_STORAGE_KEY = 'tokyo_2026_buy_gallery_checked';
+
+    function escapeHtml(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
 
     function encodeBuyImagePath(fileName) {
         return String(fileName || '')
@@ -1857,25 +1903,80 @@
         return BUY_IMAGE_DIR + encodeBuyImagePath(raw);
     }
 
-    function getBuyImageName(url) {
+    function getBuyImageNameFromFile(file) {
         try {
-            const decoded = decodeURIComponent(url.split('/').pop().split('?')[0]);
+            const raw = String(file || '').trim();
+            const fileOnly = raw.split('/').pop().split('?')[0];
+            const decoded = decodeURIComponent(fileOnly);
             return decoded.replace(/\.(jpe?g|png|webp)$/i, '');
         } catch (e) {
-            return url;
+            return String(file || '').replace(/\.(jpe?g|png|webp)$/i, '');
         }
     }
 
+    function normalizeBuyImageItem(item, index) {
+        if (typeof item === 'string') {
+            return {
+                id: item,
+                file: item,
+                url: normalizeBuyImageUrl(item),
+                name: getBuyImageNameFromFile(item) || `代購品項 ${index + 1}`
+            };
+        }
+
+        if (item && typeof item === 'object') {
+            const file = item.file || item.filename || item.src || item.url || '';
+            const name = item.name || item.title || item.label || getBuyImageNameFromFile(file) || `代購品項 ${index + 1}`;
+            const id = item.id || file || name;
+            return {
+                id,
+                file,
+                url: normalizeBuyImageUrl(file),
+                name
+            };
+        }
+
+        return {
+            id: `buy-item-${index + 1}`,
+            file: '',
+            url: '',
+            name: `代購品項 ${index + 1}`
+        };
+    }
+
     function normalizeBuyImageList(data) {
-        // 支援兩種格式：
-        // 1. ["01.webp", "02.jpg"]
-        // 2. { "images": ["01.webp", "02.jpg"] }
-        const list = Array.isArray(data) ? data : (Array.isArray(data.images) ? data.images : []);
-        return [...new Set(
-            list
-                .map(normalizeBuyImageUrl)
-                .filter(url => BUY_IMAGE_EXT_RE.test(url))
-        )];
+        const rawList = Array.isArray(data) ? data : (data && Array.isArray(data.images) ? data.images : []);
+        const seen = new Set();
+
+        return rawList
+            .map(normalizeBuyImageItem)
+            .filter(item => item.url && BUY_IMAGE_EXT_RE.test(item.url))
+            .filter(item => {
+                if (seen.has(item.url)) return false;
+                seen.add(item.url);
+                return true;
+            });
+    }
+
+    function getBuyCheckedMap() {
+        try {
+            return JSON.parse(localStorage.getItem(BUY_GALLERY_CHECK_STORAGE_KEY)) || {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function saveBuyCheckedMap(map) {
+        localStorage.setItem(BUY_GALLERY_CHECK_STORAGE_KEY, JSON.stringify(map));
+    }
+
+    function toggleBuyGalleryChecked(id, checkbox) {
+        const checkedMap = getBuyCheckedMap();
+        checkedMap[id] = checkbox.checked;
+        saveBuyCheckedMap(checkedMap);
+
+        const card = checkbox.closest('.buy-gallery-item');
+        if (card) card.classList.toggle('is-checked', checkbox.checked);
     }
 
     async function fetchBuyImageManifest() {
@@ -1886,48 +1987,52 @@
         return normalizeBuyImageList(data);
     }
 
-    function renderBuyGallery(urls) {
+    function renderBuyGallery(items) {
         const container = document.getElementById('buy-gallery-list');
         if (!container) return;
 
-        if (!urls || urls.length === 0) {
-            container.innerHTML = '<div class="buy-gallery-status">目前 buy-images.json 尚未讀取到 .jpg / .png / .webp 圖片檔名，請確認清單內容。</div>';
+        if (!items || items.length === 0) {
+            container.innerHTML = '<div class="buy-gallery-status">目前尚未設定代購照片</div>';
             return;
         }
 
-        const html = urls.map((url, index) => {
-            const safeUrl = url.replace(/"/g, '&quot;');
-            const name = getBuyImageName(url);
+        const checkedMap = getBuyCheckedMap();
+
+        const html = items.map((item, index) => {
+            const safeUrl = escapeHtml(item.url);
+            const safeName = escapeHtml(item.name);
+            const safeId = escapeHtml(String(item.id || item.url));
+            const isChecked = !!checkedMap[String(item.id || item.url)];
+
             return `
-                <div class="buy-gallery-item">
-                    <img src="${safeUrl}" alt="代購品項照片：${name}" class="buy-gallery-img" loading="lazy" onclick="openImageModal(this.src)" onerror="this.closest('.buy-gallery-item').style.display='none';">
-                    <div class="buy-gallery-name">${index + 1}. ${name}</div>
+                <div class="buy-gallery-item ${isChecked ? 'is-checked' : ''}">
+                    <div class="buy-gallery-img-wrap">
+                        <label class="buy-gallery-check" onclick="event.stopPropagation();">
+                            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleBuyGalleryChecked('${safeId}', this)">
+                            <span>已買</span>
+                        </label>
+                        <img src="${safeUrl}" alt="代購品項照片：${safeName}" class="buy-gallery-img" loading="lazy" onclick="openImageModal(this.src)" onerror="this.closest('.buy-gallery-item').style.display='none';">
+                    </div>
+                    <div class="buy-gallery-name">${index + 1}. ${safeName}</div>
                 </div>`;
         }).join('');
 
         container.innerHTML = `
-            <div class="buy-gallery-summary">已讀取 ${urls.length} 張代購品項照片，點照片可放大查看。</div>
+            <div class="buy-gallery-summary">已讀取 ${items.length} 項代購照片，勾選「已買」可保留紀錄。</div>
             <div class="buy-gallery-grid">${html}</div>`;
     }
 
     async function loadBuyGallery() {
         const container = document.getElementById('buy-gallery-list');
         if (!container) return;
-        container.innerHTML = '<div class="buy-gallery-status">🧳 正在讀取 buy-images.json 代購照片清單...</div>';
+        container.innerHTML = '<div class="buy-gallery-status">🧳 正在讀取代購品項照片...</div>';
 
         try {
-            const urls = await fetchBuyImageManifest();
-            renderBuyGallery(urls);
+            const items = await fetchBuyImageManifest();
+            renderBuyGallery(items);
         } catch (e) {
             console.warn(e);
-            container.innerHTML = `
-                <div class="buy-gallery-status" style="color:#B71C1C;">
-                    ⚠️ 目前讀不到 buy-images.json。<br>
-                    請確認檔案位置為：<br>
-                    <span style="word-break:break-all; color:var(--theme-blue);">${BUY_IMAGE_MANIFEST}</span><br>
-                    內容格式請使用：<br>
-                    <span style="word-break:break-all; color:#111;">["01.webp", "02.jpg", "medicine.png"]</span>
-                </div>`;
+            container.innerHTML = '<div class="buy-gallery-status" style="color:#B71C1C;">⚠️ 代購照片讀取失敗，請確認 buy-images.json 檔案位置、JSON 格式與圖片檔名是否正確。</div>';
         }
     }
 
