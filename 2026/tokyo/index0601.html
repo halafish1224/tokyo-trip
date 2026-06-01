@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="2026東京冬日深度自由行 - 整合攝影黃金時刻、家族公帳與手寫感筆記系統。">
+    <title>TOKYO 2026 | 趣趣進階版</title>
+    <meta name="theme-color" content="#FAF5EB">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-overlay: rgba(250, 245, 235, 0.98);
+            --card-bg: #FFFFFF; 
+            --text-main: #1A1A1A; 
+            --text-sub: #333333;
+            --theme-blue: #0D47A1; 
+            --theme-orange: #BF360C; 
+            --theme-green: #1B5E20; 
+            --theme-red: #B71C1C; 
+            --theme-gold: #FFA000; /* 攝影黃金時刻色 */
+
+            --bg-kid: #FCE4EC;
+            --border-kid: #D81B60;
+            --bg-senior: #E8F5E9;
+            --border-senior: #2E7D32;
+
+            /* AIMYON 手繪風定義 */
+            --sketch-border: 3px solid #222222; 
+            --sketch-shadow: 4px 5px 0px rgba(26, 26, 26, 0.2);
+            --radius-sketch: 8px 25px 8px 20px / 25px 8px 20px 8px;
+            --radius-btn: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
+            margin: 0; padding-bottom: 95px;
+            line-height: 1.8;
+            color: var(--text-main); background-color: #FAF5EB;
+            font-size: 20px; 
+        }
+
+        /* 背景與遮罩 */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://loremflickr.com/2048/3072/tokyo,winter,sky');
+            background-size: cover; background-position: center; z-index: -2; opacity: 0.15;
+        }
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-overlay); z-index: -1; backdrop-filter: blur(5px);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98); position: sticky; top: 0; z-index: 100;
+            border-bottom: 4px dashed #A1887F; padding: 12px 16px 0;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+        .top-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.7rem; font-weight: 900; color: var(--theme-blue); }
+        .top-title span.year { color: var(--theme-orange); margin-left: 6px; }
+        .header-rate { font-size: 1rem; color: #fff; background: var(--theme-green); padding: 5px 15px; border-radius: var(--radius-btn); font-weight: 900; border: var(--sketch-border); }
+
+        /* 標籤頁與滾動條 */
+        .project-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .project-tab {
+            border-radius: var(--radius-btn); border: var(--sketch-border);
+            background: #FFF; font-size: 1.2rem; font-weight: 900; color: var(--text-main);
+            padding: 10px 16px; cursor: pointer; font-family: inherit; flex: 1; text-align: center;
+        }
+        .project-tab.active { background: var(--theme-orange); color: #fff; }
+
+        .date-scroller { display: none; overflow-x: auto; padding-bottom: 15px; gap: 12px; scrollbar-width: none; }
+        .date-scroller.active { display: flex; }
+        .date-chip {
+            flex: 0 0 auto; padding: 10px 20px; border-radius: var(--radius-btn);
+            border: var(--sketch-border); font-weight: 900; background: #FFF; font-size: 1.1rem;
+            box-shadow: 2px 3px 0px rgba(0,0,0,0.2); cursor: pointer; color: var(--text-sub);
+        }
+        .chip-today { background: var(--theme-green) !important; color: white !important; }
+        .chip-selected { background: var(--theme-blue) !important; color: white !important; transform: scale(1.05); }
+
+        .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
+
+        /* 卡片設計 */
+        .card { background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); box-shadow: var(--sketch-shadow); overflow: hidden; position: relative; transition: transform 0.3s; }
+        .card.is-now { border: 4px solid var(--theme-orange); transform: scale(1.02); } /* 當前行程高亮 */
+        
+        .card-img { width: 100%; height: 240px; object-fit: cover; border-bottom: var(--sketch-border); cursor: zoom-in; }
+        .card-content { padding: 22px; }
+        .card-time { font-family: 'Zen Maru Gothic', sans-serif; font-size: 1.4rem; font-weight: 900; color: var(--theme-orange); }
+        .card-title { font-size: 1.7rem; font-weight: 900; margin: 8px 0 12px; }
+        .card-title a { color: var(--theme-blue); text-decoration: underline; }
+
+        /* 標籤樣式 */
+        .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+        .tag-common { font-size: 0.95rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; border: 2px solid #222; }
+        .tag-kid { background: var(--bg-kid); color: var(--border-kid); }
+        .tag-senior { background: var(--bg-senior); color: var(--border-senior); }
+        .tag-golden { background: #FFF9C4; color: #BF360C; border-color: #FFA000; } /* 攝影提示 */
+
+        /* 檢查清單與速記本樣式 */
+        .memo-area { width: 100%; min-height: 150px; background: #FFF; border: var(--sketch-border); border-radius: 10px; padding: 15px; font-family: inherit; font-size: 1.1rem; background-image: radial-gradient(#e5e5e5 1px, transparent 1px); background-size: 20px 20px; }
+        .checklist-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px dashed #CCC; font-weight: 600; }
+        .checklist-item input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--theme-green); }
+        .checklist-item.checked span { text-decoration: line-through; opacity: 0.5; }
+
+        /* 頁籤導覽 */
+        .footer-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #FFF; border-top: 4px solid #222; display: flex; justify-content: space-around; padding: 6px 5px; z-index: 1000; box-shadow: 0 -4px 15px rgba(0,0,0,0.15); }
+        .nav-item { text-align: center; flex: 1; font-weight: 900; cursor: pointer; font-size: 0.9rem; padding: 8px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; border: 3px solid transparent; }
+        .nav-item.active { color: var(--theme-blue); background: #E3F2FD; border-color: var(--theme-blue); transform: translateY(-4px); }
+        .nav-icon { font-size: 1.6rem; }
+
+        /* 模態視窗與其餘元件... (省略重複的樣式以節省空間，請沿用你原本提供的樣式) */
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+        
+        /* 原有樣式保持不變... */
+        .prep-box { background: #FFF; border: 4px solid var(--theme-blue); border-radius: 15px; padding: 18px; margin-bottom: 30px; box-shadow: var(--sketch-shadow); }
+        .prep-link { display: block; background: #E3F2FD; border: 3px solid var(--theme-blue); padding: 15px; border-radius: 10px; text-decoration: none; color: var(--theme-blue); font-weight: 900; margin-bottom: 12px; }
+        .timeline-wrapper { position: relative; padding-left: 28px; border-left: 4px solid #BCAAA4; }
+        .timeline-item { position: relative; margin-bottom: 45px; }
+        .timeline-dot { position: absolute; left: -40px; top: 20px; width: 24px; height: 24px; border-radius: 50%; border: 4px solid #FFF; background: var(--theme-orange); box-shadow: 0px 2px 4px rgba(0,0,0,0.3); }
+        .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
+        .img-modal.active { display: flex; }
+        .modal-content { max-width: 95%; max-height: 80vh; object-fit: contain; }
+    </style>
+</head>
+<body>
+
+<a href="https://www.google.com/maps/search/?api=1&query=current+location" target="_blank" class="floating-map-btn" style="position: fixed; right: 15px; bottom: 110px; width: 75px; height: 75px; background: #FFD54F; border: 3px solid #222; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; box-shadow: 3px 4px 0 rgba(0,0,0,0.2); z-index: 999;">
+    <span>📍</span><div style="font-size: 0.85rem; font-weight: 900; color: #111;">目前位置</div>
+</a>
+
+<div id="imageModal" class="img-modal" onclick="closeImageModal()">
+    <img id="modalImg" class="modal-content" src="">
+    <div style="color: #222; margin-top: 25px; font-size: 1.4rem; font-weight: 900; cursor: pointer; border: 3px solid #222; padding: 12px 35px; border-radius: 30px; background: #FFF;">✕ 關閉圖片</div>
+</div>
+
+<header>
+    <div class="top-bar">
+        <div class="top-title">TOKYO<span class="year">2026</span></div>
+        <div id="header-rate" class="header-rate">¥ ...</div>
+    </div>
+    <div class="project-tabs">
+        <button id="tab-p2" class="project-tab active" onclick="setProject(2)">👨‍👩‍👧‍👦 家族篇</button>
+        <button id="tab-p1" class="project-tab" onclick="setProject(1)">📓 獨旅篇</button>
+    </div>
+    <div class="date-scroller" id="nav-p1"></div>
+    <div class="date-scroller active" id="nav-p2"></div>
+</header>
+
+<main class="container">
+    <div id="sec-trip" class="section active">
+        <div class="prep-box">
+            <div style="font-weight: 900; color: var(--theme-blue); margin-bottom: 15px; font-size: 1.4rem;">✈️ 行前隨身包</div>
+            <a href="#" class="prep-link" style="background: #FFF9C4; border-color: #FBC02D; color: #BF360C;">🗺️ 東京2026 攝影&美食清單</a>
+            <a href="https://vjw-lp.digital.go.jp/" target="_blank" class="prep-link">🛂 Visit Japan Web</a>
+        </div>
+        <div id="itinerary-list"></div>
+    </div>
+
+    <div id="sec-account" class="section">
+        <div style="background: #E8F5E9; border: var(--sketch-border); border-radius: 15px; padding: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-weight: 900;">📒 記帳模式</span>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input type="checkbox" id="is-family-expense" style="width:20px; height:20px;"> 
+                <span style="font-weight: 900; color: var(--theme-green);">設為家族公帳</span>
+            </label>
+        </div>
+
+        <div id="buy-gallery-list"></div>
+        <div id="tobuy-list"></div>
+
+        <div class="acc-section" style="margin-top: 30px;">
+            <div class="acc-title">支出統計</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+                <div style="background: #FFF; padding: 15px; border-radius: 12px; border: var(--sketch-border); text-align: center;">
+                    <div style="font-size: 0.9rem; font-weight: 900;">個人支出</div>
+                    <div id="acc-total-personal" style="font-size: 1.4rem; font-weight: 900; color: var(--theme-blue);">¥0</div>
+                </div>
+                <div style="background: #FFF; padding: 15px; border-radius: 12px; border: var(--sketch-border); text-align: center; border-color: var(--theme-green);">
+                    <div style="font-size: 0.9rem; font-weight: 900;">家族公帳</div>
+                    <div id="acc-total-family" style="font-size: 1.4rem; font-weight: 900; color: var(--theme-green);">¥0</div>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="text" id="acc-item" class="input-field" placeholder="品項 (例: 拉麵)">
+                <input type="number" id="acc-cost" class="input-field" style="max-width: 120px;" placeholder="日幣">
+                <button class="btn-add" onclick="addExpense()">＋</button>
+            </div>
+            <ul id="expense-list" style="list-style: none; padding: 0;"></ul>
+        </div>
+    </div>
+
+    <div id="sec-trans" class="section">
+        <div class="acc-section">
+            <div class="acc-title">✍️ 隨身速記本</div>
+            <textarea id="trip-memo" class="memo-area" placeholder="臨時的資訊、預約號碼、寄物櫃編號...直接寫在這裡，會自動儲存喔！" oninput="saveMemo()"></textarea>
+        </div>
+
+        <div class="acc-section">
+            <div class="acc-title">🎒 行李/器材點點樂</div>
+            <div id="packing-list" style="background: #FFF; border: var(--sketch-border); padding: 15px; border-radius: 15px;">
+                </div>
+        </div>
+
+        <div class="acc-section">
+             <div class="acc-title">🛠️ 實用工具</div>
+             <div class="input-group">
+                <input type="text" id="input-kakaku" class="input-field" placeholder="查電器/藥妝低價...">
+                <button class="btn-add" style="background:var(--theme-green);" onclick="goKakaku()">搜尋</button>
+             </div>
+             </div>
+    </div>
+</main>
+
+<nav class="footer-nav">
+    <div class="nav-item active" onclick="switchTab('trip', this)"><span class="nav-icon">🗺️</span>行程</div>
+    <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>帳務</div>
+    <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🛠️</span>工具</div>
+</nav>
+<script>
+    // === 核心資料庫：整合攝影與分眾標籤 ===
+    const itineraryData = [
+        { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
+            { time: "15:00", title: "抵達藤澤 Check-in", img: "images/1213.webp", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口", nearby: [
+                { name: "藤澤OPA", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "站前大型商場。", mapQuery: "藤沢OPA" }
+            ]},
+            { time: "16:30", title: "清淨光寺 (遊行寺)", isGoldenHour: true, desc: "拍攝午後斜射光影與古建築。此時光線極佳。", map: "遊行寺", nearby: [
+                { name: "藤澤浮世繪館", dist: "800m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "免費參觀。", mapQuery: "藤沢市藤澤浮世絵館" }
+            ]},
+            { time: "18:00", title: "超市與百元店採買", desc: "湘南 GATE 4樓逛 3COINS，至 OK Store 買便當。", supermarkets: [{ name: "🛒 OK Store 藤澤店", meta: "在地人最愛平價便當", map: "オーケー 藤沢店" }] }
+        ]},
+        { date: "12/14 (一)", id: "d2", project: 1, fullDate: "2026-12-14", events: [
+            { time: "09:30", title: "大船觀音寺", img: "images/1214.webp", desc: "參拜純白巨大的大船觀音像。", map: "大船観音寺", nearby: [{ name: "大船 Lumine Wing", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站共構商場。", mapQuery: "大船ルミネウィング" }]}
+        ]},
+        { date: "12/15 (二)", id: "d3", project: 1, fullDate: "2026-12-15", events: [
+            { time: "09:00", title: "江之島全島深度徒步", img: "images/1215.webp", desc: "江島神社 ➔ 海蠟燭 ➔ 奧津宮。", map: "江島神社" },
+            { time: "15:30", title: "稚兒之淵夕陽", isGoldenHour: true, desc: "名列神奈川景勝50選，夕陽與海蝕平台倒影必拍。", map: "稚児ヶ淵" }
+        ]},
+        { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", events: [
+            { time: "08:30", title: "小田原城", img: "images/1216.webp", desc: "拍攝天守閣與白牆。", map: "小田原城" },
+            { time: "15:20", title: "箱根海賊船：黃金航線", isGoldenHour: true, desc: "午後斜射光讓湖面波光粼粼，捕捉水中鳥居交會瞬間。", map: "元箱根港" }
+        ]},
+        { date: "12/17 (四)", id: "d5", project: 1, fullDate: "2026-12-17", events: [
+            { time: "14:00", title: "龍口寺 (在地攝影)", isGoldenHour: true, desc: "適合用慢快門拍攝江之電電車穿梭古寺門前的畫面。", map: "龍口寺" }
+        ]},
+        { date: "12/18 (五)", id: "d6", project: 1, fullDate: "2026-12-18", events: [
+            { time: "14:00", title: "鵠沼海岸夕照", isGoldenHour: true, desc: "拍攝「江之島 + 富士山」夕陽倒影的絕佳地。", map: "鵠沼海岸" }
+        ]},
+        { date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
+            { time: "10:00", title: "東京站", img: "images/1219.webp", desc: "家族會合點。", map: "東京駅" },
+            { time: "18:50", title: "東橫 INN 東京站新大橋前", desc: "抵達飯店並採買。", supermarkets: [{ name: "🛒 Peacock Store Hamacho", meta: "規模較大，生鮮豐富", map: "Peacock Store Hamacho" }] }
+        ]},
+        { date: "12/20 (日)", id: "d8", project: 2, fullDate: "2026-12-20", events: [
+            { time: "09:30", title: "豪德寺拍招財貓", suitable: ['senior', 'kid'], img: "images/1220.webp", desc: "招財貓發源地。", map: "豪徳寺" },
+            { time: "15:00", title: "東京鐵塔夕景", isGoldenHour: true, suitable: ['senior', 'kid'], desc: "傍晚時分鐵塔點燈與色溫交織最美。", map: "東京タワー" }
+        ]},
+        { date: "12/21 (一)", id: "d9", project: 2, fullDate: "2026-12-21", events: [
+            { time: "09:30", title: "teamLab 豐洲", suitable: ['kid'], img: "images/1221.webp", desc: "沉浸式藝術展。", map: "teamLab Planets TOKYO" },
+            { time: "15:00", title: "銀座採購", suitable: ['senior'], desc: "銀座一站式採買。", map: "ユニクロ 銀座店" }
+        ]},
+        { date: "12/22 (二)", id: "d10", project: 2, fullDate: "2026-12-22", events: [
+            { time: "13:00", title: "敘敘苑燒肉 (晴空塔)", suitable: ['senior'], desc: "高空景觀燒肉。", map: "叙々苑 東京スカイツリータウン" },
+            { time: "15:30", title: "淺草寺點燈", isGoldenHour: true, desc: "傍晚點燈後氣氛絕佳，人潮稍減。", map: "浅草寺" }
+        ]},
+        { date: "12/23 (三)", id: "d11", project: 2, fullDate: "2026-12-23", events: [
+            { time: "11:30", title: "上野動物園", suitable: ['kid', 'senior'], desc: "大小朋友皆宜。", map: "上野動物園" },
+            { time: "16:30", title: "下島包裝 Shimojima", desc: "文具批發天堂。", map: "シモジマ 浅草橋本店" }
+        ]},
+        { date: "12/24 (四)", id: "d12", project: 2, fullDate: "2026-12-24", events: [
+            { time: "10:30", title: "AEON Mall LakeTown", suitable: ['kid', 'senior'], img: "images/1224.webp", desc: "全日本最大購物中心。", map: "イオンレイクタウン" }
+        ]},
+        { date: "12/25 (五)", id: "d13", project: 2, fullDate: "2026-12-25", events: [
+            { time: "17:30", title: "丸之內仲通點燈", isGoldenHour: true, suitable: ['senior'], desc: "香檳金燈海步道，推車與長輩非常輕鬆。", map: "丸の内仲通り" }
+        ]},
+        { date: "12/26 (六)", id: "d14", project: 2, fullDate: "2026-12-26", events: [
+            { time: "09:30", title: "甘酒橫丁散策", suitable: ['senior'], img: "images/1226.webp", desc: "最後懷舊巡禮。", map: "甘酒横丁" },
+            { time: "14:35", title: "抵達成田機場", desc: "滿載回台！", map: "成田空港" }
+        ]}
+    ];
+
+    let currentProject = 2; // 預設家族篇
+    let currentExchangeRate = 0.215;
+    let expenses = JSON.parse(localStorage.getItem('trip_acc_2026')) || [];
+    let packingItems = JSON.parse(localStorage.getItem('trip_packing_2026')) || [
+        { id: 1, text: "護照與 VJW 截圖", checked: false },
+        { id: 2, text: "相機 (R7) 與 Sigma 鏡頭", checked: false },
+        { id: 3, text: "備用電池與 SD 卡", checked: false },
+        { id: 4, text: "保暖手套與發熱衣", checked: false },
+        { id: 5, text: "日幣現金與信用卡", checked: false }
+    ];
+
+    // === 初始化功能 ===
+    window.onload = function() {
+        fetchExchangeRate();
+        renderApp();
+        renderExpenses();
+        renderPackingList();
+        loadMemo();
+        initAutoScroll();
+        setInterval(highlightCurrentEvent, 60000); // 每分鐘檢查一次當前行程
+    };
+
+    // === 行程渲染邏輯 (含自動高亮與攝影標籤) ===
+    function renderApp() {
+        const listContainer = document.getElementById('itinerary-list');
+        const navP1 = document.getElementById('nav-p1');
+        const navP2 = document.getElementById('nav-p2');
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        navP1.innerHTML = ''; navP2.innerHTML = ''; listContainer.innerHTML = '';
+
+        // 生成日期 Chip
+        itineraryData.forEach(day => {
+            const chip = document.createElement('div');
+            const isToday = day.fullDate === todayStr;
+            chip.className = `date-chip ${isToday ? 'chip-today' : ''}`;
+            chip.innerText = day.date.split(' ')[0];
+            chip.onclick = () => scrollToDay(day.id, chip);
+            if (day.project === 1) navP1.appendChild(chip); else navP2.appendChild(chip);
+        });
+
+        // 渲染行程卡片
+        const filteredData = itineraryData.filter(d => d.project === currentProject);
+        let html = '';
+        filteredData.forEach(day => {
+            let eventsHtml = '';
+            day.events.forEach(evt => {
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(evt.map || evt.title)}`;
+                const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent((evt.map || evt.title) + ' 天氣')}`;
+                
+                // 標籤處理
+                let tags = '';
+                if (evt.suitable?.includes('kid')) tags += '<span class="tag-common tag-kid">👶 兒童友善</span>';
+                if (evt.suitable?.includes('senior')) tags += '<span class="tag-common tag-senior">🧓 長青友善</span>';
+                if (evt.isGoldenHour) tags += '<span class="tag-common tag-golden">🌇 攝影黃金時刻</span>';
+
+                eventsHtml += `
+                    <div class="timeline-item" data-time="${evt.time}">
+                        <div class="timeline-dot"></div>
+                        <div class="card" id="evt-${evt.time.replace(':','')}">
+                            ${evt.img ? `<img src="${evt.img}" class="card-img" loading="lazy" onclick="openImageModal(this.src)">` : ''}
+                            <div class="card-content">
+                                <span class="card-time">${evt.time}</span>
+                                <h3 class="card-title"><a href="${mapUrl}" target="_blank">🔗 ${evt.title}</a></h3>
+                                <div class="card-tags">${tags}</div>
+                                <div class="card-desc">${evt.desc}</div>
+                                <div class="btn-group" style="display:flex; gap:10px; margin-top:15px;">
+                                    <a href="${mapUrl}" target="_blank" class="btn btn-primary" style="flex:1; background:var(--theme-blue); color:#fff; padding:10px; border-radius:10px; text-decoration:none; text-align:center; border:var(--sketch-border);">🗺️ 導航</a>
+                                    <a href="${weatherUrl}" target="_blank" class="btn btn-weather" style="flex:1; background:#FFF9C4; color:#333; padding:10px; border-radius:10px; text-decoration:none; text-align:center; border:var(--sketch-border);">☁️ 天氣</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            html += `<div id="${day.id}" class="day-section"><div class="day-header"><h2>${day.date}</h2></div><div class="timeline-wrapper">${eventsHtml}</div></div>`;
+        });
+        listContainer.innerHTML = html;
+        highlightCurrentEvent();
+    }
+
+    // === 自動高亮當前行程 ===
+    function highlightCurrentEvent() {
+        const now = new Date();
+        const currentTime = now.getHours() * 60 + now.getMinutes();
+        
+        document.querySelectorAll('.card').forEach(card => card.classList.remove('is-now'));
+        
+        const items = document.querySelectorAll('.timeline-item');
+        let currentIdx = -1;
+
+        items.forEach((item, index) => {
+            const timeStr = item.getAttribute('data-time');
+            const [h, m] = timeStr.split(':').map(Number);
+            const eventTime = h * 60 + m;
+            if (currentTime >= eventTime) currentIdx = index;
+        });
+
+        if (currentIdx !== -1) {
+            items[currentIdx].querySelector('.card').classList.add('is-now');
+        }
+    }
+
+    // === 帳務系統 (支援公帳切換) ===
+    function addExpense() {
+        const item = document.getElementById('acc-item').value;
+        const cost = parseInt(document.getElementById('acc-cost').value);
+        const isFamily = document.getElementById('is-family-expense').checked;
+        if(!item || !cost) return;
+
+        expenses.unshift({ 
+            id: Date.now(), item, cost, isFamily, 
+            date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'}) 
+        });
+        localStorage.setItem('trip_acc_2026', JSON.stringify(expenses));
+        document.getElementById('acc-item').value = '';
+        document.getElementById('acc-cost').value = '';
+        renderExpenses();
+    }
+
+    function renderExpenses() {
+        const list = document.getElementById('expense-list');
+        list.innerHTML = '';
+        let totalPersonal = 0;
+        let totalFamily = 0;
+
+        expenses.forEach(e => {
+            if (e.isFamily) totalFamily += e.cost; else totalPersonal += e.cost;
+            list.innerHTML += `
+                <li class="checklist-item" style="justify-content: space-between;">
+                    <div>
+                        <span style="font-weight:900;">${e.isFamily ? '👨‍👩‍👧‍👦' : '👤'} ${e.item}</span>
+                        <div style="font-size:0.8rem; opacity:0.6;">${e.date}</div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="font-weight:900; color:${e.isFamily ? 'var(--theme-green)' : 'var(--theme-blue)'}">¥${e.cost.toLocaleString()}</span>
+                        <button onclick="removeExpense(${e.id})" style="border:none; background:none; font-size:1.5rem; color:red; cursor:pointer;">×</button>
+                    </div>
+                </li>`;
+        });
+        document.getElementById('acc-total-personal').innerText = `¥${totalPersonal.toLocaleString()}`;
+        document.getElementById('acc-total-family').innerText = `¥${totalFamily.toLocaleString()}`;
+    }
+
+    function removeExpense(id) {
+        expenses = expenses.filter(e => e.id !== id);
+        localStorage.setItem('trip_acc_2026', JSON.stringify(expenses));
+        renderExpenses();
+    }
+
+    // === 隨身速記本與檢查清單 ===
+    function saveMemo() {
+        const text = document.getElementById('trip-memo').value;
+        localStorage.setItem('trip_memo_2026', text);
+    }
+    function loadMemo() {
+        document.getElementById('trip-memo').value = localStorage.getItem('trip_memo_2026') || "";
+    }
+
+    function renderPackingList() {
+        const container = document.getElementById('packing-list');
+        container.innerHTML = packingItems.map(item => `
+            <div class="checklist-item ${item.checked ? 'checked' : ''}" onclick="togglePacking(${item.id})">
+                <input type="checkbox" ${item.checked ? 'checked' : ''}>
+                <span>${item.text}</span>
+            </div>
+        `).join('');
+    }
+
+    function togglePacking(id) {
+        const item = packingItems.find(i => i.id === id);
+        item.checked = !item.checked;
+        localStorage.setItem('trip_packing_2026', JSON.stringify(packingItems));
+        renderPackingList();
+    }
+
+    // === 其他輔助功能 (匯率、分頁切換、滾動) ===
+    async function fetchExchangeRate() {
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest?base=JPY');
+            const data = await res.json();
+            if (data?.rates?.TWD) currentExchangeRate = data.rates.TWD;
+        } catch (e) {}
+        document.getElementById('header-rate').innerHTML = `<span style="font-size:0.8rem">¥1 =</span> NT$${currentExchangeRate.toFixed(3)}`;
+    }
+
+    function switchTab(tabId, navEl) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById('sec-' + tabId).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        navEl.classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function setProject(project) {
+        currentProject = project;
+        document.getElementById('tab-p1').classList.toggle('active', project === 1);
+        document.getElementById('tab-p2').classList.toggle('active', project === 2);
+        document.getElementById('nav-p1').classList.toggle('active', project === 1);
+        document.getElementById('nav-p2').classList.toggle('active', project === 2);
+        renderApp();
+    }
+
+    function scrollToDay(id, chipEl) {
+        document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('chip-selected'));
+        chipEl.classList.add('chip-selected');
+        const el = document.getElementById(id);
+        const offset = el.getBoundingClientRect().top + window.pageYOffset - 180;
+        window.scrollTo({ top: offset, behavior: "smooth" });
+    }
+
+    function initAutoScroll() {
+        const todayStr = new Date().toISOString().split('T')[0];
+        const hasToday = itineraryData.some(d => d.fullDate === todayStr);
+        if (hasToday) {
+            setTimeout(() => {
+                const chip = document.querySelector('.chip-today');
+                if (chip) chip.click();
+            }, 500);
+        }
+    }
+
+    // 圖片彈窗
+    function openImageModal(src) {
+        const m = document.getElementById('imageModal');
+        m.style.display = 'flex';
+        document.getElementById('modalImg').src = src;
+        setTimeout(() => m.classList.add('active'), 10);
+    }
+    function closeImageModal() {
+        const m = document.getElementById('imageModal');
+        m.classList.remove('active');
+        setTimeout(() => m.style.display = 'none', 300);
+    }
+
+    function goKakaku() {
+        const val = document.getElementById('input-kakaku').value;
+        if(val) window.open(`https://kakaku.com/search_results/${encodeURIComponent(val)}/`, '_blank');
+    }
+</script>
+</body>
+</html>
