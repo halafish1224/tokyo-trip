@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="zh-TW">
 
@@ -8,7 +8,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <meta name="description" content="2026東京冬日14天深度自由行行程表 - 鎌倉獨旅、家族會合完整規劃。">
+    <meta name="description" content="2026冬日14天東京深度自由行行程表">
 
     <title>東京冬日紀行 2026 | 完整版</title>
 
@@ -745,6 +745,9 @@
             <div class="buy-gallery-head">
                 <div class="buy-gallery-title">🛍️ 要買的品項照片提醒</div>
                 <button type="button" class="buy-gallery-refresh" onclick="loadBuyGallery()">🔄 重新整理</button>
+            </div>
+            <div class="buy-gallery-note">
+                待購清單資訊
             </div>
             <div id="buy-gallery-list">
                 <div class="buy-gallery-status">🧳 正在讀取待購品項照片...</div>
@@ -2067,6 +2070,14 @@
     // 3. { "images": [...] }
     const BUY_IMAGE_DIR = 'https://travel.itigre.com/2026/tokyo/images/buy/';
     const BUY_IMAGE_MANIFEST = BUY_IMAGE_DIR + 'buy-images.json';
+    // Google 表單串接方式：
+    // 1. Google 表單回覆連到試算表。
+    // 2. 試算表選「檔案 > 共用 > 發佈到網路」，格式選 CSV。
+    // 3. 將發佈後的 CSV 網址貼到下方 BUY_GOOGLE_SHEET_CSV_URL。
+    // 建議表單欄位名稱：品項名稱、照片網址、備註。
+    // 若使用 Google Drive 分享照片，請將照片權限設為「知道連結的任何人可查看」。
+    const BUY_GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=318927826&single=true&output=csv';
+    const BUY_GOOGLE_FORM_URL = '';
     const BUY_IMAGE_EXT_RE = /\.(jpe?g|png|webp)(\?.*)?$/i;
     const BUY_GALLERY_CHECK_STORAGE_KEY = 'tokyo_2026_buy_gallery_checked';
 
@@ -2091,8 +2102,37 @@
     function normalizeBuyImageUrl(file) {
         const raw = String(file || '').trim();
         if (!raw) return '';
+        const driveImageUrl = normalizeGoogleDriveImageUrl(raw);
+        if (driveImageUrl) return driveImageUrl;
         if (/^https?:\/\//i.test(raw)) return raw;
         return BUY_IMAGE_DIR + encodeBuyImagePath(raw);
+    }
+
+    function normalizeGoogleDriveImageUrl(url) {
+        const raw = String(url || '').trim();
+        if (!/drive\.google\.com/i.test(raw)) return '';
+
+        const patterns = [
+            /\/file\/d\/([^/]+)/i,
+            /[?&]id=([^&]+)/i,
+            /\/open\?id=([^&]+)/i
+        ];
+
+        for (const pattern of patterns) {
+            const match = raw.match(pattern);
+            if (match && match[1]) {
+                return `https://drive.google.com/thumbnail?id=${encodeURIComponent(match[1])}&sz=w1000`;
+            }
+        }
+
+        return raw;
+    }
+
+    function isSupportedBuyImageUrl(url) {
+        const raw = String(url || '');
+        return BUY_IMAGE_EXT_RE.test(raw)
+            || /drive\.google\.com\/thumbnail/i.test(raw)
+            || /googleusercontent\.com/i.test(raw);
     }
 
     function getBuyImageNameFromFile(file) {
@@ -2142,12 +2182,54 @@
 
         return rawList
             .map(normalizeBuyImageItem)
-            .filter(item => item.url && BUY_IMAGE_EXT_RE.test(item.url))
+            .filter(item => item.url && isSupportedBuyImageUrl(item.url))
             .filter(item => {
                 if (seen.has(item.url)) return false;
                 seen.add(item.url);
                 return true;
             });
+    }
+
+    function getCsvValue(row, headers, aliases, fallbackIndex) {
+        const normalizedAliases = aliases.map(alias => String(alias).trim().toLowerCase());
+
+        for (let i = 0; i < headers.length; i++) {
+            const header = String(headers[i] || '').trim().toLowerCase();
+            if (normalizedAliases.some(alias => header === alias || header.includes(alias))) {
+                return row[i] || '';
+            }
+        }
+
+        return row[fallbackIndex] || '';
+    }
+
+    function normalizeBuySheetList(csvText) {
+        const rows = String(csvText || '')
+            .split('\n')
+            .filter(row => row.trim().length > 0)
+            .map(parseCSVRow);
+
+        if (rows.length <= 1) return [];
+
+        const headers = rows[0];
+
+        return rows.slice(1).flatMap((row, index) => {
+            const name = getCsvValue(row, headers, ['品項名稱', '品項', '商品名稱', '商品', 'name', 'title'], 1);
+            const image = getCsvValue(row, headers, ['Cloudinary照片網址', 'Cloudinary 照片網址', 'cloudinary url', 'cloudinary_url', '照片網址', '圖片網址', '照片', '圖片', 'image url', 'image_url', 'photo url', 'photo_url', 'url', 'file'], 2);
+            const note = getCsvValue(row, headers, ['備註', '說明', 'note', 'memo'], 3);
+            const imageList = String(image || '').split(/[\n,]+/).map(url => url.trim()).filter(Boolean);
+
+            return imageList.map((imageUrl, imageIndex) => {
+                const id = `${name || 'buy-item'}-${imageUrl || index}-${imageIndex}`;
+
+                return {
+                    id,
+                    file: imageUrl,
+                    url: normalizeBuyImageUrl(imageUrl),
+                    name: note ? `${name}｜${note}` : (name || getBuyImageNameFromFile(imageUrl) || `代購品項 ${index + 1}`)
+                };
+            });
+        }).filter(item => item.url);
     }
 
     function getBuyCheckedMap() {
@@ -2179,6 +2261,18 @@
         return normalizeBuyImageList(data);
     }
 
+    async function fetchBuyGoogleSheetItems() {
+        const url = String(BUY_GOOGLE_SHEET_CSV_URL || '').trim();
+        if (!url) return [];
+
+        const cacheBuster = url.includes('?') ? '&' : '?';
+        const res = await fetch(url + cacheBuster + 'v=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) throw new Error('Google 表單回覆試算表讀取失敗');
+
+        const csvText = await res.text();
+        return normalizeBuySheetList(csvText);
+    }
+
     function renderBuyGallery(items) {
         const container = document.getElementById('buy-gallery-list');
         if (!container) return;
@@ -2189,6 +2283,10 @@
         }
 
         const checkedMap = getBuyCheckedMap();
+
+        const formLink = BUY_GOOGLE_FORM_URL
+            ? `<a href="${escapeHtml(BUY_GOOGLE_FORM_URL)}" target="_blank" class="buy-gallery-refresh" style="display:inline-block; text-decoration:none; margin-bottom:12px;">➕ 新增代購品項</a>`
+            : '';
 
         const html = items.map((item, index) => {
             const safeUrl = escapeHtml(item.url);
@@ -2210,6 +2308,7 @@
         }).join('');
 
         container.innerHTML = `
+            ${formLink}
             <div class="buy-gallery-summary">已讀取 ${items.length} 項代購照片，勾選「已買」可保留紀錄。</div>
             <div class="buy-gallery-grid">${html}</div>`;
     }
@@ -2220,11 +2319,12 @@
         container.innerHTML = '<div class="buy-gallery-status">🧳 正在讀取代購品項照片...</div>';
 
         try {
-            const items = await fetchBuyImageManifest();
+            const sheetItems = await fetchBuyGoogleSheetItems();
+            const items = sheetItems.length > 0 ? sheetItems : await fetchBuyImageManifest();
             renderBuyGallery(items);
         } catch (e) {
             console.warn(e);
-            container.innerHTML = '<div class="buy-gallery-status" style="color:#B71C1C;">⚠️ 代購照片讀取失敗，請確認 buy-images.json 檔案位置、JSON 格式與圖片檔名是否正確。</div>';
+            container.innerHTML = '<div class="buy-gallery-status" style="color:#B71C1C;">⚠️ 代購照片讀取失敗，請確認 Google 試算表 CSV 是否已公開，或 buy-images.json 檔案位置、JSON 格式與圖片檔名是否正確。</div>';
         }
     }
 
