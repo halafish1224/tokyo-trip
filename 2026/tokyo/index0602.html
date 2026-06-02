@@ -2077,7 +2077,7 @@
     // 建議表單欄位名稱：品項名稱、照片網址、備註。
     // 若使用 Google Drive 分享照片，請將照片權限設為「知道連結的任何人可查看」。
     const BUY_GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=318927826&single=true&output=csv';
-    const BUY_GOOGLE_FORM_URL = 'https://forms.gle/ejhCNyXAr75uCTyMA';
+    const BUY_GOOGLE_FORM_URL = '';
     const BUY_IMAGE_EXT_RE = /\.(jpe?g|png|webp)(\?.*)?$/i;
     const BUY_GALLERY_CHECK_STORAGE_KEY = 'tokyo_2026_buy_gallery_checked';
 
@@ -2213,18 +2213,22 @@
 
         const headers = rows[0];
 
-        return rows.slice(1).map((row, index) => {
+        return rows.slice(1).flatMap((row, index) => {
             const name = getCsvValue(row, headers, ['品項名稱', '品項', '商品名稱', '商品', 'name', 'title'], 1);
-            const image = getCsvValue(row, headers, ['照片網址', '圖片網址', '照片', '圖片', 'image url', 'image_url', 'photo url', 'photo_url', 'url', 'file'], 2);
+            const image = getCsvValue(row, headers, ['Cloudinary照片網址', 'Cloudinary 照片網址', 'cloudinary url', 'cloudinary_url', '照片網址', '圖片網址', '照片', '圖片', 'image url', 'image_url', 'photo url', 'photo_url', 'url', 'file'], 2);
             const note = getCsvValue(row, headers, ['備註', '說明', 'note', 'memo'], 3);
-            const id = `${name || 'buy-item'}-${image || index}`;
+            const imageList = String(image || '').split(/[\n,]+/).map(url => url.trim()).filter(Boolean);
 
-            return {
-                id,
-                file: image,
-                url: normalizeBuyImageUrl(image),
-                name: note ? `${name}｜${note}` : (name || getBuyImageNameFromFile(image) || `代購品項 ${index + 1}`)
-            };
+            return imageList.map((imageUrl, imageIndex) => {
+                const id = `${name || 'buy-item'}-${imageUrl || index}-${imageIndex}`;
+
+                return {
+                    id,
+                    file: imageUrl,
+                    url: normalizeBuyImageUrl(imageUrl),
+                    name: note ? `${name}｜${note}` : (name || getBuyImageNameFromFile(imageUrl) || `代購品項 ${index + 1}`)
+                };
+            });
         }).filter(item => item.url);
     }
 
