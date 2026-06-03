@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AIMYON 10th anniversary LIVE 2026「、、、」IN 阪神甲子園
-</title>
-  <meta name="description" content="AIMYON 7月甲子園演唱會旅行記錄">
-  <meta name="keywords" content="AIMYON, あいみょん, 甲子園, 甲子園球場, 演唱會, 日本旅行, 旅遊相簿">
+  <title>AIMYON 2026 甲子園演唱會遊程相簿</title>
+  <meta name="description" content="AIMYON 7月甲子園演唱會旅行記錄，依日期與主題整理照片、文字與地點，串接 Google 表單、Google Sheet 與 Cloudinary 相簿。">
+  <meta name="keywords" content="AIMYON, あいみょん, 甲子園, 甲子園球場, 演唱會, 日本旅行, 旅遊相簿, Cloudinary, Google 表單">
   <meta name="author" content="AIMYON Trip Album">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="geo.region" content="JP-28">
@@ -16,8 +15,8 @@
   <link rel="canonical" href="https://travel.itigre.com/AIMYON/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_TW">
-  <meta property="og:title" content="AIMYON 10th anniversary LIVE 2026「、、、」IN 阪神甲子園">
-  <meta property="og:description" content="逐AIMYON 旅行記錄頁。">
+  <meta property="og:title" content="AIMYON 2026 甲子園演唱會遊程相簿">
+  <meta property="og:description" content="用 Google 表單新增日期、主題、文字與多張照片，透過 Cloudinary 自動整併成 AIMYON 風格的旅行記錄頁。">
   <meta property="og:image" content="https://res.cloudinary.com/dshfj9ace/image/upload/f_auto,q_auto,w_1200/AIMYON/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0d3830">
@@ -25,7 +24,7 @@
   {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
-    "name": "AIMYON 10th anniversary LIVE 2026「、、、」IN 阪神甲子園",
+    "name": "AIMYON 2026 甲子園演唱會遊程相簿",
     "description": "依日期與主題整理的 AIMYON 甲子園演唱會旅行相簿。",
     "inLanguage": "zh-Hant",
     "about": [
@@ -597,7 +596,7 @@
       z-index: 30;
       display: none;
       place-items: center;
-      padding: 1rem;
+      padding: 12px;
       background: rgba(7, 23, 21, .88);
     }
 
@@ -605,20 +604,45 @@
 
     .lightbox figure {
       margin: 0;
-      width: min(100%, 1080px);
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      align-items: center;
+      justify-items: center;
+      overflow: hidden;
     }
 
     .lightbox img {
-      max-height: 78svh;
       width: 100%;
+      height: 100%;
+      max-width: calc(100vw - 24px);
+      max-height: calc(100svh - 72px);
       object-fit: contain;
       background: rgba(255, 255, 255, .06);
       border-radius: var(--radius);
+      cursor: zoom-in;
+    }
+
+    .lightbox.is-zoomed figure {
+      align-items: start;
+      justify-items: start;
+      overflow: auto;
+    }
+
+    .lightbox.is-zoomed img {
+      width: auto;
+      height: auto;
+      max-width: none;
+      max-height: none;
+      cursor: zoom-out;
     }
 
     .lightbox figcaption {
       color: rgba(255, 255, 255, .86);
-      margin-top: .75rem;
+      min-height: 36px;
+      padding-top: .55rem;
+      text-align: center;
     }
 
     .close {
@@ -746,8 +770,8 @@
   <div id="top" class="hero">
     <div class="hero-inner">
       <p class="eyebrow">July Concert Journey</p>
-      <h1>AIMYON 甲子園2026</h1>
-      <p class="hero-copy">把每天的主題、心情筆記、地點與多張照片集中在同一頁。這裡負責把回憶排成一張能一直翻下去的旅程紀錄。</p>
+      <h1>AIMYON 甲子園演唱會遊程相簿</h1>
+      <p class="hero-copy">把每天的主題、心情筆記、地點與多張照片集中在同一頁。Google 表單負責收集，Cloudinary 負責照片速度與畫質，這裡負責把回憶排成一張能一直翻下去的旅程紀錄。</p>
       <div class="hero-actions">
         <a class="primary-link" href="#album">瀏覽相簿</a>
         <a class="secondary-link" href="#setup">查看設定</a>
@@ -799,14 +823,14 @@
     <section id="setup" aria-labelledby="setupTitle">
       <div class="section-head">
         <div>
-          <h2 id="setupTitle">必備遊程</h2>
-          <p>周遭景點</p>
+          <h2 id="setupTitle">串接設定</h2>
+          <p>把這份網頁上傳後，只要換掉程式最上方的 Google Sheet CSV 網址。表單欄位與 Apps Script 範本已放在同資料夾。</p>
         </div>
       </div>
       <div class="setup-grid">
         <article class="setup-card">
-          <h3>1. 甲子園導覽</h3>
-          <p>朝聖愛繆主場！直擊甲子園牛棚選手席<br>:サーチライト in阪神甲子園球場 2022</p>
+          <h3>1. 表單收資料</h3>
+          <p>Google 表單欄位建議包含日期、主題、標題、文字、地點、標籤、照片上傳。</p>
         </article>
         <article class="setup-card">
           <h3>2. 照片進 Cloudinary</h3>
@@ -829,7 +853,7 @@
   </dialog>
 
   <footer>
-    <p>Built for AIMYON Koshien trip memories.</p>
+    <p>Built for AIMYON Koshien trip memories. Structured for SEO, local geo metadata, and AI-readable gallery content.</p>
   </footer>
 
   <script>
@@ -844,7 +868,7 @@
 
     const SAMPLE_ROWS = [
       {
-        date: "2026-07-12",
+        date: "2026-07-18",
         theme: "抵達關西",
         title: "把行李放下，往夏天走",
         note: "第一天先熟悉交通路線，晚上把明天要帶進球場的東西整理好。",
@@ -853,7 +877,7 @@
         photos: "placeholder:arrival|placeholder:night"
       },
       {
-        date: "2026-07-14",
+        date: "2026-07-19",
         theme: "甲子園演唱會",
         title: "球場燈亮起來的那一刻",
         note: "把歌、看台、風和人聲一起收進相簿。",
@@ -902,6 +926,10 @@
       });
 
       els.closeLightbox.addEventListener("click", closeLightbox);
+      els.lightboxImage.addEventListener("click", event => {
+        event.stopPropagation();
+        els.lightbox.classList.toggle("is-zoomed");
+      });
       els.lightbox.addEventListener("click", event => {
         if (event.target === els.lightbox) closeLightbox();
       });
@@ -1274,7 +1302,8 @@
     }
 
     function openLightbox(src, caption) {
-      els.lightboxImage.src = src;
+      els.lightbox.classList.remove("is-zoomed");
+      els.lightboxImage.src = maximizeImageUrl(src);
       els.lightboxImage.alt = caption;
       els.lightboxCaption.textContent = caption;
       if (typeof els.lightbox.showModal === "function") {
@@ -1291,6 +1320,12 @@
         els.lightbox.removeAttribute("open");
       }
       els.lightboxImage.src = "";
+      els.lightbox.classList.remove("is-zoomed");
+    }
+
+    function maximizeImageUrl(url) {
+      if (!url.includes("/image/upload/")) return url;
+      return url.replace(/\/image\/upload\/(?:[^/]+\/)?/, "/image/upload/f_auto,q_auto,w_2400/");
     }
 
     function escapeHtml(value) {
