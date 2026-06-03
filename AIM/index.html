@@ -16,6 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_TW">
   <meta property="og:title" content="AIMYON 2026 甲子園演唱會遊程相簿">
+  <meta property="og:description" content="用 Google 表單新增日期、主題、文字與多張照片，透過 Cloudinary 自動整併成 AIMYON 風格的旅行記錄頁。">
   <meta property="og:image" content="https://res.cloudinary.com/dshfj9ace/image/upload/f_auto,q_auto,w_1200/AIMYON/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#0d3830">
@@ -914,10 +915,11 @@
           state.rows = normalizeRows(SAMPLE_ROWS);
           return;
         }
-        const response = await fetch(`${CONFIG.sheetCsvUrl}&cacheBust=${Date.now()}`, { cache: "no-store" });
+        const response = await fetch(addCacheBust(CONFIG.sheetCsvUrl), { cache: "no-store" });
         if (!response.ok) throw new Error(`Sheet request failed: ${response.status}`);
         const csv = await response.text();
-        state.rows = normalizeRows(parseCsv(csv));
+        const parsedRows = normalizeRows(parseCsv(csv));
+        state.rows = parsedRows.length ? parsedRows : normalizeRows(createRowsFromRawText(csv));
       } catch (error) {
         console.warn(error);
         state.rows = normalizeRows(SAMPLE_ROWS);
@@ -961,6 +963,7 @@
         headers.forEach((header, index) => {
           item[header] = cells[index] || "";
         });
+        item.__raw = cells.join("|");
         return item;
       });
     }
@@ -975,9 +978,19 @@
         "地點": "location",
         "標籤": "tags",
         "照片": "photos",
+        "相片": "photos",
+        "照片上傳": "photos",
+        "上傳照片": "photos",
         "照片網址": "photos",
+        "圖片網址": "photos",
+        "圖片連結": "photos",
+        "cloudinary": "photos",
+        "cloudinary_url": "photos",
         "cloudinary_urls": "photos",
-        "cloudinary_public_ids": "photos"
+        "cloudinary_public_id": "photos",
+        "cloudinary_public_ids": "photos",
+        "cloudinary 圖片連結": "photos",
+        "cloudinary圖片連結": "photos"
       };
       const cleaned = String(key).trim();
       return map[cleaned] || cleaned.toLowerCase().replace(/\s+/g, "_");
@@ -986,7 +999,7 @@
     function normalizeRows(rows) {
       return rows
         .map((row, index) => {
-          const photos = splitList(row.photos || row.photo || row.cloudinary_urls || row.cloudinary_public_ids)
+          const photos = splitPhotoList(findPhotoValue(row))
             .map(photo => buildCloudinaryImage(photo));
           return {
             id: `${row.date || "undated"}-${row.theme || "theme"}-${index}`,
@@ -1005,9 +1018,88 @@
 
     function splitList(value) {
       return String(value || "")
-        .split(/\s*\|\s*|\s*、\s*|\s*;\s*/)
+        .split(/\s*\|\s*|\s*、\s*|\s*;\s*|\n+/)
         .map(item => item.trim())
         .filter(Boolean);
+    }
+
+    function splitPhotoList(value) {
+      const urls = extractImageUrls(value);
+      if (urls.length) return urls;
+      return splitList(value).filter(item => !/^https?:\/\/(?:drive|docs)\.google\.com/i.test(item));
+    }
+
+    function addCacheBust(url) {
+      const separator = url.includes("?") ? "&" : "?";
+      return `${url}${separator}cacheBust=${Date.now()}`;
+    }
+
+    function findPhotoValue(row) {
+      const rawUrls = extractImageUrls(row.__raw);
+      if (rawUrls.length) return rawUrls.join("|");
+
+      const direct = row.photos || row.photo || row.images || row.image || row.cloudinary || row.cloudinary_url || row.cloudinary_urls || row.cloudinary_public_id || row.cloudinary_public_ids;
+      if (direct) return direct;
+
+      const values = [];
+      Object.entries(row).forEach(([key, value]) => {
+        const lowerKey = String(key).toLowerCase();
+        const text = String(value || "");
+        const keyLooksLikePhoto =
+          lowerKey.includes("photo") ||
+          lowerKey.includes("image") ||
+          lowerKey.includes("cloudinary") ||
+          lowerKey.includes("照片") ||
+          lowerKey.includes("相片") ||
+          lowerKey.includes("圖片");
+        const valueLooksLikePhoto =
+          text.includes("res.cloudinary.com") ||
+          text.includes("/image/upload/") ||
+          text.includes(`${CONFIG.cloudFolder}/`);
+
+        if ((keyLooksLikePhoto && text) || valueLooksLikePhoto) {
+          values.push(text);
+        }
+      });
+
+      return values.join("|");
+    }
+
+    function extractImageUrls(text) {
+      return String(text || "").match(/https?:\/\/res\.cloudinary\.com\/[^\s"',<>|]+/g) || [];
+    }
+
+    function createRowsFromRawText(text) {
+      const lines = String(text || "").split(/\r?\n/);
+      const rows = lines
+        .map((line, index) => {
+          const urls = extractImageUrls(line);
+          if (!urls.length) return null;
+          const date = (line.match(/\d{4}[/-]\d{1,2}[/-]\d{1,2}/) || [""])[0].replaceAll("/", "-");
+          return {
+            date,
+            theme: "旅程照片",
+            title: date ? `${date} 旅程照片` : `旅程照片 ${index + 1}`,
+            note: "",
+            location: "",
+            tags: "AIMYON|Cloudinary",
+            photos: urls.join("|")
+          };
+        })
+        .filter(Boolean);
+
+      if (rows.length) return rows;
+
+      const urls = extractImageUrls(text);
+      return urls.length ? [{
+        date: "",
+        theme: "旅程照片",
+        title: "Cloudinary 旅程照片",
+        note: "",
+        location: "",
+        tags: "AIMYON|Cloudinary",
+        photos: urls.join("|")
+      }] : [];
     }
 
     function buildCloudinaryImage(value) {
@@ -1213,4 +1305,3 @@
   </script>
 </body>
 </html>
-
