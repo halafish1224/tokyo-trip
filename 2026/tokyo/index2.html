@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -39,7 +38,7 @@
 
         body {
             font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
-            margin: 0; padding-bottom: 95px; 
+            margin: 0; padding-bottom: 95px; /* 調整底部留白配合新版頁籤 */
             line-height: 1.8;
             color: var(--text-main); background-color: #FAF5EB;
             font-size: 20px; 
@@ -179,7 +178,7 @@
         .buy-gallery-name { padding: 8px 9px 10px; font-size: 0.92rem; font-weight: 900; color: #1A1A1A; line-height: 1.35; word-break: break-word; border-top: 2px solid #222; background: #FFFFFF; }
         .buy-gallery-item.is-checked .buy-gallery-name { text-decoration: line-through; color: #546E7A; }
         .buy-gallery-status { text-align: center; padding: 22px 12px; color: #444; font-size: 1.15rem; font-weight: 900; background: #FFFFFF; border: 3px dashed #BCAAA4; border-radius: 12px; }
-
+        
         .card.is-current-now { border: 5px solid #E60012 !important; box-shadow: 0 0 0 5px rgba(230,0,18,0.18), 5px 7px 0 rgba(230,0,18,0.35) !important; animation: currentPulse 1.2s infinite alternate; }
         @keyframes currentPulse { from { transform: rotate(-0.3deg); } to { transform: rotate(0.3deg); } }
 
@@ -243,7 +242,7 @@
         .modal-close { color: #222; margin-top: 25px; font-size: 1.4rem; font-weight: 900; cursor: pointer; border: 3px solid #222; padding: 12px 35px; border-radius: 30px; background: #FFF; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
 
         /* ==========================================================================
-           新增：主題分類規劃樣式 (AIMYON手繪粗線條風格)
+           新增：主題分類規劃樣式 (手繪粗線條風格)
            ========================================================================== */
         .theme-scroller { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; margin-bottom: 15px; }
         .theme-scroller::-webkit-scrollbar { display: none; }
@@ -252,7 +251,7 @@
         .theme-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .theme-ward { background: #E8F5E9; color: var(--theme-green); font-weight: 900; padding: 3px 10px; border: 2px solid #222; border-radius: 8px; font-size: 0.95rem; }
         .theme-dist { color: var(--theme-orange); font-weight: 900; font-size: 1rem; }
-        .btn-jump { background: #FFF9C4 !important; color: #111 !important; border: var(--sketch-border); font-size: 1.05rem !important; min-height: 44px !important; margin-top: 10px; width: 100%; }
+        .btn-jump { background: #FFF9C4 !important; color: #111 !important; border: var(--sketch-border); font-size: 1.05rem !important; min-height: 44px !important; margin-top: 10px; width: 100%; display: flex; align-items: center; justify-content: center;}
     </style>
 </head>
 <body>
@@ -301,6 +300,7 @@
         <div id="itinerary-list"></div>
     </div>
 
+    <!-- 新增：獨立的主題分類規劃區塊（完全不影響原本的其他功能區塊） -->
     <div id="sec-theme" class="section">
         <div class="theme-scroller" id="theme-scroller-container"></div>
         <div id="theme-spots-list"></div>
@@ -317,6 +317,7 @@
                 <div style="font-size: 0.95rem; color: var(--theme-orange); font-weight: 900; margin-top: 5px;">新增待購品項</div>
             </a>
             <a href="https://itigre.pse.is/japancoupon" target="_blank" class="action-card action-card-coupon">
+                <input type="text" value="https://itigre.pse.is/japancoupon" readonly onclick="this.select();" style="display:none;">
                 <span style="font-size: 2.2rem; margin-bottom: 5px;">🎫</span>      
                 <div style="background: #FFF; color: #E65100; padding: 4px 8px; border-radius: 15px; font-size: 0.9rem; font-weight: 900; margin-top: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">👉 點擊開啟折價券</div>
             </a>
@@ -409,6 +410,7 @@
 
 <nav class="footer-nav">
     <div class="nav-item active" onclick="switchTab('trip', this)"><span class="nav-icon">🗺️</span>行程</div>
+    <!-- 僅在中間獨立插入這一行新按鈕，保持原有功能正常運作 -->
     <div class="nav-item" onclick="switchTab('theme', this); initThemeTab();"><span class="nav-icon">🏮</span>主題景點</div>
     <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>待購註記</div>
     <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🛠️</span>工具/翻譯</div>
@@ -417,6 +419,7 @@
 <script>
     let currentExchangeRate = 0.215; 
 
+    // === 行程資料庫 (完全保留你原本的格式) ===
     const itineraryData = [
         { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
             { time: "15:00", title: "抵達藤澤 Check-in", img: "images/1213.webp", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口", nearby: [
@@ -476,8 +479,8 @@
                 { name: "Samuel Cocking 苑", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "海蠟燭所在的植物園，和洋折衷風格，冬季的鬱金香與燈飾極美。", mapQuery: "江の島サムエル・コッキング苑" },
                 { name: "龜之岡廣場", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "視野開闊的展望廣場，設有涼亭，是俯瞰相模灣的好位置。", mapQuery: "亀ヶ岡広場" },
                 { name: "江島神社 中津宮", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "鮮豔紅色的社殿，主祀祈求美麗與良緣的女神。", mapQuery: "江島神社 中津宮" },
-                { name: "龍戀之鐘", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "紀念天女與五頭龍愛情的聖地，掛滿祈願鎖，情侶必訪。", mapQuery: "龍戀之鐘" },
-                { name: "LONCAFE 江之島本店", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本第一家法式吐司專專賣店，戶外座位可無死角看海。", mapQuery: "LONCAFE 湘南江の島本店" }
+                { name: "龍戀之鐘", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "紀念天女與五頭龍愛情的聖地，掛滿祈願鎖，情侶必訪。", mapQuery: "龍恋の鐘" },
+                { name: "LONCAFE 江之島本店", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本第一家法式吐司專賣店，戶外座位可無死角看海。", mapQuery: "LONCAFE 湘南江の島本店" }
             ]},
             { time: "13:00", title: "稚兒之淵與岩屋", desc: "下探海蝕洞。這天走完一圈剛好維持日常 6 公里的紮實運動量。", map: "稚児ヶ淵", nearby: [
                 { name: "江之島岩屋", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "拿著蠟燭探索海蝕洞，內部供奉石佛，充滿神秘探險感。", mapQuery: "江の島岩屋" },
@@ -543,7 +546,7 @@
             { 
                 time: "15:20", 
                 title: "箱根海賊船：蘆之湖黃金航線", 
-                desc: "從元箱根港登船。12月中旬的午後，斜射光讓湖面波光粼粼. 建議直奔甲板，拍攝海賊船航行與水中鳥居交會的絕美瞬間。", 
+                desc: "從元箱根港登船。12月中旬的午後，斜射光讓湖面波光粼粼。建議直奔甲板，拍攝海賊船航行與水中鳥居交會的絕美瞬間。", 
                 map: "元箱根港",
                 transportGuide: [
                     "⛴️ 搭乘【箱根觀光船】: 元箱根港 ➔ 桃源台 (約30分, ¥1,200)",
@@ -563,7 +566,7 @@
                 { name: "藏 MAESTRO", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "由百年酒造改建的複合式畫廊與咖啡空間，建築結構充滿歷史感。", mapQuery: "蔵まえギャラリー" },
                 { name: "常光寺", dist: "500m", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "歷史悠久的靜謐寺院，境內的木雕與庭園極具禪意。", mapQuery: "常光寺 藤沢" },
                 { name: "傳義經首洗井", dist: "800m", fame: "⭐⭐", recom: "⭐⭐", desc: "源義經傳說的歷史遺跡，適合喜歡深度探索日本歷史的旅人。", mapQuery: "伝義経首洗井戸" },
-                { name: "江戶見附跡", dist: "400m", fame: "⭐⭐", recom: "⭐⭐", desc: "昔日藤澤宿的東側入口標誌，是東海道五十三次的重要節點。", mapQuery: "藤沢宿 江戶見附跡" },
+                { name: "江戶見附跡", dist: "400m", fame: "⭐⭐", recom: "⭐⭐", desc: "昔日藤澤宿的東側入口標誌，是東海道五十三次的重要節點。", mapQuery: "藤沢宿 江戸見附跡" },
                 { name: "關次商店 (百年米店)", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "保留明治時代黑漆喰外牆的古老米店，現有部分改作時髦麵包店。", mapQuery: "関次商店 パンの蔵 風見鶏" }
             ]},
             { time: "14:00", title: "龍口寺 (在地攝影)", desc: "江之島站旁木造古建築與五重塔，極具禪意。", review: "💡 攝影重點：適合用慢快門拍攝江之電電車穿梭於古寺門前的畫面。", map: "龍口寺", nearby: [
@@ -658,7 +661,7 @@
                 { name: "寅次郎紀念館", dist: "步行8分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "完整重現昭和時代電影場景與片場，長輩絕對會充滿共鳴。", mapQuery: "葛飾柴又寅さん記念館" }
             ]},
             { time: "15:00", title: "銀座一站式採購", suitable: ['senior'], desc: "前往逛 LOFT、UNIQLO。室內逛街有冷氣與座位，對長輩友善。", map: "ユニクロ 銀座店", nearby: [
-                { name: "銀座 伊東屋 ITOYA", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "擁有百年歷史的文具旗館店，12層樓各有主題，文具控天堂。", mapQuery: "銀座 伊東屋 本店" },
+                { name: "銀座 伊東屋 ITOYA", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "擁有百年歷史的文具旗艦店，12層樓各有主題，文具控天堂。", mapQuery: "銀座 伊東屋 本店" },
                 { name: "歌舞伎座", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本傳統藝能聖地，外觀氣派，即使不看戲也可逛B1伴手禮區。", mapQuery: "歌舞伎座" },
                 { name: "無印良品 銀座旗艦店", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "全球最大規模，包含生鮮超市、烘焙坊與 MUJI Diner。", mapQuery: "無印良品 銀座" },
                 { name: "銀座和光鐘樓", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "銀座最具代表性的地標，位於四丁目交叉口，夜間點燈極具質感。", mapQuery: "和光 本館" },
@@ -705,7 +708,7 @@
             ]},
             { time: "14:00", title: "上野阿美橫町", desc: "從公園順路抵達。進行 OS Drug 藥妝大採購、買 NG 蛋糕與二木菓子。", map: "アメ横 OS Drug", nearby: [
                 { name: "多慶屋 (御徒町)", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "紫色大樓地標，被稱為購物狂天堂，電器零食藥妝一棟搞定。", mapQuery: "多慶屋 御徒町" },
-                { name: "二木菓子 第一營業所", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "邊橫內最大的糖果餅乾批發店，種類多到眼花，免稅超好買。", mapQuery: "二木の菓子 第一営業所" },
+                { name: "二木菓子 第一營業所", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "阿美橫內最大的糖果餅乾批發店，種類多到眼花，免稅超好買。", mapQuery: "二木の菓子 第一営業所" },
                 { name: "鐵火丼", dist: "步行2分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "路邊攤風格的生魚片丼飯，價格便宜到不可思議，體驗市井風情。", mapQuery: "みなとや食品 本店" },
                 { name: "Yamashiroya 玩具店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "上野站對面整棟的模型玩具店，從任天堂到鋼彈，宅度滿分。", mapQuery: "ヤマシロヤ" },
                 { name: "上野車站 阿美橫出口", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "經典打卡視角，站在天橋下拍向擁擠熱鬧的阿美橫町招牌。", mapQuery: "アメ横看板" }
@@ -763,7 +766,7 @@
                 { name: "人形町今半 總店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "頂級黑毛和牛壽喜燒的代名詞，若預算充足，這是完美的最後一餐。", mapQuery: "人形町今半 本店" },
                 { name: "玉秀 (軍雞鍋)", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "創立於1760年，發明了日本第一碗「親子丼」，永遠在大排長龍。", mapQuery: "玉ひで" },
                 { name: "大觀音寺", dist: "步行4分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "隱藏在巷弄中的寺廟，每月有特定日子會開放參拜罕見的鐵造觀音首。", mapQuery: "大観音寺 人形町" },
-                { name: "濱町綠道", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "舊河道填平而成的綠地步道，秋季有銀杏，是遠遠離喧囂的散步好去處。", mapQuery: "浜町緑道" }
+                { name: "濱町綠道", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "舊河道填平而成的綠地步道，秋季有銀杏，是遠離喧囂的散步好去處。", mapQuery: "浜町緑道" }
             ]},
             { time: "13:00", title: "出發前往機場", suitable: ['senior'], desc: "從飯店步行出發前往地鐵站，準備搭車前往機場。", transportGuide: [
                 "🚶 步行至【濱町站】搭乘地鐵",
@@ -781,7 +784,7 @@
         ]}
     ];
 
-    let currentProject = 2; 
+    let currentProject = 2; // 預設為家族篇
 
     function toggleFloatingActions() {
         document.getElementById('floatingActions').classList.toggle('open');
@@ -896,8 +899,7 @@
             let eventsHtml = '';
             day.events.forEach((evt, eventIndex) => {
                 const mapQuery = evt.map || evt.title;
-                // 【修復細節 1】：確保採用正確的前端字串模板語法
-                const mapUrl = `https://www.google.com/maps/search/?api=1&query=$?q=$?q=${encodeURIComponent(mapQuery)}`;
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
                 
                 const imgHtml = evt.img ? `<img src="${evt.img}" class="card-img" loading="lazy" onclick="openImageModal(this.src)">` : '';
@@ -931,8 +933,7 @@
                 if (evt.supermarkets) {
                     marketHtml = `<div class="market-grid">`;
                     evt.supermarkets.forEach(m => {
-                        // 【修復細節 2】：確保採用正確的前端字串模板語法
-                        const smMapUrl = `https://www.google.com/maps/search/?api=1&query=$?q=$?q=${encodeURIComponent(m.map)}`;
+                        const smMapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.map)}`;
                         marketHtml += `<a href="${smMapUrl}" target="_blank" class="market-btn"><div class="market-name">🔗 ${m.name}</div><div style="color:#1A1A1A; font-size:1.05rem; font-weight:900; margin-top:6px;">${m.meta}</div></a>`;
                     });
                     marketHtml += `</div>`;
@@ -942,7 +943,7 @@
                 if (evt.nearby && evt.nearby.length > 0) {
                     nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊 / 備用推薦</div>`;
                     evt.nearby.forEach(spot => {
-                        const linkHref = spot.mapQuery ? `https://www.google.com/maps/search/?api=1&query=$?q=$?q=${encodeURIComponent(spot.mapQuery)}` : '#';
+                        const linkHref = spot.mapQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.mapQuery)}` : '#';
                         nearbyHtml += `<div class="nearby-item">
                             <a href="${linkHref}" target="_blank" class="nearby-link">🔗 ${spot.name}</a>
                             <div style="font-size: 1.05rem; font-family: 'Zen Maru Gothic'; font-weight: 900; margin: 6px 0;">
@@ -1033,7 +1034,12 @@
     const BUY_GALLERY_CHECK_STORAGE_KEY = 'tokyo_2026_buy_gallery_checked';
 
     function escapeHtml(value) {
-        return String(value || '').replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"').replace(/'/g, "'");
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 
     function encodeBuyImagePath(fileName) {
@@ -1337,7 +1343,7 @@
         "上野": "JR 山手線約 8 分鐘", "御徒町": "JR 山手線約 6 分鐘", "秋葉原": "JR 山手線約 4 分鐘",
         "築地": "地鐵日比谷線約 12 分鐘", "豐洲": "地鐵有樂町線約 15 分鐘", "豪德寺": "小田急線直通約 35 分鐘",
         "世田谷": "電車/地鐵約 35 分鐘", "增上寺": "JR山手線至濱松町約 10 分鐘", "東京鐵塔": "地鐵日比谷線約 15 分鐘",
-        "柴跨": "京成線特急約 35 分鐘", "新宿": "JR 中央線中央特快約 14 分鐘", "澀谷": "JR 山手線約 25 分鐘",
+        "柴又": "京成線特急約 35 分鐘", "新宿": "JR 中央線中央特快約 14 分鐘", "澀谷": "JR 山手線約 25 分鐘",
         "池袋": "地鐵丸之內線約 17 分鐘", "大船": "JR 東海道線約 45 分鐘", "鎌倉": "JR 橫須賀線約 55 分鐘",
         "藤澤": "JR 東海道線約 50 分鐘", "江之島": "JR+小田急約 65 分鐘", "小田原": "JR東海道線約 80 分鐘 / 新幹線 35 分",
         "箱根": "小田急浪漫特快約 100 分鐘", "埼玉越谷": "JR武藏野線直通約 50 分鐘"
