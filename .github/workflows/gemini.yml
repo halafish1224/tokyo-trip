@@ -1,57 +1,5 @@
-name: Gemini Auto Code Review & Fix
-
-on:
-  schedule:
-    - cron: '0 0 * * 1' # 每週一凌晨 0:00 (UTC) 定時執行，可依需求修改
-  workflow_dispatch: # 支援在 GitHub UI 手動點擊觸發測試
-
-jobs:
-  gemini-fix:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install Gemini SDK
-        run: |
-          python -m pip install --upgrade pip
-          pip install google-genai
-
-      - name: Run Gemini Code Check & Fix
+- name: Run Gemini Code Check & Fix
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          # 這裡可執行你的 Gemini 修改腳本（例如：python scripts/gemini_fix.py）
-          # 以下示範調用 Gemini 進行檢測並自動更新 README 或程式碼
-          python -c "
-          import os
-          from google import genai
-
-          client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
-          print('Gemini API 連線成功，開始執行自動檢查...')
-          
-          # 此處可讀取專案檔案、交給 Gemini 修改後寫回檔案
-          "
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "style/fix: Gemini 自動程式碼修復與優化"
-          title: "🤖 [Gemini Auto-Fix] 自動優化與修復程式碼"
-          body: |
-            ## 🤖 Gemini 智慧程式碼修復報告
-            本 PR 由 GitHub Actions 自動觸發並由 Gemini API 分析修改。
-            請專案維護者審閱變更後合併。
-          branch: gemini-auto-fix
-          base: main
-          delete-branch: true
+          python .github/scripts/update_html.py
