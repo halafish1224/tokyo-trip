@@ -62,19 +62,18 @@ def main():
 {original_html}
 """
 
-    # 5. 呼叫 Gemini API（帶有 503 / 429 忙碌自動重試機制）
+    # 5. 呼叫 Gemini API（對 gemini-3.8-flash 加強 503 重試）
     updated_html = None
-    max_retries = 3
-    wait_time = 10  # 初始等待 10 秒
+    max_retries = 6      # 增加重試次數至 6 次
+    wait_time = 15       # 初始等待 15 秒，之後每次 +15 秒
 
-    # 正確有效的模型選擇清單（優先使用 3.8-flash，備用使用 2.0-flash）
-    models_to_try = ["gemini-3.8-flash", "gemini-2.0-flash"]
+    models_to_try = ["gemini-3.8-flash"]
 
     print("🤖 [Step 4/5] 正在呼叫 Gemini API 進行內容生成...", flush=True)
     for model_name in models_to_try:
         if updated_html:
             break
-        print(f"🔄 嘗試使用模型：{model_name}", flush=True)
+        print(f"🔄 使用模型：{model_name}", flush=True)
         for attempt in range(1, max_retries + 1):
             try:
                 print(f"   👉 第 {attempt}/{max_retries} 次請求中...", flush=True)
@@ -86,16 +85,23 @@ def main():
                 print(f"✅ [Step 4/5] 成功收到 API 回覆（生成長度：{len(updated_html)} 字元）。", flush=True)
                 break
             except Exception as e:
-                print(f"⚠️ 請求失敗 (原因: {e})", flush=True)
+                err_msg = str(e)
+                print(f"⚠️ 請求失敗 (原因: {err_msg})", flush=True)
+                
+                # 若為 404 錯誤，說明模型無效，不必重試
+                if "404" in err_msg:
+                    print("⚠️ 該模型不存在，終止該模型重試。", flush=True)
+                    break
+
                 if attempt < max_retries:
-                    print(f"⏳ 伺服器忙碌中，等待 {wait_time} 秒後自動重試...", flush=True)
+                    print(f"⏳ 伺服器尖峰忙碌中，等待 {wait_time} 秒後自動重試...", flush=True)
                     time.sleep(wait_time)
-                    wait_time += 10
+                    wait_time += 15  # 15s -> 30s -> 45s -> 60s -> 75s
                 else:
-                    print(f"⚠️ 模型 {model_name} 已達最大重試次數，切換至下一備用方案...", flush=True)
+                    print(f"⚠️ 模型 {model_name} 已達最大重試次數...", flush=True)
 
     if not updated_html:
-        print("❌ [錯誤] 所有 API 重試與備用模型皆失敗，請稍後手動重試。", flush=True)
+        print("❌ [錯誤] API 伺服器持續繁忙，請稍後重試點擊 Run workflow。", flush=True)
         sys.exit(1)
 
     # 6. 清理格式並寫回檔案
