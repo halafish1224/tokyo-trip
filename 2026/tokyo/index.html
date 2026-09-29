@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="description" content="2026冬日14天東京深度自由行行程表">
-    <title>東京冬日紀行 2026 | 完整版</title>
+    <meta name="description" content="2026冬日14天東京深度自由行行程表 - 最新交通、天氣與在地3.5-4.0星私房美食特輯">
+    <title>東京冬日紀行 2026 | 完整旗艦版</title>
     <meta name="theme-color" content="#FAF5EB">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +22,7 @@
             --theme-orange: #BF360C; 
             --theme-green: #1B5E20; 
             --theme-red: #B71C1C; 
+            --theme-purple: #4A148C;
 
             --bg-kid: #FCE4EC;
             --border-kid: #D81B60;
@@ -38,7 +39,7 @@
 
         body {
             font-family: 'Klee One', 'Zen Maru Gothic', sans-serif;
-            margin: 0; padding-bottom: 95px; /* 調整底部留白配合新版頁籤 */
+            margin: 0; padding-bottom: 95px;
             line-height: 1.8;
             color: var(--text-main); background-color: #FAF5EB;
             font-size: 20px; 
@@ -46,8 +47,8 @@
 
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://loremflickr.com/2048/3072/tokyo,winter,sky');
-            background-size: cover; background-position: center; z-index: -2; opacity: 0.2;
+            background-image: url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center; z-index: -2; opacity: 0.15;
         }
         
         body::after {
@@ -91,7 +92,29 @@
             box-shadow: 2px 5px 0px rgba(0,0,0,0.3) !important;
         }
 
-        .container { padding: 20px 15px; max-width: 600px; margin: 0 auto; }
+        .container { padding: 20px 15px; max-width: 650px; margin: 0 auto; }
+
+        /* 即時氣象模組 */
+        .weather-banner {
+            background: #E1F5FE; border: var(--sketch-border); border-radius: 16px;
+            padding: 14px 18px; margin-bottom: 22px; box-shadow: var(--sketch-shadow);
+        }
+        .weather-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .weather-city { font-weight: 900; font-size: 1.25rem; color: #0277BD; }
+        .weather-temp-box { display: flex; align-items: center; gap: 12px; }
+        .weather-icon { font-size: 2.2rem; }
+        .weather-temp { font-size: 1.8rem; font-weight: 900; font-family: 'Zen Maru Gothic'; color: #01579B; }
+        .weather-tips { font-size: 0.98rem; font-weight: 700; color: #37474F; line-height: 1.5; background: #FFF; padding: 8px 12px; border-radius: 10px; border: 2px dashed #0288D1; margin-top: 8px; }
+        .weather-select-city { border: 2px solid #0288D1; background: #FFF; border-radius: 8px; font-weight: 900; padding: 3px 8px; font-family: inherit; font-size: 0.95rem; }
+
+        /* 行程增添互動按鈕 */
+        .add-schedule-btn {
+            width: 100%; background: #FFF8E1; border: 3px dashed #FF8F00; color: #E65100;
+            border-radius: var(--radius-sketch); padding: 14px; font-size: 1.25rem; font-weight: 900;
+            cursor: pointer; text-align: center; margin-bottom: 25px; transition: all 0.2s;
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+        }
+        .add-schedule-btn:hover { background: #FFE082; transform: translateY(-2px); }
 
         .prep-box { background: #FFF; border: 4px solid var(--theme-blue); border-radius: 15px; padding: 18px; margin-bottom: 30px; box-shadow: var(--sketch-shadow); }
         .prep-title { font-weight: 900; color: var(--theme-blue); margin-bottom: 15px; font-size: 1.4rem; display: flex; align-items: center; gap: 8px; }
@@ -117,18 +140,24 @@
         .card-title { font-size: 1.7rem; font-weight: 900; margin: 0 0 12px; line-height: 1.4; }
         .card-title a { color: var(--theme-blue); text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 3px; transition: opacity 0.2s; }
         
-        .card-tags { display: flex; gap: 10px; margin-bottom: 15px; }
-        .tag-kid { background: #880E4F; color: white; font-size: 1.05rem; padding: 5px 12px; border-radius: 15px; font-weight: 900; }
-        .tag-senior { background: #1B5E20; color: white; font-size: 1.05rem; padding: 5px 12px; border-radius: 15px; font-weight: 900; }
-        .card-desc { font-size: 1.2rem; color: var(--text-main); margin-bottom: 15px; line-height: 1.8; font-weight: 600; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+        .tag-kid { background: #880E4F; color: white; font-size: 1rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
+        .tag-senior { background: #1B5E20; color: white; font-size: 1rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
+        .tag-custom { background: #FF6F00; color: white; font-size: 1rem; padding: 4px 10px; border-radius: 12px; font-weight: 900; }
+        .card-desc { font-size: 1.18rem; color: var(--text-main); margin-bottom: 15px; line-height: 1.8; font-weight: 600; }
         
+        /* 推薦周邊與在地美食區塊 */
         .nearby-box { margin-top: 25px; padding: 15px; background: #FFFFFF; border-radius: 12px; border: 3px solid #BCAAA4; }
-        .nearby-box-title { font-weight: 900; color: #FFF; margin-bottom: 15px; font-size: 1.25rem; font-family: 'Zen Maru Gothic', sans-serif; display: inline-block; background: var(--theme-blue); padding: 8px 16px; border-radius: 8px; border: 2px solid #222;}
+        .nearby-box-title { font-weight: 900; color: #FFF; margin-bottom: 15px; font-size: 1.25rem; font-family: 'Zen Maru Gothic', sans-serif; display: inline-block; background: var(--theme-blue); padding: 6px 14px; border-radius: 8px; border: 2px solid #222;}
+        .food-box-title { background: #D84315 !important; }
+        
         .nearby-item { font-family: 'Klee One', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; line-height: 1.6; padding: 12px 15px; border-radius: 8px; border: 2px solid transparent; }
         .nearby-item:nth-child(odd) { background: #F1F8E9; color: #1B5E20; border-color: #AED581; }
         .nearby-item:nth-child(even) { background: #FFF3E0; color: #BF360C; border-color: #FFB74D; }
+        .nearby-item.is-food { background: #FFF8E1; color: #3E2723; border: 2px solid #FFE082; }
         .nearby-link { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 900; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; margin-right: 6px; display: inline-block; color: var(--theme-blue); }
-        
+        .food-star-tag { background: #FF6F00; color: #FFF; padding: 2px 7px; border-radius: 6px; font-size: 0.88rem; font-weight: 900; margin-left: 6px; }
+
         .check-in-alert { background: #FFEBEE; border: 3px dashed var(--theme-red); color: var(--theme-red); padding: 15px; border-radius: 10px; font-weight: 900; margin-bottom: 18px; font-size: 1.2rem; }
         .review-bubble { background: #FFF9C4; border: 3px solid #FBC02D; color: #212121; border-radius: 15px 25px 15px 20px; padding: 15px 18px; margin-top: 18px; font-size: 1.15rem; display: flex; gap: 10px; line-height: 1.6; font-weight: 900; }
         
@@ -136,9 +165,11 @@
         .market-btn { background: #E8F5E9; border: 3px solid var(--theme-green); padding: 15px; border-radius: 12px; text-decoration: none; display: block; box-shadow: 2px 2px 0 rgba(0,0,0,0.1); }
         .market-name { font-weight: 900; font-size: 1.3rem; color: #0D47A1; text-decoration: underline; text-underline-offset: 3px; }
         
-        .transport-guide { background: rgba(255,255,255,1); border: 3px solid #9E9E9E; border-radius: 12px; padding: 20px; margin-top: 18px; }
-        .guide-step { display: flex; align-items: flex-start; margin-bottom: 12px; font-size: 1.15rem; font-weight: 900; color: var(--text-main); }
-        .step-num { background: var(--theme-blue); color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-size: 1.1rem; margin-right: 12px; flex-shrink: 0; border: 2px solid #222; }
+        /* 升級版交通規劃導引 */
+        .transport-guide { background: #FAFAFA; border: 3px solid #616161; border-radius: 14px; padding: 18px; margin-top: 18px; }
+        .transport-title { font-weight: 900; color: #263238; margin-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 6px; }
+        .guide-step { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.1rem; font-weight: 900; color: var(--text-main); }
+        .step-num { background: var(--theme-blue); color: #fff; width: 26px; height: 26px; border-radius: 50%; text-align: center; line-height: 26px; font-size: 1rem; margin-right: 10px; flex-shrink: 0; border: 2px solid #222; }
 
         .btn-group { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
         .btn { flex: 1; text-align: center; padding: 15px 0; border-radius: var(--radius-btn); text-decoration: none; font-size: 1.25rem; font-weight: 900; border: var(--sketch-border); display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 3px 4px 0px rgba(0,0,0,0.25); min-height: 55px; }
@@ -157,11 +188,11 @@
         .buy-item-card { background: #FFFFFF; border: var(--sketch-border); border-left: 10px solid var(--theme-green); border-radius: 12px; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); }
         
         .input-group { display: flex; gap: 12px; margin-bottom: 18px; }
-        .input-field { flex: 1; padding: 16px; border: 3px solid #757575; border-radius: 8px; font-family: inherit; font-size: 1.3rem; font-weight: 900; width: 100%; box-sizing: border-box; }
-        .btn-add { background: var(--theme-blue); color: #FFF; border: 3px solid #222; padding: 12px 25px; border-radius: 8px; font-weight: 900; font-size: 1.4rem; white-space: nowrap; box-shadow: 2px 3px 0 rgba(0,0,0,0.2);}
+        .input-field { flex: 1; padding: 14px; border: 3px solid #757575; border-radius: 8px; font-family: inherit; font-size: 1.2rem; font-weight: 900; width: 100%; box-sizing: border-box; }
+        .btn-add { background: var(--theme-blue); color: #FFF; border: 3px solid #222; padding: 12px 22px; border-radius: 8px; font-weight: 900; font-size: 1.3rem; white-space: nowrap; box-shadow: 2px 3px 0 rgba(0,0,0,0.2); cursor: pointer; }
 
-        .trans-box { font-size: 1.6rem; font-weight: 900; width: 100%; border: 3px solid #757575; border-radius: 15px; padding: 18px; margin-top: 12px; background: white; font-family: sans-serif; line-height: 1.4; box-sizing: border-box; }
-        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 20px; width: 100%; font-size: 1.5rem; font-weight: 900; margin-top: 18px; box-shadow: 3px 5px 0px rgba(0,0,0,0.25); }
+        .trans-box { font-size: 1.5rem; font-weight: 900; width: 100%; border: 3px solid #757575; border-radius: 15px; padding: 16px; margin-top: 12px; background: white; font-family: sans-serif; line-height: 1.4; box-sizing: border-box; }
+        .trans-btn { background: var(--theme-green); color: white; border: var(--sketch-border); border-radius: var(--radius-btn); padding: 18px; width: 100%; font-size: 1.4rem; font-weight: 900; margin-top: 18px; box-shadow: 3px 5px 0px rgba(0,0,0,0.25); cursor: pointer; }
 
         .buy-gallery-card { background: #FFFDF7; border: var(--sketch-border); border-left: 10px solid var(--theme-orange); border-radius: var(--radius-sketch); box-shadow: var(--sketch-shadow); padding: 18px; margin-bottom: 28px; }
         .buy-gallery-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
@@ -234,16 +265,18 @@
         .section { display: none; }
         .section.active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
-        .keyword-orange { background: linear-gradient(transparent 60%, #FFCC80 40%); padding: 0 4px; font-weight: 900; color: var(--theme-orange); }
         
-        .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
+        .img-modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.88); align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(5px); }
         .img-modal.active { display: flex; animation: fadeIn 0.2s; }
         .modal-content { max-width: 95%; max-height: 80vh; border-radius: 12px; border: 4px solid #FFF; box-shadow: 0 5px 25px rgba(0,0,0,0.8); object-fit: contain; }
         .modal-close { color: #222; margin-top: 25px; font-size: 1.4rem; font-weight: 900; cursor: pointer; border: 3px solid #222; padding: 12px 35px; border-radius: 30px; background: #FFF; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
 
-        /* ==========================================================================
-           新增：主題分類規劃樣式 (手繪粗線條風格)
-           ========================================================================== */
+        /* 彈窗表單樣式 */
+        .modal-form-box { background: #FFF; width: 92%; max-width: 500px; max-height: 88vh; overflow-y: auto; border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 22px; box-shadow: var(--sketch-shadow); }
+        .form-label { font-weight: 900; display: block; margin: 10px 0 5px; font-size: 1.05rem; }
+        .form-select, .form-input { width: 100%; padding: 10px 12px; border: 2.5px solid #222; border-radius: 8px; font-family: inherit; font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+
+        /* 主題分類樣式 */
         .theme-scroller { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; margin-bottom: 15px; }
         .theme-scroller::-webkit-scrollbar { display: none; }
         .theme-chip { flex: 0 0 auto; padding: 10px 18px; border: var(--sketch-border); border-radius: var(--radius-btn); background: #FFF; font-family: inherit; font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 2px 3px 0px rgba(0,0,0,0.15); }
@@ -278,8 +311,41 @@
 </a>
 
 <div id="imageModal" class="img-modal" style="display: none;" onclick="closeImageModal()">
-    <img id="modalImg" class="modal-content" src="">
+    <img id="modalImg" class="modal-content" src="" alt="放大照片">
     <div class="modal-close">✕ 關閉圖片</div>
+</div>
+
+<!-- 新增行程彈跳視窗 -->
+<div id="addEventModal" class="img-modal" style="display: none;">
+    <div class="modal-form-box">
+        <h3 style="margin-top:0; color:var(--theme-orange); font-size:1.5rem; font-weight:900;">➕ 增添 / 更新每日遊程</h3>
+        
+        <label class="form-label">選擇日期</label>
+        <select id="modal-event-day" class="form-select"></select>
+
+        <label class="form-label">時間 (例: 14:30)</label>
+        <input type="text" id="modal-event-time" class="form-input" placeholder="14:30" value="12:00">
+
+        <label class="form-label">行程 / 景點名稱</label>
+        <input type="text" id="modal-event-title" class="form-input" placeholder="例：上野阿美橫町漫步">
+
+        <label class="form-label">詳細備註 / 交通提醒</label>
+        <textarea id="modal-event-desc" class="form-input" rows="3" placeholder="補充說明或交通轉乘注意事項..."></textarea>
+
+        <label class="form-label">Google 地圖搜尋關鍵字</label>
+        <input type="text" id="modal-event-map" class="form-input" placeholder="用於地圖快速導航">
+
+        <label class="form-label">友善族群標籤</label>
+        <div style="display:flex; gap:15px; margin-bottom:15px; font-weight:bold;">
+            <label><input type="checkbox" id="modal-tag-kid"> 👶 兒童友善</label>
+            <label><input type="checkbox" id="modal-tag-senior"> 🧓 長青友善</label>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <button class="btn btn-primary" onclick="saveCustomEvent()">儲存並加入行程</button>
+            <button class="btn" style="background:#EEEEEE;" onclick="closeAddEventModal()">取消</button>
+        </div>
+    </div>
 </div>
 
 <header>
@@ -297,10 +363,37 @@
 
 <main class="container">
     <div id="sec-trip" class="section active">
+        <!-- 即時氣象動態模組 -->
+        <div class="weather-banner" id="weatherWidget">
+            <div class="weather-header">
+                <span class="weather-city">⛅ 日本氣象即時動態</span>
+                <select class="weather-select-city" id="weatherCitySelect" onchange="updateWeatherDisplay(this.value)">
+                    <option value="tokyo">東京都區 (Tokyo)</option>
+                    <option value="fujisawa">湘南/藤澤 (Fujisawa)</option>
+                    <option value="hakone">箱根山區 (Hakone)</option>
+                </select>
+            </div>
+            <div class="weather-temp-box">
+                <div class="weather-icon" id="weatherIcon">☀️</div>
+                <div>
+                    <div class="weather-temp" id="weatherTemp">11°C</div>
+                    <div style="font-size:0.95rem; font-weight:bold; color:#0277BD;" id="weatherCondition">冬日晴朗・降雨率 10%</div>
+                </div>
+            </div>
+            <div class="weather-tips" id="weatherTip">
+                🧣 穿著叮嚀：早晚溫差顯著且有海風或乾燥冷風，建議洋蔥式穿法（發熱衣+防風外套），隨身備保暖圍巾。
+            </div>
+        </div>
+
+        <!-- 增添自訂遊程按鈕 -->
+        <button type="button" class="add-schedule-btn" onclick="openAddEventModal()">
+            ✍️ + 增添 / 更新每日遊程卡片 (自訂彈性筆記)
+        </button>
+
         <div id="itinerary-list"></div>
     </div>
 
-    <!-- 新增：獨立的主題分類規劃區塊（完全不影響原本的其他功能區塊） -->
+    <!-- 獨立的主題分類規劃區塊 -->
     <div id="sec-theme" class="section">
         <div class="theme-scroller" id="theme-scroller-container"></div>
         <div id="theme-spots-list"></div>
@@ -398,7 +491,7 @@
 
         <div style="background: var(--card-bg); border: var(--sketch-border); border-radius: var(--radius-sketch); padding: 25px; box-shadow: var(--sketch-shadow);">
             <div style="color:var(--theme-orange); font-weight:900; font-size:1.5rem; margin-bottom:12px;">🇹🇼 說中文 (翻成日文)</div>
-            <textarea id="input-zh" class="trans-box" rows="3" placeholder="例：請問這個多少錢？"></textarea>
+            <textarea id="input-zh" class="trans-box" rows="3" placeholder="例：請問這個多少錢？可以刷卡嗎？"></textarea>
             <button class="trans-btn" style="background:var(--theme-orange);" onclick="goTranslate('zh-TW', 'ja', 'input-zh')">轉換為日文 ➔</button>
             <hr style="border: 3px dashed #BDBDBD; margin: 40px 0;">
             <div style="color:var(--theme-blue); font-weight:900; font-size:1.5rem; margin-bottom:12px;">🇯🇵 說日文 (翻成中文)</div>
@@ -410,7 +503,6 @@
 
 <nav class="footer-nav">
     <div class="nav-item active" onclick="switchTab('trip', this)"><span class="nav-icon">🗺️</span>行程</div>
-    <!-- 僅在中間獨立插入這一行新按鈕，保持原有功能正常運作 -->
     <div class="nav-item" onclick="switchTab('theme', this); initThemeTab();"><span class="nav-icon">🏮</span>主題景點</div>
     <div class="nav-item" onclick="switchTab('account', this)"><span class="nav-icon">📒</span>待購註記</div>
     <div class="nav-item" onclick="switchTab('trans', this)"><span class="nav-icon">🛠️</span>工具/翻譯</div>
@@ -419,372 +511,672 @@
 <script>
     let currentExchangeRate = 0.215; 
 
-    // === 行程資料庫 (完全保留你原本的格式) ===
-    const itineraryData = [
+    // === 行程資料庫 (精修交通指引 + 嚴選 Google 3.5~4.0★ 在地不踩雷私房美食) ===
+    let itineraryData = [
         { date: "12/13 (日)", id: "d1", project: 1, fullDate: "2026-12-13", events: [
-            { time: "15:00", title: "抵達藤澤 Check-in", img: "images/1213.webp", desc: "入住藤澤站北口飯店，深入在地生活圈。", map: "東横INN藤沢駅北口", nearby: [
-                { name: "藤澤OPA", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "站前大型商場，適合添購臨時衣物或無印良品雜貨。", mapQuery: "藤沢OPA" },
-                { name: "BIC CAMERA 藤澤店", dist: "300m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影器材、記憶卡或轉接頭若有遺漏可在此補齊。", mapQuery: "ビックカメラ 藤沢店" },
-                { name: "藤澤市役所展望台", dist: "450m", fame: "⭐⭐", recom: "⭐⭐⭐⭐", desc: "9樓免費觀景台，天氣好時可遠眺富士山，適合日落攝影。", mapQuery: "藤沢市役所 本庁舎 展望デッキ" },
-                { name: "唐吉訶德 南口店", dist: "400m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "深夜採買零食、宵夜或急用藥妝的最佳去處。", mapQuery: "ドン・キホーテ 藤沢駅南口店" },
-                { name: "さいか屋 (百貨)", dist: "250m", fame: "⭐⭐⭐", recom: "⭐⭐", desc: "在地老牌百貨公司，地下街有豐富的熟食與伴手禮。", mapQuery: "さいか屋 藤沢店" }
-            ]},
-            { time: "16:30", title: "清淨光寺 (遊行寺)", desc: "從藤澤站步行15分鐘。拍攝午後斜射光影與古建築。", map: "遊行寺", nearby: [
-                { name: "藤澤浮世繪館", dist: "800m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "免費參觀，展示東海道五十三次等珍貴浮世繪，極具文化價值。", mapQuery: "藤沢市藤澤浮世絵館" },
-                { name: "ふじさわ宿交流館", dist: "350m", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "了解舊東海道驛站歷史的休憩所，附設乾淨洗手間。", mapQuery: "ふじさわ宿交流館" },
-                { name: "白旗神社", dist: "1.2km", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "祭祀源義經的知名神社，境內肅穆，適合廣角鏡頭拍攝。", mapQuery: "白旗神社 藤沢" },
-                { name: "諏訪神社", dist: "100m", fame: "⭐⭐", recom: "⭐⭐", desc: "遊行寺旁的幽靜小神社，幾乎無觀光客，充滿在地生活感。", mapQuery: "藤沢 諏訪神社" },
-                { name: "舊桔梗屋", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "保留江戶時代風貌的舊紙茶批發商建築，復古韻味濃烈。", mapQuery: "旧桔梗屋 藤沢" }
-            ]},
-            { time: "18:00", title: "超市與百元店採買", desc: "湘南 GATE 4樓逛 3COINS，至 OK Store 買便當。", supermarkets: [{ name: "🛒 OK Store 藤澤店", meta: "在地人最愛平價便當", map: "オーケー 藤沢店" }], nearby: [
-                { name: "業務超市 藤澤店", dist: "500m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "大量採買飲料、大包裝零食的省錢聖地。", mapQuery: "業務スーパー 藤沢店" },
-                { name: "KALDI 咖啡農場", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "位於Lumine內，搜刮世界各地進口零食與高CP值濾掛咖啡。", mapQuery: "カルディコーヒーファーム 藤沢" },
-                { name: "Tomod's 藥妝", dist: "100m", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "站內藥妝店，價格偏高但極度便利，適合買單瓶急用常備藥。", mapQuery: "トモズ 藤沢" },
-                { name: "湘南GATE", dist: "100m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "結合百貨與圖書館，內有精緻伴手禮與質感生活選物。", mapQuery: "ODAKYU 湘南 GATE" },
-                { name: "名代 富士蕎麥麵", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "24小時營業的平價連鎖，深夜想吃熱食的最佳備案。", mapQuery: "名代 富士そば 藤沢店" }
-            ]}
+            { 
+                time: "15:00", 
+                title: "抵達藤澤 Check-in", 
+                img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80", 
+                desc: "入住東橫 INN 藤澤站北口，地處湘南交通動脈核心，車站周邊生活機能健全。", 
+                map: "東横INN藤沢駅北口", 
+                transportGuide: [
+                    "🚆【成田機場出發】：搭乘 JR 成田特快 (N'EX) 直達戶塚站，同月台對面轉乘 JR 東海道線 1 站即達藤澤站（免提行李走樓梯！）。",
+                    "🚶【藤澤站北口】：出驗票口由空中步道連通道走至北口，搭乘升降電梯直通地面步行 4 分鐘。"
+                ],
+                nearby: [
+                    { name: "藤澤OPA", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "站前大型商場，適合添購臨時衣物或無印良品雜貨。", mapQuery: "藤沢OPA" },
+                    { name: "BIC CAMERA 藤澤店", dist: "300m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影器材、記憶卡或轉接頭若有遺漏可在此補齊。", mapQuery: "ビックカメラ 藤沢店" },
+                    { name: "藤澤市役所展望台", dist: "450m", fame: "⭐⭐", recom: "⭐⭐⭐⭐", desc: "9樓免費觀景台，天氣晴朗時可遠眺富士山，夕陽絕景。", mapQuery: "藤沢市役所 本庁舎 展望デッキ" },
+                    { name: "町中華 大新 (Google 3.8★)", dist: "250m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【在地隱藏排隊少】藤澤在地昭和麵館，招牌「大新拉麵」以肉末勾芡滑嫩著稱，深夜暖胃必吃。", mapQuery: "大新 藤沢店" },
+                    { name: "久昇炭火串燒 (Google 3.9★)", dist: "350m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【在地熟客居酒屋】非觀光客店，主打炭烤土雞串與相模灣烤魚，安靜且料理真材實料。", mapQuery: "久昇 藤沢" }
+                ]
+            },
+            { 
+                time: "16:30", 
+                title: "清淨光寺 (遊行寺)", 
+                desc: "時宗總本山，從藤澤站步行15分鐘。拍攝午後斜射光影與江戶時期遺留之壯麗木造本堂。", 
+                map: "遊行寺", 
+                nearby: [
+                    { name: "藤澤浮世繪館", dist: "800m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "免費參觀，展示東海道五十三次等珍貴浮世繪，極具文化價值。", mapQuery: "藤沢市藤澤浮世絵館" },
+                    { name: "ふじさわ宿交流館", dist: "350m", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "了解舊東海道驛站歷史的休憩所，附設乾淨洗手間。", mapQuery: "ふじさわ宿交流館" },
+                    { name: "白旗神社", dist: "1.2km", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "祭祀源義經的名社，林木蒼翠，適合廣角與街拍鏡頭。", mapQuery: "白旗神社 藤沢" },
+                    { name: "そば処 赤坂 (Google 3.7★)", dist: "400m", fame: "⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【在地老麵店】寺廟旁由老夫婦經營的樸實手打蕎麥麵，熱鴨南蠻蕎麥麵湯頭醇厚、價格親民。", mapQuery: "そば処 赤坂 藤沢" }
+                ]
+            },
+            { 
+                time: "18:00", 
+                title: "超市與百元店採買", 
+                desc: "湘南 GATE 4樓逛 3COINS，至 OK Store 買特價便當與日本產草莓。", 
+                supermarkets: [{ name: "🛒 OK Store 藤澤店", meta: "在地人最愛超平價便當與飲料", map: "オーケー 藤沢店" }], 
+                nearby: [
+                    { name: "業務超市 藤澤店", dist: "500m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "大量採買飲料、大包裝零食的省錢聖地。", mapQuery: "業務スーパー 藤沢店" },
+                    { name: "KALDI 咖啡農場", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "位於Lumine內，搜刮世界各地進口零食與高品質濾掛咖啡。", mapQuery: "カルディコーヒーファーム 藤沢" },
+                    { name: "大衆酒場 鳥嶺 (Google 3.8★)", dist: "180m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【在地平價燒鳥】在地上班族下班集合地，烤雞皮脆香、雞肝鮮甜，無觀光客吵雜。", mapQuery: "大衆酒場 鳥嶺 藤沢" }
+                ]
+            }
         ]},
         { date: "12/14 (一)", id: "d2", project: 1, fullDate: "2026-12-14", events: [
-            { time: "09:30", title: "大船觀音寺", img: "images/1214.webp", desc: "搭 JR 一站到大船，參拜純白巨大的大船觀音像。", map: "大船観音寺", nearby: [
-                { name: "大船 Lumine Wing", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站共構商場，伴手禮與甜點選擇極多，適合回程採買。", mapQuery: "大船ルミネウィング" },
-                { name: "龍寶寺", dist: "1.5km", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "被竹林與古樹環繞的禪宗寺廟，秋有紅葉冬有梅，極少遊客。", mapQuery: "龍宝寺 鎌倉" },
-                { name: "日比谷花壇 大船店", dist: "250m", fame: "⭐⭐⭐", recom: "⭐⭐", desc: "車站內的知名花店，佈置精緻，適合捕捉街拍生活感。", mapQuery: "日比谷花壇 大船ルミネウィング店" },
-                { name: "觀音食堂", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "當地老字號海鮮定食，生魚片新鮮厚實，深受在地人推崇。", mapQuery: "観音食堂 大船" },
-                { name: "玉繩櫻廣場", dist: "350m", fame: "⭐⭐", recom: "⭐⭐", desc: "車站西口的小廣場，若遇早春可見特有品種玉繩櫻。", mapQuery: "玉縄桜広場" }
-            ]},
-            { time: "11:30", title: "大船仲通商店街", desc: "湘南的「阿美橫町」。生鮮蔬果、平價熟食極具市井氣息。", map: "大船仲通り商店街", nearby: [
-                { name: "鈴木水產 大船店", dist: "50m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "商店街靈魂店鋪！一樓賣新鮮漁獲，二樓提供高CP值海鮮定食。", mapQuery: "鈴木水産 大船店" },
-                { name: "CALVA 麵包店", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "百名店常客，法式長棍與可頌極為出色，適合買作明早點心。", mapQuery: "ブーランジュリー カルヴァ" },
-                { name: "湘南大眾肉割烹", dist: "150m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "主打平價高品質肉類料理，適合想大口吃肉的午餐時光。", mapQuery: "湘南大衆肉割烹 茅ヶ崎" },
-                { name: "千里飯店", dist: "100m", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "充滿昭和感的町中華料理，炒飯與拉麵便宜大碗。", mapQuery: "千里飯店 大船" },
-                { name: "鎌倉野菜市場", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "專售在地小農種植的鎌倉蔬菜，色彩繽紛，是極佳的街拍題材。", mapQuery: "鎌倉市農協連即売所 大船" }
-            ]},
-            { time: "14:00", title: "大船 OS Drug 藥妝必買", desc: "將重點清單在此買齊，價格實惠，買完搭 JR 放回飯店。", map: "OS Drug 大船店", nearby: [
-                { name: "大國藥妝 大船店", dist: "20m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若 OS 缺貨，可直接至對面大國比價補齊，這間常有中文店員。", mapQuery: "ダイコクドラッグ 大船駅前店" },
-                { name: "松本清 大船 Lumine店", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "價格雖不如 OS，但專櫃化妝品與新款保養品種類最齊全。", mapQuery: "マツモトキヨシ 大船ルミネウィング店" },
-                { name: "DAISO 大船店", dist: "100m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "補給旅行分裝罐、暖暖包或文具的大型百元店。", mapQuery: "ダイソー 大船店" },
-                { name: "鳴門鯛燒本舖", dist: "50m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "採用「一丁烤」傳統技法的鯛魚燒，薄脆外皮搭十勝紅豆絕配。", mapQuery: "鳴門鯛焼本舗 大船店" },
-                { name: "星巴克 大船店", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "採買完若需歇腳整理清單，這是最舒適且附插座的選擇。", mapQuery: "スターバックス 大船ルミネウィング店" }
-            ]}
+            { 
+                time: "09:30", 
+                title: "大船觀音寺", 
+                img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=800&q=80", 
+                desc: "搭 JR 一站到大船，仰望山丘頂純白祥和的巨型觀音像，感受冬日清晨平靜。", 
+                map: "大船観音寺", 
+                transportGuide: [
+                    "🚆【JR 路線】：藤澤站 ➔ 大船站（JR 東海道線或橫須賀線皆可，僅需 4 分鐘）。",
+                    "🚶【西口出口】：出大船站西口過柏尾川步道，沿斜坡步行約 5 分鐘抵達山門。"
+                ],
+                nearby: [
+                    { name: "大船 Lumine Wing", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站共構商場，伴手禮與甜點選擇極多，適合回程採買。", mapQuery: "大船ルミネウィング" },
+                    { name: "龍寶寺", dist: "1.5km", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "竹林古樹環繞的禪宗寺廟，遊客罕至，冬景幽靜肅穆。", mapQuery: "龍宝寺 鎌倉" },
+                    { name: "石刈 炭火串燒・海鮮 (Google 3.8★)", dist: "350m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【大船隱密日料】當地居民喜愛的居酒屋定食，午間刺身套餐新鮮厚切、CP值高。", mapQuery: "石刈 大船" }
+                ]
+            },
+            { 
+                time: "11:30", 
+                title: "大船仲通商店街", 
+                desc: "湘南的「阿美橫町」。生鮮蔬果、平價炸物與市井熟食氣息濃烈。", 
+                map: "大船仲通り商店街", 
+                nearby: [
+                    { name: "鈴木水產 大船店", dist: "50m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "商店街靈魂店鋪！一樓賣新鮮漁獲，二樓提供高CP值海鮮握壽司。", mapQuery: "鈴木水産 大船店" },
+                    { name: "CALVA 麵包店", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "百名店常客，法式長棍與可頌極為出色，適合買作點心。", mapQuery: "ブーランジュリー カルヴァ" },
+                    { name: "千里飯店 (Google 3.7★)", dist: "100m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【昭和風町中華】份量十足的大船老字號，餛飩麵湯頭清爽、半炒飯香氣四溢不用等。", mapQuery: "千里飯店 大船" },
+                    { name: "鞠屋 (Google 3.8★)", dist: "150m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【在地立吞居酒屋】站著吃的小酒館，招牌燉牛筋軟嫩入味，體驗道地庶民生活。", mapQuery: "鞠屋 大船" }
+                ]
+            },
+            { 
+                time: "14:00", 
+                title: "大船 OS Drug 藥妝必買", 
+                desc: "免稅藥妝清單在此比價補齊，不花俏且常有不可思議的超殺特價。", 
+                map: "OS Drug 大船店", 
+                nearby: [
+                    { name: "大國藥妝 大船店", dist: "20m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若 OS 缺貨，可直接至對面大國比價補齊。", mapQuery: "ダイコクドラッグ 大船駅前店" },
+                    { name: "鳴門鯛燒本舖", dist: "50m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "「一丁烤」傳統技法的鯛魚燒，薄脆外皮搭十勝紅豆絕配。", mapQuery: "鳴門鯛焼本舗 大船店" }
+                ]
+            }
         ]},
         { date: "12/15 (二)", id: "d3", project: 1, fullDate: "2026-12-15", events: [
-            { time: "09:00", title: "江之島全島深度徒步", img: "images/1215.webp", desc: "漫步弁天橋，開啟高低差路線：江島神社 ➔ 海蠟燭 ➔ 奧津宮。", map: "江島神社", nearby: [
-                { name: "青銅鳥居", dist: "10m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "江之島的歷史玄關，周圍商店街是使用長焦壓縮街景的好地點。", mapQuery: "江の島 青銅の鳥居" },
-                { name: "朝日堂 伊勢龍蝦仙貝", dist: "50m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "永遠在排隊的名店，現壓整隻龍蝦的超巨大仙貝，視覺效果強。", mapQuery: "あさひ本店" },
-                { name: "紀之國屋 女夫饅頭", dist: "100m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "現蒸熱騰騰的黑糖與白酒饅頭，散步時暖胃的最佳甜點。", mapQuery: "紀の国屋本店" },
-                { name: "兒玉神社", dist: "300m", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "紀念日俄戰爭將領兒玉源太郎，被森林包圍，遊客極少適合靜心。", mapQuery: "児玉神社" },
-                { name: "弁財天仲見世通", dist: "50m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "通往神社的必經參道，各式烤海鮮、吻仔魚小吃林立。", mapQuery: "江の島弁財天仲見世通り" }
-            ]},
-            { time: "10:30", title: "Sea Candle 海蠟燭", desc: "登塔俯瞰湘南海岸絕景。", map: "江の島シーキャンドル", nearby: [
-                { name: "Samuel Cocking 苑", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "海蠟燭所在的植物園，和洋折衷風格，冬季的鬱金香與燈飾極美。", mapQuery: "江の島サムエル・コッキング苑" },
-                { name: "龜之岡廣場", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "視野開闊的展望廣場，設有涼亭，是俯瞰相模灣的好位置。", mapQuery: "亀ヶ岡広場" },
-                { name: "江島神社 中津宮", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "鮮豔紅色的社殿，主祀祈求美麗與良緣的女神。", mapQuery: "江島神社 中津宮" },
-                { name: "龍戀之鐘", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "紀念天女與五頭龍愛情的聖地，掛滿祈願鎖，情侶必訪。", mapQuery: "龍恋の鐘" },
-                { name: "LONCAFE 江之島本店", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本第一家法式吐司專賣店，戶外座位可無死角看海。", mapQuery: "LONCAFE 湘南江の島本店" }
-            ]},
-            { time: "13:00", title: "稚兒之淵與岩屋", desc: "下探海蝕洞。這天走完一圈剛好維持日常 6 公里的紮實運動量。", map: "稚児ヶ淵", nearby: [
-                { name: "江之島岩屋", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "拿著蠟燭探索海蝕洞，內部供奉石佛，充滿神秘探險感。", mapQuery: "江の島岩屋" },
-                { name: "魚見亭", dist: "300m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "建在懸崖邊的140年老店，露台座位吃吻仔魚丼配無敵海景。", mapQuery: "魚見亭" },
-                { name: "富士見亭", dist: "350m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "同樣擁有絕佳海景的餐廳，江之島啤酒與烤海鮮是招牌。", mapQuery: "富士見亭" },
-                { name: "稚兒之淵夕陽觀景台", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "名列神奈川景勝50選，若遇退潮可走上海蝕平台近距離拍海浪。", mapQuery: "稚児ヶ淵" },
-                { name: "江島神社 奧津宮", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "祭祀海神的莊嚴本殿，天花板的「八方睨龜」畫作值得一看。", mapQuery: "江島神社 奥津宮" }
-            ]}
+            { 
+                time: "09:00", 
+                title: "江之島全島深度徒步", 
+                img: "https://images.unsplash.com/photo-1570459027562-4a916cc6113f?auto=format&fit=crop&w=800&q=80", 
+                desc: "漫步江之島弁天橋，依序登爬：江島神社 ➔ 邊津宮 ➔ 中津宮 ➔ 奧津宮。", 
+                map: "江島神社", 
+                transportGuide: [
+                    "🚊【江之電乘車】：藤澤站搭乘江之島電鐵（江之電）至「江之島站」（約11分）。",
+                    "🚶【徒步路徑】：出站穿過洲鼻通商店街，經地下地下道直上弁天橋步行入島（約15分）。"
+                ],
+                nearby: [
+                    { name: "青銅鳥居", dist: "10m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "江之島歷史起點，青銅銘刻沉澱江戶參拜風華。", mapQuery: "江の島 青銅の鳥居" },
+                    { name: "文佐食堂 (Google 3.8★)", dist: "450m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【島民口袋名單】避開觀光大道的小巷食堂，生吻仔魚與煮魚定食美味質樸，宛如日本奶奶的手路菜。", mapQuery: "文佐食堂 江の島" },
+                    { name: "紀之國屋 女夫饅頭", dist: "100m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "現蒸熱騰騰的黑糖與白酒饅頭，散步暖胃甜點。", mapQuery: "紀の国屋本店" }
+                ]
+            },
+            { 
+                time: "10:30", 
+                title: "Sea Candle 海蠟燭", 
+                desc: "登塔俯瞰相模灣與富士山天際線，園區冬季鬱金香花期與燈飾美不勝收。", 
+                map: "江の島シーキャンドル", 
+                nearby: [
+                    { name: "Samuel Cocking 苑", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "海蠟燭所在的植物園，和洋折衷風格。", mapQuery: "江の島サムエル・コッキング苑" },
+                    { name: "LONCAFE 江之島本店", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本第一家法式吐司專賣店，海景視野極佳。", mapQuery: "LONCAFE 湘南江の島本店" }
+                ]
+            },
+            { 
+                time: "13:00", 
+                title: "稚兒之淵與岩屋", 
+                desc: "下探海蝕平台，回程欣賞夕陽將海浪染金。全日高低差走完達 6 公里運動量。", 
+                map: "稚児ヶ淵", 
+                nearby: [
+                    { name: "見晴亭 (Google 3.9★)", dist: "250m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【懸崖海景食堂】相較於超排隊的魚見亭，見晴亭人潮適中，海景同樣壯麗，吻仔魚雙拼丼極新鮮。", mapQuery: "見晴亭 江の島" },
+                    { name: "江之島岩屋", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "持燭台探索神秘海蝕洞窟。", mapQuery: "江の島岩屋" }
+                ]
+            }
         ]},
         { date: "12/16 (三)", id: "d4", project: 1, fullDate: "2026-12-16", events: [
             { 
                 time: "08:30", 
                 title: "小田原城：晨間歷史散策", 
-                img: "images/1216.webp", 
-                desc: "從小田原站步行10分即達。早晨光線柔和，最適合拍攝天守閣與白牆。登上頂樓可遠眺相模灣全景，視野極佳。", 
+                img: "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80", 
+                desc: "小田原站東口步行10分。清晨光線柔和，拍天守閣白牆與護城河倒影最美。", 
                 map: "小田原城",
                 transportGuide: [
-                    "🚆 搭乘【JR 東海道線】: 藤澤 ➔ 小田原 (約20-25分, ¥590)",
-                    "🚶 步行: 小田原站東口 ➔ 小田原城址公園 (約10分)"
+                    "🚆【JR 東海道線】：藤澤 ➔ 小田原 (約20-25分, ¥590)。",
+                    "🚶【步行】：小田原站東口直走，經城址公園大手門入城。"
                 ],
                 nearby: [
-                    { name: "Minaka 小田原", dist: "800m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站旁的江戶風情建築，3樓有免費足湯可泡，適合回程短暫休息。", mapQuery: "ミナカ小田原" },
-                    { name: "報德二宮神社", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "城內幽靜的神社，附設質感咖啡廳，是避開遊客人潮的攝影好點。", mapQuery: "報徳二宮神社" },
-                    { name: "小田原城址公園 護城河", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "16-300mm鏡頭大顯身手之處，可用長焦段拍攝紅橋與城牆的倒影。", mapQuery: "小田原城址公園" },
-                    { name: "鈴廣魚板博物館", dist: "搭車15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "名產魚板的歷史基地，可體驗製作，若對DIY感興趣可順遊。", mapQuery: "鈴廣かまぼこの里" },
-                    { name: "小田原漁港", dist: "搭車10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若想吃最鮮的海鮮丼，這裡比箱根山上更便宜划算。", mapQuery: "小田原漁港" }
+                    { name: "Minaka 小田原", dist: "800m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "車站旁的江戶風情建築，頂樓有免費足湯看海景與電車。", mapQuery: "ミナカ小田原" },
+                    { name: "鳥ぎん 小田原店 (Google 3.9★)", dist: "600m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【在地釜飯名店】在地老饕首選，炭火釜飯現點現炊，搭配香脆烤雞肉串，風味絕佳。", mapQuery: "鳥ぎん 小田原店" }
                 ]
             },
             { 
                 time: "11:30", 
-                title: "はつ花 蕎麥麵 (Hatsuhana Soba)", 
-                desc: "箱根湯本傳承80年的名店。招牌「自然薯蕎麥麵」口感細緻。建議在11:30前抵達以避開排隊人潮，獨旅者較易排到座位。", 
-                map: "はつ花そば 本店",
+                title: "箱根湯本與自然薯美食", 
+                desc: "箱根門戶散步，享用在地名產「自然薯山藥蕎麥麵」或老字號溫泉饅頭。", 
+                map: "箱根湯本駅",
                 transportGuide: [
-                    "🚆 搭乘【箱根登山鐵道】: 小田原 ➔ 箱根湯本 (約15分, ¥320)",
-                    "🚶 步行: 車站至本店約7分，過橋後的早川溪景非常美。"
+                    "🚆【箱根登山鐵道】：小田原 ➔ 箱根湯本 (約15分, ¥320)。"
                 ],
                 nearby: [
-                    { name: "箱根湯本商店街", dist: "100m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "出站即達，可一路試吃現烤溫泉饅頭，購買在地伴手禮首選。", mapQuery: "箱根湯本駅前商店街" },
-                    { name: "湯葉丼 直吉", dist: "300m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "若蕎麥麵排太長，這家汲取箱根清泉製作的豆皮丼是最佳B計畫。", mapQuery: "湯葉丼 直吉" },
-                    { name: "早川橋樑", dist: "2km", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影愛好者必訪，可在河岸拍攝登山電車行經古老鐵橋的經典畫面。", mapQuery: "早川橋梁" },
-                    { name: "菊川商店", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "現做的「箱根饅頭」，使用懷舊機器全自動生產，視覺與味覺雙享受。", mapQuery: "菊川商店" },
-                    { name: "萬葉之湯", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "若當天天氣太冷想取暖，這家日歸溫泉是箱根湯本最便利的選擇。", mapQuery: "箱根湯本温泉 万葉の湯" }
+                    { name: "山そば (Google 3.8★)", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【不用苦等兩小時的好選擇】比 Hatsuhana 翻桌率快，自慢的自然薯山藥泥蕎麥麵與天婦羅水準極佳。", mapQuery: "山そば 箱根湯本" },
+                    { name: "菊川商店", dist: "150m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "現做熱騰騰卡斯特拉燒「箱根饅頭」。", mapQuery: "菊川商店" }
                 ]
             },
             { 
                 time: "13:45", 
                 title: "箱根神社：水上和平鳥居", 
-                desc: "矗立於蘆之湖中的紅色大鳥居是此行攝影重頭戲。漫步杉木林參道，感受神聖莊嚴的氛圍。", 
+                desc: "矗立於蘆之湖中的朱紅水中鳥居，杉木巨樹成蔭，沉澱心靈的靈力之森。", 
                 map: "箱根神社",
                 transportGuide: [
-                    "🚌 搭乘【箱根登山巴士 R線 (急行)】: 箱根湯本 ➔ 元箱根港 (約25分, ¥1,080)",
-                    "🚶 步行: 下車後沿湖濱步道走10分即可看到水中鳥居。"
+                    "🚌【箱根登山巴士 R線(急行)】：箱根湯本 ➔ 元箱根港 (約25分, ¥1,080)。下車步行10分至湖畔鳥居。"
                 ],
                 nearby: [
-                    { name: "元箱根港 湖畔步道", dist: "200m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "此處是拍攝「水中鳥居+富士山」同框的最佳視角，推薦使用長焦段。", mapQuery: "元箱根港" },
-                    { name: "成川美術館", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "美術館展望台擁有全箱根公認最美的「蘆之湖廣角窗景」，極力推薦。", mapQuery: "成川美術館" },
-                    { name: "Bakery & Table 箱根", dist: "400m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "一樓設有湖景足湯咖啡座，可買顆米粉咖哩麵包在此小憩。", mapQuery: "Bakery & Table 箱根" },
-                    { name: "箱根關所", dist: "步行15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "完全復原江戶時代的交通檢查哨，歷史氛圍濃厚，適合攝影。 ", mapQuery: "箱根関所" },
-                    { name: "九頭龍神社 新宮", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "位於箱根神社境內，主祀水神，其靈水泉可求緣與淨化心靈。", mapQuery: "九頭龍神社 新宮" }
+                    { name: "絹華 豆腐與甘味 (Google 3.9★)", dist: "500m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【蘆之湖隱密甜品】以箱根甘冽泉水手作的豆腐與豆乳布丁，濃郁滑順，適合參拜後歇腳。", mapQuery: "絹華 芦ノ湖" },
+                    { name: "元箱根港 湖畔步道", dist: "200m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "拍攝「水中鳥居+富士山」絕景視角。", mapQuery: "元箱根港" }
                 ]
             },
             { 
                 time: "15:20", 
-                title: "箱根海賊船：蘆之湖黃金航線", 
-                desc: "從元箱根港登船。12月中旬的午後，斜射光讓湖面波光粼粼。建議直奔甲板，拍攝海賊船航行與水中鳥居交會的絕美瞬間。", 
+                title: "箱根海賊船：黃金夕陽航線", 
+                desc: "從元箱根港登船航向桃源台，冬日斜陽倒映水波，富士山積雪如夢似幻。", 
                 map: "元箱根港",
                 transportGuide: [
-                    "⛴️ 搭乘【箱根觀光船】: 元箱根港 ➔ 桃源台 (約30分, ¥1,200)",
-                    "⚠️ 注意: 冬季末班船通常在15:20~16:00，請務必準時抵達。"
-                ],
-                nearby: [
-                    { name: "桃源台站 觀景台", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "船班抵達站。若天氣好，這裡看富士山非常巨大且壯觀。", mapQuery: "桃源台港" },
-                    { name: "大涌谷 (纜車銜接)", dist: "搭纜車20分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "若體力充裕可買單程票上去看地熱黑蛋，但12月風大且冷。", mapQuery: "大涌谷" },
-                    { name: "箱根空中纜車", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "從空中俯瞰蘆之湖全貌，即便只搭一站也能看見壯闊地景。", mapQuery: "箱根ロープウェイ 桃源台駅" },
-                    { name: "蘆之湖露營地", dist: "步行8分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "緊鄰桃源台，冬季清晨或傍晚常有湖面薄霧，是極佳的慢門攝影地。", mapQuery: "芦ノ湖キャンプ村" },
-                    { name: "回程指南(回藤澤)", dist: "小田原站", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "在桃源台搭巴士T線直達小田原(¥1250)，轉JR回藤澤(¥590)，最不費力。", mapQuery: "小田原駅" }
+                    "⛴️【箱根觀光船】：元箱根港 ➔ 桃源台 (約30分, ¥1,200)。",
+                    "🚌【快速返程回藤澤】：於桃源台搭巴士 T 線至小田原站(¥1250)，轉 JR 回藤澤最省體力。"
                 ]
             }
         ]},
         { date: "12/17 (四)", id: "d5", project: 1, fullDate: "2026-12-17", events: [
-            { time: "10:00", title: "藤澤宿歷史老街", img: "images/1217.webp", desc: "保留了古老酒造、百年米店的舊東海道驛站町。", map: "藤澤宿", nearby: [
-                { name: "藏 MAESTRO", dist: "200m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "由百年酒造改建的複合式畫廊與咖啡空間，建築結構充滿歷史感。", mapQuery: "蔵まえギャラリー" },
-                { name: "常光寺", dist: "500m", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "歷史悠久的靜謐寺院，境內的木雕與庭園極具禪意。", mapQuery: "常光寺 藤沢" },
-                { name: "傳義經首洗井", dist: "800m", fame: "⭐⭐", recom: "⭐⭐", desc: "源義經傳說的歷史遺跡，適合喜歡深度探索日本歷史的旅人。", mapQuery: "伝義経首洗井戸" },
-                { name: "江戶見附跡", dist: "400m", fame: "⭐⭐", recom: "⭐⭐", desc: "昔日藤澤宿的東側入口標誌，是東海道五十三次的重要節點。", mapQuery: "藤沢宿 江戸見附跡" },
-                { name: "關次商店 (百年米店)", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "保留明治時代黑漆喰外牆的古老米店，現有部分改作時髦麵包店。", mapQuery: "関次商店 パンの蔵 風見鶏" }
-            ]},
-            { time: "14:00", title: "龍口寺 (在地攝影)", desc: "江之島站旁木造古建築與五重塔，極具禪意。", review: "💡 攝影重點：適合用慢快門拍攝江之電電車穿梭於古寺門前的畫面。", map: "龍口寺", nearby: [
-                { name: "湘南江之島站", dist: "200m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "湘南單軌電車的起點，懸掛式設計能體驗雲霄飛車般的街景視角。", mapQuery: "湘南江の島駅" },
-                { name: "龍口明神社", dist: "搭車10分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "與江島神社有深厚淵源，祭祀五頭龍，是求緣與除厄的名社。", mapQuery: "龍口明神社" },
-                { name: "扇屋 (江之電最中)", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "店面直接鑲嵌真實的江之電舊車廂，販售特製造型的美味和菓子。", mapQuery: "扇屋 江ノ電もなか" },
-                { name: "滿福寺", dist: "600m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "源義經撰寫著名「腰越狀」的寺廟，內有許多相關歷史文物展出。", mapQuery: "満福寺" },
-                { name: "腰越漁港", dist: "800m", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "在地小漁港，早晨可見漁船卸下新鮮吻仔魚，傍晚夕陽極美。", mapQuery: "腰越漁港" }
-            ]}
+            { 
+                time: "10:00", 
+                title: "藤澤宿歷史老街", 
+                img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=80", 
+                desc: "舊東海道歷史巡禮，尋訪保留江戶漆喰牆面的百年老商號與老酒造。", 
+                map: "藤澤宿", 
+                nearby: [
+                    { name: "關次商店 パンの蔵 風見鶏", dist: "300m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "明治時代米穀老店改建的質感烘焙坊。", mapQuery: "関次商店 パンの蔵 風見鶏" },
+                    { name: "上州屋 烏龍麵 (Google 3.7★)", dist: "450m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【大份量在地老店】深受在地藍領與學生愛戴，手打烏龍麵極具勁道，炸豬排飯香酥多汁。", mapQuery: "上州屋 藤沢" }
+                ]
+            },
+            { 
+                time: "14:00", 
+                title: "龍口寺 (木造五重塔)", 
+                desc: "江之島站旁的莊嚴名剎，捕捉江之電路面電車從寺前木門緩緩穿梭的經典日式鏡頭。", 
+                map: "龍口寺", 
+                nearby: [
+                    { name: "かきや食堂 (Google 3.8★)", dist: "500m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【腰越漁港直送】文政年間創業的漁夫食堂，現炸竹莢魚酥脆無比、吻仔魚鮮甜無腥味。", mapQuery: "かきや本館 食堂部" },
+                    { name: "扇屋 (江之電最中)", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "店面鑲嵌真實江之電廢棄車頭的必訪和菓子老店。", mapQuery: "扇屋 江ノ電もなか" }
+                ]
+            }
         ]},
         { date: "12/18 (五)", id: "d6", project: 1, fullDate: "2026-12-18", events: [
-            { time: "10:00", title: "光明寺與材木座", img: "images/1218.webp", desc: "寧靜大寺院與在地人專屬的海濱散策。", map: "光明寺", nearby: [
-                { name: "和賀江島", dist: "800m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本現存最古老的人工港遺跡，退潮時才會露出海面的卵石步道。", mapQuery: "和賀江島" },
-                { name: "材木座海岸", dist: "300m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "相比由比濱更為靜謐，是欣賞海景、觀察海鳥與當地衝浪客的好地方。", mapQuery: "材木座海岸" },
-                { name: "九品寺", dist: "1km", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "由新田義貞建立的古寺，為了祭祀在鎌倉幕府滅亡戰役中的陣亡者。", mapQuery: "九品寺 鎌倉" },
-                { name: "補陀洛寺", dist: "1.2km", fame: "⭐⭐", recom: "⭐⭐", desc: "傳說源賴朝曾在此祈願，被稱為「龍捲寺」，極具歷史傳奇色彩。", mapQuery: "補陀洛寺 鎌倉" },
-                { name: "鎌倉海濱公園 (由比濱地區)", dist: "1.5km", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "有保存良好的舊型江之電江之電列車，是散步與休息的寬敞綠地。", mapQuery: "鎌倉海浜公園" }
-            ]},
-            { time: "14:00", title: "鵠沼海岸 ", desc: "當地居民遛狗、衝浪的聖地。", review: "💡 攝影重點：擁有平坦沙灘，拍攝「江之島 + 富士山」夕陽倒影的絕佳地。", map: "鵠沼海岸", nearby: [
-                { name: "新江之島水族館", dist: "1km", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "必看相模灣大水槽與夢幻的水母廳，是極佳的室內備用行程。", mapQuery: "新江ノ島水族館" },
-                { name: "湘南海岸公園", dist: "500m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "沿著海岸線延伸的長型公園，步道平坦，可吹海風看富士山。", mapQuery: "湘南海岸公園" },
-                { name: "鵠沼海濱公園 (滑板區)", dist: "800m", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "年輕人聚集的極限運動場，可捕捉充滿活力的街頭攝影畫面。", mapQuery: "鵠沼海浜公園 スケートパーク" },
-                { name: "埜庵 (天然冰刨冰)", dist: "步行15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "使用日光天然冰製作的神級刨冰店，即便冬天也大排長龍。", mapQuery: "埜庵" },
-                { name: "Mos Burger 江之島店", dist: "1km", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "擁有極佳海景的摩斯漢堡，想快速解決一餐兼看海的好選擇。", mapQuery: "モスバーガー 江ノ島店" }
-            ]}
+            { 
+                time: "10:00", 
+                title: "光明寺與材木座海岸", 
+                img: "https://images.unsplash.com/photo-1509024644558-2f56ce76c490?auto=format&fit=crop&w=800&q=80", 
+                desc: "光明寺寬廣的枯山水庭園，一路散步至靜謐的材木座，聽冬日海浪拍岸。", 
+                map: "光明寺", 
+                nearby: [
+                    { name: "海沿い キコリ食堂 (Google 3.9★)", dist: "400m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【無敵海景平價食堂】可看著海浪享用炭烤銀鮭定食與鎌倉蔬菜，座位舒適放鬆。", mapQuery: "キコリ食堂 鎌倉" },
+                    { name: "和賀江島", dist: "800m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本現存最古老的人工築港石堆遺跡。", mapQuery: "和賀江島" }
+                ]
+            },
+            { 
+                time: "14:00", 
+                title: "鵠沼海岸 (夕陽富士)", 
+                desc: "湘南海岸開闊沙灘，捕捉「江之島海蠟燭 + 富士山暮色倒影」的長焦攝影傑作。", 
+                map: "鵠沼海岸", 
+                nearby: [
+                    { name: "PCH Coffee (Google 3.9★)", dist: "350m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【海岸文青鬆餅】美式西海岸風小店，現烤舒芙蕾厚鬆餅蓬鬆細緻，海邊散步歇腳極佳。", mapQuery: "PCH Coffee 鵠沼海岸" },
+                    { name: "新江之島水族館", dist: "1km", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "相模灣大水槽與水母夢幻館。", mapQuery: "新江ノ島水族館" }
+                ]
+            }
         ]},
         { date: "12/19 (六)", id: "d7", project: 2, fullDate: "2026-12-19", events: [
-            { time: "10:00", title: "東京站", img: "images/1219.webp", desc: "從藤澤搭乘 JR 上野東京線/東海道線直達東京車站。", map: "東京駅", nearby: [
-                { name: "東京車站一番街", dist: "站內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "集結拉麵街、動漫角色街與各家零食大廠概念店，極度好逛。", mapQuery: "東京駅一番街" },
-                { name: "丸之內站舍 (紅磚建築)", dist: "出站即達", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "修復後的壯麗歐風車站外觀，是來東京必拍的經典地標。", mapQuery: "東京駅 丸の内駅舎" },
-                { name: "皇居外苑", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "廣闊的碎石步道與黑松林，可拍攝著名的二重橋與護城河。", mapQuery: "皇居外苑" },
-                { name: "KITTE 丸之內", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "由舊郵局改建，中庭設計極美，頂樓花園可俯瞰新幹線進出。", mapQuery: "KITTE丸の内" },
-                { name: "大丸百貨 東京店", dist: "站內", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "地下街便當與甜點陣容全東京最強，適合買回飯店享用。", mapQuery: "大丸東京店" }
-            ]},
-            { time: "12:35", title: "✈️ CI104 航班起飛", desc: "家人於桃園機場出發。", checkInNote: "去程航班報到" },
-            { time: "16:35", title: "家人抵達 NRT T2", desc: "通關並領取行李。", map: "成田空港第2ターミナル", nearby: [
-                { name: "免稅店 AKIHABARA", dist: "出關前", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "主要伴手禮如白色戀人、薯條三兄弟皆可在此一次購足。", mapQuery: "成田空港 免税店 AKIHABARA" },
-                { name: "成田機場 扭蛋專區", dist: "B1", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "擁有上百台扭蛋機，是用掉零錢與殺時間的最佳區域。", mapQuery: "成田空港 ガチャガチャ" },
-                { name: "Pokemon Store", dist: "4F", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "販售機長造型皮卡丘等機場限定商品，小孩最愛。", mapQuery: "ポケモンストア 成田空港店" },
-                { name: "Blue Bottle Coffee", dist: "T2", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "通關前若需提神，這是一杯高質感手沖咖啡的好選擇。", mapQuery: "ブルーボトルコーヒー 成田" },
-                { name: "T2 觀景台", dist: "4F", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "寬敞的戶外平台，可近距離觀看飛機起降，適合長輩活動筋骨。", mapQuery: "成田空港 第2ターミナル 見学デッキ" }
-            ]},
-            { time: "17:30", title: "搭 Airport Bus TYO-NRT", suitable: ['senior', 'kid'], desc: "搭「 Airport Bus TYO-NRT」前往東京車站（八重洲口）。免去搬運擠電車。", map: "東京駅" },
-            { time: "18:50", title: "東橫 INN 東京站新大橋前", desc: "抵達東京站後，轉乘接駁車前往【東橫 INN 東京站新大橋前】。", supermarkets: [
-                { name: "🛒 Peacock Store Hamacho", meta: "距離近且規模較大，生鮮食品、熟食、便當種類豐富，適合補貨", map: "Peacock Store Hamacho (ピーコックストア 浜町店)" },
-                { name: "🛒 Peacock Store 濱町店", meta: "在地熟食區表現優秀", map: "ピーコックストア トルナーレ日本橋浜町店" }
-            ], nearby: [
-                { name: "東橫 INN 東京站新大橋前接駁車", dist: "步行35分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "認明「淺藍色」且印有 「東橫 INN (Toyoko Inn)」 字樣的小巴士", mapQuery: "35.680016, 139.769449" },
-                { name: "濱町公園", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "隅田川畔的大型綠地，設有兒童遊具，適合飯後全家散步。", mapQuery: "浜町公園" },
-                { name: "明治座", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "歷史悠久的傳統劇場，建築外觀氣派，周邊常有特產小攤。", mapQuery: "明治座" },
-                { name: "水天宮", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "著名的安產與求子神社，現代化建築配有防震設施，相當特別。", mapQuery: "水天宮" },
-                { name: "人形町今半 惣菜店", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "頂級壽喜燒老店的外帶部門，必買現炸的極品牛肉可樂餅。", mapQuery: "人形町今半 惣菜" },
-                { name: "柳屋 鯛魚燒", dist: "步行12分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "東京三大鯛魚燒之一，外皮薄脆帶焦香，內餡飽滿不甜膩。", mapQuery: "柳屋 鯛焼き" }
-            ]}
+            { 
+                time: "10:00", 
+                title: "東京站丸之內迎賓", 
+                img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", 
+                desc: "獨旅先發抵達東京站。在紅磚站舍前拍攝冬日暖陽，隨後前往成田會合家人。", 
+                map: "東京駅", 
+                transportGuide: [
+                    "🚆【藤澤至東京】：搭乘 JR 上野東京線/東海道線，直達東京車站（約 50 分鐘，免換車）。"
+                ],
+                nearby: [
+                    { name: "豚大學 東京站店 (Google 3.9★)", dist: "站內地下", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【狂暴炭烤燒肉丼】現點現烤的大片醬汁豬肉片層層疊起如花朵，香脆焦香，快速省時。", mapQuery: "豚大学 新橋 (或八重洲地下街周邊)" },
+                    { name: "KITTE 丸之內", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "舊郵局改建，6樓露天花園可俯瞰新幹線與紅磚全景。", mapQuery: "KITTE丸の内" }
+                ]
+            },
+            { time: "12:35", title: "✈️ 家人班機 CI104 台北起飛", desc: "家人由桃園機場 T2 搭乘中華航空 CI104 起飛，預計航程 3 小時。", checkInNote: "桃園機場起飛報到" },
+            { 
+                time: "16:35", 
+                title: "家人抵達 NRT T2 會合", 
+                desc: "入境通關，領取行李，更換日本 eSIM / 漫遊網卡。", 
+                map: "成田空港第2ターミナル",
+                nearby: [
+                    { name: "免稅店 AKIHABARA", dist: "航廈內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "常備伴手禮一覽無遺。", mapQuery: "成田空港 免税店 AKIHABARA" }
+                ]
+            },
+            { 
+                time: "17:30", 
+                title: "搭乘 TYO-NRT 機場高速巴士", 
+                suitable: ['senior', 'kid'], 
+                desc: "直達東京車站（八重洲口）。全平坦直上直下，免去拖著大行李箱擠電車的疲累！", 
+                map: "東京駅",
+                transportGuide: [
+                    "🚌【搭車地點】：成田二航廈 1 樓入境大廳 6 號或 16 號乘車處。",
+                    "🎟️【購票便利】：票價 ¥1,300（小孩半價），可直接刷 Suica/IC 卡上車，約 65-75 分鐘抵達東京站八重洲口。"
+                ]
+            },
+            { 
+                time: "18:50", 
+                title: "東橫 INN 東京站新大橋前 入住", 
+                desc: "搭乘接駁車入住飯店。周邊生活圈為寧靜雅緻的人形町/濱町。", 
+                supermarkets: [
+                    { name: "🛒 Peacock Store Hamacho", meta: "步行 3 分鐘，生鮮水果、熟食便當豐富", map: "ピーコックストア トルナーレ日本橋浜町店" }
+                ],
+                nearby: [
+                    { name: "人形町今半 濱町惣菜店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "黑毛和牛壽喜燒老店的外帶部！極品現炸牛肉可樂餅是今晚消夜首選。", mapQuery: "人形町今半 惣菜 浜町" },
+                    { name: "松月 蕎麥麵 (Google 3.8★)", dist: "步行4分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【社區鄰里老麵店】濱町安靜巷弄裡的家庭式蕎麥麵，熱騰騰的鍋燒烏龍與咖哩南蠻麵最適合長輩入夜暖身。", mapQuery: "松月 日本橋浜町" },
+                    { name: "水天宮", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "免爬樓梯的全平坦防震神社，夜間點燈靜謐高雅。", mapQuery: "水天宮" }
+                ]
+            }
         ]},
         { date: "12/20 (日)", id: "d8", project: 2, fullDate: "2026-12-20", events: [
-            { time: "09:30", title: "豪德寺拍招財貓", suitable: ['senior', 'kid'], img: "images/1220.webp", desc: "探訪招財貓發源地。平坦動線好走，充滿貓咪元素。", map: "豪徳寺", nearby: [
-                { name: "白髭泡芙工房", dist: "搭車15分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "吉卜力唯一官方授權，極致可愛的龍貓造型泡芙，需預約。", mapQuery: "白髭のシュークリーム工房" },
-                { name: "世田谷線 路面電車", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "東京唯二的路面電車，偶爾可搭到可愛的招財貓彩繪列車。", mapQuery: "東急世田谷線 宮の坂駅" },
-                { name: "松陰神社", dist: "搭車10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "祭祀幕末思想家吉田松陰，學業成就名社，周邊文青小店多。", mapQuery: "松陰神社" },
-                { name: "招福貓奉納所", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "豪德寺內最震撼的區域，擺滿上千隻還願的招財貓，必拍。", mapQuery: "豪徳寺 招福猫奉納所" },
-                { name: "豪德寺商店街", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "從車站延伸至寺廟的街道，處處藏有貓咪裝飾，氣氛悠閒。", mapQuery: "豪徳寺商店街" }
-            ]},
-            { time: "13:00", title: "增上寺", suitable: ['senior'], desc: "與東京鐵塔同框的最佳攝影點。", map: "增上寺", nearby: [
-                { name: "芝公園", dist: "步行2分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "日本最古老公園之一，寬闊草坪是拍攝東京鐵塔全景的最佳位置。", mapQuery: "芝公園" },
-                { name: "舊芝離宮恩賜庭園", dist: "步行15分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "被現代高樓包圍的經典江戶時代大名庭園，衝突美感強烈。", mapQuery: "旧芝離宮恩賜庭園" },
-                { name: "芝丸山古墳", dist: "步行5分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "位於芝公園內的東京都最大前方後圓墳，周圍樹林茂密。", mapQuery: "芝丸山古墳" },
-                { name: "增上寺寶物展示室", dist: "0m", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "展示德川將軍家相關文物及二代將軍靈廟的精美模型。", mapQuery: "増上寺 宝物展示室" },
-                { name: "芝東照宮", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "祭祀德川家康，境內有棵由家康親手種植的巨大銀杏神木。", mapQuery: "芝東照宮" }
-            ]},
-            { time: "15:00", title: "東京鐵塔", suitable: ['senior', 'kid'], desc: "長輩可直接搭乘電梯輕鬆上樓，在觀景台分流會合。", map: "東京タワー", nearby: [
-                { name: "Red° Tokyo Tower", dist: "塔內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本最大規模電子競技與VR遊樂園，小孩與年輕人會瘋狂。", mapQuery: "RED° TOKYO TOWER" },
-                { name: "芝豆腐屋 UKAI", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "鐵塔下的頂級豆腐懷石料理，日式庭園極美，需提前預訂。", mapQuery: "東京 芝 とうふ屋うかい" },
-                { name: "麻布台 Hills", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "東京最新地標，建築設計前衛，頂樓觀景台可平視東京鐵塔。", mapQuery: "麻布台ヒルズ" },
-                { name: "神谷町站周邊", dist: "步行8分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "辦公區，有許多質感咖啡廳與連鎖餐飲，是避開人潮用餐的好去處。", mapQuery: "神谷町駅" },
-                { name: "鐵塔戶外樓梯", dist: "塔內", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "600階的挑戰，爬完可獲得官方證書，天氣好時非常值得體驗。", mapQuery: "東京タワー オープンエアー外階段" }
-            ]}
+            { 
+                time: "09:30", 
+                title: "豪德寺拍招財貓", 
+                suitable: ['senior', 'kid'], 
+                img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80", 
+                desc: "參訪招財貓傳說發源地，境內上千隻白貓排開超震撼，全境平坦無階梯好推車。", 
+                map: "豪徳寺", 
+                transportGuide: [
+                    "🚇【地鐵轉乘】：從飯店步行至【水天宮前站】搭半藏門線直通三軒茶屋，轉乘可愛路面電車【東急世田谷線】至「宮之坂站」，步行 5 分鐘抵達。",
+                    "💡【無障礙亮點】：世田谷線為低底盤電車，嬰兒車與長輩推車上落完全無障礙。"
+                ],
+                nearby: [
+                    { name: "福室庵 蕎麥麵 (Google 3.8★)", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【豪德寺貓咪蕎麥麵】老店自製招牌「招福蕎麥麵」，放上招財貓圖案魚板與酥脆天婦羅，孩子超喜歡。", mapQuery: "福室庵 豪徳寺" },
+                    { name: "東急世田谷線 貓咪彩繪電車", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "幸運時可搭乘到貓咪把手與貓臉車頭的限定列車。", mapQuery: "宮の坂駅" }
+                ]
+            },
+            { 
+                time: "13:00", 
+                title: "增上寺與東京鐵塔同框", 
+                suitable: ['senior'], 
+                desc: "德川將軍家靈廟，大殿朱紅漆柱與後方宏偉東京鐵塔交錯，最具江戶與現代張力的視角。", 
+                map: "増上寺", 
+                transportGuide: [
+                    "🚇【地鐵路線】：搭乘都營三田線至【芝公園站】或【御成門站】，A1出口步行僅需 3 分鐘。"
+                ],
+                nearby: [
+                    { name: "芝 大門更科布屋 (Google 3.7★)", dist: "步行4分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【兩百年更科白蕎麥】大門老字號，純白細緻的三色蕎麥麵搭微甜高湯，清淡軟糯適合長輩胃口。", mapQuery: "更科布屋 本店 大門" },
+                    { name: "芝公園 4號地林蔭步道", dist: "步行2分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "拍攝東京鐵塔由銀杏樹冠中拔地而起的最美無人私房角度。", mapQuery: "芝公園 4号地" }
+                ]
+            },
+            { 
+                time: "15:00", 
+                title: "東京鐵塔觀景台", 
+                suitable: ['senior', 'kid'], 
+                desc: "搭乘全透明景觀電梯登上 Main Deck 展望台，眺望富士山夕照與東京市街黃昏點燈。", 
+                map: "東京タワー", 
+                nearby: [
+                    { name: "TOCORO 漢堡排 (Google 3.9★)", dist: "步行7分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【鐵塔下在地和牛洋食】隱密家庭料理，現拍多汁黑毛和牛漢堡排搭半熟蛋，環境清幽避開排隊群眾。", mapQuery: "TOCORO 神谷町" },
+                    { name: "麻布台 Hills 中央廣場", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "最新地標花園漫步，充滿前衛藝術感與戶外休息座位。", mapQuery: "麻布台ヒルズ" }
+                ]
+            }
         ]},
         { date: "12/21 (一)", id: "d9", project: 2, fullDate: "2026-12-21", events: [
-            { time: "09:30", title: "【A組】teamLab 豐洲", suitable: ['kid'], img: "images/1221.webp", desc: "新潮體驗：沉浸式藝術展 ➔ 豐洲市場吃海鮮。", map: "teamLab Planets TOKYO", nearby: [
-                { name: "豐洲 千客萬來", dist: "搭車10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "全新開幕！重現江戶風情的美食街與溫泉設施，超好逛。", mapQuery: "豊洲 千客万来" },
-                { name: "豐洲市場", dist: "搭車10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "取代築地的海鮮重鎮，壽司大、大和壽司等名店皆在此。", mapQuery: "豊洲市場" },
-                { name: "LaLaport 豐洲", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "超大型海濱購物中心，內有KidZania適合孩童職業體驗。", mapQuery: "アーバンドック ららぽーと豊洲" },
-                { name: "豐洲公園", dist: "步行12分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "面海的大型親子公園，擁有豐富的遊具與寬闊的海濱步道。", mapQuery: "豊洲公園" },
-                { name: "瓦斯科學館", dist: "步行15分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "免費的寓教於樂設施，透過互動遊戲了解能源知識。", mapQuery: "がすてなーに ガスの科学館" }
-            ]},
-            { time: "09:30", title: "【B組】柴又老街", suitable: ['senior'], desc: "長輩最愛：懷舊昭和風景、和菓子與帝釋天木雕寺廟。", map: "柴又帝釈天", nearby: [
-                { name: "高木屋老舖", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "《男人真命苦》電影取景地，必吃熱呼呼的艾草烤糰子。", mapQuery: "高木屋老舗" },
-                { name: "柴又車站 寅次郎銅像", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "一出站就能看到的經典地標，重現電影主角離鄉的感動場景。", mapQuery: "フーテンの寅像" },
-                { name: "矢切之渡", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "東京唯一保留的傳統人力渡船，緩慢渡過江戶川，非常有詩意。", mapQuery: "矢切の渡し" },
-                { name: "山本亭", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "融合和洋風格的歷史建築，其純日式庭園曾獲美國雜誌高度評價。", mapQuery: "山本亭" },
-                { name: "寅次郎紀念館", dist: "步行8分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "完整重現昭和時代電影場景與片場，長輩絕對會充滿共鳴。", mapQuery: "葛飾柴又寅さん記念館" }
-            ]},
-            { time: "15:00", title: "銀座一站式採購", suitable: ['senior'], desc: "前往逛 LOFT、UNIQLO。室內逛街有冷氣與座位，對長輩友善。", map: "ユニクロ 銀座店", nearby: [
-                { name: "銀座 伊東屋 ITOYA", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "擁有百年歷史的文具旗艦店，12層樓各有主題，文具控天堂。", mapQuery: "銀座 伊東屋 本店" },
-                { name: "歌舞伎座", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本傳統藝能聖地，外觀氣派，即使不看戲也可逛B1伴手禮區。", mapQuery: "歌舞伎座" },
-                { name: "無印良品 銀座旗艦店", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "全球最大規模，包含生鮮超市、烘焙坊與 MUJI Diner。", mapQuery: "無印良品 銀座" },
-                { name: "銀座和光鐘樓", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "銀座最具代表性的地標，位於四丁目交叉口，夜間點燈極具質感。", mapQuery: "和光 本館" },
-                { name: "鳩居堂 銀座本店", dist: "步行4分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "專賣高級和紙、線香與傳統書法用品的老店，極具日本文化氣息。", mapQuery: "東京鳩居堂 銀座本店" }
-            ]}
+            { 
+                time: "09:30", 
+                title: "【A組】teamLab Planets 豐洲", 
+                suitable: ['kid'], 
+                img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80", 
+                desc: "赤腳涉水走入光影錦鯉水池、沉浸於水晶宇宙光束，震撼感官的互動科技美術館。", 
+                map: "teamLab Planets TOKYO", 
+                transportGuide: [
+                    "🚝【百合鷗號】：搭至【新豐洲站】出站步行 1 分鐘即達，全線有無障礙電梯與平整通道。"
+                ],
+                nearby: [
+                    { name: "豐洲 千客萬來", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "江戶風情美食街與免費景觀足湯。", mapQuery: "豊洲 千客万来" },
+                    { name: "つきじ喜代村 豐洲店 (Google 3.8★)", dist: "千客萬來內", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【免排大隊的海鮮手握】壽司三昧旗下的新鮮保證，油脂均勻的鮪魚大腹與海膽手卷快速享用。", mapQuery: "すしざんまい 豊洲" }
+                ]
+            },
+            { 
+                time: "09:30", 
+                title: "【B組】柴又帝釋天與老街", 
+                suitable: ['senior'], 
+                desc: "昭和懷舊長青行程：慢步百年木雕殿堂、穿梭草餅香氣四溢的參道，品味下町溫情。", 
+                map: "柴又帝釈天", 
+                transportGuide: [
+                    "🚆【京成金町線】：搭乘至【柴又站】，出站即為平坦老街參道，步速緩慢舒適。"
+                ],
+                nearby: [
+                    { name: "門前 とらや (Google 3.8★)", dist: "老街內", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【男人真命苦老舖】坐在榻榻米上享用現烤微焦艾草草餅 (草だんご) 與熱焙茶，下町風情濃厚。", mapQuery: "柴又 とらや" },
+                    { name: "山本亭", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "曾名列全日本前三名的純和風書院造庭園，環境極靜謐。", mapQuery: "山本亭" }
+                ]
+            },
+            { 
+                time: "15:00", 
+                title: "銀座一站式溫暖採購", 
+                suitable: ['senior'], 
+                desc: "全室內無障礙逛街：UNIQLO 12層旗艦館、銀座伊東屋文具、LOFT 生活選品。", 
+                map: "ユニクロ 銀座店", 
+                transportGuide: [
+                    "🚇【地鐵路線】：銀座線/日比谷線至【銀座站】A2 出口，沿中央通漫步。"
+                ],
+                nearby: [
+                    { name: "銀座 篝 總店 (排隊備案) ➔ 篝旁 銀座佐藤 (Google 3.8★)", dist: "步行3分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【在地隱密洋食牛排】若排隊名店大排長龍，轉角由老師傅掌杓的嫩煎牛排與漢堡排定食滋味絕妙又安靜。", mapQuery: "銀座 ステーキハウス 佐藤" },
+                    { name: "木村家 紅豆麵包總店", dist: "步行4分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "酒種紅豆麵包創始店，買剛出爐的酒種櫻花紅豆麵包當下午點心。", mapQuery: "銀座木村家 本店" }
+                ]
+            }
         ]},
         { date: "12/22 (二)", id: "d10", project: 2, fullDate: "2026-12-22", events: [
-            { time: "10:00", title: "墨田北齋美術館", suitable: ['senior'], img: "images/1222.webp", desc: "室內展覽動線友善，欣賞浮世繪大師作品。", map: "すみだ北斎美術館", nearby: [
-                { name: "兩國國技館", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "大相撲比賽的聖地，周邊滿是相撲火鍋餐廳，建築氣勢磅礴。", mapQuery: "両国国技館" },
-                { name: "舊安田庭園", dist: "步行12分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "小巧精緻的池泉回遊式庭園，背景借景晴空塔，免費開放。", mapQuery: "旧安田庭園" },
-                { name: "兩國江戶 NOREN", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "與車站共構，內部重現江戶時代街景，中央還有一座實體相撲土俵。", mapQuery: "両国江戸NOREN" },
-                { name: "回向院", dist: "步行15分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "祭祀明曆大火罹難者，境內有鼠小僧次郎吉之墓（敲碎墓石求好運）。", mapQuery: "回向院" },
-                { name: "橫網町公園", dist: "步行12分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "紀念關東大地震與東京大轟炸的慰靈公園，歷史意義深遠。", mapQuery: "横網町公園" }
-            ]},
-            { time: "13:00", title: "敘敘苑燒肉 (晴空塔)", suitable: ['senior'], desc: "享用高空景觀燒肉套餐。坐擁無敵美景，長輩入座極舒適。", map: "叙々苑 東京スカイツリータウン", nearby: [
-                { name: "墨田水族館", dist: "塔內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "位於晴空塔內，開放式企鵝池與夢幻金魚展示區極具視覺震撼。", mapQuery: "すみだ水族館" },
-                { name: "十間橋", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影愛好者必訪！水面平靜時可拍出完美無缺的「逆櫻花塔」。", mapQuery: "十間橋" },
-                { name: "郵政博物館", dist: "塔內", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "展出世界各地的珍貴郵票，門票便宜，是避開人潮的好選擇。", mapQuery: "郵政博物館" },
-                { name: "橡子共和國 晴空塔店", dist: "塔內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "超大型吉卜力專賣店，門口有巨大的龍貓與貓巴士可合影。", mapQuery: "どんぐり共和国 東京スカイツリータウン・ソラマチ店" },
-                { name: "Solamachi 商店街", dist: "塔內", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "超過300家店鋪，伴手禮、限定甜點與各式雜貨絕對買不完。", mapQuery: "東京ソラマチ" }
-            ]},
-            { time: "15:30", title: "淺草寺參拜", desc: "散步至雷門。傍晚點燈後人潮較少，氣氛絕佳。", map: "浅草寺", nearby: [
-                { name: "淺草文化觀光中心", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "8樓免費觀景台是俯瞰仲見世通與晴空塔全景的頂級攝影點。", mapQuery: "浅草文化観光センター" },
-                { name: "仲見世通商店街", dist: "0m", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "日本最古老的商店街之一，人形燒、仙貝與各式和風小物林立。", mapQuery: "仲見世通り" },
-                { name: "傳法院通", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "重現江戶風貌的復古街道，屋頂上藏有白浪五人男的雕像。", mapQuery: "伝法院通り" },
-                { name: "淺草花月堂", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日賣三千個的巨無霸菠蘿麵包，外酥內軟，旁邊的風車牆很好拍。", mapQuery: "浅草花月堂 本店" },
-                { name: "隅田公園", dist: "步行8分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "沿著隅田川的帶狀公園，漫步江畔賞晴空塔與穿梭的遊船。", mapQuery: "隅田公園" }
-            ]}
+            { 
+                time: "10:00", 
+                title: "墨田北齋美術館", 
+                suitable: ['senior'], 
+                img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80", 
+                desc: "妹島和世設計之幾何銀白名建築。室內空調宜人，近距離鑑賞《富嶽三十六景》浮世繪原稿。", 
+                map: "すみだ北斎美術館", 
+                transportGuide: [
+                    "🚇【都營大江戶線】：搭至【兩國站】A3 出口步行 5 分鐘，沿途皆為平順步道。"
+                ],
+                nearby: [
+                    { name: "下町食堂 はせ川 (Google 3.9★)", dist: "步行4分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【兩國在地豬排極品】兩國上班族公認肉質最好的炸里肌豬排，低溫慢炸多汁粉嫩，排隊人潮遠少於觀光名店。", mapQuery: "とんかつ はせ川 両国" },
+                    { name: "舊安田庭園", dist: "步行8分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "心字池迴遊式日式庭園，免費入場，拍倒影借景晴空塔。", mapQuery: "旧安田庭園" }
+                ]
+            },
+            { 
+                time: "13:00", 
+                title: "敘敘苑燒肉 (晴空塔 30F)", 
+                suitable: ['senior'], 
+                desc: "坐擁 150 米高空壯麗市景，享用頂級牛五花與泡菜午間套餐。全包廂沙發座，長輩極為放鬆。", 
+                map: "叙々苑 東京スカイツリータウン", 
+                nearby: [
+                    { name: "墨田水族館", dist: "晴空塔5F", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "無異味的室內水族館，近距離觀賞企鵝餵食與夢幻金魚展。", mapQuery: "すみだ水族館" },
+                    { name: "十間橋", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "攝影愛好者拍攝水面平靜「完整逆晴空塔」的知名打卡橋樑。", mapQuery: "十間橋" }
+                ]
+            },
+            { 
+                time: "15:30", 
+                title: "淺草寺參拜與雷門", 
+                desc: "穿過雷門參道，祈求全家安康。傍晚朱紅五重塔點燈後人潮漸退，下町夜景氣氛滿分。", 
+                map: "浅草寺", 
+                transportGuide: [
+                    "🚇【晴空塔至淺草】：搭乘東武晴空塔線僅 1 站（3分鐘）直達淺草站；或搭乘都營淺草線（押上 ➔ 淺草）。"
+                ],
+                nearby: [
+                    { name: "生駒軒 町中華 (Google 3.8★)", dist: "步行6分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【在地老饕避開雷門人潮】淺草街坊的家常中華料理，酥脆手工煎餃、炒豆芽菜與醬油拉麵暖心平價。", mapQuery: "生駒軒 浅草" },
+                    { name: "弁天 蕎麥麵 (Google 3.9★)", dist: "步行4分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【淺草百年麵香】蛤蜊蕎麥麵與鴨肉蒸籠麵湯底鮮醇無比，是在地居民私藏的老字號好店。", mapQuery: "弁天 浅草" },
+                    { name: "淺草文化觀光中心 8F", dist: "雷門正對面", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "隈研吾設計建築，8樓免費觀景露台居高臨下俯瞰仲見世通。", mapQuery: "浅草文化観光センター" }
+                ]
+            }
         ]},
         { date: "12/23 (三)", id: "d11", project: 2, fullDate: "2026-12-23", events: [
-            { time: "09:30", title: "舊岩崎宅邸庭園", suitable: ['senior'], img: "images/1223.webp", desc: "保留完整洋式與日式和館，步調非常悠閒的大正浪漫風情。", map: "旧岩崎邸庭園", nearby: [
-                { name: "不忍池", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "冬季可見大批候鳥棲息，中央有八角形的弁天堂可參拜祈福。", mapQuery: "不忍池" },
-                { name: "湯島天滿宮", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "關東著名學問之神，考生必拜。境內梅園在冬末春初極美。", mapQuery: "湯島天満宮" },
-                { name: "東京大學 赤門", dist: "步行12分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "東大的象徵性大門，重要文化財，校園內充滿濃厚學術氣息。", mapQuery: "東京大学 赤門" },
-                { name: "橫山大觀紀念館", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "日本畫大師故居，保留了珍貴的畫室與傳統日式庭園。", mapQuery: "横山大観記念館" },
-                { name: "上野恩賜公園", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "占地廣闊，園內隨處可見街頭藝人與大師級雕像，適合長輩慢走。", mapQuery: "上野恩賜公園" }
-            ]},
-            { time: "11:30", title: "上野動物園", suitable: ['kid', 'senior'], desc: "大小朋友皆宜的動物園，觀察熊貓與野生動物，園內無障礙設施完善。", map: "上野動物園", nearby: [
-                { name: "國立科學博物館", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "地球館的恐龍骨架與動物標本展極度震撼，室內備案首選。", mapQuery: "国立科学博物館" },
-                { name: "上野東照宮", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "金碧輝煌的江戶初期建築，冬季限定的「冬牡丹」展覽非常出名。", mapQuery: "上野東照宮" },
-                { name: "東京都美術館", dist: "步行8分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "常有世界級大師特展，館內免門票區域的紅磚建築設計也很好拍。", mapQuery: "東京都美術館" },
-                { name: "西鄉隆盛銅像", dist: "步行12分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "上野公園最著名的地標，牽著愛犬的維新三傑雕像。", mapQuery: "西郷隆盛像" },
-                { name: "國際兒童圖書館", dist: "步行15分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "由文藝復興式舊圖書館改建，建築內部古典華麗，附有舒適咖啡廳。", mapQuery: "国際子ども図書館" }
-            ]},
-            { time: "14:00", title: "上野阿美橫町", desc: "從公園順路抵達。進行 OS Drug 藥妝大採購、買 NG 蛋糕與二木菓子。", map: "アメ横 OS Drug", nearby: [
-                { name: "多慶屋 (御徒町)", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "紫色大樓地標，被稱為購物狂天堂，電器零食藥妝一棟搞定。", mapQuery: "多慶屋 御徒町" },
-                { name: "二木菓子 第一營業所", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "阿美橫內最大的糖果餅乾批發店，種類多到眼花，免稅超好買。", mapQuery: "二木の菓子 第一営業所" },
-                { name: "鐵火丼", dist: "步行2分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "路邊攤風格的生魚片丼飯，價格便宜到不可思議，體驗市井風情。", mapQuery: "みなとや食品 本店" },
-                { name: "Yamashiroya 玩具店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "上野站對面整棟的模型玩具店，從任天堂到鋼彈，宅度滿分。", mapQuery: "ヤマシロヤ" },
-                { name: "上野車站 阿美橫出口", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "經典打卡視角，站在天橋下拍向擁擠熱鬧的阿美橫町招牌。", mapQuery: "アメ横看板" }
-            ]},
-            { time: "16:30", title: "下島包裝 Shimojima", desc: "淺草橋站會合。以批發價大肆採買文具、紙袋與各式雜貨。", map: "シモジマ 浅草橋本店", nearby: [
-                { name: "貴和製作所 淺草橋本店", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "全日本最知名的手工飾品材料店，滿滿的串珠與金屬配件。", mapQuery: "貴和製作所 浅草橋本店" },
-                { name: "淺草橋手作街", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "整條街佈滿皮革、緞帶、包裝材料的批發店，手作控會瘋掉。", mapQuery: "浅草橋問屋街" },
-                { name: "Kakimori (藏前)", dist: "步行15分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "質感爆表的文具店，可自選紙張線圈訂製專屬筆記本，並調配墨水。", mapQuery: "カキモリ 蔵前" },
-                { name: "淺草橋 鳴門鯛燒", dist: "步行2分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "逛累了補充糖分的最佳首選，熱騰騰的紅豆餡搭配薄脆外皮。", mapQuery: "鳴門鯛焼本舗 浅草橋店" },
-                { name: "隅田川露台 (淺草橋段)", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "安靜舒適的河畔步道，遠離批發街的喧囂，可看著屋形船緩緩駛過。", mapQuery: "隅田川テラス 浅草橋" }
-            ]}
+            { 
+                time: "09:30", 
+                title: "舊岩崎宅邸庭園", 
+                suitable: ['senior'], 
+                img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=80", 
+                desc: "三菱財閥岩崎家族宅邸，結合英式詹姆斯一世風格洋館與日式和館，漫步其間大正浪漫氛圍撲面而來。", 
+                map: "旧岩崎邸庭園", 
+                transportGuide: [
+                    "🚇【地鐵路線】：搭乘千代田線至【湯島站】步行 3 分鐘，或由大江戶線【上野御徒町站】步行 8 分鐘。"
+                ],
+                nearby: [
+                    { name: "不忍池 弁天堂", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "冬季可見大批西伯利亞候鳥棲息湖畔。", mapQuery: "不忍池 弁天堂" }
+                ]
+            },
+            { 
+                time: "11:30", 
+                title: "上野動物園", 
+                suitable: ['kid', 'senior'], 
+                desc: "日本歷史最悠久動物園，無障礙步道與電梯規劃完善，觀賞大貓熊、大象與北極熊生態。", 
+                map: "上野動物園", 
+                nearby: [
+                    { name: "國立科學博物館", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "巨大恐龍化石骨架與 360 度立體劇院，室內避冬雨天首選。", mapQuery: "国立科学博物館" }
+                ]
+            },
+            { 
+                time: "14:00", 
+                title: "上野阿美橫町購物採買", 
+                desc: "OS Drug 採買全東京最便宜非免稅藥妝、二木菓子批發糖果乾果、阿美橫 NG 蛋糕。", 
+                map: "アメ横 OS Drug", 
+                nearby: [
+                    { name: "珍珍軒 (Google 3.7★)", dist: "阿美橫鐵道下", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", isFood: true, desc: "【高架橋下經典炒飯】鐵路橋下半露天老食堂，鍋氣十足的黃金炒飯與韭菜炒豬肝美味實惠。", mapQuery: "珍々軒 上野" },
+                    { name: "みはし (Mihashi) 上野本店 (Google 3.9★)", dist: "步行4分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【上野昭和餡蜜之神】純手工寒天凍搭配北海道十勝紅豆泥與香草冰淇淋，三代同堂共享的幸福甜品。", mapQuery: "みはし 上野本店" }
+                ]
+            },
+            { 
+                time: "16:30", 
+                title: "下島包裝 Shimojima 淺草橋", 
+                desc: "搭 JR 一站到淺草橋。全棟 8 層樓批發文具、精美包裝袋、文創雜貨的大本營。", 
+                map: "シモジマ 浅草橋本店", 
+                transportGuide: [
+                    "🚆【JR 路線】：JR 御徒町站搭山手線至秋葉原，轉總武線 1 站即達淺草橋站東口。"
+                ],
+                nearby: [
+                    { name: "たい焼き本舗 鳴門", dist: "步行2分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "手烤天然鯛魚燒補充糖分。", mapQuery: "鳴門鯛焼本舗 浅草橋店" }
+                ]
+            }
         ]},
         { date: "12/24 (四)", id: "d12", project: 2, fullDate: "2026-12-24", events: [
-            { time: "10:30", title: "AEON Mall LakeTown", suitable: ['kid', 'senior'], img: "images/1224.webp", desc: "埼玉越谷全日 OUTLET 行：全日本最大購物中心，室內推車極方便。", map: "イオンレイクタウン", nearby: [
-                { name: "LakeTown OUTLET", dist: "相連", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "商場旁的三期建築，提供更寬廣的半戶外折扣購物空間與歐風造景。", mapQuery: "レイクタウンアウトレット" },
-                { name: "mori 棟 (森)", dist: "相連", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "面積最大的一區，擁有超大美食街與兒童遊樂設施，家庭客最愛。", mapQuery: "イオンレイクタウン mori" },
-                { name: "kaze 棟 (風)", dist: "相連", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "較多年輕服飾品牌與電影院，動線相對俐落現代。", mapQuery: "イオンレイクタウン kaze" },
-                { name: "大相模調節池 湖畔步道", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "購物中心旁的廣大湖泊，天氣好時湖畔散步非常愜意紓壓。", mapQuery: "大相模調節池" },
-                { name: "飛鳥綠地", dist: "步行10分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "緊鄰湖畔的小型綠地，買了點心後很適合帶來這裡野餐看鴨子。", mapQuery: "見田方遺跡公園" }
-            ]}
+            { 
+                time: "10:30", 
+                title: "AEON Mall 越谷 LakeTown", 
+                suitable: ['kid', 'senior'], 
+                img: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=800&q=80", 
+                desc: "平安夜全日室內採購！全日本最大規模購物中心（Kaze、Mori 與 Outlet 三大館），全程提供免費輪椅與兒童推車。", 
+                map: "イオンレイクタウン", 
+                transportGuide: [
+                    "🚆【最順交通指南】：飯店旁【濱町站】搭乘都營新宿線 ➔【馬喰橫山/東日本橋】轉 JR 總武快速線至【市川】➔ 轉 JR 武藏野線直達【越谷 LakeTown 站】。",
+                    "🏬【出站即達】：車站出口設有無障礙全遮雨連通道，直達商場大門。"
+                ],
+                nearby: [
+                    { name: "利久牛舌 越谷店 (Google 3.8★)", dist: "mori館1F", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【厚切仙台炭烤牛舌】商場內座位寬敞舒適，炭烤厚切牛舌定食搭牛肉清湯，全家人吃得滿意無排隊壓力。", mapQuery: "牛たん炭焼 利久 イオンレイクタウン店" },
+                    { name: "大相模調節池 湖畔步道", dist: "步行3分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "商場後方的開闊湖景人工湖，適合推推車呼吸新鮮空氣。", mapQuery: "大相模調節池" }
+                ]
+            }
         ]},
         { date: "12/25 (五)", id: "d13", project: 2, fullDate: "2026-12-25", events: [
-            { time: "10:00", title: "日本橋歷史建築與百貨", suitable: ['senior'], img: "images/1225.webp", desc: "漫步感受古典與現代交錯的街區。可至丸善尋找漫畫！", map: "丸善 日本橋店", nearby: [
-                { name: "日本橋三越本店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "日本第一家百貨公司，文藝復興式本館與大廳的天女像皆為文化財。", mapQuery: "日本橋三越本店" },
-                { name: "COREDO 室町", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "集結江戶時代傳統老字號與現代工藝的質感商場，和風氣息濃。", mapQuery: "COREDO室町" },
-                { name: "日本橋 麒麟之翼", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "日本道路的起點標誌，橋上的青銅麒麟雕像極具氣勢（東野圭吾小說場景）。", mapQuery: "日本橋 麒麟の像" },
-                { name: "日本銀行 貨幣博物館", dist: "步行10分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "免費參觀，展示豐富的日本貨幣歷史，建築外觀非常宏偉。", mapQuery: "貨幣博物館" },
-                { name: "千疋屋總本店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "創立於1834年的頂級水果老店，價格昂貴但水果聖代絕對是極品。", mapQuery: "千疋屋総本店 日本橋本店" }
-            ]},
-            { time: "14:00", title: "KITTE 丸之內", suitable: ['kid', 'senior'], desc: "商場中庭看巨大聖誕樹，頂樓屋頂花園拍攝東京車站全貌。", map: "KITTE丸の内", nearby: [
-                { name: "東京中央郵便局", dist: "1F", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "位於KITTE一樓，可買到設計極具質感的限定版郵筒明信片與周邊。", mapQuery: "東京中央郵便局" },
-                { name: "丸大樓 (Marunouchi Bldg)", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "35樓有免費的高空觀景台，可從不同角度俯瞰皇居與東京車站。", mapQuery: "丸ビル" },
-                { name: "新丸大樓", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "7樓戶外露台也是拍攝東京車站夜景的絕佳秘境，氣氛浪漫。", mapQuery: "新丸ビル" },
-                { name: "皇居東御苑", dist: "步行15分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "舊江戶城本丸遺跡，擁有廣闊的日式庭園，非常適合長輩散步。", mapQuery: "皇居東御苑" },
-                { name: "三菱一號館美術館", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "紅磚英式建築，中庭花園絕美，附設的 Café 1894 充滿古典歐風。", mapQuery: "三菱一号館美術館" }
-            ]},
-            { time: "17:30", title: "丸之內仲通聖誕點燈", suitable: ['senior'], desc: "香檳金燈海步道。全平坦無障礙，推車與長輩走起來非常輕鬆！", map: "丸の内仲通り", nearby: [
-                { name: "丸之內 Brick Square", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "仲通上的歐風紅磚廣場，擁有許多高質感精品與戶外露天咖啡座。", mapQuery: "丸の内ブリックスクエア" },
-                { name: "Cafe 1894", dist: "步行2分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "由舊銀行營業廳改建，挑高天花板與復古裝潢，喝咖啡的極致體驗。", mapQuery: "Cafe 1894" },
-                { name: "帝國劇場", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "日本最具代表性的音樂劇與舞台劇表演殿堂，外觀典雅。", mapQuery: "帝国劇場" },
-                { name: "有樂町 Bic Camera", dist: "步行8分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "超大型旗艦店，若最後一天還需補齊電器或玩具，這裡是最後防線。", mapQuery: "ビックカメラ 有楽町店" },
-                { name: "東京國際論壇", dist: "步行5分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "擁有如巨大玻璃船般的壯觀中庭結構，是建築攝影的絕佳題材。", mapQuery: "東京国際フォーラム" }
-            ]}
+            { 
+                time: "10:00", 
+                title: "日本橋古典建築巡禮", 
+                suitable: ['senior'], 
+                img: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=800&q=80", 
+                desc: "參訪青銅麒麟雕像日本道路原點，漫步三越百貨本館欣賞文化財大理石天女像與圓形拱頂。", 
+                map: "日本橋 麒麟の像", 
+                transportGuide: [
+                    "🚇【地鐵路線】：飯店出發搭乘淺草線至【日本橋站】B9 出口步行 1 分鐘。"
+                ],
+                nearby: [
+                    { name: "日本橋 鰻 伊勢定 (Google 3.8★)", dist: "步行4分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【百年炭烤鰻魚老店】關東派蒸烤鰻魚，肉質綿密化口，醬汁微甜甘香，對牙口不好的長輩極友善。", mapQuery: "伊勢定 本店 日本橋" },
+                    { name: "COREDO 室町", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "集結江戶木鉋刀削柴魚、箔座黃金等日本頂級傳統手藝。", mapQuery: "コレド室町" }
+                ]
+            },
+            { 
+                time: "14:00", 
+                title: "KITTE 丸之內聖誕大樹", 
+                suitable: ['kid', 'senior'], 
+                desc: "商場挑高玻璃中庭欣賞潔白聖誕樹造景與聲光秀，登上頂樓花園拍攝東京車站電車交會。", 
+                map: "KITTE丸の内", 
+                nearby: [
+                    { name: "根室花丸迴轉壽司 (排隊備案) ➔ 壽司清 東京八重洲 (Google 3.9★)", dist: "步行6分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【不用等3小時的江戶前壽司】築地老字號分店，板前師傅俐落手握，食材極鮮且安靜舒適。", mapQuery: "築地寿司清 東京駅グランルーフ店" }
+                ]
+            },
+            { 
+                time: "17:30", 
+                title: "丸之內仲通香檳金聖誕點燈", 
+                suitable: ['senior'], 
+                desc: "300多棵行道樹綴滿 120 萬顆標誌性「香檳金」LED 燈，街道平整且步行者天國封街，漫步賞燈極度浪漫舒適。", 
+                map: "丸の内仲通り", 
+                nearby: [
+                    { name: "Cafe 1894", dist: "步行2分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "舊三菱銀行營業廳改建，英式挑高復古空間。", mapQuery: "Cafe 1894" }
+                ]
+            }
         ]},
         { date: "12/26 (六)", id: "d14", project: 2, fullDate: "2026-12-26", events: [
-            { time: "09:30", title: "人形町甘酒橫丁", suitable: ['senior'], img: "images/1226.webp", desc: "最後的懷舊老街巡禮與採買。", map: "甘酒横丁", nearby: [
-                { name: "水天宮", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "安產與求子名寺，建築極度現代化且備有防震系統，視覺衝突感強。", mapQuery: "水天宮" },
-                { name: "雙葉豆腐", dist: "0m", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "甘酒橫丁名店，豆乳冰淇淋與巨大的油炸豆腐塊必吃。", mapQuery: "双葉 甘酒横丁" },
-                { name: "壽堂 和菓子", dist: "步行3分", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "百年老店，招牌「黃金芋」其實是肉桂風味的地瓜造型和菓子。", mapQuery: "壽堂 人形町" },
-                { name: "小網神社", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "號稱東京「強運厄除」最靈驗的神社，小小一間卻永遠擠滿參拜人潮。", mapQuery: "小網神社" },
-                { name: "草加屋 仙貝", dist: "步行2分", fame: "⭐⭐⭐", recom: "⭐⭐⭐", desc: "傳統手工現烤仙貝老店，日劇《新參者》中曾出現過。", mapQuery: "草加屋 人形町" }
-            ]},
-            { time: "11:30", title: "深川飯午餐", desc: "中午享用在地特色「深川飯」。", map: "甘酒横丁", nearby: [
-                { name: "柳屋 鯛魚燒", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "吃完正餐若有胃口，可再買一隻皮薄餡多的鯛魚燒當作飯後甜點。", mapQuery: "柳屋 鯛焼き" },
-                { name: "人形町今半 總店", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "頂級黑毛和牛壽喜燒的代名詞，若預算充足，這是完美的最後一餐。", mapQuery: "人形町今半 本店" },
-                { name: "玉秀 (軍雞鍋)", dist: "步行5分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "創立於1760年，發明了日本第一碗「親子丼」，永遠在大排長龍。", mapQuery: "玉ひで" },
-                { name: "大觀音寺", dist: "步行4分", fame: "⭐⭐", recom: "⭐⭐⭐", desc: "隱藏在巷弄中的寺廟，每月有特定日子會開放參拜罕見的鐵造觀音首。", mapQuery: "大観音寺 人形町" },
-                { name: "濱町綠道", dist: "步行5分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "舊河道填平而成的綠地步道，秋季有銀杏，是遠離喧囂的散步好去處。", mapQuery: "浜町緑道" }
-            ]},
-            { time: "13:00", title: "出發前往機場", suitable: ['senior'], desc: "從飯店步行出發前往地鐵站，準備搭車前往機場。", transportGuide: [
-                "🚶 步行至【濱町站】搭乘地鐵",
-                "🚇 搭乘地鐵至【東日本橋站】",
-                "🚆 站內轉乘【京成 Access 特急 (アクセス特急)】",
-                "✈️ 免出站直達成田機場，動線平坦順暢！"
-            ], map: "東日本橋駅", nearby: [] },
-            { time: "14:35", title: "抵達成田機場 T2", desc: "報到櫃檯託運行李。準備搭乘 CI105 滿載回台！", checkInNote: "回程航班報到", map: "成田空港第2ターミナル", nearby: [
-                { name: "免稅店 AKIHABARA", dist: "出關後", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "最後衝刺！薯條三兄弟、東京芭娜娜、白色戀人全都在這裡掃貨。", mapQuery: "成田空港 免税店 AKIHABARA" },
-                { name: "FaSoLa 免稅店", dist: "出關後", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "化妝品、保養品與菸酒的專賣免稅區，幫親友代購的最後一站。", mapQuery: "FaSoLa 成田" },
-                { name: "Pokemon Store", dist: "4F", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "如果有漏買的小孩禮物，機場四樓的寶可夢商店能完美救援。", mapQuery: "ポケモンストア 成田空港店" },
-                { name: "機場觀景台", dist: "4F", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "報到完若時間充裕，可帶長輩至四樓戶外看飛機起降休息。", mapQuery: "成田空港 第2ターミナル 見学デッキ" },
-                { name: "成田機場 扭蛋牆", dist: "B1", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐", desc: "把身上剩下的零錢全部換成可愛的公仔帶回台灣！", mapQuery: "成田空港 ガチャガチャ" }
-            ]}
+            { 
+                time: "09:30", 
+                title: "人形町甘酒橫丁歷史採買", 
+                suitable: ['senior'], 
+                img: "https://images.unsplash.com/photo-1533050487297-09b450131914?auto=format&fit=crop&w=800&q=80", 
+                desc: "從飯店慢走即可抵達的老江戶下町街道，參拜保佑強運的小網神社、採購手工現烤草加仙貝。", 
+                map: "甘酒横丁", 
+                nearby: [
+                    { name: "小網神社", dist: "步行10分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "東京最強運厄除名所，洗錢水祈求財運。", mapQuery: "小網神社" },
+                    { name: "雙葉 手工豆腐", dist: "街內", fame: "⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "濃醇熱豆乳與現炸豆腐餅。", mapQuery: "双葉 甘酒横丁" },
+                    { name: "志乃多壽司 人形町 (Google 3.8★)", dist: "步行3分", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", isFood: true, desc: "【百年豆皮壽司外帶】外帶招牌多汁豆皮壽司與海苔卷，微酸甘甜，最適合帶上成田特急當午餐點心！", mapQuery: "人形町志乃多寿司" }
+                ]
+            },
+            { 
+                time: "11:30", 
+                title: "在地老味道：下町深川飯午餐", 
+                desc: "品嚐江戶傳統漁師料理「深川飯」，肥嫩蛤蜊肉以醬油生薑慢熬拌飯，鹹鮮暖胃。", 
+                map: "甘酒横丁", 
+                nearby: [
+                    { name: "柳屋 鯛魚燒", dist: "步行3分", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "東京三大鯛魚燒老店，皮薄酥脆帶碳香。", mapQuery: "柳屋 鯛焼き" }
+                ]
+            },
+            { 
+                time: "13:00", 
+                title: "出發直達成田機場", 
+                suitable: ['senior'], 
+                desc: "最省力通關回家動線！飯店退房後直奔成田，免轉乘直達機場月台。", 
+                map: "東日本橋駅",
+                transportGuide: [
+                    "🚶【步行】：由飯店步行 5 分鐘抵達【東日本橋站】（有大型行李專用電梯）。",
+                    "🚆【京成 Access 特急 / 都營淺草線直通】：搭乘直通【成田空港】的班次（アクセス特急），免換車約 55 分鐘一路平穩抵達 T2 航廈！",
+                    "🛄【免出站優勢】：月台直達航廈地下 1 樓，搭電梯直接到 3 樓出境報到大廳。"
+                ]
+            },
+            { 
+                time: "14:35", 
+                title: "抵達成田 T2 航廈・搭機返台", 
+                desc: "CI105 班機（17:45起飛）託運行李報到。最後免稅品大掃貨，滿載美好回憶賦歸台灣！", 
+                checkInNote: "回程航班出境報到", 
+                map: "成田空港第2ターミナル", 
+                nearby: [
+                    { name: "免稅店 AKIHABARA", dist: "出關後", fame: "⭐⭐⭐⭐⭐", recom: "⭐⭐⭐⭐⭐", desc: "白色戀人、薯條三兄弟、東京芭娜娜一站購齊。", mapQuery: "成田空港 免税店 AKIHABARA" },
+                    { name: "機場四樓觀景台", dist: "4F", fame: "⭐⭐⭐", recom: "⭐⭐⭐⭐", desc: "吹吹風看各國客機起降。", mapQuery: "成田空港 第2ターミナル 見学デッキ" }
+                ]
+            }
         ]}
     ];
 
-    let currentProject = 2; // 預設為家族篇
+    let currentProject = 2; // 預設家族篇
+
+    // ==========================================
+    // 氣象資訊模組 (即時與動態切換)
+    // ==========================================
+    const WEATHER_DATA = {
+        tokyo: { city: "東京都區", temp: "11°C", icon: "🌤️", condition: "冬日晴朗・降雨率 10%", tip: "早晚溫差約 8 度，戶外逛街請帶圍巾。室內暖氣強勁，洋蔥式穿法最舒適。" },
+        fujisawa: { city: "湘南/藤澤", temp: "12°C", icon: "☀️", condition: "海風微涼・降雨率 5%", tip: "海岸沿線風力略大，體感溫度偏低，建議穿著防風外套與高領打底衣。" },
+        hakone: { city: "箱根山區", temp: "5°C", icon: "❄️", condition: "山區寒冷・降雨率 20%", tip: "海拔較高氣溫逼近冰點，蘆之湖搭船風大，務必配戴毛帽、手套與發熱暖暖包。" }
+    };
+
+    function updateWeatherDisplay(cityKey) {
+        const data = WEATHER_DATA[cityKey] || WEATHER_DATA.tokyo;
+        document.getElementById('weatherTemp').innerText = data.temp;
+        document.getElementById('weatherIcon').innerText = data.icon;
+        document.getElementById('weatherCondition').innerText = data.condition;
+        document.getElementById('weatherTip').innerHTML = `🧣 <b>${data.city}天氣穿著叮嚀：</b>${data.tip}`;
+    }
+
+    async function fetchLiveWeather() {
+        try {
+            // 自動呼叫 Open-Meteo 免費氣象 API 獲取東京即時氣象
+            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&current=temperature_2m,relative_humidity_2m,precipitation&timezone=Asia%2FTokyo');
+            if (res.ok) {
+                const json = await res.json();
+                if (json.current) {
+                    const temp = Math.round(json.current.temperature_2m);
+                    WEATHER_DATA.tokyo.temp = `${temp}°C`;
+                    WEATHER_DATA.tokyo.condition = `現地即時監測・濕度 ${json.current.relative_humidity_2m}%`;
+                    updateWeatherDisplay('tokyo');
+                }
+            }
+        } catch(e) {
+            console.log("使用本地預報資料庫");
+        }
+    }
+
+    // ==========================================
+    // 增添 / 更新每日遊程互動功能
+    // ==========================================
+    function openAddEventModal() {
+        const select = document.getElementById('modal-event-day');
+        select.innerHTML = '';
+        itineraryData.forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d.id;
+            opt.innerText = `${d.date} (${d.project === 1 ? '獨旅篇' : '家族篇'})`;
+            select.appendChild(opt);
+        });
+        document.getElementById('addEventModal').style.display = 'flex';
+        setTimeout(() => document.getElementById('addEventModal').classList.add('active'), 10);
+    }
+
+    function closeAddEventModal() {
+        const modal = document.getElementById('addEventModal');
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 200);
+    }
+
+    function saveCustomEvent() {
+        const dayId = document.getElementById('modal-event-day').value;
+        const time = document.getElementById('modal-event-time').value.trim() || '12:00';
+        const title = document.getElementById('modal-event-title').value.trim();
+        const desc = document.getElementById('modal-event-desc').value.trim() || '自訂增添行程';
+        const map = document.getElementById('modal-event-map').value.trim() || title;
+        const isKid = document.getElementById('modal-tag-kid').checked;
+        const isSenior = document.getElementById('modal-tag-senior').checked;
+
+        if (!title) {
+            alert('請填寫行程或景點名稱！');
+            return;
+        }
+
+        const dayObj = itineraryData.find(d => d.id === dayId);
+        if (dayObj) {
+            let suitable = [];
+            if (isKid) suitable.push('kid');
+            if (isSenior) suitable.push('senior');
+
+            const newEvent = {
+                time: time,
+                title: `✨ ${title}`,
+                desc: desc,
+                map: map,
+                suitable: suitable,
+                isCustom: true
+            };
+
+            dayObj.events.push(newEvent);
+            // 依時間排序
+            dayObj.events.sort((a,b) => getMinutesFromTime(a.time) - getMinutesFromTime(b.time));
+            
+            // 存入 LocalStorage 保留
+            localStorage.setItem('tokyo_custom_events_2026', JSON.stringify(itineraryData));
+
+            renderApp();
+            closeAddEventModal();
+            alert(`已成功增添「${title}」至 ${dayObj.date}！`);
+        }
+    }
+
+    function loadCustomEventsFromStorage() {
+        try {
+            const saved = localStorage.getItem('tokyo_custom_events_2026');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    itineraryData = parsed;
+                }
+            }
+        } catch(e) {}
+    }
 
     function toggleFloatingActions() {
         document.getElementById('floatingActions').classList.toggle('open');
@@ -842,7 +1234,7 @@
     function scrollToNowCard() {
         const info = getCurrentEventInfo();
         if (!info) {
-            alert('今天沒有對應的行程卡片。');
+            alert('今天日期非行程期間，或今天沒有對應的時程卡片。');
             return;
         }
         if (info.day.project !== currentProject) setProject(info.day.project);
@@ -902,27 +1294,26 @@
                 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
                 const weatherUrl = `https://www.google.com/search?q=${encodeURIComponent(mapQuery + ' 天氣')}`;
                 
-                const imgHtml = evt.img ? `<img src="${evt.img}" class="card-img" loading="lazy" onclick="openImageModal(this.src)">` : '';
-                let alertHtml = evt.checkInNote ? `<div class="check-in-alert">✈️ 提醒：${evt.checkInNote} - 請確認線上報到</div>` : '';
+                const imgHtml = evt.img ? `<img src="${evt.img}" class="card-img" alt="${evt.title}" loading="lazy" onclick="openImageModal(this.src)">` : '';
+                let alertHtml = evt.checkInNote ? `<div class="check-in-alert">✈️ 提醒：${evt.checkInNote} - 請備妥護照提早 2.5 小時完成線上/現場報到</div>` : '';
                 
                 let bgClass = '';
                 let tagsHtml = '';
+                let tagsList = [];
                 if (evt.suitable) {
-                    if (evt.suitable.includes('kid') && evt.suitable.includes('senior')) {
-                        bgClass = 'bg-both';
-                        tagsHtml = `<div class="card-tags"><span class="tag-kid">👶 兒童友善</span><span class="tag-senior">🧓 長青友善</span></div>`;
-                    } else if (evt.suitable.includes('kid')) {
-                        bgClass = 'bg-kid';
-                        tagsHtml = `<div class="card-tags"><span class="tag-kid">👶 適合4歲童</span></div>`;
-                    } else if (evt.suitable.includes('senior')) {
-                        bgClass = 'bg-senior';
-                        tagsHtml = `<div class="card-tags"><span class="tag-senior">🧓 適合65歲長者</span></div>`;
-                    }
+                    if (evt.suitable.includes('kid')) tagsList.push(`<span class="tag-kid">👶 兒童友善</span>`);
+                    if (evt.suitable.includes('senior')) tagsList.push(`<span class="tag-senior">🧓 長青好走</span>`);
+                }
+                if (evt.isCustom) {
+                    tagsList.push(`<span class="tag-custom">✍️ 自訂遊程</span>`);
+                }
+                if (tagsList.length > 0) {
+                    tagsHtml = `<div class="card-tags">${tagsList.join('')}</div>`;
                 }
 
                 let guideHtml = '';
                 if (evt.transportGuide) {
-                    guideHtml = `<div class="transport-guide">`;
+                    guideHtml = `<div class="transport-guide"><div class="transport-title">🚊 交通路線與省力轉乘指引</div>`;
                     evt.transportGuide.forEach((step, i) => {
                         guideHtml += `<div class="guide-step"><div class="step-num">${i+1}</div><div>${step}</div></div>`;
                     });
@@ -941,15 +1332,17 @@
 
                 let nearbyHtml = '';
                 if (evt.nearby && evt.nearby.length > 0) {
-                    nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊 / 備用推薦</div>`;
+                    nearbyHtml = `<div class="nearby-box"><div class="nearby-box-title">📍 附近順遊與在地美食推薦</div>`;
                     evt.nearby.forEach(spot => {
                         const linkHref = spot.mapQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.mapQuery)}` : '#';
-                        nearbyHtml += `<div class="nearby-item">
-                            <a href="${linkHref}" target="_blank" class="nearby-link">🔗 ${spot.name}</a>
-                            <div style="font-size: 1.05rem; font-family: 'Zen Maru Gothic'; font-weight: 900; margin: 6px 0;">
-                                🚶 距離: ${spot.dist} | 🌟 知名: ${spot.fame} | 👍 推薦: ${spot.recom}
+                        const isFoodClass = spot.isFood ? 'is-food' : '';
+                        const starBadge = spot.isFood ? `<span class="food-star-tag">在地私房 3.5~4.0★</span>` : '';
+                        nearbyHtml += `<div class="nearby-item ${isFoodClass}">
+                            <a href="${linkHref}" target="_blank" class="nearby-link">🔗 ${spot.name}</a>${starBadge}
+                            <div style="font-size: 1.02rem; font-family: 'Zen Maru Gothic'; font-weight: 900; margin: 4px 0;">
+                                🚶 步行/距離: ${spot.dist} | 🌟 推薦度: ${spot.recom}
                             </div>
-                            <span style="display: block; line-height: 1.5; color: #1A1A1A;">${spot.desc}</span>
+                            <span style="display: block; line-height: 1.5; color: #1A1A1A; font-size:1.05rem;">${spot.desc}</span>
                         </div>`;
                     });
                     nearbyHtml += `</div>`;
@@ -970,8 +1363,8 @@
                                 <div class="card-desc">${evt.desc}</div>
                                 ${guideHtml}
                                 <div class="btn-group">
-                                    <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ 導航</a>
-                                    <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 天氣</a>
+                                    <a href="${mapUrl}" target="_blank" class="btn btn-primary">🗺️ Google 地圖導航</a>
+                                    <a href="${weatherUrl}" target="_blank" class="btn btn-weather">☁️ 查詢即時天氣</a>
                                 </div>
                                 ${marketHtml}
                                 ${nearbyHtml}
@@ -1192,7 +1585,7 @@
                     <div class="buy-gallery-name">${index + 1}. ${safeName}</div>
                 </div>`;
         }).join('');
-        container.innerHTML = `${formLink}<div class="buy-gallery-summary">已讀取 ${items.length} 項代購照片，勾選「已買」可保留紀錄。</div><div class="buy-gallery-grid">${html}</div>`;
+        container.innerHTML = `${formLink}<div style="font-size:0.95rem; font-weight:bold; color:#555; margin-bottom:8px;">已讀取 ${items.length} 項代購照片，勾選「已買」可保留紀錄。</div><div class="buy-gallery-grid">${html}</div>`;
     }
 
     async function loadBuyGallery() {
@@ -1204,7 +1597,6 @@
             const items = sheetItems.length > 0 ? sheetItems : await fetchBuyImageManifest();
             renderBuyGallery(items);
         } catch (e) {
-            console.warn(e);
             container.innerHTML = '<div class="buy-gallery-status" style="color:#B71C1C;">⚠️ 代購照片讀取失敗...</div>';
         }
     }
@@ -1333,9 +1725,9 @@
         }, 500);
     }
 
-    // ==========================================================================
-    // 新增：純前端自動化主題分類與反向跳轉引擎
-    // ==========================================================================
+    // ==========================================
+    // 自動主題分類引擎
+    // ==========================================
     const TOKYO_DIST_MAP = {
         "東京站": "抵達站 0 分鐘", "丸之內": "步行即達", "銀座": "地鐵丸之內線約 3 分鐘",
         "日本橋": "地鐵東西線約 5 分鐘", "人形町": "地鐵日比谷線約 10 分鐘", "兩國": "JR總武線直通約 12 分鐘",
@@ -1353,7 +1745,7 @@
         { id: "history", name: "人文歷史", icon: "🏮", keywords: ["寺", "神社", "歷史", "城", "老街", "老造", "宿", "關所", "文化", "古建築", "美術館"] },
         { id: "shopping", name: "商場購物", icon: "🛍️", keywords: ["OS Drug", "大國", "藥妝", "商場", "百貨", "OUTLET", "LOFT", "UNIQLO", "無印良品", "一番街", "採購", "採買", "二木", "包裝", "シモジマ"] },
         { id: "photo", name: "網美打卡", icon: "📸", keywords: ["展望", "SKY", "teamLab", "點燈", "燈飾", "聖誕", "鳥居", "鐵塔", "晴空塔", "地標", "浮世繪", "貓", "泡芙", "倒影"] },
-        { id: "food", name: "美食饗宴", icon: "🍵", keywords: ["麵", "丼", "燒肉", "敘敘苑", "飯", "小吃", "甜點", "咖啡", "饅頭", "魚板", "海鮮", "便當", "鯛魚燒", "可樂餅", "壽喜燒"] },
+        { id: "food", name: "美食饗宴", icon: "🍵", keywords: ["麵", "丼", "燒肉", "敘敘苑", "飯", "小吃", "甜點", "咖啡", "饅頭", "魚板", "海鮮", "便當", "鯛魚燒", "可樂餅", "壽喜燒", "拉麵", "牛舌"] },
         { id: "nature", name: "自然風景", icon: "🌲", keywords: ["海岸", "海景", "沙灘", "湖", "海賊船", "公園", "步道", "林", "植物園", "不忍池", "溫泉", "足湯", "候鳥"] }
     ];
 
@@ -1398,7 +1790,7 @@
                                         dist: TOKYO_DIST_MAP[ward] || "搭乘電車約20-30分",
                                         dayId: day.id,
                                         eventId: eventElementId,
-                                        type: `💡 順遊備用 (於 Day ${day.date.split(' ')[0]} ${evt.time})`
+                                        type: `💡 順遊美食 (於 Day ${day.date.split(' ')[0]} ${evt.time})`
                                     });
                                 }
                             }
@@ -1470,10 +1862,12 @@
         }, 150);
     }
 
-    // 初始化執行
+    // 初始化啟動
+    loadCustomEventsFromStorage();
     fetchExchangeRate();
     renderApp();
     renderExpenses();
+    fetchLiveWeather();
     setTimeout(loadBuyGallery, 600);
     setTimeout(syncCloudData, 800); 
     setTimeout(initAutoScroll, 200);
