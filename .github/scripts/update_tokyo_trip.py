@@ -1,36 +1,36 @@
 import os
 import sys
 import time
+import pandas as pd
 
 def main():
-    # 強制將 stdout 設定為即時輸出，防止 GitHub Actions 日誌緩衝
     sys.stdout.reconfigure(line_buffering=True)
-
-    print("🚀 [Step 1/5] 開始執行 Gemini 自動更新程序...", flush=True)
+    print("🚀 [Step 1/5] 開始讀取 Google Sheet 網格功課表 CSV...", flush=True)
 
     # 1. 檢查 GEMINI_API_KEY
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("❌ [錯誤] 未找到 GEMINI_API_KEY！請檢查 GitHub Repository Secrets 設定。", flush=True)
+        print("❌ [錯誤] 未找到 GEMINI_API_KEY！", flush=True)
         sys.exit(1)
-    print("✅ [Step 1/5] GEMINI_API_KEY 讀取成功。", flush=True)
 
-    # 2. 檢查目標 HTML 檔案
-    target_file = "2026/tokyo/index.html"
-    if not os.path.exists(target_file):
-        print(f"❌ [錯誤] 找不到目標檔案：{target_file}", flush=True)
-        print(f"📂 當前工作目錄內容：{os.listdir('.')}", flush=True)
+    # 2. 讀取網格 CSV 檔案
+    csv_file = "2026/tokyo/itinerary_grid.csv"
+    target_html = "2026/tokyo/index.html"
+
+    if not os.path.exists(csv_file):
+        print(f"❌ [錯誤] 找不到網格功課表 CSV 檔案：{csv_file}", flush=True)
         sys.exit(1)
 
     try:
-        with open(target_file, "r", encoding="utf-8") as f:
-            original_html = f.read()
-        print(f"✅ [Step 2/5] 成功讀取 {target_file}（原長度：{len(original_html)} 字元）。", flush=True)
+        # 將網格 CSV 轉為 Markdown 表格字串提供給 Gemini
+        df = pd.read_csv(csv_file)
+        grid_markdown = df.to_markdown(index=False)
+        print(f"✅ [Step 2/5] 成功讀取網格功課表（包含 {df.shape[1]-1} 天行程，{df.shape[0]} 個時間段）。", flush=True)
     except Exception as e:
-        print(f"❌ [錯誤] 讀取檔案失敗：{e}", flush=True)
+        print(f"❌ [錯誤] 讀取 CSV 失敗：{e}", flush=True)
         sys.exit(1)
 
-    # 3. 匯入 SDK 與初始化 Client
+    # 3. 初始化 SDK
     try:
         from google import genai
         client = genai.Client(api_key=api_key)
@@ -39,72 +39,54 @@ def main():
         print(f"❌ [錯誤] SDK 初始化失敗：{e}", flush=True)
         sys.exit(1)
 
-    # 4. 設定 Prompt 提示詞
+    # 4. 設定解析網格 CSV 並渲染至 HTML 的 Prompt
     prompt = f"""
-你是一位專業的日本旅遊專家與前端工程師。請為這份東京旅遊 HTML 網頁進行內容優化與架構升級：
+你是一位專業的前端工程師與日本旅遊專家。請將下方這份「網格功課表」格式的東京行程表轉換並更新為 Bootstrap 5 的 HTML 網頁：
 
-【修改需求】：
-1. **景點最新資訊與交通重構**：
-   - 保持並優化現有的景點資訊（包含淺草寺、晴空塔、上野、鎌倉等）。
-   - 提供更順暢的交通規劃與轉乘建議（如成田/羽田機場至市區、都營地下鐵/JR山手線轉乘）。
-2. **周邊在地美食推薦**：
-   - 為各景點新增/更新周邊美食推薦。
-   - 篩選標準：**Google 地圖商家評論分數介於 3.5 到 4.0 星之間** 的在地隱藏版美食（避開過度排隊的觀光名店）。
-3. **功能擴充與頁面互動**：
-   - 確保包含動態氣象模組與「+ 增添/更新每日遊程」互動卡片功能。
-   - 確保所有 HTML 標籤、Bootstrap CSS 與 JavaScript 完整且無缺漏。
+【網格功課表資料】：
+{grid_markdown}
 
-【格式規定】：
-- 請只回傳修改後的完整 HTML 內容。
-- 切勿在開頭或結尾加上任何 Markdown 標籤（例如請勿包含 ```html 或 ``` 符號）。
+【更新與網頁製作要求】：
+1. **依據網格時間段重構每日行程卡片**：
+   - 橫軸（欄）代表每一天的日期（例如 12/13 獨旅, 12/14 獨旅 ... 12/26 家族）。
+   - 縱軸（列）代表時間區段（06:00 ~ 22:00）。
+   - 請將網格中的內容整合為美觀的 Accordion 或卡片流，呈現每日從早到晚的完整流暢行程。
+2. **交通規劃與 Google 評分 3.5~4.0 隱藏版美食**：
+   - 保持並補全交通轉乘細節。
+   - 美食請醒目標示（例如使用 Bootstrap Badge 標籤呈現 Google 星級評分）。
+3. **保留互動元件**：
+   - 保留頁面頂部的動態氣象模組與「+ 增添/更新每日遊程」按鈕及前端 JS 腳本。
+4. **格式規定**：
+   - 直接輸出純 HTML 內容，切勿加上任何 Markdown 程式碼區塊標記（如 ```html 或 ```）。
 
-原 HTML 內容如下：
-{original_html}
+如果專案中已存在原 HTML，請確保維持完整的 HTML5 結構、Bootstrap CSS 與 Bootstrap Icons 引用。
 """
 
-    # 5. 呼叫 Gemini API（對 gemini-3.8-flash 加強 503 重試）
+    # 5. 呼叫 Gemini API 進行內容生成
     updated_html = None
-    max_retries = 6      # 增加重試次數至 6 次
-    wait_time = 15       # 初始等待 15 秒，之後每次 +15 秒
+    max_retries = 5
+    wait_time = 15
 
-    models_to_try = ["gemini-3.8-flash"]
-
-    print("🤖 [Step 4/5] 正在呼叫 Gemini API 進行內容生成...", flush=True)
-    for model_name in models_to_try:
-        if updated_html:
+    print("🤖 [Step 4/5] 正在呼叫 Gemini API 解析功課表並生成最新 HTML...", flush=True)
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = client.models.generate_content(
+                model="gemini-3.8-flash",
+                contents=prompt
+            )
+            updated_html = response.text.strip()
+            print(f"✅ [Step 4/5] 成功收到 API 回覆（長度：{len(updated_html)} 字元）。", flush=True)
             break
-        print(f"🔄 使用模型：{model_name}", flush=True)
-        for attempt in range(1, max_retries + 1):
-            try:
-                print(f"   👉 第 {attempt}/{max_retries} 次請求中...", flush=True)
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt
-                )
-                updated_html = response.text.strip()
-                print(f"✅ [Step 4/5] 成功收到 API 回覆（生成長度：{len(updated_html)} 字元）。", flush=True)
-                break
-            except Exception as e:
-                err_msg = str(e)
-                print(f"⚠️ 請求失敗 (原因: {err_msg})", flush=True)
-                
-                # 若為 404 錯誤，說明模型無效，不必重試
-                if "404" in err_msg:
-                    print("⚠️ 該模型不存在，終止該模型重試。", flush=True)
-                    break
-
-                if attempt < max_retries:
-                    print(f"⏳ 伺服器尖峰忙碌中，等待 {wait_time} 秒後自動重試...", flush=True)
-                    time.sleep(wait_time)
-                    wait_time += 15  # 15s -> 30s -> 45s -> 60s -> 75s
-                else:
-                    print(f"⚠️ 模型 {model_name} 已達最大重試次數...", flush=True)
+        except Exception as e:
+            print(f"⚠️ 請求失敗 (原因: {e})，等待 {wait_time} 秒後重試...", flush=True)
+            time.sleep(wait_time)
+            wait_time += 15
 
     if not updated_html:
-        print("❌ [錯誤] API 伺服器持續繁忙，請稍後重試點擊 Run workflow。", flush=True)
+        print("❌ [錯誤] API 伺服器忙碌，請稍後重試。", flush=True)
         sys.exit(1)
 
-    # 6. 清理格式並寫回檔案
+    # 6. 清理格式並寫回 index.html
     try:
         if updated_html.startswith("```"):
             lines = updated_html.split("\n")
@@ -114,11 +96,11 @@ def main():
                 lines = lines[:-1]
             updated_html = "\n".join(lines)
 
-        with open(target_file, "w", encoding="utf-8") as f:
+        with open(target_html, "w", encoding="utf-8") as f:
             f.write(updated_html)
-        print(f"🎉 [Step 5/5] {target_file} 更新成功！", flush=True)
+        print(f"🎉 [Step 5/5] {target_html} 已成功依據網格功課表更新完成！", flush=True)
     except Exception as e:
-        print(f"❌ [錯誤] 檔案寫入失敗：{e}", flush=True)
+        print(f"❌ [錯誤] 寫入 HTML 失敗：{e}", flush=True)
         sys.exit(1)
 
 if __name__ == "__main__":
