@@ -26,9 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-genai
 
-      - name: Run Gemini Update Script
+- name: Run Gemini Update Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
         run: |
           python .github/scripts/update_tokyo_trip.py
 
