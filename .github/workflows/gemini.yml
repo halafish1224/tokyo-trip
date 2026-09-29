@@ -2,8 +2,8 @@ name: Gemini Tokyo Trip Auto Updater
 
 on:
   schedule:
-    - cron: '0 16 * * *' # 每日台灣時間 00:00 (UTC 16:00) 自動定時執行
-  workflow_dispatch: # 支援在 GitHub 頁面手動點擊觸發
+    - cron: '0 19 * * *' # 每日台灣時間凌晨 03:00 (離峰時段) 自動執行
+  workflow_dispatch: # 支援在 GitHub 頁面手動按鈕觸發
 
 jobs:
   update-tokyo-trip:
@@ -37,13 +37,13 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "style/update: 自動同步 Google Sheet 最新行程與景點網頁"
-          title: "🤖 [Gemini Auto-Update] 自動同步 Google Sheet 最新行程"
+          commit-message: "style/update: 自動同步 Google Sheet 最新網格功課表行程"
+          title: "🤖 [Gemini Auto-Update] 同步 Google Sheet 最新功課表行程"
           body: |
             ## 🤖 Gemini 網格功課表同步報告
-            本 PR 已自動擷取最新的 Google Sheet 功課表，並經由 Gemini API 重構更新 `2026/tokyo/index.html`：
-            - 🗓️ 依據時間段（06:00~22:00）同步每日最新行程
-            - 🚆 景點交通與轉乘規劃優化
+            本 PR 已成功從 Google Sheet 線上同步最新網格功課表，並經由 Gemini API 自動升級 `2026/tokyo/index.html`：
+            - 🗓️ 06:00~22:00 逐時段行程精準轉換
+            - 🚆 景點最佳交通規劃與轉乘細節
             - 🍱 周邊 Google 評分 3.5~4.0 星隱藏版在地美食
             
             請審閱變更後點擊 Merge 合併！
