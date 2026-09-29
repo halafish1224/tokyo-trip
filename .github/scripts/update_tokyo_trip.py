@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 
 def main():
     print("🚀 [Step 1/5] 開始執行 Gemini 自動更新程序...")
@@ -35,7 +36,7 @@ def main():
         print(f"❌ [錯誤] SDK 初始化失敗：{e}")
         sys.exit(1)
 
-    # 4. 呼叫 Gemini API
+    # 4. 設定 Prompt 提示詞
     prompt = f"""
 你是一位專業的日本旅遊專家與前端工程師。請為這份東京旅遊 HTML 網頁進行內容優化與架構升級：
 
@@ -58,19 +59,43 @@ def main():
 {original_html}
 """
 
+    # 5. 呼叫 Gemini API（帶有 503 / 429 忙碌自動重試機制）
+    updated_html = None
+    max_retries = 5
+    wait_time = 10  # 初始等待 10 秒
+
+    # 設定優先嘗試的模型列表（若首選忙碌，可自動退回備用模型）
+    models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash"]
+
     print("🤖 [Step 4/5] 正在呼叫 Gemini API 進行內容生成...")
-    try:
-        response = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=prompt
-        )
-        updated_html = response.text.strip()
-        print(f"✅ [Step 4/5] 成功收到 API 回覆（生成長度：{len(updated_html)} 字元）。")
-    except Exception as e:
-        print(f"❌ [錯誤] API 呼叫失敗：{e}")
+    for model_name in models_to_try:
+        if updated_html:
+            break
+        print(f"🔄 嘗試使用模型：{model_name}")
+        for attempt in range(1, max_retries + 1):
+            try:
+                print(f"   👉 第 {attempt}/{max_retries} 次請求中...")
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt
+                )
+                updated_html = response.text.strip()
+                print(f"✅ [Step 4/5] 成功收到 API 回覆（生成長度：{len(updated_html)} 字元）。")
+                break
+            except Exception as e:
+                print(f"⚠️ 請求失敗 (原因: {e})")
+                if attempt < max_retries:
+                    print(f"⏳ 伺服器忙碌中，等待 {wait_time} 秒後自動重試...")
+                    time.sleep(wait_time)
+                    wait_time += 10  # 每次失敗增加等待時間
+                else:
+                    print(f"⚠️ 模型 {model_name} 已達最大重試次數，準備切換備用方案...")
+
+    if not updated_html:
+        print("❌ [錯誤] 所有 API 重試與備用模型皆失敗，請稍後手動重試。")
         sys.exit(1)
 
-    # 5. 清理格式並寫回檔案
+    # 6. 清理格式並寫回檔案
     try:
         if updated_html.startswith("```"):
             lines = updated_html.split("\n")
