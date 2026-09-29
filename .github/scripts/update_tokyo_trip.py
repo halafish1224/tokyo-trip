@@ -59,16 +59,23 @@ def main():
 4. **GPS 附近景點打卡與提醒功能 (新增功能)**：
    - 利用 HTML5 Geolocation API (`navigator.geolocation`) 實作一個「🗺️ 偵測我附近的行程景點」按鈕。
    - 請在 JavaScript 中，根據行程表自動內建主要景點的近似經緯度 (如淺草寺、晴空塔、江之島、大船觀音、東京鐵塔、越谷LakeTown等)。
-   - 當使用者點擊按鈕，計算目前 GPS 座標與景點的距離，若距離小於 500 公尺，請使用 Bootstrap Toast 或優美的 Alert 提示「您已在 [景點名稱] 附近！別忘了查看周邊美食喔！」。
+   - 當使用者點擊按鈕，計算目前 GPS 座標與景點的距離，若距離小於 500 公尺，請提示「您已在 [景點名稱] 附近！別忘了查看周邊美食喔！」。
 5. **輸出格式**：
    - 請直接輸出純 HTML 內容，切勿加上任何 Markdown 程式碼區塊標記（如 ```html 或 ```）。
 """
 
-    # 5. 多模型自動備援請求機制
+    # 5. 多模型自動備援請求機制 (擴增彈藥庫)
     updated_html = None
     
-    # 使用最新官方指定的模型清單
-    models_to_try = ["gemini-3.8-flash", "gemini-3.1-pro-preview"]
+    # 擴展到 6 種備援模型，包含動態路由別名與新舊世代
+    models_to_try = [
+        "gemini-3.8-flash",         # 首選最新極速模型
+        "gemini-3.1-pro-preview",   # 官方推薦的強大備援
+        "gemini-3.8-pro",           # 3.8 世代的 Pro 版本
+        "gemini-flash",             # 動態路由：自動導向當前最佳的 Flash 模型
+        "gemini-pro",               # 動態路由：自動導向當前最佳的 Pro 模型
+        "gemini-3.0-flash"          # 終極保底的舊版穩健模型
+    ]
 
     print("🤖 [Step 4/5] 正在呼叫 Gemini API 進行網頁生成與重構...", flush=True)
     
@@ -77,7 +84,7 @@ def main():
             break
         print(f"🔄 嘗試呼叫模型：{model_name}", flush=True)
         
-        max_retries = 4
+        max_retries = 3
         base_wait = 12
 
         for attempt in range(1, max_retries + 1):
@@ -94,20 +101,22 @@ def main():
                 err_str = str(e)
                 print(f"⚠️ [{model_name}] 請求失敗 (原因: {err_str})", flush=True)
                 
-                if "404" in err_str:
-                    print(f"⚠️ 模型 {model_name} 不可用，跳過...", flush=True)
+                # 若模型失效 (404) 或不支援 (400) 直接跳過
+                if "404" in err_str or "400" in err_str:
+                    print(f"⚠️ 模型 {model_name} 不可用或不支援，跳過...", flush=True)
                     break
 
                 if attempt < max_retries:
-                    sleep_time = base_wait + random.randint(5, 12)
+                    # 隨機微調避讓 (6~15秒)，完美錯開全球機器人的同步請求
+                    sleep_time = base_wait + random.randint(6, 15)
                     print(f"⏳ 伺服器尖峰，等待 {sleep_time} 秒後重試...", flush=True)
                     time.sleep(sleep_time)
                     base_wait += 15
                 else:
-                    print(f"⚠️ 模型 {model_name} 嘗試完畢，準備切換備援...", flush=True)
+                    print(f"⚠️ 模型 {model_name} 嘗試完畢，準備切換下一備援...", flush=True)
 
     if not updated_html:
-        print("❌ [錯誤] 所有 Gemini 備援模型均處於尖峰忙碌狀態，請稍後點擊 Run workflow 重試。", flush=True)
+        print("❌ [錯誤] 實在太誇張了，所有 6 個備援模型全部塞車，請稍後點擊 Run workflow 重試。", flush=True)
         sys.exit(1)
 
     # 6. 清理格式並寫回 index.html
