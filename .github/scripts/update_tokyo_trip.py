@@ -1,127 +1,52 @@
-import os
-import sys
-import time
-import random
-import pandas as pd
+name: Gemini Tokyo Trip Auto Updater
 
-def main():
-    sys.stdout.reconfigure(line_buffering=True)
-    print("🚀 [Step 1/5] 開始從 Google Sheet 線上擷取網格功課表...", flush=True)
+on:
+  schedule:
+    - cron: '0 19 * * *' # 每日台灣時間凌晨 03:00 (離峰時段) 自動執行
+  workflow_dispatch: # 支援在 GitHub 頁面手動按鈕觸發
 
-    # 1. 讀取環境變數
-    api_key = os.environ.get("GEMINI_API_KEY")
-    sheet_csv_url = os.environ.get("GOOGLE_SHEET_CSV_URL")
+jobs:
+  update-tokyo-trip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
-    if not api_key:
-        print("❌ [錯誤] 未找到 GEMINI_API_KEY！", flush=True)
-        sys.exit(1)
-    if not sheet_csv_url:
-        print("❌ [錯誤] 未找到 GOOGLE_SHEET_CSV_URL，請檢查 Secrets 設定！", flush=True)
-        sys.exit(1)
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    target_html = "2026/tokyo/index.html"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    # 2. 讀取 Google Sheet CSV
-    try:
-        df = pd.read_csv(sheet_csv_url)
-        grid_markdown = df.to_markdown(index=False)
-        print(f"✅ [Step 2/5] 成功連動 Google Sheet！擷取到 {df.shape[1]-1} 天行程與 {df.shape[0]} 個時間段數據。", flush=True)
-    except Exception as e:
-        print(f"❌ [錯誤] 連動 Google Sheet 失敗：{e}", flush=True)
-        sys.exit(1)
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai pandas tabulate
 
-    # 3. 初始化 Gemini Client
-    try:
-        from google import genai
-        client = genai.Client(api_key=api_key)
-        print("✅ [Step 3/5] Gemini Client 初始化完成。", flush=True)
-    except Exception as e:
-        print(f"❌ [錯誤] SDK 初始化失敗：{e}", flush=True)
-        sys.exit(1)
+      - name: Run Gemini Update Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
+        run: |
+          python .github/scripts/update_tokyo_trip.py
 
-    # 4. Prompt 提示詞
-    prompt = f"""
-你是一位專業的前端工程師與日本旅遊專家。請根據下方這份從 Google Sheet 即時同步的「網格功課表」，將其轉換並更新為最新版 Bootstrap 5 的 HTML 網頁：
-
-【Google Sheet 即時網格功課表資料】：
-{grid_markdown}
-
-【更新與網頁製作要求】：
-1. **依據網格時間段重構每日行程卡片**：
-   - 橫軸代表日期（如 12/13 獨旅, 12/14 獨旅 ... 12/26 家族）。
-   - 縱軸代表時間區段（06:00 ~ 22:00）。
-   - 請將表格內容重構成排版精美的 Accordion 或每日時間軸卡片。
-2. **交通規劃與 Google 評分 3.5~4.0 隱藏版美食**：
-   - 保留並優化各時間點的交通轉乘與周邊在地美食建議。
-3. **功能擴充與互動性**：
-   - 確保包含動態東京氣象模組與「+ 增添/更新每日遊程」按鈕卡片。
-4. **輸出格式**：
-   - 請直接輸出純 HTML 內容，切勿加上任何 Markdown 程式碼區塊標記（如 ```html 或 ```）。
-"""
-
-    # 5. 多模型自動備援請求機制
-    updated_html = None
-    # 設定備援模型優先順序 (主力 -> 備用 1 -> 備用 2)
-    models_to_try = ["gemini-3.8-flash", "gemini-1.5-flash", "gemini-2.5-pro"]
-
-    print("🤖 [Step 4/5] 正在呼叫 Gemini API 進行網頁生成與重構...", flush=True)
-    
-    for model_name in models_to_try:
-        if updated_html:
-            break
-        print(f"🔄 嘗試呼叫模型：{model_name}", flush=True)
-        
-        max_retries = 3
-        base_wait = 10
-
-        for attempt in range(1, max_retries + 1):
-            try:
-                print(f"   👉 [{model_name}] 第 {attempt}/{max_retries} 次請求中...", flush=True)
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt
-                )
-                updated_html = response.text.strip()
-                print(f"🎉 [Step 4/5] 成功由 {model_name} 收到 API 回覆（長度：{len(updated_html)} 字元）！", flush=True)
-                break
-            except Exception as e:
-                err_str = str(e)
-                print(f"⚠️ [{model_name}] 請求失敗 (原因: {err_str})", flush=True)
-                
-                # 如果是 404 模型不存在，直接跳過換下一個模型
-                if "404" in err_str:
-                    print(f"⚠️ 模型 {model_name} 不可用，跳過...", flush=True)
-                    break
-
-                if attempt < max_retries:
-                    # 加上隨機微調秒數 (Jitter)，避免與全球其他請求同時塞車
-                    sleep_time = base_wait + random.randint(3, 8)
-                    print(f"⏳ 伺服器尖峰，等待 {sleep_time} 秒後重試...", flush=True)
-                    time.sleep(sleep_time)
-                    base_wait += 10
-                else:
-                    print(f"⚠️ 模型 {model_name} 嘗試完畢，切換至下一備援模型...", flush=True)
-
-    if not updated_html:
-        print("❌ [錯誤] 所有 Gemini 備援模型均處於尖峰忙碌狀態，請稍後點擊 Run workflow 重試。", flush=True)
-        sys.exit(1)
-
-    # 6. 清理格式並寫回 index.html
-    try:
-        if updated_html.startswith("```"):
-            lines = updated_html.split("\n")
-            if lines[0].startswith("```"):
-                lines = lines[1:]
-            if lines and lines[-1].startswith("```"):
-                lines = lines[:-1]
-            updated_html = "\n".join(lines)
-
-        with open(target_html, "w", encoding="utf-8") as f:
-            f.write(updated_html)
-        print(f"🎉 [Step 5/5] {target_html} 已成功同步並更新完成！", flush=True)
-    except Exception as e:
-        print(f"❌ [錯誤] 寫入 HTML 檔案失敗：{e}", flush=True)
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "style/update: 自動同步 Google Sheet 最新網格功課表行程"
+          title: "🤖 [Gemini Auto-Update] 同步 Google Sheet 最新功課表行程"
+          body: |
+            ## 🤖 Gemini 網格功課表同步報告
+            本 PR 已成功從 Google Sheet 線上同步最新網格功課表，並經由 Gemini API 自動升級 `2026/tokyo/index.html`：
+            - 🗓️ 06:00~22:00 逐時段行程精準轉換
+            - 🚆 景點最佳交通規劃與轉乘細節
+            - 🍱 周邊 Google 評分 3.5~4.0 星隱藏版在地美食
+            
+            請審閱變更後點擊 Merge 合併！
+          branch: gemini-tokyo-daily-update
+          base: main
+          delete-branch: true
