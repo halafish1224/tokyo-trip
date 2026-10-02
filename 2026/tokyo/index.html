@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#193a43">
   <meta name="description" content="2026 東京冬日紀行：12 月 13 至 26 日，14 天湘南、鎌倉與東京行程。Google Sheets 同步、每日時間軸、交通、美食候選與附近景點提醒。">
   <title>東京冬日紀行 2026｜14 天湘南・東京旅行手帳</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
   <style>
     :root{--ink:#193a43;--paper:#f6f3ec;--muted:#5d6c6b;--line:#dcded6;--red:#b7432f;--pale:#e8eee8;--bs-primary:#193a43;--bs-body-color:#193a43;--bs-body-bg:#f6f3ec}
     *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:17px;line-height:1.75;background:var(--paper);color:var(--ink);padding-bottom:84px}button,input,select,textarea{font:inherit}button,a,input,select,textarea{touch-action:manipulation}a{color:#245e70;text-underline-offset:4px}button{cursor:pointer}button:disabled{cursor:wait;opacity:.65}a,button{overflow-wrap:anywhere}:focus-visible{outline:3px solid #c6663e!important;outline-offset:4px}p{margin:0 0 1rem}h1,h2,h3,h4{line-height:1.35}h2{font-size:1.55rem}h3{font-size:1.18rem}.small,small{font-size:.86rem}.muted{color:var(--muted)}.eyebrow{font-size:.76rem;letter-spacing:.18em;font-weight:750;text-transform:uppercase}.wrap{max-width:1240px;margin:auto;padding:0 28px}.skip{position:fixed;top:-100px;left:1rem;background:#fff;padding:12px;z-index:3000}.skip:focus{top:10px}
@@ -132,10 +132,18 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
   .accordion-button { gap: 10px; }
 }
 </style>
-</head>
-<body data-journey="family">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="canonical" href="https://travel.itigre.com/2026/tokyo/">
+<meta property="og:type" content="website"><meta property="og:title" content="東京，聖誕見。｜2026 冬日旅行手帳">
+<meta property="og:description" content="湘南的海風、東京的燈火。14天行程與每日分享。">
+<meta property="og:url" content="https://travel.itigre.com/2026/tokyo/">
+<meta property="og:image" content="https://travel.itigre.com/2026/tokyo/images/share.jpg">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://travel.itigre.com/2026/tokyo/images/share.jpg">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="images/icon-192.png">
+<link rel="stylesheet" href="experience.css"></head>
+<body data-journey="all">
 <a class="skip" href="#main">跳至行程</a>
-<header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="#top"><span class="brand-stamp" aria-hidden="true">旅</span>東京冬日紀行 <span class="muted">2026</span></a><nav class="toplinks" aria-label="快捷連結"><a href="#food-guide" data-open-section="theme">找美食</a><a href="#source-info" data-open-section="trip">資料設定</a><a href="https://docs.google.com/spreadsheets/d/156UgwNFMgtzfKZjPQSCtm1svb6Mk6LTPNtOwE0EI0Gw/edit" target="_blank" rel="noopener noreferrer">開啟行程表 ↗</a></nav></div></header>
+<header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="#top"><span class="brand-stamp" aria-hidden="true">旅</span>東京冬日紀行 <span class="muted">2026</span></a><nav class="toplinks" aria-label="快捷連結"><a href="#food-guide" data-open-section="theme">找美食</a><a href="#source-info" data-open-section="trip">資料設定</a></nav></div></header>
 <div class="wrap" id="top"><div class="reading-tools"><span>手機閱讀字級</span><div class="reading-controls"><button type="button" class="btn btn-small" data-reading="large" aria-pressed="true">大字</button><button type="button" class="btn btn-small" data-reading="huge" aria-pressed="false">更大字</button></div></div>
   <section class="hero" aria-labelledby="page-title">
     <div><h1 id="page-title">東京，<br>聖誕見。<span>十二月的海風、燈火與家人</span></h1><p class="hero-desc">12/13–26・東京冬日旅行手冊<br>先走湘南，再與家人一起過聖誕。</p><div class="hero-actions"><a class="btn btn-primary" href="https://maps.app.goo.gl/fnoe1QByvhK4PARE6" target="_blank" rel="noopener noreferrer">📍 開啟湘南/鎌倉地圖</a><a class="btn btn-quiet" href="https://maps.app.goo.gl/wpc8cnJeWYH3H9hA9" target="_blank" rel="noopener noreferrer">📍 開啟東京市區地圖</a></div></div>
@@ -143,23 +151,23 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
   </section>
   <div class="trip-strip"><div class="trip-numbers"><div><strong>14</strong><span>天的旅程</span></div><div><strong>06</strong><span>天獨旅</span></div><button type="button" class="btn btn-red" data-phase="family"><strong>08</strong> 天家族篇 →</button></div><div class="source-line" id="sync-status" role="status">行程資料載入中…</div></div>
   <div id="storage-warning" hidden role="status"></div>
-  <main id="main">
+  <main id="main"><section class="experience panel" aria-label="旅行模式"><div class="experience-heading"><div><p class="eyebrow">TOKYO · DECEMBER 2026</p><h2 id="experience-title">出發前，先把重要的確認好。</h2></div><span id="experience-clock"></span></div><div class="mode-switch" role="group" aria-label="切換旅行情境"><button class="btn" data-mode="plan">出發前</button><button class="btn" data-mode="today">Today 今天</button><button class="btn" data-mode="journal">旅途紀錄</button></div><p id="experience-status" role="status"></p><div id="next-stop"></div><div class="experience-actions"><button class="btn btn-primary" id="share-day">分享這一天</button><button class="btn" id="offline-save">儲存完整離線手冊</button><span id="offline-status" role="status">首次開啟需有網路</span></div></section><section id="decision-board" class="panel" aria-label="決策看板"></section><section id="overview" aria-label="14日總覽"></section><section id="journal-view" hidden aria-label="實際旅途紀錄"></section>
     <section id="sec-trip" class="section active" aria-label="每日行程">
       <div style="margin-bottom:16px"><a class="btn btn-small" href="#map-notes-guide" data-open-section="theme">📝 我的地圖筆記</a></div><div class="phase-shortcuts" role="group" aria-label="選擇旅程篇章"><button type="button" class="btn" data-phase="family" aria-pressed="true">👨‍👩‍👧‍👦 08 天家族篇 · 12/19–26</button><button type="button" class="btn" data-phase="solo" aria-pressed="false">06 天獨旅篇</button><button type="button" class="btn" data-phase="all" aria-pressed="false">全部 14 天</button></div><div class="workspace">
         <aside class="day-sidebar"><h2>選一天，出發吧</h2><nav id="day-nav" class="day-nav" aria-label="14 天日期索引"></nav></aside>
         <div class="content-col">
           <details class="travel-support"><summary>天氣、GPS 與今天行程</summary><div class="support-grid">
-            <section class="panel" aria-labelledby="weather-heading"><div class="weather-top"><h2 id="weather-heading">旅途天氣</h2><span class="badge badge-note" id="weather-mode">示範資料</span></div><div class="weather-controls" aria-label="切換地區"><button type="button" class="btn btn-small" data-weather="tokyo" aria-pressed="true">東京</button><button type="button" class="btn btn-small" data-weather="fujisawa" aria-pressed="false">湘南</button><button type="button" class="btn btn-small" data-weather="hakone" aria-pressed="false">箱根</button></div><div class="weather-reading" aria-live="polite"><strong id="weather-temp">🌤 11°C</strong><span id="weather-condition" class="small">冬日晴朗（示範）</span></div><p id="weather-tip" class="small muted">防風外套、圍巾，室內外以多層穿搭調整。</p><button type="button" id="weather-live" class="btn btn-small btn-quiet">查詢目前天氣</button><p class="weather-status" id="weather-status">示範溫度不是 12 月預報；可查所選地區的目前天氣。</p></section>
-            <section class="panel gps-panel" aria-labelledby="gps-heading"><h2 id="gps-heading">走到哪，就逛到哪。</h2><p class="small muted">偵測 500 公尺內的行程景點，順手找下一站。座標只在你的裝置比對。</p><button type="button" class="btn btn-primary" id="gps-button">🗺️ 偵測我附近的行程景點</button><div id="gps-result" class="gps-result" role="status" aria-live="polite">按下後才會請求定位權限。</div><div class="toolbar-actions" style="margin-top:10px"><button type="button" id="now-button" class="btn btn-small btn-quiet">跳到日本今天</button><span class="small muted" id="check-count">0 個景點已打卡</span></div></section>
+            <section class="panel" aria-labelledby="weather-heading"><div class="weather-top"><h2 id="weather-heading">旅途天氣</h2><span class="badge badge-note" id="weather-mode">尚未查詢</span></div><div class="weather-controls" aria-label="切換地區"><button type="button" class="btn btn-small" data-weather="tokyo" aria-pressed="true">東京</button><button type="button" class="btn btn-small" data-weather="fujisawa" aria-pressed="false">湘南</button><button type="button" class="btn btn-small" data-weather="hakone" aria-pressed="false">箱根</button></div><div class="weather-reading" aria-live="polite"><strong id="weather-temp">—</strong><span id="weather-condition" class="small">所選日期預報待查詢</span></div><p id="weather-tip" class="small muted">防風外套、圍巾，室內外以多層穿搭調整。</p><button type="button" id="weather-live" class="btn btn-small btn-quiet">更新7日預報</button><p class="weather-status" id="weather-status">僅顯示未來7日可取得預報；12月預報尚未發布。</p></section>
+            <section class="panel gps-panel" aria-labelledby="gps-heading"><h2 id="gps-heading">走到哪，就逛到哪。</h2><p class="small muted">偵測 500 公尺內有座標的行程點與筆記點，順手找下一站。座標只在你的裝置比對。</p><button type="button" class="btn btn-primary" id="gps-button">🗺️ 偵測附近景點與筆記</button><div id="gps-result" class="gps-result" role="status" aria-live="polite">按下後才會請求定位權限。</div><div class="toolbar-actions" style="margin-top:10px"><button type="button" id="now-button" class="btn btn-small btn-quiet">跳到日本今天</button><span class="small muted" id="check-count">0 個景點已打卡</span></div></section>
           </div>
           </details><div class="toolbar"><h2>今天，要去哪裡？</h2><div class="toolbar-actions"><button type="button" class="btn btn-small" id="sync-button">↻ 更新行程</button><button type="button" class="btn btn-red" id="add-button">+ 加一站</button></div></div>
-          <div class="filters"><label class="visually-hidden" for="trip-search">搜尋行程與原頁筆記</label><input id="trip-search" type="search" placeholder="搜尋目前行程景點…"><label class="visually-hidden" for="trip-filter">旅程階段</label><select id="trip-filter"><option value="all">全部 14 天</option><option value="solo">獨旅篇 12/13–18</option><option value="family" selected>家族篇 12/19–26</option></select><button type="button" class="btn btn-small btn-quiet" id="expand-button">全部展開</button></div>
+          <div class="filters"><label class="visually-hidden" for="trip-search">搜尋行程與原頁筆記</label><input id="trip-search" type="search" placeholder="搜尋目前行程景點…"><label class="visually-hidden" for="trip-filter">旅程階段</label><select id="trip-filter"><option value="all" selected>全部 14 天</option><option value="solo">獨旅篇 12/13–18</option><option value="family">家族篇 12/19–26</option></select><button type="button" class="btn btn-small btn-quiet" id="expand-button">全部展開</button></div>
           <p id="result-summary" class="results-summary" aria-live="polite"></p><div id="itinerary-list" class="accordion"></div>
-          <details class="panel settings-panel" id="source-info" style="margin-top:28px"><summary>備份與資料設定</summary><div class="settings-content"><p class="small">行程直接讀取 Google Sheet；地圖筆記與查證補充由每日夜間更新整理至 GitHub。按「同步行程與筆記」可讀取目前 Sheet 和最近整理的筆記，失敗時保留上次資料。</p><p class="small muted">新增／修改與打卡儲存在此瀏覽器，不會寫回 Google Sheet。原頁補充資料沿用原有內容，交通、價格與時刻可能過時；主行程以目前 Sheet 為準，舊路線只留在收合的封存筆記。</p><div class="toolbar-actions"><button type="button" class="btn btn-small" id="export-button">下載本機行程備份</button><label class="btn btn-small" for="import-input">匯入本機備份</label><input type="file" id="import-input" accept="application/json,.json" hidden><a class="btn btn-small btn-quiet" href="https://docs.google.com/spreadsheets/d/156UgwNFMgtzfKZjPQSCtm1svb6Mk6LTPNtOwE0EI0Gw/edit" target="_blank" rel="noopener noreferrer">編輯雲端原表 ↗</a></div><details class="panel-details"><summary>查看目前讀取的原始網格</summary><p class="small muted">原始星級僅為行程筆記，不是此次查證的 Google 評分；住宿列依原表的合併範圍呈現。</p><div class="table-scroll" id="raw-grid" tabindex="0" aria-label="可捲動的 14 天原始網格"></div></details><details class="panel-details"><summary>原始版本與交通查詢來源</summary><p class="small">初版網格 57 個非空資料格、原頁 43 筆行程與 86 筆周邊／採買資料皆保留。下面另可檢視重構時的原始網格；同步後也不會遺失這份基準。</p><div id="reference-links" class="source-links"></div><div id="baseline-grid" class="table-scroll" tabindex="0" aria-label="2026 年 9 月 29 日原始網格"></div></details><details class="panel-details"><summary>照片來源與授權</summary><p class="small muted">照片依版面縮放與裁切；各照片沿用下列授權。季節點燈照片為歷年景象。</p><ul class="photo-credits" id="photo-credits"></ul></details></div></details>
+          <details class="panel settings-panel" id="source-info" style="margin-top:28px"><summary>備份與資料設定</summary><div class="settings-content"><p class="small">頁面只讀取整合行程 trip.json；按更新讀取已發布版本。個人修改與狀態儲存在此裝置，建議定期下載完整備份。</p><p class="small muted">備份包含打卡、記帳、待購勾選與私人筆記，請只交給可信任的家人。分享日頁只包含公開路線。</p><div class="toolbar-actions"><button type="button" class="btn btn-small" id="export-button">下載本機行程備份</button><label class="btn btn-small" for="import-input">匯入本機備份</label><input type="file" id="import-input" accept="application/json,.json" hidden></div><details class="panel-details"><summary>照片來源與授權</summary><p class="small muted">照片依版面縮放與裁切；各照片沿用下列授權。季節點燈照片為歷年景象。</p><ul class="photo-credits" id="photo-credits"></ul></details><p><a href="#archive" id="archive-open">查看封存資料</a></p><div id="archive" hidden></div></div></details>
         </div>
       </div>
     </section>
-    <section id="sec-theme" class="section utility-section" aria-label="景點與美食"><h2 class="page-heading">街區、美食與口袋名單</h2><p class="muted">由完整行程整理，點選即可回到對應日期。</p><label for="theme-search" class="small">搜尋景點與美食</label><input id="theme-search" type="search" placeholder="例如：神社、超市、藤澤" style="width:100%;margin:8px 0 20px"><section id="map-notes-guide" class="panel" style="margin:0 0 24px" aria-labelledby="map-notes-heading"><h2 id="map-notes-heading">📝 我的地圖筆記</h2><p class="small">旅途中想逛、想吃的口袋名單。</p><details class="panel-details"><summary>筆記來源</summary><p class="small muted" id="map-notes-description"></p></details><p class="small muted" id="map-notes-sync" role="status">筆記載入中…</p><div class="filters"><label for="map-notes-search" class="visually-hidden">搜尋我的地圖筆記</label><input type="search" id="map-notes-search" placeholder="搜尋筆記，例如：抹茶、Loft、咖哩…"><label class="visually-hidden" for="map-notes-source">筆記來源清單</label><select id="map-notes-source"><option value="all">兩份清單全部</option value="0">2026二零二六</option><option value="1">東京2026</option></select></div><p id="map-notes-count" class="small muted" role="status"></p><div id="map-notes-list"></div></section><div id="theme-spots-list" class="tour-grid"></div><section id="food-guide" class="panel" style="margin-top:28px"><h2>3.5–4.0★ 美食候選</h2><p class="small muted">評分為先前查閱紀錄；點地圖確認營業與最新評分。</p><p class="small muted">避開用餐尖峰，走累了就找個地方歇腳。</p><div id="all-foods" class="food-grid"></div></section></section>
+    <section id="sec-theme" class="section utility-section" aria-label="景點與美食"><h2 class="page-heading">街區、美食與口袋名單</h2><p class="muted">由完整行程整理，點選即可回到對應日期。</p><label for="theme-search" class="small">搜尋景點與美食</label><input id="theme-search" type="search" placeholder="例如：神社、超市、藤澤" style="width:100%;margin:8px 0 20px"><section id="map-notes-guide" class="panel" style="margin:0 0 24px" aria-labelledby="map-notes-heading"><h2 id="map-notes-heading">📝 我的地圖筆記</h2><p class="small">旅途中想逛、想吃的口袋名單。</p><details class="panel-details"><summary>筆記來源</summary><p class="small muted" id="map-notes-description"></p></details><p class="small muted" id="map-notes-sync" role="status">筆記載入中…</p><div class="filters"><label for="map-notes-search" class="visually-hidden">搜尋我的地圖筆記</label><input type="search" id="map-notes-search" placeholder="搜尋筆記，例如：抹茶、Loft、咖哩…"><label class="visually-hidden" for="map-notes-source">筆記來源清單</label><select id="map-notes-source"><option value="all">兩份清單全部</option value="0">2026二零二六</option><option value="1">東京2026</option></select></div><p id="map-notes-count" class="small muted" role="status"></p><div class="mode-switch"><button class="btn" data-notes-layer="today">今日相關</button><button class="btn" data-notes-layer="nearby">附近</button><button class="btn" data-notes-layer="all">完整口袋名單</button></div><div id="map-notes-list"></div></section><div id="theme-spots-list" class="tour-grid"></div><section id="food-guide" class="panel" style="margin-top:28px"><h2>依用餐情境挑選</h2><p class="small muted">評分是摘錄，非即時 Places；筆記整理日2026-10-02，各評分原查閱日見卡片。</p><p class="small muted">避開用餐尖峰，走累了就找個地方歇腳。</p><select id="food-context" aria-label="用餐情境"><option value="all">全部情境</option><option>預約</option><option>排隊</option><option>當地午餐</option><option>走累歇腳</option><option>避開</option></select><div id="all-foods" class="food-grid"></div></section></section>
         <div id="sec-account" class="section utility-section"><h2 class="page-heading">待購與旅途記帳</h2>
         <div class="action-btn-container">
             <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" rel="noopener noreferrer" class="action-card action-card-report">
@@ -210,7 +218,7 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
                 <input aria-label="日幣金額" type="number" min="1" max="99999999" id="acc-cost" class="input-field" placeholder="日幣">
                 <button type="button" class="btn-add" onclick="addExpense()">＋</button>
             </div>
-            <label class="small" for="expense-rate">日幣轉台幣估算匯率（可修改）</label><input id="expense-rate" type="number" min="0.0001" max="100" step="0.0001" value="0.215"><ul id="expense-list"></ul>
+            <label class="small" for="expense-rate">日幣轉台幣估算匯率（可修改，非銀行賣出）<span id="exchange-status"></span></label><input id="expense-rate" type="number" min="0.0001" max="100" step="0.0001" value="0.215"><ul id="expense-list"></ul>
         </div>
     </div>
 
@@ -251,7 +259,7 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
         </div>
 
         <div>
-            <div>🇹🇼 說中文 (翻成日文)</div>
+            <section id="phrasebook" class="panel"></section><div>自由文字翻譯（需要網路）</div>
             <textarea aria-label="要翻譯成日文的中文" id="input-zh" class="trans-box" rows="3" placeholder="例：請問這個多少錢？可以刷卡嗎？"></textarea>
             <button type="button" class="trans-btn" onclick="goTranslate('zh-TW', 'ja', 'input-zh')">轉換為日文 ➔</button>
             <hr>
@@ -262,736 +270,20 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
     </div>
 
   </main>
-  <footer class="site-footer"><div class="footer-row"><span>東京冬日紀行 · December 13–26, 2026</span><span>以日本時間顯示今天 · <span id="japan-clock"></span></span></div></footer>
+  <noscript><p>此手冊需要JavaScript；首次連網開啟後可儲存離線。</p></noscript><footer class="site-footer"><div class="footer-row"><span>東京冬日紀行 · December 13–26, 2026</span><span>以日本時間顯示今天 · <span id="japan-clock"></span></span></div></footer>
 </div>
 <nav class="bottom-nav" aria-label="主要功能"><button type="button" data-section="trip" aria-current="page"><span class="nav-icon" aria-hidden="true">🗓</span><span class="nav-label">每日行程</span></button><button type="button" data-section="theme"><span class="nav-icon" aria-hidden="true">🍵</span><span class="nav-label">景點美食</span></button><button type="button" data-section="account"><span class="nav-icon" aria-hidden="true">🛍</span><span class="nav-label">待購記帳</span></button><button type="button" data-section="trans"><span class="nav-icon" aria-hidden="true">↔</span><span class="nav-label">隨身工具</span></button></nav>
 <dialog id="editor-dialog" aria-labelledby="editor-heading"><form id="editor-form"><div class="dialog-head"><h2 id="editor-heading">增添／更新每日遊程</h2><button type="button" class="btn btn-small btn-quiet" id="editor-close" aria-label="關閉編輯視窗">✕</button></div><p class="small muted">儲存在此瀏覽器，可在下方匯出備份。修改原行程時仍保留原文供對照。</p><div class="form-row"><div class="field"><label for="edit-day">日期</label><select id="edit-day" required></select></div><div class="field"><label for="edit-time">時間</label><input id="edit-time" type="time" required></div></div><div class="field"><label for="edit-event">選擇要新增／更新的項目</label><select id="edit-event"><option value="new">+ 新增行程</option></select></div><div class="field"><label for="edit-title">行程／景點名稱</label><input id="edit-title" type="text" required maxlength="300" placeholder="例如：上野阿美橫町散步"></div><div class="field"><label for="edit-note">筆記與交通提醒</label><textarea id="edit-note" maxlength="4000"></textarea></div><div class="field"><label for="edit-map">Google Maps 搜尋關鍵字（選填）</label><input id="edit-map" type="text" maxlength="300" placeholder="建議加上地區與分店名稱"></div><p id="edit-error" class="form-error" role="alert"></p><div class="dialog-actions"><button type="button" id="reset-edit" class="btn btn-quiet" hidden>還原雲端原文</button><button type="submit" class="btn btn-primary">儲存遊程</button></div></form></dialog>
 <div id="imageModal" class="img-modal" style="display:none" role="dialog" aria-label="放大照片" tabindex="-1"><img id="modalImg" src="" alt="放大照片"><button type="button" class="btn modal-close" onclick="closeImageModal()">關閉圖片</button></div>
 <div id="toast-stack" class="toast-container" aria-live="polite" aria-atomic="false"></div>
 <noscript><p class="wrap alert">請啟用 JavaScript 以使用行程、定位與編輯功能。也可直接開啟上方 Google Sheet 閱讀完整行程。</p></noscript>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script id="map-notes-data" type="application/json">{"sources":[{"name":"2026二零二六","count":176,"url":"https://www.google.com/maps/@30.4333558,125.292867,6z/data=!4m3!11m2!2sXJVBQRMyg4c29TKZxPp-gz8KT9uP_A!3e3?entry=ttu&g_ep=EgoyMDI2MDkyOC4wIKXMDSoASAFQAw%3D%3D","checked":"2026-10-02","complete":true},{"name":"東京2026","count":52,"url":"https://www.google.com/maps/@35.6085891,139.5537213,10z/data=!4m3!11m2!2sSYsMoGm0DSDI3Cvy4t1lBg!3e3?entry=ttu&g_ep=EgoyMDI2MDkyOC4wIKXMDSoASAFQAw%3D%3D","checked":"2026-10-02","complete":true}],"notes":[{"id":"mn01","source":0,"name":"Parking Building","context":"21-1 Udagawacho, Shibuya, Tokyo 150-0042 日本","aliases":["澀谷 Loft","澀谷 LoFt","LOFT 最大店","Shibuya Loft"],"mappedByNote":true,"note":"澀谷Loft（經典大型專門店）"},{"id":"mn02","source":0,"name":"日本電視台大廈","context":"1 Chome-6-1 Higashishinbashi, Minato City, Tokyo 105-0021 日本","aliases":["新橋宮崎駿","宮崎駿時鐘","宮崎駿大時計"],"mappedByNote":true,"note":"宮崎駿親自設計、充滿《霍爾的移動城堡》風格的巨型機械鐘"},{"id":"mn03","source":0,"name":"1 Chome-6-1 Higashishinbashi","context":"Minato City, Tokyo 105-0021 日本；地址標記與筆記地址不同，請以原地圖核對。","aliases":["新橋宮崎駿","宮崎駿時鐘","宮崎駿大時計"],"mappedByNote":true,"note":"東京都港區東新橋1丁目8−2 宮崎駿親自設計、充滿《霍爾的移動城堡》風格的巨型機械鐘"},{"id":"mn04","source":0,"name":"蕎麦粉食堂 Buckwheat","aliases":[],"note":"☆キャベツと新玉ねぎのアーリオオーリオ（￥1200）：高麗菜與新洋蔥蒜香橄欖油蕎麥義大利麵（1,200日圓）\n蕎麦パスタ大盛り+300です：蕎麥義大利麵加大份量加 300 日圓\n\n+300でドルチェが付けられます：加 300 日圓可加購甜點（Dolce）。"},{"id":"mn05","source":0,"name":"八十八良葉舍 淺草","aliases":["八十八淺草"],"note":"抹茶"},{"id":"mn06","source":0,"name":"Curry Club Cuillère","aliases":[],"note":"スルメイカと季節野菜のイカ墨カレー\n魷魚與季節時蔬墨魚咖哩"},{"id":"mn07","source":0,"name":"Odawara Museum of Literature","aliases":["小田原文學館"],"note":"Odawara Museum of Literature\n這座洋館本身就是優雅的歷史建築，更重要的是，小田原曾是許多日本近代文豪的居住地，其中包含了寫下《細雪》等名作的谷崎潤一郎。\n\n文學連結：館內收藏了大量與小田原淵源深厚的文人資料，能對日本近代文學的發展與美學有另一層面的在地理解。\n\n建築美學：洋館結合了和式與西式風格，庭園極度靜謐，是個能讓人慢下來思考與閱讀的空間。\n\n若決定將6天5夜全數留給鎌倉與藤澤，當地的「文學與歷史」深度也絕對足以支撐這段時間的探索。不妨將時間留給這兩處與日本近代文豪息息相關的秘境："},{"id":"mn08","source":0,"name":"小田原城","aliases":[],"note":"小田原城\n雖然天守閣是近代重建，但其廣大的城址公園與周邊保留的武家屋敷風貌，非常適合以變焦旅遊鏡頭捕捉冬日冷冽的光影與建築細節。\n\n空間感：城郭的石垣與護城河格局開闊，觀光客密度遠低於鎌倉熱門景點。\n\n步行延伸：可以一路散步至「御幸之濱」海岸，感受這座海線老城鎮的日常步調。"},{"id":"mn09","source":0,"name":"清淨光寺 (遊行寺)","aliases":["清淨光寺","清净光寺","遊行寺"],"note":"清净光寺\n從藤澤站北口向北步行約15–20分鐘即可抵達，這是時宗的總本山，在地人親切地稱為「遊行寺」。\n\n歷史人文：遊行寺是江戶時代藤澤宿的中心，境内擁有極其宏偉的木造本堂以及樹齡超過700年的巨大銀杏樹。\n\n在地社群：境內的「放生池」與歷史長廊是當地老人與鄰里日常散步交談的核心場所，完全沒有外國觀光客，是體驗真正日本地方生活感（Local Life）的絕佳地點。\n\n舊東海道藤澤宿街區（藤澤宿交流館與小栗判官傳説）\n從遊行寺周邊沿著境川散步，整條舊街道保留了許多明治、大正時期的老店舖與土藏造建築。\n\n藤澤宿交流館：館內由在地志工營運，展示了江戶時代藤澤宿的模型、古地圖與旅人繪卷，能深度了解這座城市如何從門前町演變為現代樞紐。\n\n大鋸與富士嶺區域：沿著舊道可以尋找傳說中小栗判官與照手姬的歷史遺跡，以及在地鎮守神社「白旗神社」（祭祀源義經），感受藤澤獨特的武士傳說。"},{"id":"mn10","source":0,"name":"成就院","aliases":["Joju-in"],"note":"Joju-in\n沿著極樂寺切通山路向上步行即可抵達。成就院以不動明王信仰聞名，也是古代武士祈求戰勝與結緣的靈場。\n\n視覺與歷史體驗：從參道頂端回首，能透過山谷直視由比濱海灣。冬日的湛藍海水與古寺石階形成極強烈烈的視覺對比。\n\n在地散策：順著參道下山可直接連通至「坂ノ下」傳統漁村街區，探索許多由老民家改建的獨立雜貨店與古民家咖啡店。"},{"id":"mn11","source":0,"name":"安養院","aliases":["安养院"],"note":"安养院\n由北條政子為了祈求源賴朝冥福而創立的律宗古寺，境內供奉著鎌倉二十四地藏與坂東三十三觀音。\n\n沉靜美學：雖然以春季杜鵑花聞名，但冬日裡境內樹齡數百年的黑松與枯山水石庭，呈現出極其純粹的日式禪意。\n\n文化歷史：寺內保存著鎌倉時代的石造寶篋印塔，後方山坡更是在地居民常來靜坐散心的靜謐秘境。"},{"id":"mn12","source":0,"name":"舊華頂宮邸","aliases":["Former Residence of Marquis Kachō Hironobu"],"note":"##一~三休息 Former Residence of Marquis Kachō Hironobu 這座木造的洋館建於1929年（昭和4年），原為華族華頂博信侯爵的邸宅，隱身於淨妙寺最深處的山谷中。建築採用半木造（Half-timbered）的都鐸風格，被林木與苔榻包圍。\n\n歷史與氛圍：被選為神奈川縣建築百選，目前僅開放廣大的古典庭園供民眾自由散步。冬日清晨山谷微霧瀰漫時，極具寂靜的異國歷史韻味。\n\n在地故事：這裡是許多日本老派影視作品的取景地，也是鎌倉在地保護古蹟建築運動的代表性地標。"},{"id":"mn13","source":0,"name":"妙本寺","aliases":[],"note":"妙本寺\n這裡曾是鎌倉幕府重臣比企能員一族的宅邸所在地，後因權力鬥爭（比企之亂）一族覆滅，日蓮聖人為撫慰亡靈而在此建寺。\n\n建築與環境：境內的祖師堂是鎌倉現存規模最大的木造建築之一，被深山密林環抱，踏入其中能感受強烈的歷史肅殺與沉靜感。\n\n在地體驗：此處觀光客稀少，常能遇到在境內散步、寫生的在地居民。"},{"id":"mn14","source":0,"name":"佐助稻荷神社","aliases":["佐助稲荷神社"],"note":"佐助稲荷神社\n隱身於住宅區最深處的山谷中，傳說源賴朝在伊豆流放時曾夢見「佐助稻荷大明神」指示他舉兵，因而得名。\n\n幽境氛圍：沿著山麓鋪設的數十座朱紅色鳥居，兩旁擺放著無數居民與信眾奉納的白狐陶偶，苔痕斑駁，深具在地民間信仰色彩。\n\n路線延伸：神社後方連接前往源氏山公園的古步道，十分適合喜愛腳踏實地健行的旅人。"},{"id":"mn15","source":0,"name":"英勝寺","aliases":[],"note":"東光山 英勝寺\n鎌倉現存唯一的尼寺，由德川家康的側室英勝院創立。境內完整保留了江戶時代的竹林、鐘樓與祠堂，氛圍優雅肅穆。\n\n社群與故事：相較於人潮擁擠的報国寺，英勝寺的竹林小道極其幽靜，是在地人私藏的沉思場所。\n\n文化細節：寺內建築融合了德川家康時代的木雕藝術，冬天造訪更能感受古寺的冷冽與寧靜。"},{"id":"mn16","source":0,"name":"〒248-0011 Kanagawa, Kamakura, Ogigayatsu, 1 Chome−17−7 寿福寺","aliases":["寿福寺","壽福寺"],"note":"寿福寺 由北條政子為紀念源賴朝而建，名列鎌倉五山第三。雖然本堂內部平時不公開，但從總門延伸至中門的石板參道被譽為鎌倉最美的参道之一。\n\n石板參道：兩旁綠意盎然，冬日平添一份寂靜之美。\n\n歷史連結：後方的山崖「櫓（Yagura，洞窟墓穴）」中，安葬著北條政子與源實朝"},{"id":"mn17","source":0,"name":"祇園 綠壽庵清水","aliases":[],"note":"金平糖"},{"id":"mn18","source":0,"name":"35°39'27.0\"N 139°39'31.3\"E","aliases":["35°39'27.0\"N 139°39'31.3\"E"],"note":"可見富士山的好景色"},{"id":"mn19","source":1,"name":"Workman","aliases":[],"ambiguous":true,"context":"清單中有多間同名分店；僅憑 PLUS 備註無法確認分店，因此不自動配對行程。","note":"PLUS"}],"version":1,"checked":"2026-10-02","updatedAt":"2026-10-01T18:46:49Z"}</script>
-<script id="travel-updates-data" type="application/json">{"version":1,"checked":"2026-10-02","items":[{"keys":["宮崎駿","宮﨑駿"],"title":"大時計：提早等候這一場","text":"官方列平日演出為 12:00、15:00、18:00、20:00，約在整點前 3 分鐘開始。行程安排的 18:00 場，建議 17:55 先到；如有臨時調整，以現場公告為準。","source":"https://www.ntv.co.jp/oo-dokei/","checked":"2026-10-02"},{"keys":["teamLab"],"title":"豐洲 Planets：交通與衣著","text":"官方交通指引為新豐洲站北口，或有樂町線豐洲站 7 號出口步行約 10 分鐘。Water 區需要赤腳，水可能到成人膝蓋；建議穿方便捲起的褲子，孩子另備替換衣物。請確認票券是豐洲 Planets，並保留預約入場時間。","source":"https://teamlabplanets.dmm.com/zh_tw/help","checked":"2026-10-02"},{"keys":["LakeTown","レイクタウン"],"title":"LakeTown：先選購物分區","text":"Outlet 官方一般營業時間為 10:00–20:00；部分餐飲店開店、閉店與最後點餐時間不同。用餐前先確認分店是在 Outlet、mori 或 kaze，將集合地點約在同一區，避免家人走散後跨區找人。","source":"https://laketown-outlet.jp/static/detail/serviceguide","checked":"2026-10-02"},{"keys":["接駁"],"title":"東京站接駁：核對官方集合點","text":"東橫 INN 官方接駁頁以東京站八重洲中央口、八重洲地下街 19 號出口附近說明乘車位置。當日請先打開官方圖確認集合點與適用飯店；班次、道路與停靠位置如有調整，以飯店通知為準。","source":"https://www.toyoko-inn.com/campaign/pickup/tokyo/","checked":"2026-10-02"},{"keys":["Odawara Museum of Literature","小田原文學館","小田原文学館"],"title":"文學館：冬季 16:00 前入館","text":"官方冬季（11–2月）開館 10:00–16:30，最後入館 16:00；週一休館（遇假日順延），另有臨時休館。12/16 的 15:00 行程請先入館，再往海岸散策。2026年成人票250日圓；已公告的300日圓新票價從2027/4/1才生效。","source":"https://www.city.odawara.kanagawa.jp/public-i/facilities/literature-museum/bungakukan.html","checked":"2026-10-02"},{"keys":["LOFT 最大店","澀谷 LoFt","Shibuya Loft"],"title":"澀谷 Loft：導航請用店名與官方地址","text":"官方店址為澀谷區宇田川町18-2；你的 Parking Building 地圖標記是21-1，請依店名搜尋核對入口。一般營業11:00–21:00，免稅辦理至20:30；澀谷站A3出口步行約5分鐘，JR八公口約10分鐘，部分服務時間不同。","source":"https://www.loft.co.jp/shop_list/detail.php?shop_id=189","checked":"2026-10-02"}]}</script>
-<script id="baseline-data" type="application/json">[["時間","12/13(日) P1獨旅","12/14(一) P1獨旅","12/15(二) P1獨旅","12/16(三) P1獨旅","12/17(四) P1獨旅","12/18(五) P1獨旅","12/19(六) P2會合","12/20(日) P2家族","12/21(一) P2家族","12/22(二) P2家族","12/23(三) P2家族","12/24(四) P2家族","12/25(五) P2家族","12/26(六) P2家族"],["6:00"],["7:00"],["8:00",null,null,null,"08:30 小田原城晨間散策 (★3.8 小田原漁港)"],["9:00",null,"09:30 大船觀音寺參拜 (★3.8 觀音食堂)","09:00 江之島全島徒步 (★3.8 朝日堂 / ★3.8 紀之國屋)",null,"09:30 藤澤宿歷史老街漫步",null,null,null,"09:30 分流A: teamLab 豐洲 (★3.9 壽司大) / 分流B: 柴又老街 (★3.8 高木屋)",null,null,null,null,"09:30 人形町甘酒橫丁 (★3.9 柳屋鯛魚燒)"],["10:00",null,null,"10:30 登頂 Sea Candle 海蠟燭 (★3.8 LONCAFE)",null,null,"10:00 光明寺與材木座海岸 (★3.8 海邊咖啡)","10:00 退房前往東京市區 (上野東京線)",null,null,"10:00 墨田北齋美術館 (★3.8 相撲火鍋)",null,"10:30 越谷 AEON Mall LakeTown OUTLET (★3.6 美食街)"],["11:00",null,"11:30 大船仲通商店街漫步 (★3.9 鈴木水產 / ★3.8 CALVA)",null,null,null,null,null,null,null,null,null,null,null,"11:30 人形町午餐 (★3.8 深川飯)"],["12:00",null,null,null,null,null,null,null,null,null,"12:30 敘敘苑燒肉 晴空塔店 (★3.8 高空午餐)",null,null,"12:30 叙々苑 経堂コルティ店","12:50 飯店集合\n大眾交通規劃:東橫INN東京站新大橋前>成田機場"],["13:00",null,null,"13:00 稚兒之淵與岩屋海蝕洞 (★3.9 魚見亭)",null,null,null,null,null,null,null,null,null,null,"13:30 京成 Access 特急往成田 Terminal 2"],["14:00","大眾交通規劃:成田機場>東橫INN藤澤站北口","14:00 OS Drug 大船店藥妝採購 (★3.9 鳴門鯛燒本舖)",null,null,null,"14:30 腰越漁港生活圈 (★3.9 文佐食堂)",null,"14:00 麻布十番","14:00 銀座一站式採購 (LOFT / UNIQLO / ★3.8 三笠會館)",null,"上野周邊 OS DRUG ",null,"14:30 豪德寺 招財貓神社","14:35 成田 Terminal 2 報到"],["15:00","15:00 抵達藤澤 & 入住東橫INN藤澤站北口",null,null,null,null,null,"大眾交通規劃:成田機場>東橫INN東京站新大橋前","15:00 東京鐵塔 (周邊外看內)","銀座周邊 OS DRUG ","15:30 淺草寺參拜 & 雷門夜間點燈 (★3.7 大黑家 / ★3.9 炸肉餅)","15:30 上野阿美橫町採買 (★3.8 名代宇奈тото / ★3.9 二木菓子)"],["16:00","16:30 清淨光寺 (遊行寺) 散策 (★3.8 久昇)",null,null,null,null,null,"16:35 家族班機抵達 (CI104) & 入住東橫INN東京站新大橋前","16:00 增上寺 & 東京鐵塔同框 (★3.9 芝豆腐屋鵜山)","16:30 KITTE 丸之內 (★3.9 根室花丸)","淺草周邊 OS DRUG ",null,null,"16:00 35°39'27.0\"N 139°39'31.3\"E"],["17:00",null,null,null,null,null,null,null,null,"17:30 丸之內仲通香檳金聖誕點燈 (★3.8 餐酒館)",null,null,null,"下北澤周邊 OS DRUG ","17:45 ✈️ 班機起飛回台 (CI105)"],["18:00","18:00 湘南GATE / OK Store 物資採買","18:00 藤澤在地晚餐 (★3.8 久昇)","18:00 藤澤周邊晚餐","18:00 藤澤晚餐","18:00 藤澤晚餐","18:00 鎌倉/藤澤晚餐","18:00 晚餐 Jonathan's (★3.6) / 成城石井或周邊超市採買","18:00 東京鐵塔/銀座晚餐","18:30 銀座美食與點燈","18:30 淺草/晴空塔晚餐","18:00 淺草橋/秋葉原晚餐","18:30 市區/商場晚餐"],["19:00"],["20:00","20:00 晚餐 (★3.7 名代 富士蕎麥麵)",null,null,null,null,null,null,null,null,null,"備選 下島包裝 Shimojima 淺草橋店"],["21:00"],["22:00","東橫INN藤澤站北口",null,null,null,null,null,"東橫INN東京站新大橋前"]]</script>
-<script id="cover-data" type="application/json">[{"date":"2026-12-13","title":"湘南首集：旅行，從藤澤開場","caption":"藤澤・江之電車站","file":"Fujisawa station of Enoden.jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Fujisawa_station_of_Enoden.jpg/960px-Fujisawa_station_of_Enoden.jpg","source":"https://commons.wikimedia.org/wiki/File:Fujisawa_station_of_Enoden.jpg","author":"Hst0129","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0/","keys":["藤澤"],"width":960,"height":1686,"position":"50% 62%"},{"date":"2026-12-14","title":"大船奇遇：大觀音，小幸福","caption":"大船觀音","file":"Ofuna-Kannon.jpg","image":"https://upload.wikimedia.org/wikipedia/commons/5/50/Ofuna-Kannon.jpg","source":"https://commons.wikimedia.org/wiki/File:Ofuna-Kannon.jpg","author":"Urashimataro","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","keys":["大船觀音"],"width":2832,"height":2600,"position":"50% 30%"},{"date":"2026-12-15","title":"江之島，整座島都是片場","caption":"江之島・湘南海岸","file":"Enoshima Island (21351367018).jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Enoshima_Island_%2821351367018%29.jpg/1280px-Enoshima_Island_%2821351367018%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Enoshima_Island_(21351367018).jpg","author":"Yoshikazu TAKADA","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0/","keys":["江之島"],"width":1280,"height":853,"position":"50% 50%"},{"date":"2026-12-16","title":"小田原特刊：城郭與海風","caption":"小田原城","file":"Odawara Castle.jpg","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Odawara_Castle.jpg/1280px-Odawara_Castle.jpg","source":"https://commons.wikimedia.org/wiki/File:Odawara_Castle.jpg","author":"ZAC","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0/","keys":["小田原城"],"width":1280,"height":853,"position":"50% 50%"},{"date":"2026-12-17","title":"藤澤慢遊：老街的日常風景","caption":"藤澤宿交流館","file":"Fujisawa-shuku Tourist Info Center.jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Fujisawa-shuku_Tourist_Info_Center.jpg/1280px-Fujisawa-shuku_Tourist_Info_Center.jpg","source":"https://commons.wikimedia.org/wiki/File:Fujisawa-shuku_Tourist_Info_Center.jpg","author":"Yoshi Canopus","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0/","keys":["藤澤宿"],"width":1280,"height":720,"position":"50% 50%"},{"date":"2026-12-18","title":"鎌倉海線：讓海風替旅程配樂","caption":"材木座海岸","file":"Zaimokuza-beach.jpg","image":"https://upload.wikimedia.org/wikipedia/commons/b/b3/Zaimokuza-beach.jpg","source":"https://commons.wikimedia.org/wiki/File:Zaimokuza-beach.jpg","author":"Urashimataro","license":"Public domain","licenseUrl":"https://creativecommons.org/publicdomain/mark/1.0/","keys":["材木座"],"width":1280,"height":960,"position":"50% 50%"},{"date":"2026-12-19","title":"家族篇開播：東京，我們來了","caption":"東京車站","file":"2024 Tokyo Station Marunouchi Building at night (1).jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/2024_Tokyo_Station_Marunouchi_Building_at_night_%281%29.jpg/1280px-2024_Tokyo_Station_Marunouchi_Building_at_night_%281%29.jpg","source":"https://commons.wikimedia.org/wiki/File:2024_Tokyo_Station_Marunouchi_Building_at_night_(1).jpg","author":"Kakidai","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0/","keys":["家族班機抵達"],"width":1280,"height":804,"position":"50% 50%"},{"date":"2026-12-20","title":"東京名場面：全家福與鐵塔","caption":"增上寺・東京鐵塔","file":"Tokyo Tower and Zojoji temple (7475558188).jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Tokyo_Tower_and_Zojoji_temple_%287475558188%29.jpg/1280px-Tokyo_Tower_and_Zojoji_temple_%287475558188%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Tokyo_Tower_and_Zojoji_temple_(7475558188).jpg","author":"KimonBerlin","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0/","keys":["東京鐵塔"],"width":1280,"height":853,"position":"50% 30%"},{"date":"2026-12-21","title":"東京雙線：分頭玩，銀座見","caption":"銀座街景","file":"Ginza, le quartier du luxe et des grands magasins (Tokyo) (28826372218).jpg","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ginza%2C_le_quartier_du_luxe_et_des_grands_magasins_%28Tokyo%29_%2828826372218%29.jpg/1280px-Ginza%2C_le_quartier_du_luxe_et_des_grands_magasins_%28Tokyo%29_%2828826372218%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Ginza,_le_quartier_du_luxe_et_des_grands_magasins_(Tokyo)_(28826372218).jpg","author":"Jean-Pierre Dalbéra","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0/","keys":["銀座"],"width":1280,"height":853,"position":"50% 50%"},{"date":"2026-12-22","title":"下町散步：從雷門逛到阿美橫","caption":"淺草・雷門","file":"Kaminarimon Gate of Sensoji Temple.JPG","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Kaminarimon_Gate_of_Sensoji_Temple.JPG/1280px-Kaminarimon_Gate_of_Sensoji_Temple.JPG","source":"https://commons.wikimedia.org/wiki/File:Kaminarimon_Gate_of_Sensoji_Temple.JPG","author":"そらみみ (Soramimi)","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0/","keys":["雷門"],"width":1280,"height":960,"position":"50% 40%"},{"date":"2026-12-23","title":"澀谷特刊：走進一片藍","caption":"青之洞窟・歷年點燈照","file":"澀谷青之洞窟 (49286830646).jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/%E6%BE%80%E8%B0%B7%E9%9D%92%E4%B9%8B%E6%B4%9E%E7%AA%9F_%2849286830646%29.jpg/960px-%E6%BE%80%E8%B0%B7%E9%9D%92%E4%B9%8B%E6%B4%9E%E7%AA%9F_%2849286830646%29.jpg","source":"https://commons.wikimedia.org/wiki/File:澀谷青之洞窟_(49286830646).jpg","author":"Wei-Te Wong","license":"CC BY-SA 2.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/2.0/","keys":["青之洞窟"],"width":960,"height":640,"position":"50% 50%"},{"date":"2026-12-24","title":"平安夜採購局：慢逛 LakeTown","caption":"越谷・LakeTown Outlet","file":"Koshigaya AEON Laketown Outlet 1st Ave. Entrance 1.JPG","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Koshigaya_AEON_Laketown_Outlet_1st_Ave._Entrance_1.JPG/1280px-Koshigaya_AEON_Laketown_Outlet_1st_Ave._Entrance_1.JPG","source":"https://commons.wikimedia.org/wiki/File:Koshigaya_AEON_Laketown_Outlet_1st_Ave._Entrance_1.JPG","author":"京浜にけ","license":"CC BY 3.0","licenseUrl":"https://creativecommons.org/licenses/by/3.0/","keys":["LakeTown"],"width":1280,"height":853,"position":"50% 50%"},{"date":"2026-12-25","title":"聖誕留白：今天，慢慢來","caption":"東京聖誕氣氛照・行程待補","file":"Marunouchi Illumination 2022 (52646959150).jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Marunouchi_Illumination_2022_%2852646959150%29.jpg/1280px-Marunouchi_Illumination_2022_%2852646959150%29.jpg","source":"https://commons.wikimedia.org/wiki/File:Marunouchi_Illumination_2022_(52646959150).jpg","author":"Dick Thomas Johnson","license":"CC BY 2.0","licenseUrl":"https://creativecommons.org/licenses/by/2.0/","keys":[],"width":1280,"height":853,"position":"50% 50%"},{"date":"2026-12-26","title":"東京片尾：把回憶裝進行李箱","caption":"成田機場・第二航廈","file":"Narita Airport Terminal 2 exterior.jpg","image":"https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Narita_Airport_Terminal_2_exterior.jpg/1280px-Narita_Airport_Terminal_2_exterior.jpg","source":"https://commons.wikimedia.org/wiki/File:Narita_Airport_Terminal_2_exterior.jpg","author":"Banbam1029","license":"CC BY-SA 4.0","licenseUrl":"https://creativecommons.org/licenses/by-sa/4.0/","keys":["成田"],"width":1280,"height":853,"position":"50% 50%"}]</script>
-<script id="grid-data" type="application/json">[["時間","12/13(日) P1獨旅","12/14(一) P1獨旅","12/15(二) P1獨旅","12/16(三) P1獨旅","12/17(四) P1獨旅","12/18(五) P1獨旅","12/19(六) P2會合","12/20(日) P2家族","12/21(一) P2家族","12/22(二) P2家族","12/23(三) P2家族","12/24(四) P2家族","12/25(五) P2家族","12/26(六) P2家族"],["6:00","","","","","","","","","","","","","",""],["7:00","","","","","","","","","","","","","",""],["8:00","","","","08:30 小田原城晨間散策 (★3.8 小田原漁港)","","","","飯店接駁時刻表 https://www.toyoko-inn.com/china/campaign/pickup/tokyo/","","8:30 淺草寺參拜 & 雷門","","","",""],["9:00","","09:30 大船觀音寺參拜 (★3.8 觀音食堂)","","小田原城與常盤木門","09:30 藤澤宿歷史老街漫步","","","9:50 飯店接駁車 至 東京車站 ","09:30 分流A: teamLab 豐洲 (★3.9 壽司大) / \n分流B: 柴又老街 (★3.8 高木屋)","9:30 八十八淺草","","","",""],["10:00","","","10:00 江之島全島徒步 (★3.8 朝日堂 / ★3.8 紀之國屋)","","","10:00 光明寺與材木座海岸 (★3.8 海邊咖啡)","10:00 退房前往東京市區 (上野東京線)","站前合照\n11:00丸善 丸之內本店 漫畫","","\n","","11:00 越谷 AEON Mall LakeTown OUTLET (★3.6 美食街)","",""],["11:00","","11:30 大船仲通商店街漫步 (★3.9 鈴木水產 / ★3.8 CALVA)","","報徳二宮神社與森林咖啡","","","","12:30 KITTE 丸之內 (★3.9 根室花丸 迴轉壽司)","11:50 銀座周邊 OS DRUG","","12/22 11:30 叙叙苑 涩谷店 03-5459-8989","12:00 一汁五穀","",""],["12:00","","12:30 單軌拍照點","12:00 稚兒之淵與岩屋海蝕洞 (★3.9 魚見亭)","","","","","","12:20 MARRONNIER GATE GINZA 2(好逛UNIQLO / GU)\n","12/23 \n12:30 敘敘苑 上野丸井店 03-3833-8989","","","","12:50 飯店集合\n大眾交通規劃:東橫INN東京站新大橋前>成田機場"],["13:00","NEX來回票購買","13:00 Curry Club Cuillère","","小田原魚糕街（かまぼこ通り）","","","","","","","","","","13:30 京成 Access 特急往成田 Terminal 2"],["14:00","大眾交通規劃:成田機場>東橫INN藤澤站北口","14:30 Joraku-ji","14:00 蕎麦兄 Sobanii","UIROU Main Store（外郎博物館與和菓子屋）","","14:30 腰越漁港生活圈 (★3.9 文佐食堂)","","","14:30 無印良品旗艦店","14:30 domremy outlet Ueno Station","14:30 LOFT 最大店( 創始總店「澀谷 LoFt」（Shibuya Loft）)","","","14:35 成田 Terminal 2 報到"],["15:00","15:00 抵達藤澤 & 入住東橫INN藤澤站北口","","","Odawara Museum of Literature 文學館","","","大眾交通規劃:成田機場>東橫INN東京站新大橋前","15:00 東京鐵塔 (周邊外看內)","","上野周邊 OS DRUG ","","","",""],["16:00","16:30 清淨光寺 (遊行寺) 散策 (★3.8 久昇)","16:30 BOOKOFF SUPER BAZAAR Kamakura Ofuna Store","16:00 Mr Max Shonan Fujisawa Shopping Center","御幸之濱（Miyukihama Beach）","","","16:35 家族班機抵達 (CI104) & 入住東橫INN東京站新大橋前","16:00 增上寺 & 東京鐵塔同框","","16:30 上野阿美橫町採買 (★3.8 名代宇奈тото / ★3.9 二木菓子)","","","",""],["17:00","","17:00 OS Drug 大船店藥妝採購 (★3.9 鳴門鯛燒本舖)","","","","","","","","","","","","17:45 ✈️ 班機起飛回台 (CI105)"],["18:00","18:00 湘南GATE / OK Store 物資採買","","","","","","18:00 晚餐 Jonathan's (★3.6) / 成城石井或周邊超市採買","18:00 聖誕市集(如有，KKDAY購票)","18:00 新橋宮崎駿時針","","18:00 青之洞窟","","",""],["19:00","","","","","","","","","","","千代田站回","","",""],["20:00","20:00 晚餐 (★3.7 名代 富士蕎麥麵)","","","","","","","","","","","","",""],["21:00","","","","","","","","","","","","","",""],["22:00","東橫INN藤澤站北口","","","","","","東橫INN東京站新大橋前","","","","","","",""]]</script>
-<script id="legacy-data" type="application/json">[{"date":"12/13 (日)","id":"d1","project":1,"fullDate":"2026-12-13","events":[{"time":"15:00","title":"抵達藤澤 Check-in","img":"https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80","desc":"入住東橫 INN 藤澤站北口，地處湘南交通動脈核心，車站周邊生活機能健全。","map":"東横INN藤沢駅北口","transportGuide":["🚆【成田機場出發】：搭乘 JR 成田特快 (N'EX) 直達戶塚站，同月台對面轉乘 JR 東海道線 1 站即達藤澤站（免提行李走樓梯！）。","🚶【藤澤站北口】：出驗票口由空中步道連通道走至北口，搭乘升降電梯直通地面步行 4 分鐘。"],"nearby":[{"name":"藤澤OPA","dist":"200m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"站前大型商場，適合添購臨時衣物或無印良品雜貨。","mapQuery":"藤沢OPA"},{"name":"BIC CAMERA 藤澤店","dist":"300m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"攝影器材、記憶卡或轉接頭若有遺漏可在此補齊。","mapQuery":"ビックカメラ 藤沢店"},{"name":"藤澤市役所展望台","dist":"450m","fame":"⭐⭐","recom":"⭐⭐⭐⭐","desc":"9樓免費觀景台，天氣晴朗時可遠眺富士山，夕陽絕景。","mapQuery":"藤沢市役所 本庁舎 展望デッキ"},{"name":"町中華 大新 (Google 3.8★)","dist":"250m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【在地隱藏排隊少】藤澤在地昭和麵館，招牌「大新拉麵」以肉末勾芡滑嫩著稱，深夜暖胃必吃。","mapQuery":"大新 藤沢店"},{"name":"久昇炭火串燒 (Google 3.9★)","dist":"350m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【在地熟客居酒屋】非觀光客店，主打炭烤土雞串與相模灣烤魚，安靜且料理真材實料。","mapQuery":"久昇 藤沢"}]},{"time":"16:30","title":"清淨光寺 (遊行寺)","desc":"時宗總本山，從藤澤站步行15分鐘。拍攝午後斜射光影與江戶時期遺留之壯麗木造本堂。","map":"遊行寺","nearby":[{"name":"藤澤浮世繪館","dist":"800m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"免費參觀，展示東海道五十三次等珍貴浮世繪，極具文化價值。","mapQuery":"藤沢市藤澤浮世絵館"},{"name":"ふじさわ宿交流館","dist":"350m","fame":"⭐⭐","recom":"⭐⭐⭐","desc":"了解舊東海道驛站歷史的休憩所，附設乾淨洗手間。","mapQuery":"ふじさわ宿交流館"},{"name":"白旗神社","dist":"1.2km","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"祭祀源義經的名社，林木蒼翠，適合廣角與街拍鏡頭。","mapQuery":"白旗神社 藤沢"},{"name":"そば処 赤坂 (Google 3.7★)","dist":"400m","fame":"⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【在地老麵店】寺廟旁由老夫婦經營的樸實手打蕎麥麵，熱鴨南蠻蕎麥麵湯頭醇厚、價格親民。","mapQuery":"そば処 赤坂 藤沢"}]},{"time":"18:00","title":"超市與百元店採買","desc":"湘南 GATE 4樓逛 3COINS，至 OK Store 買特價便當與日本產草莓。","supermarkets":[{"name":"🛒 OK Store 藤澤店","meta":"在地人最愛超平價便當與飲料","map":"オーケー 藤沢店"}],"nearby":[{"name":"業務超市 藤澤店","dist":"500m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"大量採買飲料、大包裝零食的省錢聖地。","mapQuery":"業務スーパー 藤沢店"},{"name":"KALDI 咖啡農場","dist":"150m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"位於Lumine內，搜刮世界各地進口零食與高品質濾掛咖啡。","mapQuery":"カルディコーヒーファーム 藤沢"},{"name":"大衆酒場 鳥嶺 (Google 3.8★)","dist":"180m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【在地平價燒鳥】在地上班族下班集合地，烤雞皮脆香、雞肝鮮甜，無觀光客吵雜。","mapQuery":"大衆酒場 鳥嶺 藤沢"}]}]},{"date":"12/14 (一)","id":"d2","project":1,"fullDate":"2026-12-14","events":[{"time":"09:30","title":"大船觀音寺","img":"https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=800&q=80","desc":"搭 JR 一站到大船，仰望山丘頂純白祥和的巨型觀音像，感受冬日清晨平靜。","map":"大船観音寺","transportGuide":["🚆【JR 路線】：藤澤站 ➔ 大船站（JR 東海道線或橫須賀線皆可，僅需 4 分鐘）。","🚶【西口出口】：出大船站西口過柏尾川步道，沿斜坡步行約 5 分鐘抵達山門。"],"nearby":[{"name":"大船 Lumine Wing","dist":"300m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"車站共構商場，伴手禮與甜點選擇極多，適合回程採買。","mapQuery":"大船ルミネウィング"},{"name":"龍寶寺","dist":"1.5km","fame":"⭐⭐","recom":"⭐⭐⭐","desc":"竹林古樹環繞的禪宗寺廟，遊客罕至，冬景幽靜肅穆。","mapQuery":"龍宝寺 鎌倉"},{"name":"石刈 炭火串燒・海鮮 (Google 3.8★)","dist":"350m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【大船隱密日料】當地居民喜愛的居酒屋定食，午間刺身套餐新鮮厚切、CP值高。","mapQuery":"石刈 大船"}]},{"time":"11:30","title":"大船仲通商店街","desc":"湘南的「阿美橫町」。生鮮蔬果、平價炸物與市井熟食氣息濃烈。","map":"大船仲通り商店街","nearby":[{"name":"鈴木水產 大船店","dist":"50m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"商店街靈魂店鋪！一樓賣新鮮漁獲，二樓提供高CP值海鮮握壽司。","mapQuery":"鈴木水産 大船店"},{"name":"CALVA 麵包店","dist":"200m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"百名店常客，法式長棍與可頌極為出色，適合買作點心。","mapQuery":"ブーランジュリー カルヴァ"},{"name":"千里飯店 (Google 3.7★)","dist":"100m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【昭和風町中華】份量十足的大船老字號，餛飩麵湯頭清爽、半炒飯香氣四溢不用等。","mapQuery":"千里飯店 大船"},{"name":"鞠屋 (Google 3.8★)","dist":"150m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【在地立吞居酒屋】站著吃的小酒館，招牌燉牛筋軟嫩入味，體驗道地庶民生活。","mapQuery":"鞠屋 大船"}]},{"time":"14:00","title":"大船 OS Drug 藥妝必買","desc":"免稅藥妝清單在此比價補齊，不花俏且常有不可思議的超殺特價。","map":"OS Drug 大船店","nearby":[{"name":"大國藥妝 大船店","dist":"20m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"若 OS 缺貨，可直接至對面大國比價補齊。","mapQuery":"ダイコクドラッグ 大船駅前店"},{"name":"鳴門鯛燒本舖","dist":"50m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"「一丁烤」傳統技法的鯛魚燒，薄脆外皮搭十勝紅豆絕配。","mapQuery":"鳴門鯛焼本舗 大船店"}]}]},{"date":"12/15 (二)","id":"d3","project":1,"fullDate":"2026-12-15","events":[{"time":"09:00","title":"江之島全島深度徒步","img":"https://images.unsplash.com/photo-1570459027562-4a916cc6113f?auto=format&fit=crop&w=800&q=80","desc":"漫步江之島弁天橋，依序登爬：江島神社 ➔ 邊津宮 ➔ 中津宮 ➔ 奧津宮。","map":"江島神社","transportGuide":["🚊【江之電乘車】：藤澤站搭乘江之島電鐵（江之電）至「江之島站」（約11分）。","🚶【徒步路徑】：出站穿過洲鼻通商店街，經地下地下道直上弁天橋步行入島（約15分）。"],"nearby":[{"name":"青銅鳥居","dist":"10m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"江之島歷史起點，青銅銘刻沉澱江戶參拜風華。","mapQuery":"江の島 青銅の鳥居"},{"name":"文佐食堂 (Google 3.8★)","dist":"450m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【島民口袋名單】避開觀光大道的小巷食堂，生吻仔魚與煮魚定食美味質樸，宛如日本奶奶的手路菜。","mapQuery":"文佐食堂 江の島"},{"name":"紀之國屋 女夫饅頭","dist":"100m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"現蒸熱騰騰的黑糖與白酒饅頭，散步暖胃甜點。","mapQuery":"紀の国屋本店"}]},{"time":"10:30","title":"Sea Candle 海蠟燭","desc":"登塔俯瞰相模灣與富士山天際線，園區冬季鬱金香花期與燈飾美不勝收。","map":"江の島シーキャンドル","nearby":[{"name":"Samuel Cocking 苑","dist":"0m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"海蠟燭所在的植物園，和洋折衷風格。","mapQuery":"江の島サムエル・コッキング苑"},{"name":"LONCAFE 江之島本店","dist":"100m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"日本第一家法式吐司專賣店，海景視野極佳。","mapQuery":"LONCAFE 湘南江の島本店"}]},{"time":"13:00","title":"稚兒之淵與岩屋","desc":"下探海蝕平台，回程欣賞夕陽將海浪染金。全日高低差走完達 6 公里運動量。","map":"稚児ヶ淵","nearby":[{"name":"見晴亭 (Google 3.9★)","dist":"250m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【懸崖海景食堂】相較於超排隊的魚見亭，見晴亭人潮適中，海景同樣壯麗，吻仔魚雙拼丼極新鮮。","mapQuery":"見晴亭 江の島"},{"name":"江之島岩屋","dist":"200m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"持燭台探索神秘海蝕洞窟。","mapQuery":"江の島岩屋"}]}]},{"date":"12/16 (三)","id":"d4","project":1,"fullDate":"2026-12-16","events":[{"time":"08:30","title":"小田原城：晨間歷史散策","img":"https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80","desc":"小田原站東口步行10分。清晨光線柔和，拍天守閣白牆與護城河倒影最美。","map":"小田原城","transportGuide":["🚆【JR 東海道線】：藤澤 ➔ 小田原 (約20-25分, ¥590)。","🚶【步行】：小田原站東口直走，經城址公園大手門入城。"],"nearby":[{"name":"Minaka 小田原","dist":"800m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"車站旁的江戶風情建築，頂樓有免費足湯看海景與電車。","mapQuery":"ミナカ小田原"},{"name":"鳥ぎん 小田原店 (Google 3.9★)","dist":"600m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【在地釜飯名店】在地老饕首選，炭火釜飯現點現炊，搭配香脆烤雞肉串，風味絕佳。","mapQuery":"鳥ぎん 小田原店"}]},{"time":"11:30","title":"箱根湯本與自然薯美食","desc":"箱根門戶散步，享用在地名產「自然薯山藥蕎麥麵」或老字號溫泉饅頭。","map":"箱根湯本駅","transportGuide":["🚆【箱根登山鐵道】：小田原 ➔ 箱根湯本 (約15分, ¥320)。"],"nearby":[{"name":"山そば (Google 3.8★)","dist":"200m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【不用苦等兩小時的好選擇】比 Hatsuhana 翻桌率快，自慢的自然薯山藥泥蕎麥麵與天婦羅水準極佳。","mapQuery":"山そば 箱根湯本"},{"name":"菊川商店","dist":"150m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"現做熱騰騰卡斯特拉燒「箱根饅頭」。","mapQuery":"菊川商店"}]},{"time":"13:45","title":"箱根神社：水上和平鳥居","desc":"矗立於蘆之湖中的朱紅水中鳥居，杉木巨樹成蔭，沉澱心靈的靈力之森。","map":"箱根神社","transportGuide":["🚌【箱根登山巴士 R線(急行)】：箱根湯本 ➔ 元箱根港 (約25分, ¥1,080)。下車步行10分至湖畔鳥居。"],"nearby":[{"name":"絹華 豆腐與甘味 (Google 3.9★)","dist":"500m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【蘆之湖隱密甜品】以箱根甘冽泉水手作的豆腐與豆乳布丁，濃郁滑順，適合參拜後歇腳。","mapQuery":"絹華 芦ノ湖"},{"name":"元箱根港 湖畔步道","dist":"200m","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"拍攝「水中鳥居+富士山」絕景視角。","mapQuery":"元箱根港"}]},{"time":"15:20","title":"箱根海賊船：黃金夕陽航線","desc":"從元箱根港登船航向桃源台，冬日斜陽倒映水波，富士山積雪如夢似幻。","map":"元箱根港","transportGuide":["⛴️【箱根觀光船】：元箱根港 ➔ 桃源台 (約30分, ¥1,200)。","🚌【快速返程回藤澤】：於桃源台搭巴士 T 線至小田原站(¥1250)，轉 JR 回藤澤最省體力。"]}]},{"date":"12/17 (四)","id":"d5","project":1,"fullDate":"2026-12-17","events":[{"time":"10:00","title":"藤澤宿歷史老街","img":"https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=80","desc":"舊東海道歷史巡禮，尋訪保留江戶漆喰牆面的百年老商號與老酒造。","map":"藤澤宿","nearby":[{"name":"關次商店 パンの蔵 風見鶏","dist":"300m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"明治時代米穀老店改建的質感烘焙坊。","mapQuery":"関次商店 パンの蔵 風見鶏"},{"name":"上州屋 烏龍麵 (Google 3.7★)","dist":"450m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【大份量在地老店】深受在地藍領與學生愛戴，手打烏龍麵極具勁道，炸豬排飯香酥多汁。","mapQuery":"上州屋 藤沢"}]},{"time":"14:00","title":"龍口寺 (木造五重塔)","desc":"江之島站旁的莊嚴名剎，捕捉江之電路面電車從寺前木門緩緩穿梭的經典日式鏡頭。","map":"龍口寺","nearby":[{"name":"かきや食堂 (Google 3.8★)","dist":"500m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【腰越漁港直送】文政年間創業的漁夫食堂，現炸竹莢魚酥脆無比、吻仔魚鮮甜無腥味。","mapQuery":"かきや本館 食堂部"},{"name":"扇屋 (江之電最中)","dist":"300m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"店面鑲嵌真實江之電廢棄車頭的必訪和菓子老店。","mapQuery":"扇屋 江ノ電もなか"}]}]},{"date":"12/18 (五)","id":"d6","project":1,"fullDate":"2026-12-18","events":[{"time":"10:00","title":"光明寺與材木座海岸","img":"https://images.unsplash.com/photo-1509024644558-2f56ce76c490?auto=format&fit=crop&w=800&q=80","desc":"光明寺寬廣的枯山水庭園，一路散步至靜謐的材木座，聽冬日海浪拍岸。","map":"光明寺","nearby":[{"name":"海沿い キコリ食堂 (Google 3.9★)","dist":"400m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【無敵海景平價食堂】可看著海浪享用炭烤銀鮭定食與鎌倉蔬菜，座位舒適放鬆。","mapQuery":"キコリ食堂 鎌倉"},{"name":"和賀江島","dist":"800m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"日本現存最古老的人工築港石堆遺跡。","mapQuery":"和賀江島"}]},{"time":"14:00","title":"鵠沼海岸 (夕陽富士)","desc":"湘南海岸開闊沙灘，捕捉「江之島海蠟燭 + 富士山暮色倒影」的長焦攝影傑作。","map":"鵠沼海岸","nearby":[{"name":"PCH Coffee (Google 3.9★)","dist":"350m","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【海岸文青鬆餅】美式西海岸風小店，現烤舒芙蕾厚鬆餅蓬鬆細緻，海邊散步歇腳極佳。","mapQuery":"PCH Coffee 鵠沼海岸"},{"name":"新江之島水族館","dist":"1km","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"相模灣大水槽與水母夢幻館。","mapQuery":"新江ノ島水族館"}]}]},{"date":"12/19 (六)","id":"d7","project":2,"fullDate":"2026-12-19","events":[{"time":"10:00","title":"東京站丸之內迎賓","img":"https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80","desc":"獨旅先發抵達東京站。在紅磚站舍前拍攝冬日暖陽，隨後前往成田會合家人。","map":"東京駅","transportGuide":["🚆【藤澤至東京】：搭乘 JR 上野東京線/東海道線，直達東京車站（約 50 分鐘，免換車）。"],"nearby":[{"name":"豚大學 東京站店 (Google 3.9★)","dist":"站內地下","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【狂暴炭烤燒肉丼】現點現烤的大片醬汁豬肉片層層疊起如花朵，香脆焦香，快速省時。","mapQuery":"豚大学 新橋 (或八重洲地下街周邊)"},{"name":"KITTE 丸之內","dist":"步行3分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"舊郵局改建，6樓露天花園可俯瞰新幹線與紅磚全景。","mapQuery":"KITTE丸の内"}]},{"time":"12:35","title":"✈️ 家人班機 CI104 台北起飛","desc":"家人由桃園機場 T2 搭乘中華航空 CI104 起飛，預計航程 3 小時。","checkInNote":"桃園機場起飛報到"},{"time":"16:35","title":"家人抵達 NRT T2 會合","desc":"入境通關，領取行李，更換日本 eSIM / 漫遊網卡。","map":"成田空港第2ターミナル","nearby":[{"name":"免稅店 AKIHABARA","dist":"航廈內","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"常備伴手禮一覽無遺。","mapQuery":"成田空港 免税店 AKIHABARA"}]},{"time":"17:30","title":"搭乘 TYO-NRT 機場高速巴士","suitable":["senior","kid"],"desc":"直達東京車站（八重洲口）。全平坦直上直下，免去拖著大行李箱擠電車的疲累！","map":"東京駅","transportGuide":["🚌【搭車地點】：成田二航廈 1 樓入境大廳 6 號或 16 號乘車處。","🎟️【購票便利】：票價 ¥1,300（小孩半價），可直接刷 Suica/IC 卡上車，約 65-75 分鐘抵達東京站八重洲口。"]},{"time":"18:50","title":"東橫 INN 東京站新大橋前 入住","desc":"搭乘接駁車入住飯店。周邊生活圈為寧靜雅緻的人形町/濱町。","supermarkets":[{"name":"🛒 Peacock Store Hamacho","meta":"步行 3 分鐘，生鮮水果、熟食便當豐富","map":"ピーコックストア トルナーレ日本橋浜町店"}],"nearby":[{"name":"人形町今半 濱町惣菜店","dist":"步行5分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"黑毛和牛壽喜燒老店的外帶部！極品現炸牛肉可樂餅是今晚消夜首選。","mapQuery":"人形町今半 惣菜 浜町"},{"name":"松月 蕎麥麵 (Google 3.8★)","dist":"步行4分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【社區鄰里老麵店】濱町安靜巷弄裡的家庭式蕎麥麵，熱騰騰的鍋燒烏龍與咖哩南蠻麵最適合長輩入夜暖身。","mapQuery":"松月 日本橋浜町"},{"name":"水天宮","dist":"步行10分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"免爬樓梯的全平坦防震神社，夜間點燈靜謐高雅。","mapQuery":"水天宮"}]}]},{"date":"12/20 (日)","id":"d8","project":2,"fullDate":"2026-12-20","events":[{"time":"09:30","title":"豪德寺拍招財貓","suitable":["senior","kid"],"img":"https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80","desc":"參訪招財貓傳說發源地，境內上千隻白貓排開超震撼，全境平坦無階梯好推車。","map":"豪徳寺","transportGuide":["🚇【地鐵轉乘】：從飯店步行至【水天宮前站】搭半藏門線直通三軒茶屋，轉乘可愛路面電車【東急世田谷線】至「宮之坂站」，步行 5 分鐘抵達。","💡【無障礙亮點】：世田谷線為低底盤電車，嬰兒車與長輩推車上落完全無障礙。"],"nearby":[{"name":"福室庵 蕎麥麵 (Google 3.8★)","dist":"步行5分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【豪德寺貓咪蕎麥麵】老店自製招牌「招福蕎麥麵」，放上招財貓圖案魚板與酥脆天婦羅，孩子超喜歡。","mapQuery":"福室庵 豪徳寺"},{"name":"東急世田谷線 貓咪彩繪電車","dist":"0m","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"幸運時可搭乘到貓咪把手與貓臉車頭的限定列車。","mapQuery":"宮の坂駅"}]},{"time":"13:00","title":"增上寺與東京鐵塔同框","suitable":["senior"],"desc":"德川將軍家靈廟，大殿朱紅漆柱與後方宏偉東京鐵塔交錯，最具江戶與現代張力的視角。","map":"増上寺","transportGuide":["🚇【地鐵路線】：搭乘都營三田線至【芝公園站】或【御成門站】，A1出口步行僅需 3 分鐘。"],"nearby":[{"name":"芝 大門更科布屋 (Google 3.7★)","dist":"步行4分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【兩百年更科白蕎麥】大門老字號，純白細緻的三色蕎麥麵搭微甜高湯，清淡軟糯適合長輩胃口。","mapQuery":"更科布屋 本店 大門"},{"name":"芝公園 4號地林蔭步道","dist":"步行2分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"拍攝東京鐵塔由銀杏樹冠中拔地而起的最美無人私房角度。","mapQuery":"芝公園 4号地"}]},{"time":"15:00","title":"東京鐵塔觀景台","suitable":["senior","kid"],"desc":"搭乘全透明景觀電梯登上 Main Deck 展望台，眺望富士山夕照與東京市街黃昏點燈。","map":"東京タワー","nearby":[{"name":"TOCORO 漢堡排 (Google 3.9★)","dist":"步行7分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【鐵塔下在地和牛洋食】隱密家庭料理，現拍多汁黑毛和牛漢堡排搭半熟蛋，環境清幽避開排隊群眾。","mapQuery":"TOCORO 神谷町"},{"name":"麻布台 Hills 中央廣場","dist":"步行10分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"最新地標花園漫步，充滿前衛藝術感與戶外休息座位。","mapQuery":"麻布台ヒルズ"}]}]},{"date":"12/21 (一)","id":"d9","project":2,"fullDate":"2026-12-21","events":[{"time":"09:30","title":"【A組】teamLab Planets 豐洲","suitable":["kid"],"img":"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80","desc":"赤腳涉水走入光影錦鯉水池、沉浸於水晶宇宙光束，震撼感官的互動科技美術館。","map":"teamLab Planets TOKYO","transportGuide":["🚝【百合鷗號】：搭至【新豐洲站】出站步行 1 分鐘即達，全線有無障礙電梯與平整通道。"],"nearby":[{"name":"豐洲 千客萬來","dist":"步行8分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"江戶風情美食街與免費景觀足湯。","mapQuery":"豊洲 千客万来"},{"name":"つきじ喜代村 豐洲店 (Google 3.8★)","dist":"千客萬來內","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【免排大隊的海鮮手握】壽司三昧旗下的新鮮保證，油脂均勻的鮪魚大腹與海膽手卷快速享用。","mapQuery":"すしざんまい 豊洲"}]},{"time":"09:30","title":"【B組】柴又帝釋天與老街","suitable":["senior"],"desc":"昭和懷舊長青行程：慢步百年木雕殿堂、穿梭草餅香氣四溢的參道，品味下町溫情。","map":"柴又帝釈天","transportGuide":["🚆【京成金町線】：搭乘至【柴又站】，出站即為平坦老街參道，步速緩慢舒適。"],"nearby":[{"name":"門前 とらや (Google 3.8★)","dist":"老街內","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【男人真命苦老舖】坐在榻榻米上享用現烤微焦艾草草餅 (草だんご) 與熱焙茶，下町風情濃厚。","mapQuery":"柴又 とらや"},{"name":"山本亭","dist":"步行5分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"曾名列全日本前三名的純和風書院造庭園，環境極靜謐。","mapQuery":"山本亭"}]},{"time":"15:00","title":"銀座一站式溫暖採購","suitable":["senior"],"desc":"全室內無障礙逛街：UNIQLO 12層旗艦館、銀座伊東屋文具、LOFT 生活選品。","map":"ユニクロ 銀座店","transportGuide":["🚇【地鐵路線】：銀座線/日比谷線至【銀座站】A2 出口，沿中央通漫步。"],"nearby":[{"name":"銀座 篝 總店 (排隊備案) ➔ 篝旁 銀座佐藤 (Google 3.8★)","dist":"步行3分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【在地隱密洋食牛排】若排隊名店大排長龍，轉角由老師傅掌杓的嫩煎牛排與漢堡排定食滋味絕妙又安靜。","mapQuery":"銀座 ステーキハウス 佐藤"},{"name":"木村家 紅豆麵包總店","dist":"步行4分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"酒種紅豆麵包創始店，買剛出爐的酒種櫻花紅豆麵包當下午點心。","mapQuery":"銀座木村家 本店"}]}]},{"date":"12/22 (二)","id":"d10","project":2,"fullDate":"2026-12-22","events":[{"time":"10:00","title":"墨田北齋美術館","suitable":["senior"],"img":"https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80","desc":"妹島和世設計之幾何銀白名建築。室內空調宜人，近距離鑑賞《富嶽三十六景》浮世繪原稿。","map":"すみだ北斎美術館","transportGuide":["🚇【都營大江戶線】：搭至【兩國站】A3 出口步行 5 分鐘，沿途皆為平順步道。"],"nearby":[{"name":"下町食堂 はせ川 (Google 3.9★)","dist":"步行4分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【兩國在地豬排極品】兩國上班族公認肉質最好的炸里肌豬排，低溫慢炸多汁粉嫩，排隊人潮遠少於觀光名店。","mapQuery":"とんかつ はせ川 両国"},{"name":"舊安田庭園","dist":"步行8分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"心字池迴遊式日式庭園，免費入場，拍倒影借景晴空塔。","mapQuery":"旧安田庭園"}]},{"time":"13:00","title":"敘敘苑燒肉 (晴空塔 30F)","suitable":["senior"],"desc":"坐擁 150 米高空壯麗市景，享用頂級牛五花與泡菜午間套餐。全包廂沙發座，長輩極為放鬆。","map":"叙々苑 東京スカイツリータウン","nearby":[{"name":"墨田水族館","dist":"晴空塔5F","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"無異味的室內水族館，近距離觀賞企鵝餵食與夢幻金魚展。","mapQuery":"すみだ水族館"},{"name":"十間橋","dist":"步行10分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"攝影愛好者拍攝水面平靜「完整逆晴空塔」的知名打卡橋樑。","mapQuery":"十間橋"}]},{"time":"15:30","title":"淺草寺參拜與雷門","desc":"穿過雷門參道，祈求全家安康。傍晚朱紅五重塔點燈後人潮漸退，下町夜景氣氛滿分。","map":"浅草寺","transportGuide":["🚇【晴空塔至淺草】：搭乘東武晴空塔線僅 1 站（3分鐘）直達淺草站；或搭乘都營淺草線（押上 ➔ 淺草）。"],"nearby":[{"name":"生駒軒 町中華 (Google 3.8★)","dist":"步行6分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【在地老饕避開雷門人潮】淺草街坊的家常中華料理，酥脆手工煎餃、炒豆芽菜與醬油拉麵暖心平價。","mapQuery":"生駒軒 浅草"},{"name":"弁天 蕎麥麵 (Google 3.9★)","dist":"步行4分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【淺草百年麵香】蛤蜊蕎麥麵與鴨肉蒸籠麵湯底鮮醇無比，是在地居民私藏的老字號好店。","mapQuery":"弁天 浅草"},{"name":"淺草文化觀光中心 8F","dist":"雷門正對面","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"隈研吾設計建築，8樓免費觀景露台居高臨下俯瞰仲見世通。","mapQuery":"浅草文化観光センター"}]}]},{"date":"12/23 (三)","id":"d11","project":2,"fullDate":"2026-12-23","events":[{"time":"09:30","title":"舊岩崎宅邸庭園","suitable":["senior"],"img":"https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=800&q=80","desc":"三菱財閥岩崎家族宅邸，結合英式詹姆斯一世風格洋館與日式和館，漫步其間大正浪漫氛圍撲面而來。","map":"旧岩崎邸庭園","transportGuide":["🚇【地鐵路線】：搭乘千代田線至【湯島站】步行 3 分鐘，或由大江戶線【上野御徒町站】步行 8 分鐘。"],"nearby":[{"name":"不忍池 弁天堂","dist":"步行5分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"冬季可見大批西伯利亞候鳥棲息湖畔。","mapQuery":"不忍池 弁天堂"}]},{"time":"11:30","title":"上野動物園","suitable":["kid","senior"],"desc":"日本歷史最悠久動物園，無障礙步道與電梯規劃完善，觀賞大貓熊、大象與北極熊生態。","map":"上野動物園","nearby":[{"name":"國立科學博物館","dist":"步行10分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"巨大恐龍化石骨架與 360 度立體劇院，室內避冬雨天首選。","mapQuery":"国立科学博物館"}]},{"time":"14:00","title":"上野阿美橫町購物採買","desc":"OS Drug 採買全東京最便宜非免稅藥妝、二木菓子批發糖果乾果、阿美橫 NG 蛋糕。","map":"アメ横 OS Drug","nearby":[{"name":"珍珍軒 (Google 3.7★)","dist":"阿美橫鐵道下","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","isFood":true,"desc":"【高架橋下經典炒飯】鐵路橋下半露天老食堂，鍋氣十足的黃金炒飯與韭菜炒豬肝美味實惠。","mapQuery":"珍々軒 上野"},{"name":"みはし (Mihashi) 上野本店 (Google 3.9★)","dist":"步行4分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【上野昭和餡蜜之神】純手工寒天凍搭配北海道十勝紅豆泥與香草冰淇淋，三代同堂共享的幸福甜品。","mapQuery":"みはし 上野本店"}]},{"time":"16:30","title":"下島包裝 Shimojima 淺草橋","desc":"搭 JR 一站到淺草橋。全棟 8 層樓批發文具、精美包裝袋、文創雜貨的大本營。","map":"シモジマ 浅草橋本店","transportGuide":["🚆【JR 路線】：JR 御徒町站搭山手線至秋葉原，轉總武線 1 站即達淺草橋站東口。"],"nearby":[{"name":"たい焼き本舗 鳴門","dist":"步行2分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"手烤天然鯛魚燒補充糖分。","mapQuery":"鳴門鯛焼本舗 浅草橋店"}]}]},{"date":"12/24 (四)","id":"d12","project":2,"fullDate":"2026-12-24","events":[{"time":"10:30","title":"AEON Mall 越谷 LakeTown","suitable":["kid","senior"],"img":"https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=800&q=80","desc":"平安夜全日室內採購！全日本最大規模購物中心（Kaze、Mori 與 Outlet 三大館），全程提供免費輪椅與兒童推車。","map":"イオンレイクタウン","transportGuide":["🚆【最順交通指南】：飯店旁【濱町站】搭乘都營新宿線 ➔【馬喰橫山/東日本橋】轉 JR 總武快速線至【市川】➔ 轉 JR 武藏野線直達【越谷 LakeTown 站】。","🏬【出站即達】：車站出口設有無障礙全遮雨連通道，直達商場大門。"],"nearby":[{"name":"利久牛舌 越谷店 (Google 3.8★)","dist":"mori館1F","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【厚切仙台炭烤牛舌】商場內座位寬敞舒適，炭烤厚切牛舌定食搭牛肉清湯，全家人吃得滿意無排隊壓力。","mapQuery":"牛たん炭焼 利久 イオンレイクタウン店"},{"name":"大相模調節池 湖畔步道","dist":"步行3分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"商場後方的開闊湖景人工湖，適合推推車呼吸新鮮空氣。","mapQuery":"大相模調節池"}]}]},{"date":"12/25 (五)","id":"d13","project":2,"fullDate":"2026-12-25","events":[{"time":"10:00","title":"日本橋古典建築巡禮","suitable":["senior"],"img":"https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=800&q=80","desc":"參訪青銅麒麟雕像日本道路原點，漫步三越百貨本館欣賞文化財大理石天女像與圓形拱頂。","map":"日本橋 麒麟の像","transportGuide":["🚇【地鐵路線】：飯店出發搭乘淺草線至【日本橋站】B9 出口步行 1 分鐘。"],"nearby":[{"name":"日本橋 鰻 伊勢定 (Google 3.8★)","dist":"步行4分","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【百年炭烤鰻魚老店】關東派蒸烤鰻魚，肉質綿密化口，醬汁微甜甘香，對牙口不好的長輩極友善。","mapQuery":"伊勢定 本店 日本橋"},{"name":"COREDO 室町","dist":"步行5分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"集結江戶木鉋刀削柴魚、箔座黃金等日本頂級傳統手藝。","mapQuery":"コレド室町"}]},{"time":"14:00","title":"KITTE 丸之內聖誕大樹","suitable":["kid","senior"],"desc":"商場挑高玻璃中庭欣賞潔白聖誕樹造景與聲光秀，登上頂樓花園拍攝東京車站電車交會。","map":"KITTE丸の内","nearby":[{"name":"根室花丸迴轉壽司 (排隊備案) ➔ 壽司清 東京八重洲 (Google 3.9★)","dist":"步行6分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【不用等3小時的江戶前壽司】築地老字號分店，板前師傅俐落手握，食材極鮮且安靜舒適。","mapQuery":"築地寿司清 東京駅グランルーフ店"}]},{"time":"17:30","title":"丸之內仲通香檳金聖誕點燈","suitable":["senior"],"desc":"300多棵行道樹綴滿 120 萬顆標誌性「香檳金」LED 燈，街道平整且步行者天國封街，漫步賞燈極度浪漫舒適。","map":"丸の内仲通り","nearby":[{"name":"Cafe 1894","dist":"步行2分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"舊三菱銀行營業廳改建，英式挑高復古空間。","mapQuery":"Cafe 1894"}]}]},{"date":"12/26 (六)","id":"d14","project":2,"fullDate":"2026-12-26","events":[{"time":"09:30","title":"人形町甘酒橫丁歷史採買","suitable":["senior"],"img":"https://images.unsplash.com/photo-1533050487297-09b450131914?auto=format&fit=crop&w=800&q=80","desc":"從飯店慢走即可抵達的老江戶下町街道，參拜保佑強運的小網神社、採購手工現烤草加仙貝。","map":"甘酒横丁","nearby":[{"name":"小網神社","dist":"步行10分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"東京最強運厄除名所，洗錢水祈求財運。","mapQuery":"小網神社"},{"name":"雙葉 手工豆腐","dist":"街內","fame":"⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"濃醇熱豆乳與現炸豆腐餅。","mapQuery":"双葉 甘酒横丁"},{"name":"志乃多壽司 人形町 (Google 3.8★)","dist":"步行3分","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","isFood":true,"desc":"【百年豆皮壽司外帶】外帶招牌多汁豆皮壽司與海苔卷，微酸甘甜，最適合帶上成田特急當午餐點心！","mapQuery":"人形町志乃多寿司"}]},{"time":"11:30","title":"在地老味道：下町深川飯午餐","desc":"品嚐江戶傳統漁師料理「深川飯」，肥嫩蛤蜊肉以醬油生薑慢熬拌飯，鹹鮮暖胃。","map":"甘酒横丁","nearby":[{"name":"柳屋 鯛魚燒","dist":"步行3分","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"東京三大鯛魚燒老店，皮薄酥脆帶碳香。","mapQuery":"柳屋 鯛焼き"}]},{"time":"13:00","title":"出發直達成田機場","suitable":["senior"],"desc":"最省力通關回家動線！飯店退房後直奔成田，免轉乘直達機場月台。","map":"東日本橋駅","transportGuide":["🚶【步行】：由飯店步行 5 分鐘抵達【東日本橋站】（有大型行李專用電梯）。","🚆【京成 Access 特急 / 都營淺草線直通】：搭乘直通【成田空港】的班次（アクセス特急），免換車約 55 分鐘一路平穩抵達 T2 航廈！","🛄【免出站優勢】：月台直達航廈地下 1 樓，搭電梯直接到 3 樓出境報到大廳。"]},{"time":"14:35","title":"抵達成田 T2 航廈・搭機返台","desc":"CI105 班機（17:45起飛）託運行李報到。最後免稅品大掃貨，滿載美好回憶賦歸台灣！","checkInNote":"回程航班出境報到","map":"成田空港第2ターミナル","nearby":[{"name":"免稅店 AKIHABARA","dist":"出關後","fame":"⭐⭐⭐⭐⭐","recom":"⭐⭐⭐⭐⭐","desc":"白色戀人、薯條三兄弟、東京芭娜娜一站購齊。","mapQuery":"成田空港 免税店 AKIHABARA"},{"name":"機場四樓觀景台","dist":"4F","fame":"⭐⭐⭐","recom":"⭐⭐⭐⭐","desc":"吹吹風看各國客機起降。","mapQuery":"成田空港 第2ターミナル 見学デッキ"}]}]}]</script>
-<script>
-'use strict';
-// Source readings: 2026-09-29. Ratings are explicit Google-score excerpts,
-// not live Google Places responses. Never substitute Tabelog/Tripadvisor scores.
-const SOURCES = {
-  jr: {name:'JR 東日本路線／成田特快',url:'https://www.jreast.co.jp/multi/en/nex/'},
-  keisei: {name:'京成 Access 特急',url:'https://www.keisei.co.jp/keisei/tetudou/skyliner/jp/traffic/express_fares.php'},
-  enoden: {name:'江之電路線／時刻查詢',url:'https://www.enoden.co.jp/en/train/'},
-  metro: {name:'東京 Metro 路線',url:'https://www.tokyometro.jp/en/subwaymap/'},
-  toei: {name:'都營地下鐵',url:'https://www.kotsu.metro.tokyo.jp/eng/'},
-  odakyu: {name:'小田急電鐵',url:'https://www.odakyu.jp/english/'},
-  lake: {name:'LakeTown 交通指南',url:'https://laketown-outlet.jp/static/detail/access'},
-  hotel: {name:'東京站新大橋前飯店交通',url:'https://www.toyoko-inn.com/china/search/detail/00176/'},
-  fujihotel: {name:'藤澤站北口飯店交通',url:'https://www.toyoko-inn.com/search/detail/00115/'},
-  closed: {name:'久昇歇業紀錄',url:'https://tabelog.com/kanagawa/A1404/A140404/14002834/'}
-};
-const DAY_GUIDES = [
-  {title:'抵達湘南，住進藤澤',area:'藤澤',route:'成田機場 → 藤澤 → 遊行寺 → 湘南GATE',text:'可搭成田特快 N’EX 至大船，再轉 JR 東海道線至藤澤；先確認所搭班次目的地。藤澤站北口至飯店官網標示步行約 7 分鐘。遊行寺與商店街可由藤澤站步行串連。',sources:['jr','fujihotel'],note:'原表 14:00 機場交通、15:00 藤澤入住僅隔 1 小時，時間偏緊；請依實際落地與入境時間順延。久昇已有歇業紀錄，原筆記保留供辨識。'},
-  {title:'大船觀音與商店街',area:'大船',route:'藤澤 → 大船西口 → 大船東口 → 藤澤',text:'藤澤搭 JR 東海道線至大船。觀音寺在車站西側山坡，有上坡路段；參拜後回站跨至東側，仲通商店街、藥妝採購以步行串連，結束搭 JR 回藤澤。',sources:['jr'],note:'觀音食堂位於東側商店街，與西側觀音寺分開；不必爬坡找午餐。'},
-  {title:'江之島的海風與洞窟',area:'江之島',route:'藤澤 → 片瀨江之島 → Sea Candle → 岩屋',text:'藤澤搭小田急江之島線至片瀨江之島，再步行過橋。島上依江島神社、Sea Candle、稚兒之淵／岩屋方向徒步；回程保留爬坡時間，船班可能受海況影響。',sources:['odakyu','enoden'],note:'冬季日落早，岩屋開放時間及海況須出發前確認。海蠟燭與島上步道有階梯。'},
-  {title:'小田原城，走入冬日歷史',area:'小田原',route:'藤澤 → 小田原 → 城址公園 → 藤澤',text:'藤澤搭 JR 東海道線往小田原，出站後步行至小田原城。若要去漁港，可由小田原搭 JR 至早川再步行。原頁箱根湯本、箱根神社與海賊船行程保留於補充區，採用前先查回程班次。',sources:['jr','odakyu'],note:'08:30 可先散步城址公園；天守閣入館時間另外確認。加上箱根會壓縮 18:00 回藤澤晚餐，請擇量安排。'},
-  {title:'藤澤宿的慢步調',area:'藤澤',route:'藤澤站 → 藤澤宿 → 遊行寺周邊',text:'藤澤宿歷史街區以步行為主。原頁保留的龍口寺可另搭江之電到江之島站，再步行參拜；結束沿江之電回藤澤，避免在同一天重複往返海岸。',sources:['enoden'],note:'原表上午 09:30 與原頁 10:00 不同；主時間軸採用試算表，原頁時刻留作參考。'},
-  {title:'材木座海岸與腰越漁港',area:'鎌倉・腰越',route:'藤澤 → 鎌倉 → 光明寺 → 腰越 → 藤澤',text:'藤澤經大船轉 JR 橫須賀線至鎌倉；光明寺一帶可由鎌倉站搭往材木座方向公車，搭乘前確認停靠光明寺。回到鎌倉站後搭江之電到腰越，再沿江之電回藤澤。',sources:['jr','enoden'],note:'鵠沼海岸保留於原頁補充區。冬日海風強，海邊路段可視體力縮短，原景點資料仍完整保留。'},
-  {title:'移動東京，與家人會合',area:'藤澤 → 東京',route:'藤澤 → 東京市區／成田 → 浜町飯店',text:'獨旅組：藤澤搭 JR 東海道／上野東京線入東京，再轉地下鐵至浜町一帶。家族組：成田搭京成 Access 特急，選有直通都營淺草線的班次至東日本橋，再步行或搭計程車到飯店；非直通班次需轉乘。',sources:['jr','keisei','hotel'],note:'飯店在浜町，不在東京站旁。16:35 為表定落地筆記，尚須入境、領行李與移動，18:00 晚餐應彈性順延。CI104 時刻仍以航空公司為準。'},
-  {title:'麻布十番與東京鐵塔',area:'港區',route:'浜町 → 麻布十番 → 東京鐵塔 → 增上寺',text:'浜町搭都營新宿線至森下，轉大江戶線到麻布十番。逛街後可步行或由麻布十番搭一站至赤羽橋，再前往鐵塔。鐵塔與增上寺間步行串連，返程可由大門搭淺草線至東日本橋。',sources:['toei'],note:'原頁豪德寺已移至試算表 12/25；仍保留原頁筆記，主行程以本表為準。'},
-  {title:'分流探索，再相約銀座',area:'豐洲／柴又・銀座',route:'A 豐洲／B 柴又 → 銀座 → KITTE → 丸之內',text:'A 組：浜町→森下轉大江戶線至月島，再轉有樂町線到豐洲；teamLab Planets 可由豐洲轉百合海鷗號至新豐洲。B 組：東日本橋搭淺草線／京成直通車往高砂，再轉金町線至柴又。會合銀座後步行或地下鐵到東京站／KITTE。',sources:['metro','toei','keisei'],note:'A／B 為同時分流，不是依序跑兩處。teamLab 需確認預約；2026 聖誕點燈日期／時間須待主辦公告。壽司大、根室花丸保留原筆記，不列入免排隊推薦。'},
-  {title:'北齋、晴空塔與淺草夜色',area:'兩國・押上・淺草',route:'浜町 → 兩國 → 押上 → 淺草',text:'浜町搭新宿線到森下，轉大江戶線到兩國，步行至北齋美術館。往晴空塔可由 JR 兩國搭總武線至錦糸町，轉半藏門線到押上。晴空塔往淺草可從東武東京晴空塔站搭至淺草，或沿隅田川步行。',sources:['jr','metro','toei'],note:'敘敘苑午餐以預約時間為準。淺草本堂參拜與晚間外觀欣賞不同，入內開放時間請另查。'},
-  {title:'上野採買，帶回喜歡的日常',area:'上野・淺草橋',route:'人形町 → 上野 → 阿美橫町 → 淺草橋',text:'人形町搭日比谷線至上野／仲御徒町，藥妝與阿美橫町步行串連。若去淺草橋，可由上野搭 JR 至秋葉原，再轉總武線一站。回飯店可由淺草橋搭都營淺草線至東日本橋。',sources:['jr','metro','toei'],note:'下島包裝在原表列為備選。舊岩崎邸庭園與上野動物園保留於原頁補充區；採買前先確認各店關門時間。'},
-  {title:'LakeTown 的購物日',area:'越谷',route:'人形町 → 北千住 → 新越谷／南越谷 → LakeTown',text:'人形町搭日比谷線往北千住，再依列車目的地轉東武晴空塔線到新越谷；步行轉 JR 南越谷，搭武藏野線往吉川／西船橋方向一站到越谷LakeTown。Outlet、kaze、mori 是不同區域，館間步行另留時間。',sources:['metro','lake'],note:'Outlet 有戶外通道，並非全程室內。回程提早整理戰利品，少走重複路線。'},
-  {title:'經堂燒肉與豪德寺招財貓',area:'經堂・豪德寺・下北澤',route:'浜町 → 新宿 → 經堂 → 豪德寺 → 下北澤',text:'浜町搭都營新宿線至新宿，轉小田急線到經堂。午餐後搭普通車至豪德寺站，再步行前往寺院；返程由豪德寺搭普通車至下北澤。原表 16:00 座標另設地圖連結，名稱尚未確認。',sources:['toei','odakyu'],note:'35°39′27.0″N 139°39′31.3″E 僅能確定座標，沒有替它猜景點名稱。原頁日本橋／丸之內路線仍在補充區。'},
-  {title:'人形町散策，帶著回憶返台',area:'人形町 → 成田',route:'甘酒橫丁 → 飯店取行李 → 東日本橋 → 成田 T2',text:'上午在人形町步行散策，午餐後回浜町飯店領行李，再前往東日本橋站。搭往成田機場的 Access 特急直通班次；看清目的地與經由路線，於空港第2ビル站下車前往 Terminal 2。',sources:['keisei','hotel'],note:'12:50 集合、13:30 乘車、14:35 報到、17:45 CI105 均沿用原表計畫，未當成確認班次；務必用實際航班與當日時刻回推。'}
-];
-// Approximate landmark centroids for on-device Haversine checks (metres).
-const PLACES = [
- {id:'sensoji',name:'淺草寺',lat:35.71477,lng:139.79666,keys:['淺草寺','浅草寺','雷門'],food:['torigen'],route:'淺草站出站後步行經雷門、仲見世至本堂；參拜與夜間外觀欣賞請分開安排。'},
- {id:'skytree',name:'晴空塔',lat:35.71006,lng:139.81070,keys:['晴空塔','スカイツリー'],food:['tenryu','fukko'],route:'押上站可連通 Solamachi；前往淺草可改走東武東京晴空塔站，搭一站至淺草。'},
- {id:'enoshima',name:'江之島',lat:35.3000,lng:139.4802,keys:['江之島','江島神社'],food:['madu'],route:'片瀨江之島站步行過橋上島；上島後靠步行，階梯較多。'},
- {id:'candle',name:'Sea Candle 海蠟燭',lat:35.29973,lng:139.47963,keys:['Sea Candle','海蠟燭'],food:['madu'],route:'沿江島神社方向上坡至 Samuel Cocking 苑一帶；前往岩屋還要步行下階梯。'},
- {id:'iwaya',name:'江之島岩屋／稚兒之淵',lat:35.29772,lng:139.47476,keys:['岩屋','稚兒之淵'],food:['madu'],route:'由島上主步道徒步往西端海岸；回程須走階梯，勿把船班視為固定可搭。'},
- {id:'ofuna',name:'大船觀音寺',lat:35.35222,lng:139.52976,keys:['大船觀音','大船観音'],food:['kannon'],route:'大船站西口出站後上坡；商店街與觀音食堂在車站東側，參拜後再過站用餐。'},
- {id:'tower',name:'東京鐵塔',lat:35.65858,lng:139.74543,keys:['東京鐵塔','東京タワー'],food:['ryusho'],route:'赤羽橋站／御成門站步行前往；與增上寺同區，建議步行串連。'},
- {id:'zojoji',name:'增上寺',lat:35.65746,lng:139.74827,keys:['增上寺','増上寺'],food:['ryusho'],route:'由東京鐵塔步行至寺院，返程可走到大門站搭都營淺草線。'},
- {id:'lake',name:'越谷LakeTown',lat:35.8810,lng:139.8236,keys:['LakeTown','Lake Town','レイクタウン'],food:['ringer'],route:'JR 武藏野線越谷LakeTown站出站；Outlet、kaze 與 mori 館間需另留步行時間。'},
- {id:'lake-mori',name:'LakeTown mori',lat:35.88218,lng:139.82810,keys:[],food:['ringer'],route:'館內美食街位於 mori 3F；前往 Outlet 需走館間通道。'},
- {id:'odawara',name:'小田原城',lat:35.25098,lng:139.15347,keys:['小田原城'],food:[],route:'JR 小田原站下車步行至城址公園；若接箱根湯本，需回站轉箱根登山線。'},
- {id:'yugyoji',name:'清淨光寺（遊行寺）',lat:35.34705,lng:139.48532,keys:['清淨光寺','遊行寺'],food:[],route:'藤澤站北側往藤澤宿方向步行，留意上坡；散策後回藤澤站採買。'},
- {id:'komyoji',name:'光明寺／材木座',lat:35.30386,lng:139.55089,keys:['光明寺','材木座'],food:[],route:'鎌倉站往材木座方向公車先確認停靠光明寺；到腰越須回鎌倉轉江之電。'},
- {id:'hokusai',name:'墨田北齋美術館',lat:35.69662,lng:139.80048,keys:['北齋','北斎'],food:[],route:'都營大江戶線兩國站步行；JR 兩國站是另一站體，轉車請留步行時間。'},
- {id:'teamlab',name:'teamLab Planets 豐洲',lat:35.64912,lng:139.78977,keys:['teamLab'],food:[],route:'最近為百合海鷗號新豐洲站；先查入場預約，再規劃與銀座會合時間。'},
- {id:'shibamata',name:'柴又帝釋天',lat:35.75899,lng:139.87800,keys:['柴又'],food:[],route:'京成高砂轉金町線到柴又；此為 B 組支線，與豐洲 A 組同時進行。'},
- {id:'gotokuji',name:'豪德寺',lat:35.64895,lng:139.64755,keys:['豪德寺','豪徳寺'],food:[],route:'小田急豪德寺站下車步行，或使用東急世田谷線宮之坂站；經堂前往可搭普通車。'},
- {id:'ameyoko',name:'阿美橫町',lat:35.71012,lng:139.77452,keys:['阿美橫町'],food:[],route:'上野至御徒町間以步行採買；要去淺草橋時由秋葉原轉總武線。'},
- {id:'kitte',name:'KITTE 丸之內',lat:35.67903,lng:139.76475,keys:['KITTE'],food:[],route:'東京站丸之內南口步行可達；從銀座方向也可一路步行到有樂町、丸之內。'},
- {id:'ningyocho',name:'人形町甘酒橫丁',lat:35.6859,lng:139.7836,keys:['人形町','甘酒橫丁'],food:[],route:'日比谷線／淺草線人形町站步行；返國日先確認回飯店取行李的集合時間。'}
-];
-const FOODS = [
- {id:'kannon',name:'活魚料理 かんのん（觀音食堂）',rating:4.0,provider:'Google',source:'https://wanderlog.com/place/details/7963475/kannon',sourceName:'Wanderlog Google 評論摘錄',checked:'2026-09-29',area:'大船',kind:'街區食堂',query:'活魚料理 かんのん 鎌倉市大船1-9-8',note:'魚料理、刺身與炸物定食。是商店街熟店，午餐仍可能等候；先看現場候位情況。',days:[2],closed:false},
- {id:'madu',name:'Cafe Madu ENOSHIMA',rating:3.7,provider:'Google',source:'https://wanderlog.com/place/details/3057610/cafe-madu-enoshima',sourceName:'Wanderlog Google 評論摘錄',checked:'2026-09-29',area:'江之島',kind:'海景咖啡',query:'Cafe Madu ENOSHIMA 藤沢市江の島2-6-6',note:'島上徒步中途的咖啡、輕食休息點，鄰近海蠟燭往岩屋的動線。座位與海景依現場安排。',days:[3],closed:false},
- {id:'torigen',name:'鳥元 淺草店',rating:3.9,provider:'Google',source:'https://wanderlog.com/place/details/5689019',sourceName:'Wanderlog Google 評論摘錄',checked:'2026-09-29',area:'淺草',kind:'街區居酒屋',query:'鳥元 浅草店 台東区浅草1-9-8',note:'以雞肉串燒為主；作為參拜後晚餐候選，避開雷門口集中用餐人潮。居酒屋餐點、座位及席料請入店前確認。',days:[10],closed:false},
- {id:'fukko',name:'復興軒',rating:3.8,provider:'Google',source:'https://the-situation.com/r/ea4bbba2-10d7-4b38-acf0-4a2a96e73874',sourceName:'The Situation Google 評分摘錄',checked:'2026-09-29',area:'晴空塔',kind:'街區中華',query:'復興軒 東京都墨田区押上2-1-1',note:'晴空塔站附近的炒飯、拉麵、定食小店。來源標示可吸菸；親子同行不優先，營業日與入店條件請先確認。',days:[10],closed:false,restricted:true},
- {id:'tenryu',name:'銀座天龍 東京 Solamachi 店',rating:3.5,provider:'Google',source:'https://wanderlog.com/place/details/2668514/ginza-tenryu',sourceName:'Wanderlog Google 評論摘錄',checked:'2026-09-29',area:'晴空塔',kind:'商場便利備案',query:'銀座天龍 東京スカイツリータウンソラマチ店',note:'餃子與中華料理，留在商場用餐的備案；不是隱藏小店，餐期可能排隊，有候位就改看其他選項。',days:[10],closed:false,backup:true},
- {id:'ryusho',name:'龍祥軒 三田店',rating:3.9,provider:'Google',source:'https://wanderlog.com/place/details/3687669/%E9%BE%8D%E7%A5%A5%E8%BB%92-%E4%B8%89%E7%94%B0%E5%BA%97',sourceName:'Wanderlog Google 評論摘錄',checked:'2026-09-29',area:'三田・芝',kind:'街區中華',query:'龍祥軒 三田店 港区芝5-14-16',note:'日式中華定食候選。離東京鐵塔需再步行約 20 分鐘，並非塔內餐廳；請先確認當日營業，再決定是否繞行。',days:[8],closed:false},
- {id:'ringer',name:'リンガーハット LakeTown mori 店',rating:3.5,provider:'Google',source:'https://wanderlog.com/place/details/2675510/ringer-hut-aeon-laketown-mori',sourceName:'Wanderlog Google 評論摘錄',checked:'2026-09-29',area:'越谷 LakeTown',kind:'美食街便利備案',query:'リンガーハット イオンレイクタウンmori店',note:'mori 3F 美食街的長崎強棒麵；屬連鎖便利備案，不包裝成隱藏名店。購物高峰仍需先找座位。',days:[12],closed:false,backup:true}
-];
-
-const $ = id => document.getElementById(id);
-const h = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const plain = value => new DOMParser().parseFromString(String(value ?? '').replace(/<br\s*\/?\s*>/gi,'\n'),'text/html').body.textContent || '';
-const toText = value => String(value ?? '').trim();
-const safeUrl = value => {try{const u=new URL(value,location.href);return /^https?:$/.test(u.protocol)?u.href:'';}catch{return '';}};
-const mapUrl = query => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(query);
-const directionsUrl = (destination,origin='',mode='transit') => 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(destination)+(origin?'&origin='+encodeURIComponent(origin):'')+'&travelmode='+mode;
-const ext = (url,label,cls='') => {const safe=safeUrl(url);return safe?`<a href="${h(safe)}" target="_blank" rel="noopener noreferrer" class="${h(cls)}">${h(label)}</a>`:h(label);};
-
-// Linkify plain URLs / Markdown links without trusting source HTML.
-function richText(value) {
- const text=String(value??''),pattern=/\[([^\]\n]{1,200})\]\((https?:\/\/[^\s<>"']+)\)|(https?:\/\/[^\s<>"'，。！？；：、（）「」『』【】]+|www\.[^\s<>"'，。！？；：、（）「」『』【】]+)/g;
- let result='',cursor=0;
- for(const match of text.matchAll(pattern)) {
-  result+=h(text.slice(cursor,match.index));
-  if(match[1]) result+=ext(match[2],match[1]);
-  else {
-   const original=match[0];let url=original.replace(/[.,;:!?\]}]+$/g,'');
-   while(url.endsWith(')')&&(url.match(/\)/g)||[]).length>(url.match(/\(/g)||[]).length)url=url.slice(0,-1);
-   result+=ext(url.startsWith('www.')?'https://'+url:url,url)+h(original.slice(url.length));
-  }
-  cursor=match.index+match[0].length;
- }
- return result+h(text.slice(cursor));
-}
-function dateStampHtml(date) {
- const instant=new Date(date+'T12:00:00+09:00');
- if(!Number.isFinite(instant.getTime()))return h(date);
- const en=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Tokyo',weekday:'short'}).format(instant);
- const ja=new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',weekday:'long'}).format(instant);
- return `<span class="date-stamp"><time datetime="${h(date)}">${h(date.slice(5).replace('-','/'))}</time><span class="date-weekday"><span lang="en">${h(en)}</span><span aria-hidden="true">／</span><span lang="ja">${h(ja)}</span></span></span>`;
-}
-
-let storageAvailable = true;
-function storageWarning(){storageAvailable=false;$('storage-warning').hidden=false;$('storage-warning').textContent='此瀏覽器目前無法儲存資料。本次修改仍可使用，關閉前請下載本機行程備份。';}
-const safeStorage={getItem(key){try{return window.localStorage.getItem(key);}catch{storageWarning();return null;}},setItem(key,value){try{window.localStorage.setItem(key,value);return true;}catch{storageWarning();return false;}}};
-function readStore(key,fallback){try{const text=safeStorage.getItem(key);return text?JSON.parse(text):fallback;}catch{return fallback;}}
-function writeStore(key,value){return safeStorage.setItem(key,JSON.stringify(value));}
-const BASE_GRID=JSON.parse($('grid-data').textContent);
-const LEGACY=JSON.parse($('legacy-data').textContent);
-let MAP_BUNDLE=JSON.parse($('map-notes-data').textContent),TRAVEL_BUNDLE=JSON.parse($('travel-updates-data').textContent);
-let MAP_NOTES=MAP_BUNDLE.notes,MAP_NOTE_SOURCES=MAP_BUNDLE.sources;
-const PUBLISHED_URL='https://raw.githubusercontent.com/halafish1224/tokyo-trip/main/2026/tokyo/index.html';
-const EXPECTED_DATES=Array.from({length:14},(_,i)=>`2026-12-${String(i+13).padStart(2,'0')}`);
-const SHEET_URL='https://docs.google.com/spreadsheets/d/156UgwNFMgtzfKZjPQSCtm1svb6Mk6LTPNtOwE0EI0Gw/gviz/tq?gid=0&range=A1:O100&headers=0&tqx=out:csv';
-const STATE_KEY='tokyo_trip_spa_v3';
-const CACHE_KEY='tokyo_trip_grid_cache_v3';
-const MATCH_RADIUS_METERS=500;
-const isTime=t=>/^([01]\d|2[0-3]):[0-5]\d$/.test(t);
-const timeMinutes=t=>isTime(t)?Number(t.slice(0,2))*60+Number(t.slice(3)):1440;
-function normalizeTime(value){const m=toText(value).match(/^(\d{1,2}):(\d{2})/);if(m){const t=m[1].padStart(2,'0')+':'+m[2];return isTime(t)?t:'';}const n=Number(value);if(value!==''&&Number.isFinite(n)&&n>=0&&n<1){const min=Math.round(n*1440);return `${Math.floor(min/60).toString().padStart(2,'0')}:${(min%60).toString().padStart(2,'0')}`;}return '';}
-// RFC 4180 CSV: handles quoted commas, CRLF, escaped quotes and multiline cells.
-function parseCSV(text){
- if(typeof text!=='string'||text.length>2000000)throw new Error('CSV 資料過大或不是文字');
- const rows=[];let row=[],cell='',quoted=false;
- const s=text.replace(/^\uFEFF/,'');
- for(let i=0;i<s.length;i++){const ch=s[i];if(ch==='"'){if(quoted&&s[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(ch===','&&!quoted){row.push(cell);cell='';}else if((ch==='\n'||ch==='\r')&&!quoted){row.push(cell);rows.push(row);row=[];cell='';if(ch==='\r'&&s[i+1]==='\n')i++;}else cell+=ch;}
- if(quoted)throw new Error('CSV 引號不完整');
- if(cell.length||row.length){row.push(cell);rows.push(row);}
- return rows.filter(r=>r.some(c=>toText(c)));
-}
-function cleanSourceTitle(raw){return raw.replace(/^\d{1,2}:\d{2}\s*/,'').replace(/★\s*[0-5](?:\.\d+)?\s*/g,'').trim();}
-function sourceDate(header){const m=header.match(/(\d{1,2})\/(\d{1,2})/);return m?`2026-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`:'';}
-function parseGrid(rows){
- if(!Array.isArray(rows)||rows.length<2||rows.length>101)throw new Error('行程表格式不符');
- const head=rows.findIndex(r=>Array.isArray(r)&&r.slice(1).filter(x=>/12\/\d+/.test(toText(x))).length===14);
- if(head<0)throw new Error('找不到完整 14 天日期欄');
- const headers=rows[head];const dates=headers.slice(1,15).map(x=>sourceDate(toText(x)));
- if(dates.some((d,i)=>d!==EXPECTED_DATES[i]))throw new Error('日期不符：需保留 2026/12/13–12/26 全部 14 天');
- const days=dates.map((date,i)=>({id:'d'+(i+1),date,number:i+1,header:toText(headers[i+1]),events:[],guide:DAY_GUIDES[i]}));
- let count=0;
- for(let r=head+1;r<rows.length;r++){
-  if(!Array.isArray(rows[r]))throw new Error('行程列格式不符');
-  const row=rows[r],slot=normalizeTime(row[0]);let lodging='';
-  for(let c=1;c<=14;c++){
-   const raw=toText(row[c]);if(raw.length>12000)throw new Error('單格文字過長');
-   // Only the known merged hotel row is forward-filled; empty itinerary cells stay empty.
-   if(slot==='22:00'&&c===7)lodging='';
-   if(slot==='22:00'&&c===14)lodging='';
-   if(slot==='22:00'&&raw.startsWith('東橫INN'))lodging=raw;
-   const inherited=slot==='22:00'&&!raw&&lodging&&c<14;
-   if(!raw&&!inherited)continue;
-   const text=raw||lodging;if(raw)count++;
-   const explicit=normalizeTime(text),time=explicit||slot;
-   const event={id:`sheet-${dates[c-1]}-r${r+1}`,time,title:cleanSourceTitle(text),note:'',map:'',raw:text,cell:String.fromCharCode(65+c)+(r+1),inherited:!!inherited,slot,explicit:!!explicit,origin:'sheet'};
-   days[c-1].events.push(event);
-  }
- }
- if(count===0||days.some(d=>d.events.length===0))throw new Error('部分日期沒有行程，未覆蓋現有資料');
- for(const day of days)day.events.sort((a,b)=>timeMinutes(a.time)-timeMinutes(b.time));
- return {days,count,rows};
-}
-function validCustom(e){return e&&typeof e==='object'&&typeof e.id==='string'&&e.id.length<150&&EXPECTED_DATES.includes(e.date)&&isTime(e.time)&&typeof e.title==='string'&&e.title.trim().length>0&&e.title.length<=300&&typeof (e.note??'')==='string'&&(e.note??'').length<=4000&&typeof(e.map??'')==='string'&&(e.map??'').length<=300;}
-function sanitizeState(raw){
- const result={version:3,custom:[],overrides:{},checks:{},migrated:false};
- if(!raw||typeof raw!=='object')return result;
- if(Array.isArray(raw.custom))result.custom=raw.custom.filter(validCustom).slice(0,1000).map(e=>({id:e.id,date:e.date,time:e.time,title:e.title,note:e.note||'',map:e.map||'',origin:'custom'}));
- if(raw.overrides&&typeof raw.overrides==='object')for(const [id,v] of Object.entries(raw.overrides)){
-  if(/^sheet-2026-12-(?:1[3-9]|2[0-6])-r\d+$/.test(id)&&v&&isTime(v.time)&&typeof v.title==='string'&&v.title.trim()&&v.title.length<=300&&typeof(v.note??'')==='string'&&(v.note??'').length<=4000&&typeof(v.map??'')==='string'&&(v.map??'').length<=300){result.overrides[id]={time:v.time,title:v.title,note:v.note||'',map:v.map||'',sourceRaw:String(v.sourceRaw||'').slice(0,12000),date:EXPECTED_DATES.includes(v.date)?v.date:id.slice(6,16)};}
- }
- if(raw.checks&&typeof raw.checks==='object')for(const [k,v]of Object.entries(raw.checks)){if(/^[\w-]{1,180}$/.test(k)&&typeof v==='string'&&v.length<=60)result.checks[k]=v;}
- result.migrated=raw.migrated===true;return result;
-}
-let localState=sanitizeState(readStore(STATE_KEY,null));
-function migrateOldCustom(){if(localState.migrated)return;const old=readStore('tokyo_custom_events_2026',[]);if(Array.isArray(old))for(const d of old){if(!EXPECTED_DATES.includes(d.fullDate)||!Array.isArray(d.events))continue;d.events.forEach((e,i)=>{if(!e.isCustom)return;const item={id:`legacy-custom-${d.fullDate}-${i}`,date:d.fullDate,time:normalizeTime(e.time),title:plain(e.title).slice(0,300),note:plain(e.desc).slice(0,4000),map:toText(e.map).slice(0,300),origin:'custom'};if(validCustom(item)&&!localState.custom.some(x=>x.id===item.id))localState.custom.push(item);});}localState.migrated=true;writeStore(STATE_KEY,localState);}
-let activeGrid=BASE_GRID,parsed=parseGrid(BASE_GRID),activeDay='d7',filter='family',search='',allExpanded=false;
-let cache=readStore(CACHE_KEY,null),sourceLabel='內建行程備份 · 2026/10/02';
-if(cache?.rows){try{parsed=parseGrid(cache.rows);activeGrid=cache.rows;sourceLabel='上次同步 · '+formatTimestamp(cache.syncedAt);}catch{cache=null;}}
-function formatTimestamp(value){const d=new Date(value);return Number.isFinite(d.getTime())?new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).format(d)+' 日本時間':'時間未記錄';}
-function todayJapan(){const p=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const v=t=>p.find(x=>x.type===t).value;return `${v('year')}-${v('month')}-${v('day')}`;}
-function japanMinutes(){const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());return Number(p.find(x=>x.type==='hour').value)*60+Number(p.find(x=>x.type==='minute').value);}
-function buildDays(){return parsed.days.map(d=>{
- const ids=new Set(d.events.map(e=>e.id));
- const events=d.events.map(e=>{const o=localState.overrides[e.id];return o?{...e,...o,raw:e.raw,edited:true,conflict:o.sourceRaw!==e.raw}: {...e};});
- // Retain local edits even when the corresponding cloud cell disappears.
- for(const [id,o]of Object.entries(localState.overrides))if(o.date===d.date&&!ids.has(id))events.push({...o,id,origin:'sheet',raw:o.sourceRaw,edited:true,conflict:true,orphan:true});
- events.push(...localState.custom.filter(e=>e.date===d.date));events.sort((a,b)=>timeMinutes(a.time)-timeMinutes(b.time));
- return {...d,events};
-});}
-function saveState(){writeStore(STATE_KEY,localState);}
-function getPlaces(event){return PLACES.filter(p=>p.keys.some(k=>event.title.toLowerCase().includes(k.toLowerCase())));}
-function queryFor(event){
- if(event.map)return event.map;
- if(/35°39/.test(event.title))return '35.6575,139.658694';
- if(/成田.*>/.test(event.title)&&/藤澤/.test(event.title))return '東横INN湘南鎌倉藤沢駅北口';
- if(/成田.*>/.test(event.title))return '東横INN東京駅新大橋前';
- if(/>成田|成田 Terminal|京成 Access|班機起飛/.test(event.title))return '成田空港第2ターミナル';
- if(/東橫INN藤澤/.test(event.title))return '東横INN湘南鎌倉藤沢駅北口';
- if(/東橫INN東京/.test(event.title))return '東横INN東京駅新大橋前';
- if(/OS\s*DRUG|OS Drug/i.test(event.title)){const area=event.title.match(/(大船|銀座|上野|淺草|下北澤)/)?.[1]||'';return 'OS DRUG '+area.replace('淺草','浅草');}
- if(/経堂|經堂/.test(event.title))return '叙々苑 経堂コルティ店';
- if(/敘敘苑.*晴空塔/.test(event.title))return '叙々苑 東京スカイツリータウン・ソラマチ店';
- if(/35°/.test(event.title))return '35.6575,139.658694';
- const place=getPlaces(event)[0];return place?`${place.lat},${place.lng}`:event.title.replace(/\([^)]*\)/g,'').replace(/^[^:]*交通規劃:/,'').slice(0,250)+' 日本';
-}
-function ratingEligible(food){return food.provider==='Google'&&Number.isFinite(food.rating)&&food.rating>=3.5&&food.rating<=4.0&&!!safeUrl(food.source)&&!food.closed;}
-const noteKey=value=>String(value||'').normalize('NFKC').toLowerCase().replace(/\s+/g,'');
-function noteMatches(note,event){if(note.ambiguous)return false;const title=noteKey(event.title);return [note.name,...note.aliases].some(alias=>title.includes(noteKey(alias)));}
-function mapNoteCard(note,compact=false){const source=MAP_NOTE_SOURCES[note.source];return `<article class="map-note-card" data-map-note="${h(note.id)}"><details${note.note.length<160?' open':''}><summary>${h(note.name)}${note.mappedByNote?' <span class="badge badge-note">依備註辨識</span>':''}</summary><p class="map-note-original">${richText(note.note)}</p></details>${note.context?`<p class="small muted">標記說明：${h(note.context)}</p>`:''}${!note.ambiguous&&!note.mappedByNote?`<div class="source-links">${ext(mapUrl(note.name),'景點地圖 ↗')}</div>`:''}<details class="note-source"><summary>筆記來源</summary><p class="map-note-credit">${h(source.name)} · ${h(source.checked||MAP_BUNDLE.checked)}</p>${ext(source.url,'開啟地圖清單 ↗')}</details>${compact?'':'<div class="map-note-matches">'+mapNoteMatchesHtml(note)+'</div>'}</article>`;}
-function mapNoteMatchesHtml(note){const matches=[];for(const day of buildDays()){const event=day.events.find(e=>noteMatches(note,e));if(event)matches.push(`<button type="button" class="btn btn-small btn-quiet" data-theme-jump="${day.id}" data-event-id="${h(event.id)}">${h(day.date.slice(5).replace('-','/'))} 查看行程</button>`);}return matches.length?matches.join(''):`<span class="small muted">${note.ambiguous?'分店待核對，未自動配對':'口袋名單'}</span>`;}
-function mapNotesHtml(event){const notes=MAP_NOTES.filter(n=>noteMatches(n,event));return notes.length?`<details class="event-map-notes"><summary>補充筆記</summary>${notes.map(n=>mapNoteCard(n,true)).join('')}</details>`:'';}
-function renderMapNotes(){const q=noteKey($('map-notes-search').value),source=$('map-notes-source').value;const notes=MAP_NOTES.filter(n=>(source==='all'||String(n.source)===source)&&(!q||noteKey(n.name+' '+n.note+' '+(n.context||'')).includes(q)));$('map-notes-count').textContent=`顯示 ${notes.length} / ${MAP_NOTES.length} 筆備註`;$('map-notes-description').textContent=`${MAP_BUNDLE.checked} 最近檢查 · ${MAP_NOTE_SOURCES.map(x=>x.name+' '+x.count+' 筆地點').join('；')}。夜間整理地圖內容，再由同步按鈕讀取最新版；無法讀取時保留前次筆記。`;$('map-notes-list').innerHTML=notes.length?notes.map(n=>mapNoteCard(n)).join(''):'<p class="empty">沒有符合的筆記，請調整關鍵字或清單。</p>';}
-function foodCard(food){return `<article class="food-card"><h4>${h(food.name)}</h4><span class="badge badge-score" aria-label="Google 評分摘錄 ${food.rating} 星">★ ${food.rating.toFixed(1)} · Google 摘錄</span> <span class="badge${food.backup||food.restricted?' badge-note':''}">${h(food.kind)}</span><p>${richText(food.note)}</p><details class="food-proof"><summary>評分資料</summary><p>查閱 ${h(food.checked)} · ${h(food.sourceName)}<br>非即時評分；排隊與營業依現場。</p>${ext(food.source,'評分來源 ↗')}</details><div class="food-links">${ext(mapUrl(food.query),'餐廳地圖 ↗')}</div></article>`;}
-function foodSection(day){const foodIds=new Set(day.events.flatMap(e=>getPlaces(e).flatMap(p=>p.food)));const foods=FOODS.filter(f=>ratingEligible(f)&&foodIds.has(f.id));return foods.length?`<section class="food-section"><h3>這一帶，吃點什麼？</h3><div class="food-grid">${foods.map(foodCard).join('')}</div></section>`:'';}
-function legacyHtml(day){const old=LEGACY.find(d=>d.id===day.id);if(!old)return '';return `<details class="old-notes"><summary>舊版封存・${old.events.length} 筆（非目前行程）</summary><p class="small muted">僅保留舊景點索引，已不作為本日動線。請以上方 Sheet 行程為準。</p><ul>${old.events.map(e=>`<li>${richText(e.title)} ${e.map?ext(mapUrl(e.map),'舊地圖 ↗'):''}</li>`).join('')}</ul><details><summary>舊版交通參考</summary><p>${h(day.guide.route)}</p><p>${h(day.guide.note)}</p></details></details>`;}
-function eventHtml(e,day){
- const places=getPlaces(e),checked=!!localState.checks[e.id];
- const map=queryFor(e);
- const isSplit=/分流A/.test(e.title)&&/分流B/.test(e.title);
- const coord=/35°39/.test(e.title);
- const warnings=[];
- const mentioned=(e.raw||'').match(/^12\/(\d{1,2})\s/);if(mentioned&&Number(mentioned[1])!==Number(day.date.slice(-2)))warnings.push('日期待確認：此筆位於 '+day.date.slice(5).replace('-','/')+' 欄，但原文標記 12/'+mentioned[1]+'，請核對預約。');
- if(/久昇/.test(e.raw||e.title))warnings.push('原筆記的久昇已有歇業紀錄，不建議直接前往。');
- if(coord)warnings.push('原表只提供座標，景點名稱尚未確認。');
- if(e.conflict)warnings.push(e.orphan?'這筆原始雲端資料已不在目前網格，本機修改仍保留。':'雲端原文已改變；這張卡仍保留你的本機修改，請對照原文。');
- return `<li class="event${checked?' checked':''}" id="event-${h(e.id)}" data-date="${h(day.date)}" data-time="${h(e.time)}"><div class="event-when">${dateStampHtml(day.date)}<time class="event-time"${e.time?` datetime="${day.date}T${e.time}:00+09:00"`:''}>${h(e.time||'時間未定')}</time></div><h3>${richText(e.title)}</h3>${e.note?`<p class="event-note">${richText(e.note)}</p>`:''}${isSplit?'<span class="badge badge-note">A／B 同時分流</span>':''}${places.length?`<p class="event-note">${h(places.map(p=>p.route).join(' '))}</p>`:''}${warnings.map(w=>`<p class="small" style="color:#8c471b">${h(w)}</p>`).join('')}<div class="event-tools">${isSplit?ext(mapUrl('teamLab Planets TOKYO'),'A 豐洲地圖','btn btn-small')+ext(mapUrl('柴又帝釈天'),'B 柴又地圖','btn btn-small'):ext(mapUrl(map),coord?'開啟此座標 ↗':'景點地圖 ↗','btn btn-small')}${ext(directionsUrl(map),'交通路線 ↗','btn btn-small btn-quiet')}<button type="button" class="btn btn-small btn-quiet" data-edit="${h(e.id)}" data-day="${day.id}">編輯</button><button type="button" class="btn btn-small check-btn" data-check="${h(e.id)}" aria-pressed="${checked}">${checked?'✓ 已打卡':'打卡'}</button></div>${usefulInfoHtml(e)}${mapNotesHtml(e)}</li>`;
-}
-
-const DAY_COVERS=JSON.parse($('cover-data').textContent);
-function meaningfulEvents(day){return day.events.filter(e=>!e.inherited&&!/^東橫INN/.test(e.title));}
-function dailyFeature(day){
- const cover=DAY_COVERS.find(c=>c.date===day.date),titles=meaningfulEvents(day).map(e=>noteKey(e.title)).join(' ');
- if(cover&&(cover.keys.length?cover.keys.some(k=>titles.includes(noteKey(k))):!meaningfulEvents(day).length))return cover;
- const backdrop=DAY_COVERS[day.number<=6?2:6];
- return {...backdrop,title:dailyTitle(day),caption:day.number<=6?'湘南旅景':'東京旅景'};
-}
-function dayCoverHtml(day){const cover=dailyFeature(day);return `<figure class="day-cover"><div class="day-cover-frame"><img src="${h(cover.image)}" alt="${h(cover.caption)}" width="${cover.width}" height="${cover.height}" loading="${day.id===activeDay?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" style="object-position:${h(cover.position)}"><span class="photo-unavailable" hidden>照片暫時無法載入</span></div><figcaption>${h(cover.caption)}</figcaption></figure>`;}
-function renderPhotoCredits(){$('photo-credits').innerHTML=buildDays().map(day=>{const c=dailyFeature(day);return `<li>${h(day.date.slice(5).replace('-','/'))} · ${h(c.author)} — ${ext(c.source,c.file+' ↗')} · ${ext(c.licenseUrl,c.license+' ↗')}</li>`;}).join('');}
-document.addEventListener('error',event=>{if(event.target.matches?.('.day-cover img')){event.target.hidden=true;event.target.style.display='none';event.target.nextElementSibling.hidden=false;}},true);
-function dailyTitle(day){
- const names=[];
- for(const e of day.events){
-  if(e.inherited||/^東橫INN/.test(e.title)||/^(?:NEX|大眾交通|飯店接駁|千代田站)/.test(e.title))continue;
-  let t=e.title.replace(/^12\/\d+\s*/,'').replace(/^\d{1,2}:\d{2}\s*/,'').replace(/https?:\/\/\S+/g,'').replace(/[（(][^）)]*[）)]/g,'').replace(/\d{2,4}-\d{2,4}-\d{3,4}/g,'').trim();
-  const split=/分流A/.test(t)&&/分流B/.test(t);
-  if(split)t='豐洲／柴又分流';
-  else if(/家族班機抵達/.test(t))t='家族會合';
-  else if(/退房前往東京/.test(t))t='移動東京';
-  else if(/班機起飛|成田 Terminal|京成 Access|飯店集合/.test(t))t='成田返台';
-  else t=t.split(/[\n&／]/)[0].replace(/\s*\/\s*.*/,'').replace(/(?:參拜|散策|漫步|採買|採購|全島徒步|晨間散策).*$/,'').trim();
-  t=t.replace(/[()（）]/g,'').trim();
-  const shortNames=[[/MARRONNIER GATE/i,'銀座 UNIQLO／GU'],[/LOFT 最大店/i,'澀谷 LOFT'],[/domremy/i,'上野甜點 Outlet'],[/LakeTown/i,'越谷 LakeTown'],[/站前合照/,'東京車站合照'],[/叙叙苑 涩谷/,'敘敘苑澀谷店'],[/BOOKOFF SUPER/i,'大船 BOOKOFF'],[/Mr Max/i,'湘南 Mr Max'],[/Odawara Museum/i,'小田原文學館']];
-  t=shortNames.find(([pattern])=>pattern.test(t))?.[1]||t;
-  if(t&&!names.includes(t))names.push(t);
- }
- if(!names.length)return '自由安排・景點待補';
- return names.slice(0,4).map(t=>Array.from(t).length>22?Array.from(t).slice(0,22).join('')+'…':t).join('・');
-}
-function selectPhase(value,scroll=false){
- filter=value;search='';allExpanded=false;$('trip-search').value='';$('trip-filter').value=value;
- const days=buildDays().filter(matchesDay);
- activeDay=(days.find(d=>d.date===todayJapan())||days[0])?.id||'d7';
- $('expand-button').textContent='全部展開';showSection('trip',{scroll:false});renderApp();
- if(scroll)requestAnimationFrame(()=>$('itinerary-list').scrollIntoView({behavior:'smooth',block:'start'}));
-}
-
-function matchesDay(day){if(filter==='solo'&&day.number>6)return false;if(filter==='family'&&day.number<7)return false;if(!search)return true;return JSON.stringify(day.events).toLowerCase().includes(search.toLowerCase());}
-function renderNav(){const today=todayJapan();$('day-nav').innerHTML=buildDays().filter(d=>filter==='all'||(filter==='family'?d.number>=7:d.number<=6)).map(d=>`<button type="button" class="day-chip${d.id===activeDay?' active':''}" data-date="${d.date}" data-journey="${d.number<=6?'solo':'family'}" data-day-jump="${d.id}"><span>${d.date.slice(5).replace('-','/')}</span><span>${h(dailyTitle(d))}<small>${d.number>=7?'家族 '+(d.number-6)+'/8':'獨旅 '+d.number+'/6'} · DAY ${String(d.number).padStart(2,'0')}</small></span></button>`).join('');}
-function renderGrid(rows,target){const head=rows.findIndex(r=>r.slice(1).filter(x=>/12\/\d+/.test(toText(x))).length===14);$(target).innerHTML=`<table class="grid-table"><caption>06:00–22:00 網格 · 左右捲動查看全部日期</caption><thead><tr>${rows[head].slice(0,15).map((x,i)=>`<th scope="col">${h(i===0?'時間':x)}</th>`).join('')}</tr></thead><tbody>${rows.slice(head+1).map(r=>`<tr>${Array.from({length:15},(_,i)=>i===0?`<th scope="row">${h(r[i])}</th>`:`<td>${richText(r[i]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
-function renderApp(){
- document.body.dataset.journey=filter==='solo'?'solo':'family';
- const days=buildDays().filter(matchesDay);renderNav();$('trip-filter').value=filter;document.querySelectorAll('[data-phase]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.phase===filter)));
- $('result-summary').textContent=`${filter==='family'?'家族篇':filter==='solo'?'獨旅篇':'完整旅程'} · ${days.length} 天`;renderPhotoCredits();
- $('itinerary-list').innerHTML=days.length?days.map(day=>{
-  const open=allExpanded||day.id===activeDay;
-  return `<article class="accordion-item" id="${day.id}" data-date="${day.date}" data-journey="${day.number<=6?'solo':'family'}"><h2 class="accordion-header" id="heading-${day.id}"><button type="button" class="accordion-button${open?'':' collapsed'}" data-bs-toggle="collapse" data-bs-target="#collapse-${day.id}" aria-expanded="${open}" aria-controls="collapse-${day.id}"><span class="day-heading"><span class="day-date-line">${dateStampHtml(day.date)}</span><strong>${h(dailyFeature(day).title).replace('：','：<br>')}</strong></span></button></h2><div class="accordion-collapse collapse${open?' show':''}" id="collapse-${day.id}" role="region" aria-labelledby="heading-${day.id}"><div class="accordion-body">${dayCoverHtml(day)}${currentRouteHtml(day)}<ol class="timeline">${day.events.map(e=>eventHtml(e,day)).join('')}</ol>${foodSection(day)}<details class="day-options"><summary>這天的其他選項</summary><button type="button" class="btn btn-small btn-quiet" data-add-day="${day.id}">+ 這天加一站</button>${legacyHtml(day)}</details></div></div></article>`;
- }).join(''):'<div class="empty">沒有符合的日期。清除關鍵字或切換「全部 14 天」即可查看完整行程。</div>';
- $('check-count').textContent=`${Object.keys(localState.checks).length} 個景點已打卡`;
- $('sync-status').textContent=sourceLabel.startsWith('Sheet 已同步')?'行程已更新':'已載入行程';
- refreshNow();renderMapNotes();
-}
-function showSection(section,{scroll=true}={}) {
- if(!['trip','theme','account','trans'].includes(section))return;
- document.querySelectorAll('.section').forEach(e=>e.classList.toggle('active',e.id==='sec-'+section));
- document.querySelectorAll('[data-section]').forEach(e=>{if(e.dataset.section===section)e.setAttribute('aria-current','page');else e.removeAttribute('aria-current');});
- if(section==='theme')renderThemes();
- if(section==='account'&&!shoppingLoaded){shoppingLoaded=true;loadBuyGallery();syncCloudData();}
- if(scroll)$('sec-'+section).scrollIntoView({behavior:'instant',block:'start'});
-}
-let shoppingLoaded=false;
-function jumpToDay(id,eventId){activeDay=id;search='';if(filter==='family'&&Number(id.slice(1))<7||filter==='solo'&&Number(id.slice(1))>=7)filter='all';$('trip-search').value='';$('trip-filter').value=filter;showSection('trip',{scroll:false});renderApp();requestAnimationFrame(()=>$(eventId?'event-'+eventId:id)?.scrollIntoView({behavior:'smooth',block:'start'}));}
-function refreshNow(){
- const today=todayJapan(),minute=japanMinutes();
- document.querySelectorAll('.is-now').forEach(e=>{e.classList.remove('is-now');e.removeAttribute('aria-current');});
- document.querySelectorAll('.now-label,.today-label').forEach(e=>e.remove());
- document.querySelectorAll('.accordion-item,.day-chip').forEach(e=>{const current=e.dataset.date===today;e.classList.toggle('is-today',current);if(current){const label=document.createElement('span');label.className='badge today-label';label.textContent='今天';(e.querySelector('.day-heading')||e).append(label);}});
- const d=buildDays().find(d=>d.date===today);if(!d)return;
- const started=d.events.filter(e=>isTime(e.time)&&timeMinutes(e.time)<=minute);
- const latest=started.at(-1)?.time;
- for(const current of started.filter(e=>e.time===latest)){const el=$('event-'+current.id);if(!el)continue;el.classList.add('is-now');el.setAttribute('aria-current','step');const label=document.createElement('span');label.className='badge now-label';label.textContent='現在時段 · 依行程表';el.querySelector('h3').before(label);}
-}
-function refreshClock(){$('japan-clock').textContent=new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date());refreshNow();}
-function toast(message,title='旅行手帳'){
- const div=document.createElement('div');div.className='toast';div.setAttribute('role','status');div.innerHTML=`<div class="toast-header"><strong>${h(title)}</strong><button class="close-toast" type="button" aria-label="關閉提醒">×</button></div><div class="toast-body">${h(message)}</div>`;
- $('toast-stack').append(div);while($('toast-stack').children.length>4)$('toast-stack').firstElementChild.remove();
- const close=()=>{if(window.bootstrap)bootstrap.Toast.getInstance(div)?.dispose();div.remove();};div.querySelector('button').addEventListener('click',close);
- if(window.bootstrap){new bootstrap.Toast(div,{delay:10000}).show();div.addEventListener('hidden.bs.toast',close,{once:true});}else{div.classList.add('show');setTimeout(close,10000);}
-}
-async function fetchWithTimeout(url,options={},ms=15000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),ms);try{return await fetch(url,{...options,signal:controller.signal});}finally{clearTimeout(timer);}}
-let syncing=false;
-async function syncItinerary(manual=false){
- if(syncing)return;syncing=true;$('sync-button').disabled=true;$('sync-status').textContent='更新行程中…';
- const results=await Promise.allSettled([
-  (async()=>{const response=await fetchWithTimeout(SHEET_URL+'&_='+Date.now(),{cache:'no-store',credentials:'omit'},18000);if(!response.ok)throw new Error('Sheet HTTP '+response.status);const text=await response.text();if(/^\s*</.test(text))throw new Error('收到登入頁');const rows=parseCSV(text),next=parseGrid(rows);return {rows,next};})(),
-  fetchPublishedUpdates()
- ]);
- if(results[0].status==='fulfilled'){const {rows,next}=results[0].value;activeGrid=rows;parsed=next;const syncedAt=new Date().toISOString();sourceLabel='Sheet 已同步 · '+formatTimestamp(syncedAt);writeStore(CACHE_KEY,{rows,syncedAt});}
- if(results[1].status==='fulfilled'){applyPublishedUpdates(results[1].value);$('map-notes-sync').textContent='筆記已更新';}else $('map-notes-sync').textContent='暫時無法更新，顯示上次筆記。';
- renderApp();renderGrid(activeGrid,'raw-grid');
- if(results[0].status==='rejected')$('sync-status').textContent='暫時無法更新，顯示上次行程。';
- if(manual)toast(results.every(r=>r.status==='fulfilled')?'行程與筆記已更新。':'部分資料暫時無法更新，保留上次內容。','行程更新');
- syncing=false;$('sync-button').disabled=false;
-}
-// Great-circle Haversine distance in metres. Clamp for floating-point boundary safety.
-function haversineMeters(lat1,lng1,lat2,lng2){const coords=[lat1,lng1,lat2,lng2];if(coords.some(v=>!Number.isFinite(v))||Math.abs(lat1)>90||Math.abs(lat2)>90||Math.abs(lng1)>180||Math.abs(lng2)>180)return Infinity;const rad=n=>n*Math.PI/180,dLat=rad(lat2-lat1),dLon=rad(lng2-lng1);const a=Math.sin(dLat/2)**2+Math.cos(rad(lat1))*Math.cos(rad(lat2))*Math.sin(dLon/2)**2;return 6371000*2*Math.atan2(Math.sqrt(Math.min(1,Math.max(0,a))),Math.sqrt(Math.max(0,1-a)));}
-function nearbyPlaces(lat,lng){return PLACES.map(p=>({...p,distance:haversineMeters(lat,lng,p.lat,p.lng)})).filter(p=>p.distance<MATCH_RADIUS_METERS).sort((a,b)=>a.distance-b.distance);}
-function suitableFood(place){return place.food.map(id=>FOODS.find(f=>f.id===id)).find(f=>f&&ratingEligible(f)&&!f.restricted);}
-let gpsBusy=false;
-function detectNearby(){
- if(gpsBusy)return;
- if(!navigator.geolocation){$('gps-result').textContent='此瀏覽器不支援定位，仍可使用上方地圖按鈕。';return;}
- if(!window.isSecureContext){$('gps-result').textContent='定位需要安全連線，請改用 HTTPS 網址開啟此頁。';return;}
- gpsBusy=true;$('gps-button').disabled=true;$('gps-result').textContent='正在取得定位，請允許瀏覽器使用位置…';
- const done=()=>{gpsBusy=false;$('gps-button').disabled=false;};
- navigator.geolocation.getCurrentPosition(position=>{done();const{latitude,longitude,accuracy}=position.coords;
-  if(!Number.isFinite(latitude)||!Number.isFinite(longitude)||!Number.isFinite(accuracy)){ $('gps-result').textContent='定位回傳不完整，請重新定位。';return;}
-  if(accuracy>500){$('gps-result').textContent=`目前定位誤差約 ${Math.round(accuracy)} 公尺，超過提醒範圍。請移至戶外或開啟精確位置後重試。`;return;}
-  const nearby=nearbyPlaces(latitude,longitude);
-  if(!nearby.length){const nearest=PLACES.map(p=>({...p,distance:haversineMeters(latitude,longitude,p.lat,p.lng)})).sort((a,b)=>a.distance-b.distance)[0];$('gps-result').textContent=`500 公尺內沒有內建景點。最近是${nearest.name}，直線距離約 ${(nearest.distance/1000).toFixed(1)} 公里；定位誤差約 ${Math.round(accuracy)} 公尺。`;return;}
-  $('gps-result').innerHTML=`<p>找到 ${nearby.length} 個景點 · 定位誤差約 ${Math.round(accuracy)} 公尺</p>${nearby.map(p=>`<p>${ext(mapUrl(`${p.lat},${p.lng}`),p.name+' ↗')} <small>約 ${Math.round(p.distance)} m</small> <button type="button" class="btn btn-small" data-geo-check="${p.id}">${localState.checks['place-'+p.id]?'✓ 已打卡':'打卡'}</button></p>`).join('')}<p class="small muted">距離依近似座標估計，並非步行路程；打卡由你按下確認。</p>`;
-  nearby.slice(0,3).forEach(p=>{const food=suitableFood(p);toast(food?`您已在 ${p.name} 附近！建議可前往周邊的 ${food.name} 享用美食！出發前請確認營業、步行路程與最新評分。`:`您已在 ${p.name} 附近！目前尚無符合星級查核條件的周邊美食候選，可先開啟景點地圖。`,'附近有行程景點');});
- },error=>{done();const messages={1:'未取得定位權限。可在瀏覽器網站設定開啟位置權限後重試。',2:'暫時無法取得位置，請移到訊號較佳處再試。',3:'定位逾時，請確認裝置的位置服務後重試。'};$('gps-result').textContent=messages[error.code]||'定位失敗，請稍後重試。';},{enableHighAccuracy:true,timeout:12000,maximumAge:0});
-}
-const WEATHER={tokyo:{name:'東京',lat:35.6762,lng:139.6503,temp:11,icon:'🌤',text:'冬日晴朗（示範）',tip:'防風外套、圍巾，室內外以多層穿搭調整。'},fujisawa:{name:'湘南',lat:35.3391,lng:139.4901,temp:12,icon:'☀️',text:'海風微涼（示範）',tip:'海岸風勢可能較強，防風外套比只加厚毛衣實用。'},hakone:{name:'箱根',lat:35.2324,lng:139.1069,temp:5,icon:'☁️',text:'山區寒冷（示範）',tip:'海拔與風勢影響體感；前往山區請另查路況與保暖需求。'}};
-let weatherCity='tokyo',weatherRequest=0,weatherCache={};
-function renderWeather(){const d=WEATHER[weatherCity],live=weatherCache[weatherCity];$('weather-temp').textContent=(live?live.icon:d.icon)+' '+(live?live.temp:d.temp)+'°C';$('weather-condition').textContent=live?live.text:d.text;$('weather-tip').textContent=d.tip;$('weather-mode').textContent=live?'目前觀測':'示範資料';$('weather-status').innerHTML=live?`${h(d.name)} · ${h(live.time)} 日本時間 · ${ext('https://open-meteo.com/','Open-Meteo')}`:'示範溫度不是 12 月預報；可查所選地區的目前天氣。';document.querySelectorAll('[data-weather]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.weather===weatherCity)));}
-function weatherCode(code){if(code===0)return ['☀️','晴朗'];if([1,2,3].includes(code))return ['⛅','多雲'];if([45,48].includes(code))return ['🌫','有霧'];if([71,73,75,77,85,86].includes(code))return ['❄️','降雪'];if(code>=95)return ['⛈','雷雨'];return ['🌧','降雨'];}
-async function fetchWeather(){const city=weatherCity,d=WEATHER[city],request=++weatherRequest;$('weather-live').disabled=true;$('weather-status').textContent=`正在查詢${d.name}目前天氣…`;try{const res=await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lng}&current=temperature_2m,weather_code&timezone=Asia%2FTokyo`,{},12000);if(!res.ok)throw new Error('weather');const body=await res.json(),c=body.current;if(!Number.isFinite(c?.temperature_2m)||!Number.isFinite(c?.weather_code)||typeof c?.time!=='string')throw new Error('weather format');const[icon,text]=weatherCode(c.weather_code);weatherCache[city]={temp:Math.round(c.temperature_2m),icon,text,time:c.time.replace('T',' ')};if(request===weatherRequest&&city===weatherCity)renderWeather();}catch{if(request===weatherRequest&&city===weatherCity){renderWeather();$('weather-status').textContent=weatherCache[city]?'查詢失敗，保留上次觀測時間。':'目前天氣查詢失敗；畫面保留清楚標示的示範資料。';}}finally{if(request===weatherRequest)$('weather-live').disabled=false;}}
-function dayFromId(id){return buildDays().find(d=>d.id===id);}
-function fillEventChoices(selected='new'){const day=dayFromId($('edit-day').value);$('edit-event').innerHTML='<option value="new">+ 新增行程</option>'+day.events.map(e=>`<option value="${h(e.id)}">${h(e.time)} ${h(e.title.slice(0,55))}</option>`).join('');$('edit-event').value=selected;fillEditorFields();}
-function fillEditorFields(){const day=dayFromId($('edit-day').value),event=day.events.find(e=>e.id===$('edit-event').value);$('edit-time').value=event?.time||'12:00';$('edit-title').value=event?.title||'';$('edit-note').value=event?.note||'';$('edit-map').value=event?.map||'';$('edit-error').textContent='';$('reset-edit').hidden=!event?.edited;}
-function openEditor(dayId=activeDay,eventId='new'){$('edit-day').innerHTML=buildDays().map(d=>`<option value="${d.id}">${h(d.header)}</option>`).join('');$('edit-day').value=dayId;fillEventChoices(eventId);$('editor-dialog').showModal();$('edit-title').focus();}
-function saveEditor(event){event.preventDefault();const day=dayFromId($('edit-day').value),id=$('edit-event').value,time=$('edit-time').value,title=$('edit-title').value.trim(),note=$('edit-note').value.trim(),map=$('edit-map').value.trim();if(!day||!isTime(time)||!title){$('edit-error').textContent='請填入有效時間與行程名稱。';return;}const fields={time,title,note,map};if(id==='new'){localState.custom.push({id:'custom-'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(16).slice(2)),date:day.date,...fields,origin:'custom'});}else{const original=day.events.find(e=>e.id===id);if(!original)return;if(original.origin==='custom'){localState.custom=localState.custom.map(e=>e.id===id?{...e,...fields}:e);}else{localState.overrides[id]={...fields,sourceRaw:original.raw||'',date:day.date};}}saveState();$('editor-dialog').close();jumpToDay(day.id);toast(storageAvailable?'遊程已儲存在這台裝置。':'遊程已更新；目前無法持久儲存，請下載備份。');}
-function exportBackup(){const data={format:'tokyo-trip-backup',version:3,exportedAt:new Date().toISOString(),state:localState,grid:activeGrid};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='tokyo-trip-2026-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-async function importBackup(event){const file=event.target.files?.[0];if(!file)return;try{if(file.size>3000000)throw new Error('檔案過大');const b=JSON.parse(await file.text());if(b.format!=='tokyo-trip-backup'||b.version!==3||!b.state||!Array.isArray(b.state.custom))throw new Error('備份格式不符');const restored=sanitizeState(b.state);if(restored.custom.length!==b.state.custom.length)throw new Error('備份含無效行程');const incoming=b.grid?parseGrid(b.grid):null;const custom=new Map(localState.custom.map(e=>[e.id,e]));restored.custom.forEach(e=>custom.set(e.id,e));localState={version:3,custom:[...custom.values()],overrides:{...localState.overrides,...restored.overrides},checks:{...localState.checks,...restored.checks},migrated:true};if(incoming){parsed=incoming;activeGrid=b.grid;sourceLabel='匯入備份 · '+formatTimestamp(b.exportedAt);writeStore(CACHE_KEY,{rows:activeGrid,syncedAt:b.exportedAt});}saveState();renderApp();renderGrid(activeGrid,'raw-grid');toast('已合併匯入本機備份，原有其他項目保留。');}catch(e){toast('無法匯入：'+e.message,'備份未變更');}finally{event.target.value='';}}
-function renderThemes(){const q=$('theme-search').value.trim().toLowerCase(),seen=new Set(),items=[];for(const day of buildDays()){for(const e of day.events){if(e.inherited)continue;const key=day.id+e.title;if(!seen.has(key)){seen.add(key);items.push({name:e.title,day:day.id,date:day.date,query:queryFor(e),eventId:e.id});}}}
- const results=items.filter(x=>!q||x.name.toLowerCase().includes(q));$('theme-spots-list').innerHTML=results.length?results.map(x=>`<article class="tour-card" data-journey="${Number(x.day.slice(1))<=6?'solo':'family'}"><div class="tour-date">${dateStampHtml(x.date)}<span class="badge">${Number(x.day.slice(1))<=6?'獨旅篇':'家族篇'}</span></div><h3>${richText(x.name)}</h3><div class="event-tools"><button type="button" class="btn btn-small" data-theme-jump="${x.day}" data-event-id="${h(x.eventId||'')}">查看這一天</button>${ext(mapUrl(x.query),'地圖 ↗','btn btn-small btn-quiet')}</div></article>`).join(''):'<p class="empty">找不到符合的景點或筆記。</p>';
- $('all-foods').innerHTML=FOODS.filter(ratingEligible).map(foodCard).join('');
-}
-
-function setReading(value){const mode=value==='huge'?'huge':'large';document.documentElement.dataset.reading=mode;document.querySelectorAll('button[data-reading]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.reading===mode)));safeStorage.setItem('tokyo_reading_size_v1',mode);}
-function currentRouteHtml(day){return meaningfulEvents(day).length?`<div class="day-highlights"><strong>今日亮點</strong>${h(dailyTitle(day))}</div>`:'<p class="day-note">行程待補，今天自由安排。</p>';}
-function usefulInfoHtml(event){const items=TRAVEL_BUNDLE.items.filter(x=>x.keys.some(k=>noteKey(event.title).includes(noteKey(k))));return items.map(x=>`<aside class="route-extra"><h4>${h(x.title)}</h4><p>${richText(x.text)}</p><div class="source-links">${ext(x.source,'查詢官方資訊 ↗')}<span>查閱 ${h(x.checked)}</span></div></aside>`).join('');}
-function validatePublishedBundle(map,travel){
- if(map?.version!==1||!Array.isArray(map.sources)||map.sources.length!==2||!Array.isArray(map.notes)||map.notes.length>1000||!Number.isFinite(Date.parse(map.updatedAt)))throw new Error('筆記資料格式錯誤');
- for(const source of map.sources)if(typeof source.name!=='string'||!Number.isInteger(source.count)||source.count<0||source.complete!==true||!safeUrl(source.url)||typeof source.checked!=='string')throw new Error('來源格式錯誤');
- const ids=new Set();for(const n of map.notes){if(!n||typeof n.id!=='string'||ids.has(n.id)||!Number.isInteger(n.source)||n.source<0||n.source>1||typeof n.name!=='string'||!n.name.trim()||n.name.length>500||typeof n.note!=='string'||n.note.length>12000||!Array.isArray(n.aliases)||n.aliases.some(a=>typeof a!=='string'||!a.trim()||a.length>300))throw new Error('筆記格式錯誤');ids.add(n.id);}
- if(travel?.version!==1||!Array.isArray(travel.items)||travel.items.length>500)throw new Error('補充格式錯誤');for(const x of travel.items)if(!x||!Array.isArray(x.keys)||x.keys.some(k=>typeof k!=='string'||!k)||typeof x.title!=='string'||typeof x.text!=='string'||!safeUrl(x.source)||typeof x.checked!=='string')throw new Error('補充內容錯誤');
- return {map,travel};
-}
-async function fetchPublishedUpdates(){const response=await fetchWithTimeout(PUBLISHED_URL+'?updated='+Date.now(),{cache:'no-store',credentials:'omit'},15000);if(!response.ok)throw new Error('筆記 HTTP '+response.status);const html=await response.text();if(html.length>3000000)throw new Error('資料過大');const doc=new DOMParser().parseFromString(html,'text/html');return validatePublishedBundle(JSON.parse(doc.getElementById('map-notes-data')?.textContent||'null'),JSON.parse(doc.getElementById('travel-updates-data')?.textContent||'null'));}
-function applyPublishedUpdates(bundle){if(Date.parse(bundle.map.updatedAt)<Date.parse(MAP_BUNDLE.updatedAt))return;MAP_BUNDLE=bundle.map;MAP_NOTES=MAP_BUNDLE.notes;MAP_NOTE_SOURCES=MAP_BUNDLE.sources;TRAVEL_BUNDLE=bundle.travel;writeStore('tokyo_published_updates_v1',bundle);}
-try{const stored=readStore('tokyo_published_updates_v1',null);if(stored)applyPublishedUpdates(validatePublishedBundle(stored.map,stored.travel));}catch{}
-
-function updateNavigationMetrics() {
- const root=document.documentElement;
- root.style.setProperty('--topbar-height',Math.ceil(document.querySelector('.topbar').getBoundingClientRect().height)+'px');
- root.style.setProperty('--bottom-nav-height',Math.ceil(document.querySelector('.bottom-nav').getBoundingClientRect().height)+'px');
-}
-window.addEventListener('resize',updateNavigationMetrics,{passive:true});
-if(window.ResizeObserver){const observer=new ResizeObserver(updateNavigationMetrics);observer.observe(document.querySelector('.topbar'));observer.observe(document.querySelector('.bottom-nav'));}
-
-// Public compatibility hooks for the preserved utility sections.
-function switchTabById(id){showSection(id);}
-function openImageModal(src){const safe=safeUrl(src);if(!safe)return;$('modalImg').src=safe;$('imageModal').style.display='flex';$('imageModal').focus();}
-function closeImageModal(){$('imageModal').style.display='none';}
-document.addEventListener('click',event=>{
- const target=event.target.closest('button,a');if(!target)return;
- if(target.dataset.reading){setReading(target.dataset.reading);return;}
- if(target.dataset.phase){selectPhase(target.dataset.phase,true);return;}
- if(target.dataset.section){showSection(target.dataset.section);return;}
- if(target.tagName==='A'&&!target.getAttribute('href')?.startsWith('#')&&!target.hasAttribute('download')&&safeUrl(target.href)){target.target='_blank';target.rel='noopener noreferrer';}
- if(target.dataset.openSection){event.preventDefault();showSection(target.dataset.openSection,{scroll:false});const id=target.getAttribute('href')?.slice(1);if(id)$(id)?.scrollIntoView({behavior:'instant',block:'start'});return;}
- if(target.dataset.dayJump){jumpToDay(target.dataset.dayJump);return;}
- if(target.dataset.themeJump){jumpToDay(target.dataset.themeJump,target.dataset.eventId);return;}
- if(target.dataset.edit){openEditor(target.dataset.day,target.dataset.edit);return;}
- if(target.dataset.addDay){openEditor(target.dataset.addDay);return;}
- if(target.dataset.check){const id=target.dataset.check;if(localState.checks[id])delete localState.checks[id];else localState.checks[id]=new Date().toISOString();saveState();target.setAttribute('aria-pressed',String(!!localState.checks[id]));target.textContent=localState.checks[id]?'✓ 已打卡':'打卡';target.closest('.event').classList.toggle('checked',!!localState.checks[id]);$('check-count').textContent=`${Object.keys(localState.checks).length} 個景點已打卡`;return;}
- if(target.dataset.geoCheck){localState.checks['place-'+target.dataset.geoCheck]=new Date().toISOString();saveState();target.textContent='✓ 已打卡';$('check-count').textContent=`${Object.keys(localState.checks).length} 個景點已打卡`;return;}
- if(target.dataset.weather){weatherRequest++;weatherCity=target.dataset.weather;$('weather-live').disabled=false;renderWeather();return;}
- if(target.matches('[data-bs-toggle="collapse"]')&&!window.bootstrap){const el=document.querySelector(target.dataset.bsTarget);const open=!el.classList.contains('show');el.classList.toggle('show',open);target.classList.toggle('collapsed',!open);target.setAttribute('aria-expanded',String(open));}
-});
-$('sync-button').addEventListener('click',()=>syncItinerary(true));$('gps-button').addEventListener('click',detectNearby);$('weather-live').addEventListener('click',fetchWeather);
-$('add-button').addEventListener('click',()=>openEditor());$('editor-close').addEventListener('click',()=>$('editor-dialog').close());$('editor-form').addEventListener('submit',saveEditor);$('edit-day').addEventListener('change',()=>fillEventChoices());$('edit-event').addEventListener('change',fillEditorFields);
-$('reset-edit').addEventListener('click',()=>{const id=$('edit-event').value;delete localState.overrides[id];saveState();$('editor-dialog').close();renderApp();toast('已還原目前的雲端原文。');});
-$('trip-filter').addEventListener('change',e=>selectPhase(e.target.value));$('trip-search').addEventListener('input',e=>{search=e.target.value.trim();renderApp();});
-$('expand-button').addEventListener('click',()=>{allExpanded=!allExpanded;$('expand-button').textContent=allExpanded?'收合其他日期':'全部展開';renderApp();});
-$('now-button').addEventListener('click',()=>{const day=parsed.days.find(d=>d.date===todayJapan());if(day){const current=buildDays().find(d=>d.id===day.id).events.filter(e=>isTime(e.time)&&timeMinutes(e.time)<=japanMinutes()).at(-1);jumpToDay(day.id,current?.id);}else toast('日本今天不在 12/13–12/26 的旅程期間，可從日期索引選擇想查看的一天。');});
-$('export-button').addEventListener('click',exportBackup);$('import-input').addEventListener('change',importBackup);$('theme-search').addEventListener('input',renderThemes);
-$('map-notes-search').addEventListener('input',renderMapNotes);$('map-notes-source').addEventListener('change',renderMapNotes);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeImageModal();});
-document.addEventListener('shown.bs.collapse',e=>{if(e.target.classList.contains('accordion-collapse')){activeDay=e.target.id.replace('collapse-','');renderNav();refreshNow();}});
-
-let currentExchangeRate = 0.215;
-    const BUY_IMAGE_DIR = 'https://travel.itigre.com/2026/tokyo/images/buy/';
-    const BUY_IMAGE_MANIFEST = BUY_IMAGE_DIR + 'buy-images.json';
-    const BUY_GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=318927826&single=true&output=csv';
-    const BUY_GOOGLE_FORM_URL = '';
-    const BUY_IMAGE_EXT_RE = /\.(jpe?g|png|webp)(\?.*)?$/i;
-    const BUY_GALLERY_CHECK_STORAGE_KEY = 'tokyo_2026_buy_gallery_checked';
-
-    function escapeHtml(value) {
-        return String(value || '')
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-    }
-
-    function encodeBuyImagePath(fileName) {
-        return String(fileName || '').trim().replace(/^\/+/, '').split('/').map(part => encodeURIComponent(part)).join('/');
-    }
-
-    function normalizeBuyImageUrl(file) {
-        const raw = String(file || '').trim();
-        if (!raw) return '';
-        const driveImageUrl = normalizeGoogleDriveImageUrl(raw);
-        if (driveImageUrl) return driveImageUrl;
-        if (/^https?:\/\//i.test(raw)) return raw;
-        return BUY_IMAGE_DIR + encodeBuyImagePath(raw);
-    }
-
-    function normalizeGoogleDriveImageUrl(url) {
-        const raw = String(url || '').trim();
-        if (!/drive\.google\.com/i.test(raw)) return '';
-        const patterns = [/\/file\/d\/([^/]+)/i, /[?&]id=([^&]+)/i, /\/open\?id=([^&]+)/i];
-        for (const pattern of patterns) {
-            const match = raw.match(pattern);
-            if (match && match[1]) {
-                return `https://drive.google.com/thumbnail?id=${encodeURIComponent(match[1])}&sz=w1000`;
-            }
-        }
-        return raw;
-    }
-
-    function isSupportedBuyImageUrl(url) {
-        if (!safeUrl(url)) return false;
-        const raw = String(url || '');
-        return BUY_IMAGE_EXT_RE.test(raw) || /drive\.google\.com\/thumbnail/i.test(raw) || /googleusercontent\.com/i.test(raw);
-    }
-
-    function getBuyImageNameFromFile(file) {
-        try {
-            const raw = String(file || '').trim();
-            const fileOnly = raw.split('/').pop().split('?')[0];
-            const decoded = decodeURIComponent(fileOnly);
-            return decoded.replace(/\.(jpe?g|png|webp)$/i, '');
-        } catch (e) {
-            return String(file || '').replace(/\.(jpe?g|png|webp)$/i, '');
-        }
-    }
-
-    function normalizeBuyImageItem(item, index) {
-        if (typeof item === 'string') {
-            return { id: item, file: item, url: normalizeBuyImageUrl(item), name: getBuyImageNameFromFile(item) || `代購品項 ${index + 1}` };
-        }
-        if (item && typeof item === 'object') {
-            const file = item.file || item.filename || item.src || item.url || '';
-            const name = item.name || item.title || item.label || getBuyImageNameFromFile(file) || `代購品項 ${index + 1}`;
-            const id = item.id || file || name;
-            return { id, file, url: normalizeBuyImageUrl(file), name };
-        }
-        return { id: `buy-item-${index + 1}`, file: '', url: '', name: `代購品項 ${index + 1}` };
-    }
-
-    function normalizeBuyImageList(data) {
-        const rawList = Array.isArray(data) ? data : (data && Array.isArray(data.images) ? data.images : []);
-        const seen = new Set();
-        return rawList.map(normalizeBuyImageItem).filter(item => item.url && isSupportedBuyImageUrl(item.url)).filter(item => {
-            if (seen.has(item.url)) return false;
-            seen.add(item.url);
-            return true;
-        });
-    }
-
-    function getCsvValue(row, headers, aliases, fallbackIndex) {
-        const normalizedAliases = aliases.map(alias => String(alias).trim().toLowerCase());
-        for (let i = 0; i < headers.length; i++) {
-            const header = String(headers[i] || '').trim().toLowerCase();
-            if (normalizedAliases.some(alias => header === alias || header.includes(alias))) return row[i] || '';
-        }
-        return row[fallbackIndex] || '';
-    }
-
-    function normalizeBuySheetList(csvText) {
-        const rows = parseCSV(String(csvText || ''));
-        if (rows.length <= 1) return [];
-        const headers = rows[0];
-        return rows.slice(1).flatMap((row, index) => {
-            const name = getCsvValue(row, headers, ['品項名稱', '品項', '商品名稱', '商品', 'name', 'title'], 1);
-            const image = getCsvValue(row, headers, ['Cloudinary照片網址', 'Cloudinary 照片網址', 'cloudinary url', 'cloudinary_url', '照片網址', '圖片網址', '照片', '圖片', 'image url', 'image_url', 'photo url', 'photo_url', 'url', 'file'], 2);
-            const note = getCsvValue(row, headers, ['備註', '說明', 'note', 'memo'], 3);
-            const imageList = String(image || '').split(/[\n,]+/).map(url => url.trim()).filter(Boolean);
-            return imageList.map((imageUrl, imageIndex) => {
-                const id = `${name || 'buy-item'}-${imageUrl || index}-${imageIndex}`;
-                return { id, file: imageUrl, url: normalizeBuyImageUrl(imageUrl), name: note ? `${name}｜${note}` : (name || getBuyImageNameFromFile(imageUrl) || `代購品項 ${index + 1}`) };
-            });
-        }).filter(item => item.url);
-    }
-
-    function getBuyCheckedMap() {
-        try { return JSON.parse(safeStorage.getItem(BUY_GALLERY_CHECK_STORAGE_KEY)) || {}; } catch (e) { return {}; }
-    }
-
-    function saveBuyCheckedMap(map) {
-        safeStorage.setItem(BUY_GALLERY_CHECK_STORAGE_KEY, JSON.stringify(map));
-    }
-
-    function toggleBuyGalleryChecked(id, checkbox) {
-        const checkedMap = getBuyCheckedMap();
-        checkedMap[id] = checkbox.checked;
-        saveBuyCheckedMap(checkedMap);
-        const card = checkbox.closest('.buy-gallery-item');
-        if (card) card.classList.toggle('is-checked', checkbox.checked);
-    }
-
-    async function fetchBuyImageManifest() {
-        const cacheBuster = BUY_IMAGE_MANIFEST.includes('?') ? '&' : '?';
-        const res = await fetchWithTimeout(BUY_IMAGE_MANIFEST + cacheBuster + 'v=' + Date.now(), { cache: 'no-store' });
-        if (!res.ok) throw new Error('buy-images.json 讀取失敗');
-        const data = await res.json();
-        return normalizeBuyImageList(data);
-    }
-
-    async function fetchBuyGoogleSheetItems() {
-        const url = String(BUY_GOOGLE_SHEET_CSV_URL || '').trim();
-        if (!url) return [];
-        const cacheBuster = url.includes('?') ? '&' : '?';
-        const res = await fetchWithTimeout(url + cacheBuster + 'v=' + Date.now(), { cache: 'no-store' });
-        if (!res.ok) throw new Error('Google 表單回覆試算表讀取失敗');
-        const csvText = await res.text();
-        return normalizeBuySheetList(csvText);
-    }
-
-    function renderBuyGallery(items) {
-        const container = document.getElementById('buy-gallery-list');
-        if (!container) return;
-        if (!items || items.length === 0) {
-            container.innerHTML = '<div class="buy-gallery-status">目前尚未設定代購照片</div>';
-            return;
-        }
-        const checkedMap = getBuyCheckedMap();
-        const formLink = BUY_GOOGLE_FORM_URL ? `<a href="${escapeHtml(BUY_GOOGLE_FORM_URL)}" target="_blank" rel="noopener noreferrer" class="buy-gallery-refresh" style="display:inline-block; text-decoration:none; margin-bottom:12px;">➕ 新增代購品項</a>` : '';
-        const html = items.map((item, index) => {
-            const safeImageUrl = escapeHtml(safeUrl(item.url));
-            const safeName = escapeHtml(item.name);
-            const safeId = escapeHtml(String(item.id || item.url));
-            const isChecked = !!checkedMap[String(item.id || item.url)];
-            return `
-                <div class="buy-gallery-item ${isChecked ? 'is-checked' : ''}">
-                    <div class="buy-gallery-img-wrap">
-                        <label class="buy-gallery-check" onclick="event.stopPropagation();">
-                            <input type="checkbox" ${isChecked ? 'checked' : ''} data-buy-id="${safeId}">
-                            <span>已買</span>
-                        </label>
-                        <img src="${safeImageUrl}" alt="代購品項照片：${safeName}" class="buy-gallery-img" loading="lazy" onclick="openImageModal(this.src)" onerror="this.hidden=true">
-                    </div>
-                    <div class="buy-gallery-name">${index + 1}. ${safeName}</div>
-                </div>`;
-        }).join('');
-        container.innerHTML = `${formLink}<div style="font-size:0.95rem; font-weight:bold; color:#555; margin-bottom:8px;">已讀取 ${items.length} 項代購照片，勾選「已買」可保留紀錄。</div><div class="buy-gallery-grid">${html}</div>`;
-    }
-
-    async function loadBuyGallery() {
-        const container = document.getElementById('buy-gallery-list');
-        if (!container) return;
-        container.innerHTML = '<div class="buy-gallery-status">🧳 正在讀取代購品項照片...</div>';
-        try {
-            const sheetItems = await fetchBuyGoogleSheetItems();
-            const items = sheetItems.length > 0 ? sheetItems : await fetchBuyImageManifest();
-            renderBuyGallery(items);
-        } catch (e) {
-            container.innerHTML = '<div class="buy-gallery-status" style="color:#B71C1C;">⚠️ 代購照片讀取失敗...</div>';
-        }
-    }
-
-    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=230096183&single=true&output=csv';
-
-    function parseCSVRow(str) {
-        let result = []; let cell = ''; let inQuotes = false;
-        for (let i = 0; i < str.length; i++) {
-            let char = str[i];
-            if (char === '"' && str[i+1] === '"') { cell += '"'; i++; }
-            else if (char === '"') { inQuotes = !inQuotes; }
-            else if (char === ',' && !inQuotes) { result.push(cell); cell = ''; }
-            else { cell += char; }
-        }
-        result.push(cell);
-        return result.map(s => s.replace(/\r/g, '').trim());
-    }
-
-    async function syncCloudData() {
-        const container = document.getElementById('tobuy-list');
-        container.innerHTML = '<div style="text-align:center; padding:30px; font-weight:900; color:#1A1A1A; font-size:1.2rem;">☁️ 正在同步家族最新比價...</div>';
-        try {
-            const response = await fetchWithTimeout(GOOGLE_SHEET_CSV_URL);
-            if (!response.ok) throw new Error('網路讀取失敗');
-            const data = await response.text();
-            const rows = parseCSV(data).slice(1);
-            const items = {};
-            rows.forEach(row => {
-                const cols = row;
-                if (cols.length < 4) return;
-                const name = cols[1]; const store = cols[2]; const priceStr = String(cols[3] || '').replace(/[^0-9]/g, ''); const price = parseInt(priceStr);
-                if (!name || isNaN(price)) return;
-                if (!items[name]) items[name] = [];
-                items[name].push({ store, price });
-            });
-
-            let html = '';
-            for (const [name, prices] of Object.entries(items)) {
-                prices.sort((a, b) => a.price - b.price);
-                let storesHtml = prices.map((p, index) => {
-                    const isCheapest = index === 0 && prices.length > 1;
-                    const badge = isCheapest ? `<span style="font-size:1.2rem; margin-right:4px;">👍</span>` : '';
-                    const priceColor = isCheapest ? '#B71C1C' : '#1B5E20';
-                    return `<div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:2px dotted #BCAAA4;">
-                        <span style="font-weight:900; color:var(--theme-blue); font-size:1.1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%;">📍 ${escapeHtml(p.store)}</span>
-                        <div style="display:flex; align-items:center; flex-shrink: 0;">${badge}<span style="font-weight:900; color:${priceColor}; font-size:1.3rem;">¥${p.price.toLocaleString()}</span></div>
-                    </div>`;
-                }).join('');
-
-                html += `<div class="buy-item-card" style="padding: 12px; margin-bottom: 12px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                        <span style="font-weight:900; font-size:1.4rem; color:#1A1A1A; line-height: 1.2;">${escapeHtml(name)}</span>
-                        <span style="background:#E3F2FD; font-size:0.9rem; font-weight:900; padding:4px 8px; border-radius:8px; color:var(--theme-blue); border: 2px solid var(--theme-blue); flex-shrink: 0; margin-left: 10px;">已同步</span>
-                    </div>
-                    <div style="background:#FAF5EB; padding:8px 10px; border-radius:8px; border:2px solid #BCAAA4;">${storesHtml}</div>
-                </div>`;
-            }
-            container.innerHTML = html || '<div style="text-align:center; padding:20px; font-weight:900; color:#444; font-size:1.2rem;">尚未有家族回報資料</div>';
-        } catch (e) {
-            container.innerHTML = '<div style="text-align:center; color:#B71C1C; padding:20px; font-weight:900; font-size:1.3rem;">⚠️ 同步失敗...</div>';
-        }
-    }
-
-    let expenses = readStore('trip_acc_2026', []);
-    if (!Array.isArray(expenses)) expenses = [];
-    expenses = expenses.filter(e => e && Number.isFinite(e.cost) && e.cost > 0 && typeof e.item === 'string');
-    function addExpense() {
-        const item = document.getElementById('acc-item').value;
-        const cost = parseInt(document.getElementById('acc-cost').value);
-        if(!item.trim() || !Number.isFinite(cost) || cost <= 0 || cost > 99999999) return;
-        expenses.unshift({ id: Date.now(), item, cost, date: new Date().toLocaleDateString('zh-TW', {month:'numeric', day:'numeric'}) });
-        safeStorage.setItem('trip_acc_2026', JSON.stringify(expenses));
-        document.getElementById('acc-item').value = ''; document.getElementById('acc-cost').value = '';
-        renderExpenses();
-    }
-    function removeExpense(id) {
-        expenses = expenses.filter(e => e.id !== id);
-        safeStorage.setItem('trip_acc_2026', JSON.stringify(expenses));
-        renderExpenses();
-    }
-    function renderExpenses() {
-        const list = document.getElementById('expense-list'); list.innerHTML = ''; let total = 0;
-        expenses.forEach(e => {
-            total += e.cost;
-            list.innerHTML += `<li style="display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-bottom:3px dashed #BCAAA4;">
-                <div style="flex:1;"><div style="font-weight:900; font-size:1.4rem; color:#1A1A1A;">${escapeHtml(e.item)}</div><div style="color:#444; font-size:1.1rem; font-weight:bold;">${escapeHtml(e.date)}</div></div>
-                <div style="font-weight:900; color:var(--theme-green); font-size:1.5rem; margin-right:15px;">¥${e.cost.toLocaleString()}</div>
-                <button style="background:#FFEBEE; border:3px solid var(--theme-red); color:var(--theme-red); width:45px; height:45px; border-radius:50%; font-weight:900; font-size:1.5rem; cursor:pointer;" data-expense-remove="${escapeHtml(String(e.id))}">×</button>
-            </li>`;
-        });
-        document.getElementById('acc-total').innerText = `¥${total.toLocaleString()}`;
-        document.getElementById('acc-total-twd').innerText = `約 NT$${Math.round(total * currentExchangeRate).toLocaleString()}`;
-    }
-
-    function goTranslate(sl, tl, inputId) {
-        const text = document.getElementById(inputId).value;
-        if (!text) return toast('請先輸入要翻譯的文字喔！');
-        window.open(`https://translate.google.com/?sl=${sl}&tl=${tl}&text=${encodeURIComponent(text)}&op=translate`, '_blank', 'noopener,noreferrer');
-    }
-
-    function goKakaku() {
-        const text = document.getElementById('input-kakaku').value;
-        if (!text) return toast('請輸入要搜尋的商品名稱或型號！');
-        window.open(`https://kakaku.com/search_results/${encodeURIComponent(text)}/`, '_blank', 'noopener,noreferrer');
-    }
 
 
 
-migrateOldCustom();
-setReading(safeStorage.getItem('tokyo_reading_size_v1')||'large');
-updateNavigationMetrics();
-activeDay=parsed.days.find(d=>d.number>=7&&d.date===todayJapan())?.id||'d7';
-renderApp();
-renderGrid(activeGrid,'raw-grid');
-renderGrid(JSON.parse($('baseline-data').textContent),'baseline-grid');
-$('reference-links').innerHTML=Object.values(SOURCES).map(s=>ext(s.url,s.name+' ↗')).join('');
-renderWeather();
-renderExpenses();
-refreshClock();
-setInterval(refreshClock,60000);
-setTimeout(()=>syncItinerary(false),300);
-$('expense-rate').addEventListener('input',e=>{const rate=Number(e.target.value);if(Number.isFinite(rate)&&rate>0&&rate<=100){currentExchangeRate=rate;renderExpenses();}});
-document.addEventListener('click',e=>{const b=e.target.closest('[data-expense-remove]');if(b){expenses=expenses.filter(x=>String(x.id)!==b.dataset.expenseRemove);writeStore('trip_acc_2026',expenses);renderExpenses();}});
-document.addEventListener('change',e=>{if(e.target.matches('[data-buy-id]'))toggleBuyGalleryChecked(e.target.dataset.buyId,e.target);});
-// Expose only pure calculation helpers for reproducible regression checks.
-window.TokyoTrip={parseCSV,parseGrid,haversineMeters,nearbyPlaces,ratingEligible,normalizeTime};
 
-</script>
+
+
+
+<script src="boot.js" defer></script>
 </body>
 </html>

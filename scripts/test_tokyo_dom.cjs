@@ -1,0 +1,19 @@
+const {JSDOM,VirtualConsole,ResourceLoader}=require('jsdom');const fs=require('fs'),assert=require('node:assert/strict');
+const root=require('path').join(__dirname,'../2026/tokyo');
+async function test(query='',date='2026-10-03T00:00:00+09:00'){
+ const errors=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));vc.on('error',e=>errors.push(String(e)));
+ const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'http://localhost:8765/2026/tokyo/'+query,runScripts:'dangerously',resources:new class extends ResourceLoader{fetch(url){return Promise.resolve(fs.readFileSync(root+'/'+new URL(url).pathname.split('/').pop()));}}(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
+  const NativeDate=Date;w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[date]));}static now(){return new NativeDate(date).getTime();}};
+  w.fetch=async(url,opts)=>{const u=new URL(url,w.location.href);if(u.hostname==='localhost')return new Response(fs.readFileSync(root+'/'+u.pathname.split('/').pop()),{status:200});return new Response('{}',{status:503});};
+  w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};w.CompressionStream=CompressionStream;w.DecompressionStream=DecompressionStream;w.TextEncoder=TextEncoder;w.Blob=Blob;w.Response=Response;
+ }});
+ await new Promise(r=>setTimeout(r,1200));const w=dom.window,d=w.document;
+ assert.equal(errors.length,0,errors.join('\n'));assert(w.TokyoTrip,'app not initialized');
+ const mode=d.body.dataset.mode;
+ if(query){assert.equal(mode,'today');assert.equal(d.querySelectorAll('.accordion-item').length,1);assert(d.querySelector('.accordion-item').dataset.date.endsWith('12-21'));assert(d.body.classList.contains('family-mode'));}
+ else if(date.startsWith('2026-10')){assert.equal(mode,'plan');assert.equal(d.querySelectorAll('.overview-day').length,14);d.querySelector('[data-mode=today]').click();assert.equal(d.querySelectorAll('.accordion-item').length,1);d.querySelector('[data-section=theme]').click();assert(d.querySelector('#sec-theme').classList.contains('active'));d.querySelector('[data-notes-layer=all]').click();assert(d.querySelector('#map-notes-list>details'));d.querySelector('[data-section=trans]').click();assert.equal(d.querySelectorAll('.phrase').length,6);}
+ else if(date.startsWith('2026-12-21')){assert.equal(mode,'today');assert.equal(d.querySelectorAll('.accordion-item').length,1);assert.equal(d.querySelector('.accordion-item').dataset.date,'2026-12-21');}
+ else {assert.equal(mode,'journal');assert.equal(d.querySelectorAll('.journal-day').length,14);}
+ if(!query){w.mergeBackup({format:'tokyo-trip-backup',version:4,state:{custom:[],overrides:{},checks:{'sheet-2026-12-13-r10':'2026-12-13'}},expenses:[{id:999,item:'test',cost:120,date:'12/13'}],buyChecks:{'test-product':true},journal:{'sheet-2026-12-13-r10':{status:'went',text:'海風很舒服'}},decisions:{day1:true},privateNotes:'PRIVATE_TEST'});assert.equal(w.eval('expenses.find(e=>e.id===999).cost'),120);assert.equal(w.eval('privateNotes'),'PRIVATE_TEST');assert.equal(w.getBuyCheckedMap()['test-product'],true);assert.equal(w.eval('journal["sheet-2026-12-13-r10"].status'),'went');}assert.equal(errors.length,0,errors.join('\n'));console.log('PASS',query||date,mode);dom.window.close();
+}
+(async()=>{await test();await test('?day=12-21&mode=family');await test('','2026-12-21T10:00:00+09:00');await test('','2026-12-27T10:00:00+09:00');})().catch(e=>{console.error(e);process.exit(1)});

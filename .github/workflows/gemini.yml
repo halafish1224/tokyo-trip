@@ -1,52 +1,43 @@
-name: Gemini Tokyo Trip Auto Updater
-
+name: Tokyo validated Sheet compiler
 on:
   schedule:
-    - cron: '0 19 * * *' # 每日台灣時間凌晨 03:00 (離峰時段) 自動執行
-  workflow_dispatch: # 支援在 GitHub 頁面手動按鈕觸發
-
+    - cron: '17 19 * * *' # Taiwan 03:17; content enrichment runs separately around 02:00
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: tokyo-data-update
+  cancel-in-progress: false
 jobs:
-  update-tokyo-trip:
+  compile:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install google-genai pandas tabulate
-
-      - name: Run Gemini Update Script
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile validated public data (never rewrite HTML)
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
+        run: python scripts/build_tokyo.py
+      - name: Validate page and data
+        run: node scripts/check_tokyo.cjs
+      - name: Commit only a validated data change
+        shell: bash
         run: |
-          python .github/scripts/update_tokyo_trip.py
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "style/update: 自動同步 Google Sheet 最新網格功課表行程"
-          title: "🤖 [Gemini Auto-Update] 同步 Google Sheet 最新功課表行程"
-          body: |
-            ## 🤖 Gemini 網格功課表同步報告
-            本 PR 已成功從 Google Sheet 線上同步最新網格功課表，並經由 Gemini API 自動升級 `2026/tokyo/index.html`：
-            - 🗓️ 06:00~22:00 逐時段行程精準轉換
-            - 🚆 景點最佳交通規劃與轉乘細節
-            - 🍱 周邊 Google 評分 3.5~4.0 星隱藏版在地美食
-            
-            請審閱變更後點擊 Merge 合併！
-          branch: gemini-tokyo-daily-update
-          base: main
-          delete-branch: true
+          if git diff --quiet -- 2026/tokyo/trip.json; then exit 0; fi
+          python - <<'PY'
+          from pathlib import Path
+          import re, datetime
+          path=Path('2026/tokyo/sw.js')
+          version='tokyo-v2-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%d%H%M%S')
+          path.write_text(re.sub(r"const VERSION='[^']+'", "const VERSION='"+version+"'", path.read_text()))
+          PY
+          git config user.name "Tokyo trip data updater"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 2026/tokyo/trip.json 2026/tokyo/sw.js
+          git commit -m "Update validated Tokyo trip data from Sheet"
+          git push origin HEAD:main
