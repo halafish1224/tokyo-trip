@@ -1,7 +1,7 @@
 /* Separate planning, field use and memory; preserve v3 local edits. */
 const routeParams=new URLSearchParams(location.search);
 const familyMode=routeParams.get('mode')==='family';
-let viewMode='plan',notesLayer='today',gpsPosition=null;
+let viewMode='plan',notesLayer='today',gpsPosition=null,currentSection='trip';
 let pinnedDate=routeParams.has('day');
 let decisionState=readStore('tokyo_decisions_v1',{}),journal=readStore('tokyo_journal_v1',{});
 let privateNotes=readStore('tokyo_private_v1','');
@@ -19,6 +19,17 @@ function initializeExperience(){
  document.querySelector('.hero-desc').textContent=familyMode?'家人共用日頁 · 公開路線唯讀':'12/13–26・東京冬日旅行手冊　先走湘南，再與家人一起過聖誕。';
  renderPhrasebook();renderHotelDirectory();renderPrivatePanel();
 }
+const baseShowSection=showSection;
+showSection=function(section,options={}){
+ const returnFromJournal=section==='trip'&&viewMode==='journal'&&currentSection!=='trip';
+ currentSection=section;
+ if(returnFromJournal){viewMode='plan';renderApp();}
+ baseShowSection(section,options);
+ document.querySelector('.experience').hidden=section!=='trip';
+ $('decision-board').hidden=section!=='trip'||viewMode==='journal';
+ $('overview').hidden=section!=='trip'||viewMode!=='plan';
+ $('journal-view').hidden=section!=='trip'||viewMode!=='journal';
+};
 function selectedDay(){return buildDays().find(d=>d.id===activeDay)||buildDays()[0];}
 function renderExperience(){
  document.body.dataset.mode=viewMode;
@@ -27,7 +38,7 @@ function renderExperience(){
  $('experience-title').textContent=viewMode==='plan'?'出發前，先把重要的確認好。':viewMode==='journal'?'那些走過的路，都留下來。':`${day.date.slice(5).replace('-','/')} · ${familyMode?'家人日頁':isToday?'Today 今天':'單日預覽'}`;
  $('experience-status').textContent=viewMode==='plan'?'14天總覽與待確認事項。出發後會依日本日期自動切到今天。':viewMode==='journal'?'原計畫與實際足跡並排；空白狀態不會被當作沒去。':`${isToday?'日本今天':'指定日期預覽，非日本今天'} · ${day.guide.area} · ${navigator.onLine?'連線中':'離線可查路線與已儲存資訊'}`;
  $('experience-clock').textContent='日本時間 '+new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date());
- $('decision-board').hidden=viewMode==='journal';$('overview').hidden=viewMode!=='plan';$('journal-view').hidden=viewMode!=='journal';
+ document.querySelector('.experience').hidden=currentSection!=='trip';$('decision-board').hidden=currentSection!=='trip'||viewMode==='journal';$('overview').hidden=currentSection!=='trip'||viewMode!=='plan';$('journal-view').hidden=currentSection!=='trip'||viewMode!=='journal';
  const events=day.events.filter(e=>!e.inherited&&!/住宿據點$/.test(e.title));
  const next=events.find(e=>(familyMode||!localState.checks[e.id])&&(!isToday||timeMinutes(e.time)>=japanMinutes()));
  $('next-stop').innerHTML=viewMode==='today'?`<div class="next-card"><span class="badge">下一站 · 行程計畫時間</span><h3>${next?h(next.time+' '+next.title):'今天的計畫已到尾聲'}</h3><p>${h(day.guide.text)}</p><p class="small">不是即時班次。出發前看清車頭目的地，班次請查鐵路官網。</p><div class="source-links">${day.guide.sources.map(k=>SOURCES[k]?ext(SOURCES[k].url,SOURCES[k].name+' ↗'):'').join('')}</div></div>`:'';
@@ -181,4 +192,3 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-expense-re
 document.addEventListener('change',e=>{if(e.target.matches('[data-buy-id]'))toggleBuyGalleryChecked(e.target.dataset.buyId,e.target);});
 // Expose only pure calculation helpers for reproducible regression checks.
 window.TokyoTrip={parseCSV,parseGrid,haversineMeters,nearbyPlaces,ratingEligible,normalizeTime};
-
