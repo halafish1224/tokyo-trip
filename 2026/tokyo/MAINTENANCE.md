@@ -9,6 +9,8 @@ The source is Google Sheet 工作表1 A1:O100, read-only. The connected nightly 
 
 Run `python scripts/build_tokyo.py --rows /tmp/latest-sheet.json` with an authorized complete row snapshot, then `node scripts/check_tokyo.cjs`. The compiler retains source cell IDs, verifies all 14 dates, removes private identifiers and surfaces reservation-date conflicts. It never writes to the Sheet. Never commit the raw private Sheet snapshot.
 
+For researched metadata, add `--enrichment /tmp/public-research.json`. This input may contain public venues, travel notes, decisions, sources, foods, places and guides keyed by full trip date. It must not contain the private Sheet rows. Each guide records a route fingerprint; subsequent destination changes invalidate its old route explanation. Re-running unchanged rows and research must leave `trip.json` unchanged. Run `python scripts/test_tokyo_compiler.py` for reservation-time, stable-ID, privacy and closed-day regression checks.
+
 `trip.json` is the only runtime itinerary source. Do not reintroduce the baseline grid, the browser's stale grid cache, or a live Sheet CSV override. `archive.json` is loaded only on explicit request and contains old, non-authoritative reference data. Do not copy reservation names, codes, room numbers or insurance identifiers into public data. Noindex is indexing guidance, not authentication. Old Git history and older HTML snapshots are not access-controlled.
 
 ## Covers and verified content
@@ -17,7 +19,9 @@ All runtime covers must be under `images/covers/`, match the actual day's route,
 
 When a route changes, revise that day's title and cover together. If no suitable image can be lawfully obtained, keep a labelled previous cover or add a neutral atmosphere image; never pretend it depicts the destination. Do not put times, dates or store labels into newly generated covers. Every verified information item needs an official URL and checked date. Blank address/exit/phone fields must remain visibly unverified, not be guessed.
 
-The two Maps lists claim 228 total source places. The public bundle currently has 18 text excerpts after one duplicate clock entry was merged. This is not a complete 228-place import. Only complete reads may replace a source list; failed or partial reads cannot delete notes. GPS only includes coordinate-bearing records and labels straight-line approximate distances.
+The two Maps lists claim 228 total source places. The public bundle currently has 18 text excerpts after one duplicate clock entry was merged. This is not a complete 228-place import. Only complete reads may replace a source list; failed or partial reads cannot delete notes. GPS requires finite coordinates and a `coordinateSource` URL plus checked date. Older unattested note coordinates remain outside distance calculations and cannot replace researched points. Wikipedia coordinate extracts are explicitly labelled non-official and do not identify entrances. Distances are approximate straight lines.
+
+Venue `availability` rules describe only source-backed opening times or weekly closures, with optional date bounds. The compiler flags conflicts in red decisions and event warnings; it does not move a Sheet event or infer future train times. Reservation dates at the start of a cell remain visible even when their actual clock time is extracted.
 
 ## Offline and state
 

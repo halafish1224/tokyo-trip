@@ -4,4 +4,5 @@
 @media(max-width:700px){.decision-grid,.overview-grid{grid-template-columns:1fr}.experience{padding:16px 12px}.experience-heading h2{font-size:1.3rem}.mode-switch button{flex:1 1 90px;padding:10px 6px}.experience-actions button{width:100%}.journal-comparison{grid-template-columns:1fr}.venue-card dl{grid-template-columns:1fr}.venue-card dd{margin-bottom:10px}.family-mode .toplinks{display:none}.decision p{font-size:.95rem}.overview-day{min-height:0}.next-card{padding:14px}.reading-tools{padding:10px 0}.family-mode .reading-tools{padding-top:6px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
+.journal-comparison>div{min-width:0;overflow-wrap:anywhere}
 .family-mode .toplinks [data-open-section=trip],.family-mode #now-button,.family-mode #check-count{display:none!important}

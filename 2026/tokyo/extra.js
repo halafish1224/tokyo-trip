@@ -52,7 +52,10 @@ function renderDecisions(){
  $('decision-board').innerHTML=`<h2>出發決策看板 <span class="badge badge-note">${items.filter(x=>familyMode||!decisionState[x.id]).length} 項待處理</span></h2><p class="small">${familyMode?'提醒依公開行程顯示，不含個人確認狀態。':'勾選代表你已處理，僅存在此裝置；不表示官方已確認。'}</p><div class="decision-grid">${items.map(x=>`<article class="decision ${!familyMode&&decisionState[x.id]?'resolved':'unresolved'}"><h3><span aria-hidden="true">${!familyMode&&decisionState[x.id]?'✓':'●'}</span> ${h(x.title)}</h3><p>${h(x.text)}</p><button class="btn btn-small" data-day-jump="${x.day}">查看相關日期</button>${familyMode?'':`<label><input type="checkbox" data-decision="${x.id}"${decisionState[x.id]?' checked':''}> 我已處理</label>`}</article>`).join('')}</div>`;
 }
 function renderOverview(){if(viewMode!=='plan')return;$('overview').innerHTML=`<h2>14日總覽</h2><div class="overview-grid">${buildDays().map(d=>`<button class="overview-day" data-date="${d.date}" data-day-jump="${d.id}"><time>${h(d.date.slice(5).replace('-','/'))}</time><strong>${h(dailyFeature(d).title)}</strong><span>${h(d.guide.area)}</span>${TRIP.decisions.some(x=>x.day===d.id&&!decisionState[x.id])?'<span class="risk-label">● 有待確認事項</span>':''}</button>`).join('')}</div>`;}
-function venueCard(v){return `<article class="venue-card"><span class="badge${v.verified?'':' badge-note'}">${v.verified?'官網核對 '+v.checked:'地址／出口待核對'}</span><h4 lang="ja">${h(v.ja)}</h4>${v.highlight?`<p><strong>不想錯過</strong> ${h(v.highlight)}</p>`:''}${v.caution?`<p class="day-note">${h(v.caution)}</p>`:''}<dl><dt>地址</dt><dd>${h(v.address||'尚未核對，請用日文名稱導航')}</dd><dt>出口</dt><dd>${h(v.exit||'尚未核對，請確認站內指標')}</dd><dt>營業／休館</dt><dd>${h(v.hours||'尚未核對，出發前查官網')}</dd><dt>電話</dt><dd>${h(v.phone||'未提供核實電話')}</dd></dl><div class="event-tools"><button class="btn btn-small" data-copy="${h(v.ja)}">複製日文名</button>${v.address?`<button class="btn btn-small" data-copy="${h(v.ja+'\n'+v.address)}">給櫃台看／複製地址</button>`:''}${v.phone?`<button class="btn btn-small" data-copy="${h(v.phone)}">複製電話</button><a class="btn btn-small" href="tel:${h(v.phone)}">撥打</a>`:''}${v.official?ext(v.official,'官網 ↗','btn btn-small'):''}</div></article>`;}
+function venueCard(v){
+ const sources=v.sources||[];
+ return `<article class="venue-card"><span class="badge${v.verified?'':' badge-note'}">${v.verified?'官網資料 '+h(v.checked):'部分資訊待核對'+(v.checked?' · '+h(v.checked):'')}</span>${v.category?` <span class="badge">${h(v.category)}</span>`:''}<h4 lang="ja">${h(v.ja)}</h4>${v.highlight?`<p><strong>不想錯過</strong> ${h(v.highlight)}</p>`:''}${v.caution?`<p class="day-note">${h(v.caution)}</p>`:''}${v.pending?.length?`<p class="small">待核對：${h(v.pending.join('、'))}</p>`:''}<dl><dt>地址</dt><dd>${h(v.address||'尚未核對，請用日文名稱導航')}</dd><dt>出口</dt><dd>${h(v.exit||'尚未核對，請確認站內指標')}</dd><dt>營業／休館</dt><dd>${h(v.hours||'尚未核對，出發前查官網')}</dd><dt>電話</dt><dd>${h(v.phone||'未提供核實電話')}</dd></dl><div class="event-tools"><button class="btn btn-small" data-copy="${h(v.ja)}">複製日文名</button>${v.address?`<button class="btn btn-small" data-copy="${h(v.ja+'\n'+v.address)}">給櫃台看／複製地址</button>`:''}${v.phone?`<button class="btn btn-small" data-copy="${h(v.phone)}">複製電話</button><a class="btn btn-small" href="tel:${h(v.phone)}">撥打</a>`:''}${v.official?ext(v.official,'官方資料 ↗','btn btn-small'):''}</div>${sources.length?`<details class="venue-sources"><summary>查證來源</summary><ul>${sources.map(s=>`<li>${ext(s.url,s.label+' ↗')} · ${h(s.checked)}<br>${h((s.fields||[]).join('、'))}</li>`).join('')}</ul></details>`:''}</article>`;
+}
 const baseEventHtml=eventHtml;
 eventHtml=function(e,day){
  let html=baseEventHtml(e,day);
@@ -77,14 +80,16 @@ function renderJournal(){
  $('experience-status').textContent=`${actual} 站已留下足跡 · 可用原計畫對照實際路線。`;
 }
 function journalSave(){writeStore('tokyo_journal_v1',journal);}
-// Only coordinate-bearing notes join distance calculations; never invent GPS positions.
-function allGeoPoints(){const points=new Map(PLACES.map(p=>[p.id,{...p,kind:'行程點'}]));for(const n of MAP_NOTES){if(!n.closed&&Number.isFinite(n.lat)&&Number.isFinite(n.lng))points.set(n.venueId||n.id,{...n,kind:'筆記點',name:n.name,food:[],keys:n.aliases||[],route:''});}return [...points.values()];}
+// Unattested older coordinates must not replace researched points or enter distances.
+function verifiedCoordinate(p){return Number.isFinite(p.lat)&&Number.isFinite(p.lng)&&Math.abs(p.lat)<=90&&Math.abs(p.lng)<=180&&/^https?:\/\//.test(p.coordinateSource?.url||'')&&safeUrl(p.coordinateSource.url)&&/^\d{4}-\d{2}-\d{2}$/.test(p.coordinateSource?.checked||'');}
+function coordinateForNote(n){if(verifiedCoordinate(n))return n;const p=PLACES.find(p=>p.id===n.venueId&&verifiedCoordinate(p));return p?{...n,lat:p.lat,lng:p.lng,coordinateSource:p.coordinateSource}:null;}
+function allGeoPoints(){const points=new Map(PLACES.filter(verifiedCoordinate).map(p=>[p.id,{...p,kind:'內建景點'}]));for(const n of MAP_NOTES){if(!n.closed&&verifiedCoordinate(n)&&!points.has(n.venueId||n.id))points.set(n.venueId||n.id,{...n,kind:'筆記點',name:n.name,food:[],keys:n.aliases||[],route:''});}return [...points.values()];}
 nearbyPlaces=function(lat,lng){return allGeoPoints().map(p=>({...p,distance:haversineMeters(lat,lng,p.lat,p.lng)})).filter(p=>p.distance<MATCH_RADIUS_METERS).sort((a,b)=>a.distance-b.distance);};
 const baseDetectNearby=detectNearby;
 detectNearby=function(){
  if(gpsBusy)return;if(!navigator.geolocation)return toast('此裝置不支援定位。');
  gpsBusy=true;$('gps-button').disabled=true;$('gps-result').textContent='定位中…';
- navigator.geolocation.getCurrentPosition(p=>{gpsBusy=false;$('gps-button').disabled=false;if(p.coords.accuracy>500){$('gps-result').textContent='定位誤差超過500公尺，請到戶外再試。';return;}gpsPosition={lat:p.coords.latitude,lng:p.coords.longitude};const list=nearbyPlaces(gpsPosition.lat,gpsPosition.lng);$('gps-result').innerHTML=`<p>500公尺內 ${list.length} 筆 · 誤差約${Math.round(p.coords.accuracy)}公尺</p>`+list.map(n=>`<p>${ext(mapUrl(n.name),n.name+' ↗')} · ${Math.round(n.distance)}m（直線） · ${h(n.kind)}</p>`).join('')+'<p class="small">沒有座標的筆記不參與距離計算；不是步行距離。</p>';notesLayer='nearby';renderMapNotes();},()=>{gpsBusy=false;$('gps-button').disabled=false;$('gps-result').textContent='定位未成功；今日筆記與日文名稱仍可使用。';},{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+ navigator.geolocation.getCurrentPosition(p=>{gpsBusy=false;$('gps-button').disabled=false;if(p.coords.accuracy>500){$('gps-result').textContent='定位誤差超過500公尺，請到戶外再試。';return;}gpsPosition={lat:p.coords.latitude,lng:p.coords.longitude};const list=nearbyPlaces(gpsPosition.lat,gpsPosition.lng);$('gps-result').innerHTML=`<p>500公尺內 ${list.length} 筆 · 誤差約${Math.round(p.coords.accuracy)}公尺</p>`+list.map(n=>`<p>${ext(mapUrl(n.name),n.name+' ↗')} · ${Math.round(n.distance)}m（直線） · ${h(n.kind)}<br><span class="small">${ext(n.coordinateSource.url,'座標來源 ↗')} · ${h(n.coordinateSource.checked)}</span></p>`).join('')+'<p class="small">未核實座標不參與距離計算；座標是公開位置摘錄，並非入口或步行距離。</p>';notesLayer='nearby';renderMapNotes();},()=>{gpsBusy=false;$('gps-button').disabled=false;$('gps-result').textContent='定位未成功；今日筆記與日文名稱仍可使用。';},{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
 };
 const baseMapNoteCard=mapNoteCard;
 mapNoteCard=function(n,compact=false){return baseMapNoteCard(n,compact).replace('<details',`<p><span class="badge">${h(n.area||'待分類')}</span> <span class="badge badge-note">${n.verified?'地址已核對 '+h(n.checked||TRIP.map.checked):'地址未核對'}${n.mappedByNote?' · 請用店名導航':''}</span>${Number.isFinite(n.distance)?` · ${Math.round(n.distance)}m（直線）`:''}</p><div class="event-tools"><button class="btn btn-small" data-copy="${h(n.name)}">複製名稱</button>${ext(mapUrl(n.name),'以店名導航 ↗','btn btn-small')}</div><details`);};
@@ -93,7 +98,7 @@ renderMapNotes=function(){
  const day=selectedDay(),q=noteKey($('map-notes-search').value),source=$('map-notes-source').value;
  let notes=MAP_NOTES.filter(n=>!n.closed&&(source==='all'||String(n.source)===source)&&(!q||noteKey(n.name+' '+n.note+' '+n.area).includes(q)));
  if(notesLayer==='today')notes=notes.filter(n=>day.events.some(e=>noteMatches(n,e))||(n.area!=='待分類'&&day.guide.area.split(/[・／→]/).some(a=>n.area.includes(a.trim()))));
- if(notesLayer==='nearby')notes=gpsPosition?notes.map(n=>({...n,distance:haversineMeters(gpsPosition.lat,gpsPosition.lng,n.lat,n.lng)})).filter(n=>n.distance<500).sort((a,b)=>a.distance-b.distance):[];
+ if(notesLayer==='nearby')notes=gpsPosition?notes.map(coordinateForNote).filter(Boolean).map(n=>({...n,distance:haversineMeters(gpsPosition.lat,gpsPosition.lng,n.lat,n.lng)})).filter(n=>n.distance<500).sort((a,b)=>a.distance-b.distance):[];
  $('map-notes-count').textContent=`${notesLayer==='today'?day.date.slice(5)+' 今日相關':notesLayer==='nearby'?'附近500公尺':'完整摘錄'} · ${notes.length} 筆`;
  $('map-notes-description').textContent=`兩份來源清單共${MAP_NOTE_SOURCES.reduce((n,s)=>n+s.count,0)}個地點；目前離線收錄${MAP_NOTES.length}筆文字摘錄，不代表已匯入全部地點或核對全部地址。核對標示見個別卡片。`;
  $('map-notes-sync').textContent=navigator.onLine?'顯示整合筆記':'離線 · 顯示已儲存筆記';
@@ -104,7 +109,13 @@ renderMapNotes=function(){
 function foodContext(f){return f.restricted||f.closed?'避開':/咖啡/.test(f.kind)?'走累歇腳':f.backup?'排隊':'當地午餐';}
 const baseFoodCard=foodCard;
 foodCard=function(f){return baseFoodCard(f).replace('<h4>',`<span class="badge">${foodContext(f)}</span><h4>`);};
-function renderFoodContexts(){const c=$('food-context').value;$('all-foods').innerHTML=FOODS.filter(f=>!f.closed&&(c==='all'||foodContext(f)===c)).map(foodCard).join('')+(c==='預約'||c==='all'?'<article class="food-card"><h4>敘敘苑</h4><span class="badge">預約</span><p>確認澀谷、晴空塔或經堂分店、人數與時段。各分店不可混用預約。</p>'+ext('https://www.jojoen.co.jp/shop/','官方分店資訊 ↗')+'</article>':'');}
+function renderFoodContexts(){
+ const c=$('food-context').value;
+ $('food-guide').querySelector('p').textContent='評分是有來源的摘錄，非即時 Places；各筆查閱日期見卡片。';
+ const currentIds=new Set(TRIP.days.flatMap(d=>d.events.flatMap(e=>e.venueIds||[])));
+ const venues=TRIP.venues.filter(v=>currentIds.has(v.id)&&v.category&&!v.closed&&(c==='all'||v.category===c));
+ $('all-foods').innerHTML=venues.map(v=>`<details class="venue-details"><summary>${h(v.category)} · ${h(v.ja)}</summary>${venueCard(v)}</details>`).join('')+FOODS.filter(f=>!f.closed&&(c==='all'||foodContext(f)===c)).map(foodCard).join('');
+}
 // Real forecast window: never present October observations as December weather.
 renderWeather=function(){
  const city=WEATHER[weatherCity],cache=weatherCache[weatherCity],date=selectedDay().date,row=cache?.daily?.find(x=>x.date===date);
@@ -136,6 +147,7 @@ function mergeBackup(b){
  if(b?.format!=='tokyo-trip-backup'||![3,4].includes(b.version)||!b.state)throw new Error('格式不符');
  const state=sanitizeState(b.state),custom=new Map(localState.custom.map(e=>[e.id,e]));state.custom.forEach(e=>custom.set(e.id,e));localState={...localState,custom:[...custom.values()],overrides:{...localState.overrides,...state.overrides},checks:{...localState.checks,...state.checks}};saveState();
  if(b.version===4){if(Array.isArray(b.expenses)){const all=new Map(expenses.map(e=>[String(e.id),e]));b.expenses.filter(e=>e&&Number.isFinite(e.cost)&&e.cost>0&&e.cost<=99999999&&typeof e.item==='string').slice(0,2000).forEach(e=>all.set(String(e.id),{id:e.id,item:e.item.slice(0,300),cost:e.cost,date:String(e.date||'').slice(0,60)}));expenses=[...all.values()];writeStore('trip_acc_2026',expenses);}if(b.buyChecks&&typeof b.buyChecks==='object'){const checks=getBuyCheckedMap();for(const[k,v]of Object.entries(b.buyChecks).slice(0,2000))if(v===true&&k.length<1000)checks[k]=true;saveBuyCheckedMap(checks);}journal={...journal,...sanitizeJournal(b.journal)};journalSave();if(b.decisions&&typeof b.decisions==='object')for(const item of TRIP.decisions)if(b.decisions[item.id]===true)decisionState[item.id]=true;writeStore('tokyo_decisions_v1',decisionState);if(typeof b.privateNotes==='string'){privateNotes=b.privateNotes.slice(0,12000);writeStore('tokyo_private_v1',privateNotes);if($('private-notes'))$('private-notes').value=privateNotes;}}
+ if(b.version===4&&Number.isFinite(b.exchange)&&b.exchange>0&&b.exchange<=100){currentExchangeRate=b.exchange;writeStore('tokyo_exchange_v1',{rate:currentExchangeRate,updatedAt:null});$('expense-rate').value=currentExchangeRate;$('exchange-status').textContent=' · 備份中的估算匯率，非銀行賣出匯率';}
  renderApp();renderExpenses();shoppingLoaded=false;
 }
 importBackup=async function(event){const file=event.target.files?.[0];if(!file)return;try{if(file.size>12000000)throw new Error('檔案超過12MB');mergeBackup(JSON.parse(await file.text()));toast('已合併備份；原有其他紀錄保留。');}catch(e){toast('無法匯入：'+e.message);}finally{event.target.value='';}};
