@@ -67,6 +67,10 @@ class CompilerRegression(unittest.TestCase):
             b.apply_enrichment(copy.deepcopy(self.trip), {'rawRows': self.rows})
         with self.assertRaises(ValueError):
             b.apply_enrichment(copy.deepcopy(self.trip), {'guides': {'2026-12-27': {}}})
+        bad_covers = copy.deepcopy(self.trip['covers'])
+        bad_covers[0]['image'] = 'https://example.invalid/cover.webp'
+        with self.assertRaises(ValueError):
+            b.apply_enrichment(copy.deepcopy(self.trip), {'covers': bad_covers})
 
 
 if __name__ == '__main__':

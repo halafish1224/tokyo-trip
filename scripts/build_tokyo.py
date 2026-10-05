@@ -29,10 +29,18 @@ def route_basis(events):
  return hashlib.sha256('\n'.join(titles).encode()).hexdigest()[:16]
 def apply_enrichment(trip,patch):
  # Only public, researched metadata. The private row snapshot is a separate input.
- allowed={'venues','travel','decisions','sources','foods','places','guides'}
+ allowed={'venues','travel','decisions','sources','foods','places','guides','covers'}
  if not isinstance(patch,dict) or set(patch)-allowed:raise ValueError('Unexpected enrichment keys')
  guides=patch.get('guides',{})
  if set(guides)-set(DATES):raise ValueError('Unexpected guide date')
+ covers=patch.get('covers')
+ if covers is not None:
+  if not isinstance(covers,list) or len(covers)!=len(DATES):raise ValueError('Expected 14 covers')
+  for date,cover in zip(DATES,covers):
+   expected=f'images/covers/{date[5:7]}{date[8:]}.webp'
+   if not isinstance(cover,dict) or cover.get('date')!=date or cover.get('image')!=expected:raise ValueError('Cover date/path mismatch')
+   if not (ROOT/expected).is_file() or not str(cover.get('source','')).startswith('https://commons.wikimedia.org/'):raise ValueError('Cover must be local with a Commons source')
+   if not all(str(cover.get(k,'')).strip() for k in ('title','caption','author','license','licenseUrl')):raise ValueError('Incomplete cover credit')
  for key,value in patch.items():
   if key!='guides':trip[key]=value
  for day in trip['days']:
@@ -55,7 +63,7 @@ def compile_rows(rows,trip,enriched_guides=()):
  if head is None:raise ValueError('Must include all 14 date columns')
  actual=[f'2026-{int(m[1]):02}-{int(m[2]):02}' if (m:=re.search(r'(\d+)/(\d+)',str(x))) else '' for x in rows[head][1:15]]
  if actual!=DATES:raise ValueError('Unexpected dates; preserving previous bundle')
- areas=['藤澤','大船','江之島・藤澤','小田原','藤澤','鎌倉・腰越','東京・浜町','丸之內・芝','豐洲・柴又・銀座・新橋','淺草・上野','澀谷','越谷','自由安排','浜町・成田']
+ areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','丸之內・芝','豐洲・柴又・銀座・新橋','淺草・上野','澀谷','越谷','自由安排','浜町・成田']
  old={d['date']:d for d in trip['days']};days=[{**old[date],'events':[]} for date in DATES];count=0
  for ri,row in enumerate(rows[head+1:],head+1):
   time=normalize_time(row[0] if row else '');lodging=''
