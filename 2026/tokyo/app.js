@@ -217,7 +217,7 @@ function selectPhase(value,scroll=false){
  const days=buildDays().filter(matchesDay);
  activeDay=(days.find(d=>d.date===todayJapan())||days[0])?.id||'d7';
  $('expand-button').textContent='全部展開';showSection('trip',{scroll:false});renderApp();
- if(scroll)requestAnimationFrame(()=>$('itinerary-list').scrollIntoView({behavior:'smooth',block:'start'}));
+ if(scroll)requestAnimationFrame(()=>$('itinerary-list').scrollIntoView({behavior:document.documentElement.dataset.motion==='reduce'||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}));
 }
 
 function matchesDay(day){if(filter==='solo'&&day.number>6)return false;if(filter==='family'&&day.number<7)return false;if(!search)return true;return JSON.stringify(day.events).toLowerCase().includes(search.toLowerCase());}
@@ -245,7 +245,7 @@ function showSection(section,{scroll=true}={}) {
  if(scroll)$('sec-'+section).scrollIntoView({behavior:'instant',block:'start'});
 }
 let shoppingLoaded=false;
-function jumpToDay(id,eventId){if(viewMode!=='journal')viewMode='today';activeDay=id;search='';if(filter==='family'&&Number(id.slice(1))<7||filter==='solo'&&Number(id.slice(1))>=7)filter='all';$('trip-search').value='';$('trip-filter').value=filter;showSection('trip',{scroll:false});renderApp();requestAnimationFrame(()=>$(eventId?'event-'+eventId:id)?.scrollIntoView({behavior:'smooth',block:'start'}));}
+function jumpToDay(id,eventId){if(viewMode!=='journal')viewMode='today';activeDay=id;search='';if(filter==='family'&&Number(id.slice(1))<7||filter==='solo'&&Number(id.slice(1))>=7)filter='all';$('trip-search').value='';$('trip-filter').value=filter;showSection('trip',{scroll:false});renderApp();requestAnimationFrame(()=>$(eventId?'event-'+eventId:id)?.scrollIntoView({behavior:document.documentElement.dataset.motion==='reduce'||window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'}));}
 function refreshNow(){
  const today=todayJapan(),minute=japanMinutes();
  document.querySelectorAll('.is-now').forEach(e=>{e.classList.remove('is-now');e.removeAttribute('aria-current');});
