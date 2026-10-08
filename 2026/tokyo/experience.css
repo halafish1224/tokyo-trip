@@ -6,3 +6,5 @@
 
 .journal-comparison>div{min-width:0;overflow-wrap:anywhere}
 .family-mode .toplinks [data-open-section=trip],.family-mode #now-button,.family-mode #check-count{display:none!important}
+
+.day-route-map{margin:1.2rem 0;padding:clamp(12px,3vw,24px);background:#fff9ed;border:2px solid #b8c4ac;border-radius:12px;min-width:0}.day-route-map h3{margin:0 0 .7rem;font-size:1.25rem}.day-route-map>a{display:block}.day-route-map img{display:block;width:100%;height:auto;max-width:760px;margin:auto}.day-route-map figcaption{margin-top:.8rem;line-height:1.6}.day-route-map .btn{min-height:48px;white-space:normal;margin-top:.6rem;border:2px solid #173e32}.route-map-warning{padding:.8rem;border-left:4px solid #a52d3c;background:#fff0df;font-size:1rem}.day-route-map details{margin-top:1rem}.day-route-map details p{overflow-wrap:anywhere}

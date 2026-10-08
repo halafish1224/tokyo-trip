@@ -1,0 +1,92 @@
+{
+  "checked": "2026-10-08",
+  "description": "Original hand-drawn geographic schematic. No Google Maps or OSM screenshot is reproduced. Equal local metric scale: 238 px/km, north up; inset 800 px/km. Connections and river/greenery are schematic, not road navigation.",
+  "points": {
+    "hamacho": [
+      35.68737667,
+      139.78874815
+    ],
+    "tokyo": [
+      35.68124,
+      139.76712
+    ],
+    "kitte": [
+      35.67903,
+      139.76475
+    ],
+    "ginza": [
+      35.6737227,
+      139.7651379
+    ],
+    "clock": [
+      35.66377,
+      139.75976
+    ],
+    "maruzen": [
+      35.6840172,
+      139.7666588
+    ]
+  },
+  "coordinateKind": "Approximate venue/area centers. NTV clock uses approximate Nippon TV address center;浜町 area only. Not entrances or measured walking distances.",
+  "sources": [
+    "https://mapfan.com/spots/SY3H3,JKJF,G9F1I0",
+    "https://mapfan.com/spots/SCWAY,I6S,12",
+    "https://mapfan.com/spots/SCQQA,J,3Y0",
+    "https://mapfan.com/directions/points/35.674906675306%2C139.76308236545%2C%E6%9C%89%E6%A5%BD%E7%94%BA%E9%A7%85/35.674454654946%2C139.76665033059",
+    "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "https://www.ntv.co.jp/oo-dokei/",
+    "https://marunouchi.jp-kitte.jp/guide/",
+    "https://www.marronniergate.com/access",
+    "https://www.muji.com/jp/ja/shop/detail/046604"
+  ],
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "08:00",
+      "飯店接駁時刻表 https://www.toyoko-inn.com/china/campaign/pickup/tokyo/"
+    ],
+    [
+      "09:50",
+      "飯店接駁車 至 東京車站"
+    ],
+    [
+      "12:00",
+      "漫步往銀座"
+    ],
+    [
+      "12:30",
+      "站前合照 KITTE 丸之內 (根室花丸 迴轉壽司)"
+    ],
+    [
+      "13:50",
+      "銀座周邊 OS DRUG"
+    ],
+    [
+      "14:20",
+      "MARRONNIER GATE GINZA 2(好逛UNIQLO / GU)"
+    ],
+    [
+      "16:30",
+      "無印良品旗艦店"
+    ],
+    [
+      "18:00",
+      "新橋宮崎駿時針"
+    ],
+    [
+      "19:00",
+      "丸善 丸之內本店\n買Nia英文漫畫"
+    ],
+    [
+      "20:00",
+      "薩莉亞 Saizeriya 日本橋濱町店"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ]
+}
