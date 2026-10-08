@@ -24,4 +24,10 @@ for(const [i,c] of trip.covers.entries()){assert.equal(c.date,dates[i]);assert(c
 for(const f of ['boot.js','app.js','extra.js','sw.js'])new vm.Script(fs.readFileSync(path.join(root,f),'utf8'),{filename:f});
 for(const f of ['experience.css','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg'])assert(fs.existsSync(path.join(root,f)));
 assert(!html.includes('experience.js'));assert(fs.readFileSync(path.join(root,'boot.js'),'utf8').includes("'extra.js'"));
+const app=fs.readFileSync(path.join(root,'app.js'),'utf8'),extra=fs.readFileSync(path.join(root,'extra.js'),'utf8'),sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
+const mapText=app.match(/const DAY_ROUTE_MAPS=(\{.*?\});\nfunction dayRouteMapHtml/s)?.[1];assert(mapText,'route map registry missing');
+const routeMaps=JSON.parse(mapText);
+for(let n=20;n<=23;n++){const date=`2026-12-${n}`,day=trip.days[n-13],map=routeMaps[date];assert.equal(map.kind,'transit');assert.deepEqual(map.basis,day.events.map(e=>[e.time,e.title]),date+' transit basis stale');assert(map.main.length>=3&&map.home.some(x=>x[0].includes('東京站'))&&map.home.some(x=>x[0].includes('接駁')));assert(map.sources.some(x=>x[1].includes('toyoko-inn.com')));}
+assert.equal(routeMaps['2026-12-24'].file,'1224');assert(!sw.includes("'images/routes/1220-route.svg'"));
+assert.equal((html.match(/id="day-picker"/g)||[]).length,1);assert(html.indexOf('id="decision-board"')>html.indexOf('id="sec-trans"'));assert(extra.includes("t.id==='day-picker'"));assert(extra.includes("section!=='trans'"));
 console.log('PASS: 14 days, unique event IDs, local licensed covers, route-anchored rest options, updated family routes, privacy, corrected addresses, source-aligned date-conflict dashboard, scripts and PWA assets');

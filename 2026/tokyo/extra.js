@@ -26,7 +26,7 @@ showSection=function(section,options={}){
  if(returnFromJournal){viewMode='plan';renderApp();}
  baseShowSection(section,options);
  document.querySelector('.experience').hidden=section!=='trip';
- $('decision-board').hidden=section!=='trip'||viewMode==='journal';
+ $('decision-board').hidden=section!=='trans';
  $('overview').hidden=section!=='trip'||viewMode!=='plan';
  $('journal-view').hidden=section!=='trip'||viewMode!=='journal';
 };
@@ -36,9 +36,9 @@ function renderExperience(){
  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===viewMode)));
  const day=selectedDay(),today=todayJapan(),isToday=day.date===today;
  $('experience-title').textContent=viewMode==='plan'?'出發前，先把重要的確認好。':viewMode==='journal'?'那些走過的路，都留下來。':`${day.date.slice(5).replace('-','/')} · ${familyMode?'家人日頁':isToday?'Today 今天':'單日預覽'}`;
- $('experience-status').textContent=viewMode==='plan'?'14天總覽與待確認事項。出發後會依日本日期自動切到今天。':viewMode==='journal'?'原計畫與實際足跡並排；空白狀態不會被當作沒去。':`${isToday?'日本今天':'指定日期預覽，非日本今天'} · ${day.guide.area} · ${navigator.onLine?'連線中':'離線可查路線與已儲存資訊'}`;
+ $('experience-status').textContent=viewMode==='plan'?'14天總覽；待確認事項集中在「隨身工具」。出發後會依日本日期自動切到今天。':viewMode==='journal'?'原計畫與實際足跡並排；空白狀態不會被當作沒去。':`${isToday?'日本今天':'指定日期預覽，非日本今天'} · ${day.guide.area} · ${navigator.onLine?'連線中':'離線可查路線與已儲存資訊'}`;
  $('experience-clock').textContent='日本時間 '+new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date());
- document.querySelector('.experience').hidden=currentSection!=='trip';$('decision-board').hidden=currentSection!=='trip'||viewMode==='journal';$('overview').hidden=currentSection!=='trip'||viewMode!=='plan';$('journal-view').hidden=currentSection!=='trip'||viewMode!=='journal';
+ document.querySelector('.experience').hidden=currentSection!=='trip';$('decision-board').hidden=currentSection!=='trans';$('overview').hidden=currentSection!=='trip'||viewMode!=='plan';$('journal-view').hidden=currentSection!=='trip'||viewMode!=='journal';
  const events=day.events.filter(e=>!e.inherited&&!/住宿據點$/.test(e.title));
  const next=events.find(e=>(familyMode||!localState.checks[e.id])&&(!isToday||timeMinutes(e.time)>=japanMinutes()));
  $('next-stop').innerHTML=viewMode==='today'?`<div class="next-card"><span class="badge">下一站 · 行程計畫時間</span><h3>${next?h(next.time+' '+next.title):'今天的計畫已到尾聲'}</h3><p>${h(day.guide.text)}</p><p class="small">不是即時班次。出發前看清車頭目的地，班次請查鐵路官網。</p><div class="source-links">${day.guide.sources.map(k=>SOURCES[k]?ext(SOURCES[k].url,SOURCES[k].name+' ↗'):'').join('')}</div></div>`:'';
@@ -48,10 +48,11 @@ function renderExperience(){
  renderDecisions();renderOverview();if(viewMode==='journal')renderJournal();renderWeather();
 }
 function renderDecisions(){
- const items=familyMode||viewMode==='today'?TRIP.decisions.filter(x=>x.day===activeDay):TRIP.decisions;
- $('decision-board').innerHTML=`<h2>出發決策看板 <span class="badge badge-note">${items.filter(x=>familyMode||!decisionState[x.id]).length} 項待處理</span></h2><p class="small">${familyMode?'提醒依公開行程顯示，不含個人確認狀態。':'勾選代表你已處理，僅存在此裝置；不表示官方已確認。'}</p><div class="decision-grid">${items.map(x=>`<article class="decision ${!familyMode&&decisionState[x.id]?'resolved':'unresolved'}"><h3><span aria-hidden="true">${!familyMode&&decisionState[x.id]?'✓':'●'}</span> ${h(x.title)}</h3><p>${h(x.text)}</p><button class="btn btn-small" data-day-jump="${x.day}">查看相關日期</button>${familyMode?'':`<label><input type="checkbox" data-decision="${x.id}"${decisionState[x.id]?' checked':''}> 我已處理</label>`}</article>`).join('')}</div>`;
+ const items=familyMode?TRIP.decisions.filter(x=>x.day===activeDay):TRIP.decisions;
+ const references=(TRAVEL_BUNDLE.items||[]).map(info=>({info,day:parsed.days.find(d=>d.events.some(e=>info.keys.some(k=>noteKey(e.title).includes(noteKey(k)))))})).filter(x=>!familyMode||x.day?.id===activeDay);
+ $('decision-board').innerHTML=`<h2>出發決策看板 <span class="badge badge-note">${items.filter(x=>familyMode||!decisionState[x.id]).length} 項待處理</span></h2><p class="small">${familyMode?'提醒依公開行程顯示，不含個人確認狀態。':'勾選代表你已處理，僅存在此裝置；不表示官方已確認。'}</p><div class="decision-grid">${items.map(x=>`<article class="decision ${!familyMode&&decisionState[x.id]?'resolved':'unresolved'}"><h3><span aria-hidden="true">${!familyMode&&decisionState[x.id]?'✓':'●'}</span> ${h(x.title)}</h3><p>${h(x.text)}</p><button class="btn btn-small" data-day-jump="${x.day}">查看相關日期</button>${familyMode?'':`<label><input type="checkbox" data-decision="${x.id}"${decisionState[x.id]?' checked':''}> 我已處理</label>`}</article>`).join('')}</div><details class="decision-references"><summary>相關交通、營業與票券查證 · ${references.length} 項</summary>${references.map(({info,day})=>`<article class="decision-reference"><h3>${h(info.title)}</h3><p>${richText(info.text)}</p><div class="source-links">${ext(info.source,'官方資料 ↗')}<span>查閱 ${h(info.checked)}</span>${day?`<button class="btn btn-small" data-day-jump="${day.id}">看 ${h(day.date.slice(5))}</button>`:''}</div></article>`).join('')}</details>`;
 }
-function renderOverview(){if(viewMode!=='plan')return;$('overview').innerHTML=`<h2>14日總覽</h2><div class="overview-grid">${buildDays().map(d=>`<button class="overview-day" data-date="${d.date}" data-day-jump="${d.id}"><time>${h(d.date.slice(5).replace('-','/'))}</time><strong>${h(dailyFeature(d).title)}</strong><span>${h(d.guide.area)}</span>${TRIP.decisions.some(x=>x.day===d.id&&!decisionState[x.id])?'<span class="risk-label">● 有待確認事項</span>':''}</button>`).join('')}</div>`;}
+function renderOverview(){if(viewMode!=='plan')return;$('overview').innerHTML=`<h2>14日總覽</h2><div class="overview-grid">${buildDays().map(d=>`<button class="overview-day" data-date="${d.date}" data-day-jump="${d.id}"><time>${h(d.date.slice(5).replace('-','/'))}</time><strong>${h(dailyFeature(d).title)}</strong><span>${h(d.guide.area)}</span></button>`).join('')}</div>`;}
 function venueCard(v){
  const sources=v.sources||[];
  return `<article class="venue-card"><span class="badge${v.verified?'':' badge-note'}">${v.verified?'官網資料 '+h(v.checked):'部分資訊待核對'+(v.checked?' · '+h(v.checked):'')}</span>${v.category?` <span class="badge">${h(v.category)}</span>`:''}<h4 lang="ja">${h(v.ja)}</h4>${v.highlight?`<p><strong>不想錯過</strong> ${h(v.highlight)}</p>`:''}${v.caution?`<p class="day-note">${h(v.caution)}</p>`:''}${v.pending?.length?`<p class="small">待核對：${h(v.pending.join('、'))}</p>`:''}<dl><dt>地址</dt><dd>${h(v.address||'尚未核對，請用日文名稱導航')}</dd><dt>出口</dt><dd>${h(v.exit||'尚未核對，請確認站內指標')}</dd><dt>營業／休館</dt><dd>${h(v.hours||'尚未核對，出發前查官網')}</dd><dt>電話</dt><dd>${h(v.phone||'未提供核實電話')}</dd></dl><div class="event-tools"><button class="btn btn-small" data-copy="${h(v.ja)}">複製日文名</button>${v.address?`<button class="btn btn-small" data-copy="${h(v.ja+'\n'+v.address)}">給櫃台看／複製地址</button>`:''}${v.phone?`<button class="btn btn-small" data-copy="${h(v.phone)}">複製電話</button><a class="btn btn-small" href="tel:${h(v.phone)}">撥打</a>`:''}${v.official?ext(v.official,'官方資料 ↗','btn btn-small'):''}</div>${sources.length?`<details class="venue-sources"><summary>查證來源</summary><ul>${sources.map(s=>`<li>${ext(s.url,s.label+' ↗')} · ${h(s.checked)}<br>${h((s.fields||[]).join('、'))}</li>`).join('')}</ul></details>`:''}</article>`;
@@ -183,6 +184,7 @@ document.addEventListener('click',async event=>{
 // Capture mutations for family mode even if triggered programmatically through a UI click.
 document.addEventListener('click',e=>{if(familyMode&&e.target.closest('[data-check],[data-edit],[data-add-day],[data-geo-check],#add-button,#export-button,#import-code,#state-code')){e.preventDefault();e.stopImmediatePropagation();}},true);
 document.addEventListener('change',e=>{const t=e.target;if(familyMode)return;
+ if(t.id==='day-picker'){pinnedDate=true;jumpToDay(t.value);return;}
  if(t.dataset.decision){decisionState[t.dataset.decision]=t.checked;writeStore('tokyo_decisions_v1',decisionState);renderDecisions();renderOverview();}
  if(t.dataset.journalStatus){const id=t.dataset.journalStatus;journal[id]={...journal[id],status:t.value};if(t.value==='went')localState.checks[id]=new Date().toISOString();else delete localState.checks[id];saveState();journalSave();renderApp();}
  if(t.dataset.journalText){journal[t.dataset.journalText]={...journal[t.dataset.journalText],text:t.value.slice(0,300)};journalSave();}

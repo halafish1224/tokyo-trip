@@ -3272,5 +3272,158 @@
       "height": 640,
       "position": "50% 50%"
     }
-  ]
+  ],
+  "travel": {
+    "version": 1,
+    "checked": "2026-10-08",
+    "items": [
+      {
+        "keys": [
+          "宮崎駿",
+          "宮﨑駿"
+        ],
+        "title": "大時計：提早等候這一場",
+        "text": "官方列平日演出為 12:00、15:00、18:00、20:00，約在整點前 3 分鐘開始。行程安排的 18:00 場，建議 17:55 先到；如有臨時調整，以現場公告為準。",
+        "source": "https://www.ntv.co.jp/oo-dokei/",
+        "checked": "2026-10-02"
+      },
+      {
+        "keys": [
+          "teamLab"
+        ],
+        "title": "豐洲 Planets：交通與衣著",
+        "text": "官方交通指引為新豐洲站北口，或有樂町線豐洲站 7 號出口步行約 10 分鐘。Water 區需要赤腳，水可能到成人膝蓋；建議穿方便捲起的褲子，孩子另備替換衣物。請確認票券是豐洲 Planets，並保留預約入場時間。",
+        "source": "https://teamlabplanets.dmm.com/zh_tw/help",
+        "checked": "2026-10-02"
+      },
+      {
+        "keys": [
+          "LakeTown",
+          "レイクタウン"
+        ],
+        "title": "LakeTown：先選購物分區",
+        "text": "Outlet 官方一般營業時間為 10:00–20:00；部分餐飲店開店、閉店與最後點餐時間不同。用餐前先確認分店是在 Outlet、mori 或 kaze，將集合地點約在同一區，避免家人走散後跨區找人。",
+        "source": "https://laketown-outlet.jp/static/detail/serviceguide",
+        "checked": "2026-10-02"
+      },
+      {
+        "keys": [
+          "接駁"
+        ],
+        "title": "東京站接駁：八重洲乘車與晚間收班",
+        "text": "東京站八重洲中央口過路口，八重洲地下街19號出口附近、京成巴士1號站旁候車。飯店英文官網目前列飯店端末班22:10發車，東京站約15分鐘後接客；非保證班次，交通、滿車與當日車輛數可能變動。12/20–23可由晚間所在車站搭車至東京站轉接駁；若抵達太晚，請改查浜町方向鐵路或搭計程車，勿讓長輩為趕車急行。",
+        "source": "https://www.toyoko-inn.com/eng/campaign/pickup/tokyo/",
+        "checked": "2026-10-08"
+      },
+      {
+        "keys": [
+          "Odawara Museum of Literature",
+          "小田原文學館",
+          "小田原文学館"
+        ],
+        "title": "文學館：冬季 16:00 前入館",
+        "text": "官方冬季（11–2月）開館 10:00–16:30，最後入館 16:00；週一休館（遇假日順延），另有臨時休館。12/16 的 15:00 行程請先入館，再往海岸散策。2026年成人票250日圓；已公告的300日圓新票價從2027/4/1才生效。",
+        "source": "https://www.city.odawara.kanagawa.jp/public-i/facilities/literature-museum/bungakukan.html",
+        "checked": "2026-10-02"
+      },
+      {
+        "keys": [
+          "LOFT 最大店",
+          "澀谷 LoFt",
+          "Shibuya Loft"
+        ],
+        "title": "澀谷 Loft：導航請用店名與官方地址",
+        "text": "官方店址為澀谷區宇田川町18-2；你的 Parking Building 地圖標記是21-1，請依店名搜尋核對入口。一般營業11:00–21:00，免稅辦理至20:30；澀谷站A3出口步行約5分鐘，JR八公口約10分鐘，部分服務時間不同。",
+        "source": "https://www.loft.co.jp/shop_list/detail.php?shop_id=189",
+        "checked": "2026-10-02"
+      },
+      {
+        "keys": [
+          "敘敘苑 上野",
+          "叙叙苑 涩谷",
+          "叙々苑"
+        ],
+        "title": "12月燒肉預約：先核對日期與套餐",
+        "text": "上野丸井與澀谷分店官網公告，平日特別標準套餐在2026/12/5–2027/1/5暫停。這不表示所有午餐停供；請確認實際訂位分店、日期與餐點。",
+        "source": "https://www.jojoen.co.jp/shop/jojoen/marui/",
+        "checked": "2026-10-03"
+      },
+      {
+        "keys": [
+          "小田原城",
+          "常盤木門"
+        ],
+        "title": "小田原城：早拍照，9點再入館",
+        "text": "原表08:30可作城址公園外觀散步；天守9:00開館、16:30停止入館，常盤木門SAMURAI館至16:45。天守另有12月第2週三與年末休館，出發前再查臨時公告。",
+        "source": "https://odawaracastle.com/info/",
+        "checked": "2026-10-03"
+      },
+      {
+        "keys": [
+          "UIROU",
+          "外郎博物館"
+        ],
+        "title": "ういろう本店",
+        "text": "12/16週三固定休息；不把本表14:00當作已確認可入店，博物館參觀也先確認。",
+        "source": "https://www.uirou.co.jp/access/",
+        "checked": "2026-10-04"
+      },
+      {
+        "keys": [
+          "清淨光寺",
+          "遊行寺"
+        ],
+        "title": "清浄光寺（遊行寺）",
+        "text": "12/13表內16:30已超過16:00參拜時間，需提前或改期。",
+        "source": "https://yugyoji.or.jp/access/",
+        "checked": "2026-10-04"
+      },
+      {
+        "keys": [
+          "蕎麦兄",
+          "Sobanii"
+        ],
+        "title": "蕎麦兄（ソバニー）",
+        "text": "表內已改為17:00到店，並註記15:00休息、17:00開始；店在鵠沼海岸，不在江之島。島上回程、當日晚餐開店、候位與18:00再前往MrMax仍需確認。",
+        "source": "https://sobanii.com/",
+        "checked": "2026-10-04"
+      },
+      {
+        "keys": [
+          "domremy outlet"
+        ],
+        "title": "ドンレミーアウトレット上野不忍店",
+        "text": "店名仍有「不忍」，2024/12/4已搬到上野6-15-8，別沿用舊地址。",
+        "source": "https://www.domremy.com/outlet/uenoshinobazu/",
+        "checked": "2026-10-04"
+      },
+      {
+        "keys": [
+          "文佐食堂"
+        ],
+        "title": "文佐食堂",
+        "text": "位於江之島遊艇港附近，非腰越漁港；資料含2023取材內容，當日請電話核對。",
+        "source": "https://enokama.jp/spot/6235/",
+        "checked": "2026-10-04"
+      },
+      {
+        "keys": [
+          "根室花丸"
+        ],
+        "title": "回転寿司 根室花まる KITTE丸の内店",
+        "text": "不接受座位預約；全員到齊才入座，叫號後15分鐘未到需重新取號。桌席最多4人，家庭座位須確認。",
+        "source": "https://www.sushi-hanamaru.com/store/details/s11.html",
+        "checked": "2026-10-04"
+      },
+      {
+        "keys": [
+          "聖誕市集"
+        ],
+        "title": "芝公園市集：事前票已開賣",
+        "text": "12/21安排的是芝公園（御成門駅前広場）：官方2026場次12/4–25，除首日外11:00–22:00，最終入場21:00。12/21為平日，成人1,000円、小學生500円、未就學免費；成人事前票附芝公園紅色紀念杯。官方提醒混雜時可能限制當日入場，若要杯或降低撲空風險，先購買芝公園場事前票。",
+        "source": "https://tokyochristmas.net/news_1022/",
+        "checked": "2026-10-08"
+      }
+    ]
+  }
 }
