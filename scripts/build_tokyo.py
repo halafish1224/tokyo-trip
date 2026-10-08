@@ -83,7 +83,7 @@ def compile_rows(rows,trip,enriched_guides=()):
  if head is None:raise ValueError('Must include all 14 date columns')
  actual=[f'2026-{int(m[1]):02}-{int(m[2]):02}' if (m:=re.search(r'(\d+)/(\d+)',str(x))) else '' for x in rows[head][1:15]]
  if actual!=DATES:raise ValueError('Unexpected dates; preserving previous bundle')
- areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','丸之內・芝','豐洲・柴又・銀座・新橋','淺草・上野','澀谷','越谷','自由安排','浜町・成田']
+ areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','丸之內・銀座・新橋','豐洲・柴又・芝公園','淺草・上野','澀谷・代代木','越谷','自由安排','浜町・成田']
  old={d['date']:d for d in trip['days']};days=[{**old[date],'events':[]} for date in DATES];count=0
  for ri,row in enumerate(rows[head+1:],head+1):
   time=normalize_time(row[0] if row else '');lodging=''
