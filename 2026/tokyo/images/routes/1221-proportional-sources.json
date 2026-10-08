@@ -1,0 +1,192 @@
+{
+  "day": "2026-12-21",
+  "checked": "2026-10-08",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "08:30",
+      "分流A: 柴又老街 (高木屋)"
+    ],
+    [
+      "09:30",
+      "分流 B: teamLab 豐洲 (壽司大)"
+    ],
+    [
+      "13:30",
+      "分流結束往赤羽橋站：A 柴又→京成高砂→都營淺草線大門→大江戶線；B 豐洲→有樂町線月島→大江戶線（轉乘／電梯當日核對）"
+    ],
+    [
+      "15:00",
+      "赤羽橋站會合→港區立芝公園草坪（芝公園4-8-4；只留草坪點，可坐長椅）"
+    ],
+    [
+      "18:00",
+      "芝公園聖誕市集（御成門站前廣場；從草坪短程搭車／計程車至御成門A6；線上購票）"
+    ],
+    [
+      "20:00",
+      "御成門站三田線→神保町轉新宿線→浜町；飯店周邊薩莉亞 Saizeriya 日本橋濱町店（末點待核對）"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "coordinateKind": "Reviewed approximate venue/address/area centers. North up; local equirectangular metric projection. Not station entrances.",
+  "pixelsPerMeter": 0.042919640708067655,
+  "scaleBarMeters": 5000,
+  "insetPixelsPerMeter": 0.28872058265010003,
+  "insetScaleBarMeters": 200,
+  "insetPoints": [
+    "meeting",
+    "grass",
+    "market"
+  ],
+  "points": {
+    "hotel": [
+      35.68737667,
+      139.78874815
+    ],
+    "shibamata": [
+      35.75899,
+      139.878
+    ],
+    "toyosu": [
+      35.649075,
+      139.789525
+    ],
+    "meeting": [
+      35.654953,
+      139.7453036
+    ],
+    "grass": [
+      35.6558,
+      139.749
+    ],
+    "market": [
+      35.660709,
+      139.7513109
+    ],
+    "tokyo": [
+      35.68124,
+      139.76712
+    ]
+  },
+  "labels": [
+    [
+      "0",
+      "hotel",
+      "東橫INN 新大橋",
+      "兩組從飯店分流"
+    ],
+    [
+      "A",
+      "shibamata",
+      "A 柴又",
+      "帝釋天／高木屋一帶"
+    ],
+    [
+      "B",
+      "toyosu",
+      "B 豐洲",
+      "teamLab 一帶"
+    ],
+    [
+      "3",
+      "meeting",
+      "赤羽橋站",
+      "兩組會合"
+    ],
+    [
+      "4",
+      "grass",
+      "芝公園草坪",
+      "只留草坪休息點"
+    ],
+    [
+      "5",
+      "market",
+      "御成門市集",
+      "市集入口依票券核對"
+    ],
+    [
+      "6",
+      "tokyo",
+      "東京站",
+      "接駁替代回程"
+    ],
+    [
+      "終",
+      "hotel",
+      "東橫INN 新大橋",
+      "回到同一飯店"
+    ]
+  ],
+  "pointSources": {
+    "hotel": "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "shibamata": "https://www.taishakuten.com/visit-info",
+    "toyosu": "https://teamlabplanets.dmm.com/zh_tw/help",
+    "meeting": "https://mapfan.com/spots/SCC%2CJ%2C2ND0",
+    "grass": "https://www.city.minato.tokyo.jp/shisetsu/koen/shiba/09.html",
+    "market": "https://tokyochristmas.net/shiba/",
+    "tokyo": "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf"
+  },
+  "paths": [
+    [
+      "hotel",
+      "shibamata",
+      "a"
+    ],
+    [
+      "hotel",
+      "toyosu",
+      "b"
+    ],
+    [
+      "shibamata",
+      "meeting",
+      "a"
+    ],
+    [
+      "toyosu",
+      "meeting",
+      "b"
+    ],
+    [
+      "meeting",
+      "grass",
+      "out"
+    ],
+    [
+      "grass",
+      "market",
+      "out"
+    ],
+    [
+      "market",
+      "tokyo",
+      "home"
+    ],
+    [
+      "tokyo",
+      "hotel",
+      "home"
+    ]
+  ],
+  "sources": [
+    "https://www.toyoko-inn.com/china/search/detail/00176/",
+    "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "https://www.toyoko-inn.com/eng/campaign/pickup/tokyo/",
+    "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
+    "https://www.taishakuten.com/visit-info",
+    "https://teamlabplanets.dmm.com/zh_tw/help",
+    "https://mapfan.com/spots/SCC%2CJ%2C2ND0",
+    "https://www.city.minato.tokyo.jp/shisetsu/koen/shiba/09.html",
+    "https://tokyochristmas.net/shiba/"
+  ],
+  "note": "A／B 同時分流，草坪與市集在同區但非同一點；東京站線是接駁替代回程，原表亦有御成門→神保町→浜町。",
+  "limits": "Straight arrows indicate order and destination only; no railway alignment, walking length, journey duration, Forest entrance or guaranteed shuttle pickup."
+}

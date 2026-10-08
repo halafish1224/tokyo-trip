@@ -28,6 +28,7 @@ body[data-mode=today] .day-sidebar{display:block;position:static;max-height:none
 
 .decision-references{margin-top:22px;border-top:1px solid #bdc9bb;padding-top:14px}.decision-references>summary{cursor:pointer;min-height:44px;font-weight:800}.decision-reference{padding:12px 0;border-bottom:1px solid #dce5dc}.decision-reference h3{font-size:1rem;margin:0 0 6px}.decision-reference p{font-size:.87rem;margin:0 0 8px}.decision-reference .btn{min-height:44px}
 .decision .btn{min-height:44px}
+.route-visual-link{display:block}.route-visual-link img{display:block;width:100%;height:auto;max-width:900px;margin:auto;border:1px solid #a8b8a7}.route-visual-link:focus-visible{outline:3px solid #a36c16;outline-offset:3px}
 
 /* Opt-in compact reading. Keep controls large enough to use on a phone. */
 html[data-reading=compact]{font-size:18px}

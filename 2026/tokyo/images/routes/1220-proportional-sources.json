@@ -1,0 +1,172 @@
+{
+  "day": "2026-12-20",
+  "checked": "2026-10-08",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "08:00",
+      "飯店接駁時刻表 https://www.toyoko-inn.com/china/campaign/pickup/tokyo/"
+    ],
+    [
+      "09:50",
+      "飯店接駁車 至 東京車站"
+    ],
+    [
+      "10:30",
+      "丸善 丸之內本店（東京站前先逛書店；英文漫畫）"
+    ],
+    [
+      "12:30",
+      "站前合照 KITTE 丸之內 (根室花丸 迴轉壽司)"
+    ],
+    [
+      "13:15",
+      "KITTE午餐後搭 JR／地鐵到銀座；不安排跨區長走"
+    ],
+    [
+      "13:50",
+      "銀座周邊 OS DRUG"
+    ],
+    [
+      "14:20",
+      "MARRONNIER GATE GINZA 2（UNIQLO／GU；長輩可坐下休息）"
+    ],
+    [
+      "16:30",
+      "年輕人往銀座無印良品；長輩留 MARRONNIER GATE GINZA 2 咖啡座，17:15 商場會合"
+    ],
+    [
+      "17:15",
+      "全員銀座站搭銀座線往新橋站；前往汐留日本電視台大時計"
+    ],
+    [
+      "18:00",
+      "全員新橋／汐留宮崎駿大時計合照（銀座線到新橋；出口步行依當日確認）"
+    ],
+    [
+      "19:00",
+      "新橋附近晚餐；或搭車回浜町飯店周邊用餐"
+    ],
+    [
+      "20:00",
+      "若回飯店：薩莉亞 Saizeriya 日本橋濱町店（營業與最後點餐待核對）"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "coordinateKind": "Reviewed approximate venue/address/area centers. North up; local equirectangular metric projection. Not station entrances.",
+  "pixelsPerMeter": 0.1964649298701736,
+  "scaleBarMeters": 1000,
+  "insetPixelsPerMeter": 0.09512739975575038,
+  "insetScaleBarMeters": 500,
+  "insetPoints": [
+    "tokyo",
+    "ginza",
+    "clock"
+  ],
+  "points": {
+    "hotel": [
+      35.68737667,
+      139.78874815
+    ],
+    "tokyo": [
+      35.68124,
+      139.76712
+    ],
+    "ginza": [
+      35.6737227,
+      139.7651379
+    ],
+    "clock": [
+      35.66377,
+      139.75976
+    ]
+  },
+  "labels": [
+    [
+      "0",
+      "hotel",
+      "東橫INN 新大橋",
+      "飯店出發 → 接駁"
+    ],
+    [
+      "1",
+      "tokyo",
+      "東京站／丸善／KITTE",
+      "上午書店、合照及午餐"
+    ],
+    [
+      "2",
+      "ginza",
+      "銀座商場",
+      "長輩休息／年輕人無印"
+    ],
+    [
+      "3",
+      "clock",
+      "新橋・汐留大時計",
+      "全員前往；晚餐二選一"
+    ],
+    [
+      "4",
+      "tokyo",
+      "東京站",
+      "晚間返站搭接駁"
+    ],
+    [
+      "終",
+      "hotel",
+      "東橫INN 新大橋",
+      "回到同一飯店"
+    ]
+  ],
+  "pointSources": {
+    "hotel": "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "tokyo": "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
+    "ginza": "https://www.marronniergate.com/access",
+    "clock": "https://www.ntv.co.jp/oo-dokei/"
+  },
+  "paths": [
+    [
+      "hotel",
+      "tokyo",
+      "out"
+    ],
+    [
+      "tokyo",
+      "ginza",
+      "out"
+    ],
+    [
+      "ginza",
+      "clock",
+      "out"
+    ],
+    [
+      "clock",
+      "tokyo",
+      "home"
+    ],
+    [
+      "tokyo",
+      "hotel",
+      "home"
+    ]
+  ],
+  "sources": [
+    "https://www.toyoko-inn.com/china/search/detail/00176/",
+    "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "https://www.toyoko-inn.com/eng/campaign/pickup/tokyo/",
+    "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
+    "https://www.marronniergate.com/access",
+    "https://www.ntv.co.jp/oo-dokei/",
+    "https://mapfan.com/spots/SCQQA,J,3Y0"
+  ],
+  "note": "銀座內分組同區；圖點為區域中心，並非無印或休息座位門口。",
+  "limits": "Straight arrows indicate order and destination only; no railway alignment, walking length, journey duration, Forest entrance or guaranteed shuttle pickup."
+}

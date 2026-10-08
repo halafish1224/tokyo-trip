@@ -1,0 +1,172 @@
+{
+  "day": "2026-12-23",
+  "checked": "2026-10-08",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "11:30",
+      "12/23 11:30 叙叙苑 涩谷店 03-5459-8989 預約待確認"
+    ],
+    [
+      "14:30",
+      "LOFT 最大店( 創始總店「澀谷 LoFt」（Shibuya Loft）)"
+    ],
+    [
+      "16:00",
+      "LOFT 後到 SHIBUYA109 前合照；109館內 7F café Ma Maison 坐下休息至17:30後"
+    ],
+    [
+      "18:30",
+      "候選 代代木 Forest of Lights（109休息後搭車到代代木公園；指定時段票待購，園內1.8公里）"
+    ],
+    [
+      "19:00",
+      "Forest 參觀中：園內1.8公里，不保證每段步行10分鐘內"
+    ],
+    [
+      "20:00",
+      "不預設已走完；結束後才從原宿／明治神宮前返浜町與晚餐（薩莉亞末點待核對）"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "coordinateKind": "Reviewed approximate venue/address/area centers. North up; local equirectangular metric projection. Not station entrances.",
+  "pixelsPerMeter": 0.0632226588541159,
+  "scaleBarMeters": 2000,
+  "insetPixelsPerMeter": 1.1551231484896096,
+  "insetScaleBarMeters": 50,
+  "insetPoints": [
+    "shibuya",
+    "loft",
+    "109"
+  ],
+  "points": {
+    "hotel": [
+      35.68737667,
+      139.78874815
+    ],
+    "shibuya": [
+      35.65993273,
+      139.69903266
+    ],
+    "loft": [
+      35.6610315,
+      139.6994567
+    ],
+    "109": [
+      35.6595928,
+      139.6986745
+    ],
+    "harajuku": [
+      35.6713755,
+      139.7027016
+    ],
+    "tokyo": [
+      35.68124,
+      139.76712
+    ]
+  },
+  "labels": [
+    [
+      "0",
+      "hotel",
+      "東橫INN 新大橋",
+      "飯店出發"
+    ],
+    [
+      "1",
+      "shibuya",
+      "澀谷午餐",
+      "敘敘苑分店待確認預約"
+    ],
+    [
+      "2",
+      "loft",
+      "澀谷 Loft",
+      "宇田川町18-2"
+    ],
+    [
+      "3",
+      "109",
+      "SHIBUYA109",
+      "館前合照／館內坐下"
+    ],
+    [
+      "?",
+      "harajuku",
+      "原宿／代代木公園",
+      "Forest 候選，入口待核"
+    ],
+    [
+      "5",
+      "tokyo",
+      "東京站",
+      "若接駁仍有車才返站"
+    ],
+    [
+      "終",
+      "hotel",
+      "東橫INN 新大橋",
+      "回到同一飯店"
+    ]
+  ],
+  "pointSources": {
+    "hotel": "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "shibuya": "https://www.jojoen.co.jp/shop/jojoen/shibuya/",
+    "loft": "https://www.loft.co.jp/shop_list/detail.php?shop_id=189",
+    "109": "https://mapfan.com/spots/SCQQA%2CJ%2CD2",
+    "harajuku": "https://mapfan.com/spots/SCH%2CJ%2C800",
+    "tokyo": "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf"
+  },
+  "paths": [
+    [
+      "hotel",
+      "shibuya",
+      "out"
+    ],
+    [
+      "shibuya",
+      "loft",
+      "out"
+    ],
+    [
+      "loft",
+      "109",
+      "out"
+    ],
+    [
+      "109",
+      "harajuku",
+      "candidate"
+    ],
+    [
+      "harajuku",
+      "tokyo",
+      "home"
+    ],
+    [
+      "tokyo",
+      "hotel",
+      "home"
+    ]
+  ],
+  "sources": [
+    "https://www.toyoko-inn.com/china/search/detail/00176/",
+    "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "https://www.toyoko-inn.com/eng/campaign/pickup/tokyo/",
+    "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
+    "https://www.loft.co.jp/shop_list/detail.php?shop_id=189",
+    "https://shibuya109.jp/access/",
+    "https://mapfan.com/spots/SCQQA%2CJ%2CD2",
+    "https://mapfan.com/spots/SCH%2CJ%2C800",
+    "https://tickets.tbs.co.jp/yoyogiforestoflights2026/",
+    "https://www.tokyo-park.or.jp/park/yoyogi/news/2026/7_1_11_31.html"
+  ],
+  "note": "問號是原宿進入代代木公園的方向，不是 Forest 確定入口；票券、入口及步行1.8公里仍需核對。",
+  "limits": "Straight arrows indicate order and destination only; no railway alignment, walking length, journey duration, Forest entrance or guaranteed shuttle pickup."
+}

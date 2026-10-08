@@ -1,0 +1,152 @@
+{
+  "day": "2026-12-24",
+  "checked": "2026-10-08",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "10:00",
+      "出發 越谷 AEON Mall LakeTown OUTLET (美食街)"
+    ],
+    [
+      "11:30",
+      "一汁五穀"
+    ],
+    [
+      "20:00",
+      "薩莉亞 Saizeriya 日本橋濱町店"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "coordinateKind": "Reviewed approximate venue/address/area centers. North up; local equirectangular metric projection. Not station entrances.",
+  "pixelsPerMeter": 0.026559557011372584,
+  "scaleBarMeters": 5000,
+  "insetPixelsPerMeter": 0.2675525121121022,
+  "insetScaleBarMeters": 200,
+  "insetPoints": [
+    "station",
+    "outlet",
+    "mori"
+  ],
+  "points": {
+    "hotel": [
+      35.68737667,
+      139.78874815
+    ],
+    "tokyo": [
+      35.68124,
+      139.76712
+    ],
+    "station": [
+      35.8762726,
+      139.8220868
+    ],
+    "outlet": [
+      35.8807814,
+      139.8248974
+    ],
+    "mori": [
+      35.882484,
+      139.828323
+    ]
+  },
+  "labels": [
+    [
+      "0",
+      "hotel",
+      "東橫INN 新大橋",
+      "飯店出發 → 東京站"
+    ],
+    [
+      "1",
+      "tokyo",
+      "東京站",
+      "京濱東北→南浦和→武藏野"
+    ],
+    [
+      "2",
+      "station",
+      "越谷 LakeTown 站",
+      "先到 OUTLET"
+    ],
+    [
+      "3",
+      "outlet",
+      "OUTLET",
+      "逛街館區"
+    ],
+    [
+      "4",
+      "mori",
+      "mori",
+      "一汁五穀在 mori 館"
+    ],
+    [
+      "5",
+      "tokyo",
+      "東京站",
+      "原路返站，核對接駁"
+    ],
+    [
+      "終",
+      "hotel",
+      "東橫INN 新大橋",
+      "回到同一飯店"
+    ]
+  ],
+  "pointSources": {
+    "hotel": "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "tokyo": "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
+    "station": "https://mapfan.com/spots/SCH%2CJ%2CCI2",
+    "outlet": "https://laketown.aeonmall.jp/access",
+    "mori": "https://laketown.aeonmall.jp/access"
+  },
+  "paths": [
+    [
+      "hotel",
+      "tokyo",
+      "out"
+    ],
+    [
+      "tokyo",
+      "station",
+      "out"
+    ],
+    [
+      "station",
+      "outlet",
+      "out"
+    ],
+    [
+      "outlet",
+      "mori",
+      "out"
+    ],
+    [
+      "mori",
+      "tokyo",
+      "home"
+    ],
+    [
+      "tokyo",
+      "hotel",
+      "home"
+    ]
+  ],
+  "sources": [
+    "https://www.toyoko-inn.com/china/search/detail/00176/",
+    "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
+    "https://www.toyoko-inn.com/eng/campaign/pickup/tokyo/",
+    "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
+    "https://laketown.aeonmall.jp/access",
+    "https://www.aeon-laketown.jp/mori/shop/store/food-foo_116.html",
+    "https://mapfan.com/spots/SCH,J,CI2"
+  ],
+  "note": "主圖為跨區比例；OUTLET／mori 在主圖幾乎重疊，下方放大框使用獨立比例尺。",
+  "limits": "Straight arrows indicate order and destination only; no railway alignment, walking length, journey duration, Forest entrance or guaranteed shuttle pickup."
+}
