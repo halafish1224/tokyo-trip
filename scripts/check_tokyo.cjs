@@ -21,8 +21,8 @@ assert(!trip.days[10].events.some(x=>/3COINS|青之洞窟/.test(x.title)));
 assert(trip.days[7].events.find(x=>x.id==='sheet-2026-12-20-r14').title.includes('全員'));
 assert(!trip.days[8].events.some(x=>/東京鐵塔|永井坂|龍翔軒/.test(x.title)));
 for(const [i,c] of trip.covers.entries()){assert.equal(c.date,dates[i]);assert(c.image.startsWith('images/covers/'));assert(fs.existsSync(path.join(root,c.image)));assert(c.source.startsWith('https://commons.wikimedia.org/'));const route=JSON.stringify({events:trip.days[i].events,guide:trip.days[i].guide});assert(c.keys.length===0||c.keys.some(k=>route.includes(k)),c.date+' cover does not match its route');}
-for(const f of ['boot.js','app.js','extra.js','illustrations.js','picturebook.js','sw.js'])new vm.Script(fs.readFileSync(path.join(root,f),'utf8'),{filename:f});
-for(const f of ['experience.css','picturebook.css','fonts/Huninn-Regular.woff2','fonts/OFL.txt','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg'])assert(fs.existsSync(path.join(root,f)));
+for(const f of ['boot.js','app.js','extra.js','illustrations.js','picturebook.js','date-bus.js','sw.js'])new vm.Script(fs.readFileSync(path.join(root,f),'utf8'),{filename:f});
+for(const f of ['experience.css','picturebook.css','date-bus.css','images/date-bus.svg','fonts/Huninn-Regular.woff2','fonts/OFL.txt','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg'])assert(fs.existsSync(path.join(root,f)));
 assert(!html.includes('experience.js'));assert(fs.readFileSync(path.join(root,'boot.js'),'utf8').includes("'extra.js'"));
 const app=fs.readFileSync(path.join(root,'app.js'),'utf8'),extra=fs.readFileSync(path.join(root,'extra.js'),'utf8'),sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
 const mapText=app.match(/const DAY_ROUTE_MAPS=(\{.*?\});\nfunction dayRouteMapHtml/s)?.[1];assert(mapText,'route map registry missing');
@@ -37,7 +37,7 @@ assert.equal(fs.readFileSync(path.join(root,'fonts/Huninn-Regular.woff2')).subar
 assert(fs.readFileSync(path.join(root,'fonts/OFL.txt'),'utf8').includes('SIL OPEN FONT LICENSE'));
 assert(html.includes('id="motion-toggle"')&&html.includes('id="departure-countdown"')&&html.includes('id="flight-cards"'));
 assert(!/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html));
-for(const asset of ['picturebook.css','illustrations.js','picturebook.js','fonts/Huninn-Regular.woff2'])assert(sw.includes("'"+asset+"'"),asset+' not in offline core');
+for(const asset of ['picturebook.css','illustrations.js','picturebook.js','date-bus.js','date-bus.css','images/date-bus.svg','fonts/Huninn-Regular.woff2'])assert(sw.includes("'"+asset+"'"),asset+' not in offline core');
 const book=fs.readFileSync(path.join(root,'picturebook.js'),'utf8'),art=fs.readFileSync(path.join(root,'illustrations.js'),'utf8');
 const sceneText=book.match(/const BOOK_SCENES=(\{[^;]+\});/)[1],rulesText=book.match(/const BOOK_SCENE_RULES=(\{[^;]+\});/)[1];
 for(const day of trip.days){const kind=vm.runInNewContext('('+sceneText+')[date]',{date:day.date});const matches=vm.runInNewContext('('+rulesText+')[kind].every(r=>r.test(route))',{kind,route:day.events.filter(e=>!e.inherited).map(e=>e.title).join(' ')});assert(matches,day.date+' illustration scene does not match route');const local=fs.readFileSync(path.join(root,'images/covers/'+day.date.slice(5).replace('-','')+'-picturebook.svg'),'utf8').trim();const generated=vm.runInNewContext(art+';pictureIllustration(kind,"原創旅行氣氛插畫")',{kind,h:x=>String(x)});assert.equal(local,generated,day.date+' illustration snapshot stale');assert(!/<text|gradient/i.test(local));}

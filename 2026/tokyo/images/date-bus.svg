@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 66" role="img" aria-label="原創卡通公車">
+ <g stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M9 12h57q14 0 18 16l4 14v11H7V24q0-12 12-12Z" fill="#F6D27A"/>
+  <rect x="16" y="20" width="15" height="16" rx="4" fill="#A8D3E6"/>
+  <rect x="37" y="20" width="15" height="16" rx="4" fill="#A8D3E6"/>
+  <path d="M60 20h8q7 0 9 13H60Z" fill="#A8D3E6"/>
+  <path d="M8 42h77" fill="none"/>
+  <path d="M60 39h15v14H60Z" fill="#FFFCF6"/>
+  <circle cx="25" cy="54" r="8" fill="#3E3A39"/><circle cx="74" cy="54" r="8" fill="#3E3A39"/>
+  <circle cx="25" cy="54" r="3" fill="#FFFCF6" stroke="none"/><circle cx="74" cy="54" r="3" fill="#FFFCF6" stroke="none"/>
+  <path d="M85 42h5v7h-5" fill="#F2A497"/>
+ </g>
+</svg>

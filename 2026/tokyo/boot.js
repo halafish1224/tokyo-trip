@@ -7,6 +7,6 @@ window.validateTrip=function(data){
 (async()=>{
  try {
   const r=await fetch('trip.json',{cache:'no-cache'});if(!r.ok)throw new Error('HTTP '+r.status);window.TRIP=validateTrip(await r.json());
-  for(const src of ['app.js','extra.js','illustrations.js','picturebook.js'])await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=reject;document.body.append(script);});
+  for(const src of ['app.js','extra.js','illustrations.js','picturebook.js','date-bus.js'])await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.onload=resolve;script.onerror=reject;document.body.append(script);});
  }catch(error){document.getElementById('experience-status').textContent='手冊未能載入。若尚未儲存離線，請連網重新開啟。';console.error(error);}
 })();

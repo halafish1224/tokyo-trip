@@ -5,12 +5,20 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'http://localhost:8765/2026/tokyo/'+query,runScripts:'dangerously',resources:new class extends ResourceLoader{fetch(url){return Promise.resolve(fs.readFileSync(root+'/'+new URL(url).pathname.split('/').pop()));}}(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
   const NativeDate=Date;w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[date]));}static now(){return new NativeDate(date).getTime();}};
   w.fetch=async(url,opts)=>{const u=new URL(url,w.location.href);if(u.hostname==='localhost')return new Response(fs.readFileSync(root+'/'+u.pathname.split('/').pop()),{status:200});return new Response('{}',{status:503});};
-  w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};w.CompressionStream=CompressionStream;w.DecompressionStream=DecompressionStream;w.TextEncoder=TextEncoder;w.Blob=Blob;w.Response=Response;
+  w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.scrollTo=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};w.CompressionStream=CompressionStream;w.DecompressionStream=DecompressionStream;w.TextEncoder=TextEncoder;w.Blob=Blob;w.Response=Response;
  }});
  await new Promise(r=>setTimeout(r,1200));const w=dom.window,d=w.document;
  assert.equal(errors.length,0,errors.join('\n'));assert(w.TokyoTrip,'app not initialized');
  assert(d.querySelector('.book-cover-art svg'));assert.equal(d.querySelectorAll('.flight-card').length,3);
  assert.equal(d.querySelector('#source-info').closest('.section').id,'sec-trans');
+ if(!query){assert.equal(d.querySelectorAll('[data-bus-day]').length,14);assert.equal(d.querySelector('[data-bus-day]').dataset.busDay,'d1');assert.equal(d.querySelectorAll('[data-bus-day]')[13].dataset.busDay,'d14');assert.equal(d.querySelector('[data-bus-day][aria-current=date]').dataset.busDay,w.eval('activeDay'));}else assert.equal(d.querySelectorAll('[data-bus-day]').length,0);
+ if(!query&&date.startsWith('2026-10')){
+  const vehicle=d.querySelector('#date-bus-vehicle');for(const stop of d.querySelectorAll('[data-bus-day]')){Object.defineProperty(stop,'offsetLeft',{get:()=>70*(Number(stop.dataset.busDay.slice(1))-1)});Object.defineProperty(stop,'offsetWidth',{get:()=>70});}
+  w.renderDateBus(false);d.querySelector('[data-bus-day=d14]').click();assert.equal(d.querySelector('#day-picker').value,'d14');assert.equal(vehicle.style.transform,'translateX(913px)');assert(vehicle.classList.contains('is-driving'));assert.equal(d.querySelector('.accordion-item').dataset.date,'2026-12-26');
+  d.querySelector('[data-bus-day=d1]').click();assert.equal(vehicle.style.transform,'translateX(3px)');assert(vehicle.classList.contains('go-left'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d1');
+  d.querySelector('#motion-toggle').click();d.querySelector('#day-picker').value='d7';d.querySelector('#day-picker').dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(vehicle.style.transition,'none');assert(!vehicle.classList.contains('is-driving'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d7');
+  d.querySelector('#motion-toggle').click();w.eval('viewMode="plan";renderApp();');
+ }
  d.querySelector('#motion-toggle').click();assert.equal(d.documentElement.dataset.motion,'reduce');
  const mode=d.body.dataset.mode;
  if(query){assert.equal(mode,'today');assert.equal(d.querySelectorAll('.accordion-item').length,1);assert(d.querySelector('.accordion-item').dataset.date.endsWith('12-21'));assert(d.body.classList.contains('family-mode'));}
