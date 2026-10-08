@@ -31,6 +31,8 @@ December 20–23 use responsive, text-based transit diagrams from reviewed stati
 
 The prominent date selector opens a native 14-day menu and selects the matching daily view, including Today. The decision board and source-backed transport, opening and ticket notes live only in the 隨身工具 tab; family links show the selected day's public decisions without personal check state. Local decision keys and backup formats are unchanged.
 
+The reading control offers opt-in 精簡 (18px root and tighter spacing), 大字 (22px, default) and 更大字 (26px). The existing `tokyo_reading_size_v1` device-local key stores the selection; unknown values fall back to 大字. Compact mode keeps touch controls at least 44px high and does not remove route, source or senior-rest information. Do not infer a visitor's age from their selection or propagate it into shared family links.
+
 Bump `sw.js` VERSION on any deployment changing application code, data or covers. CORE caches the text handbook and sharing assets; the explicit full-offline action also downloads all 14 covers, notes and local shopping photos. First visit must be online. Storage can be evicted by the OS: users should export a backup.
 
 Weather is a dated seven-day forecast; selected December dates outside that window display no temperature. Cached forecasts show the original update time. Exchange rates are estimates, never bank sell rates.

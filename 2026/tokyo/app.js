@@ -313,7 +313,7 @@ function renderThemes(){const q=$('theme-search').value.trim().toLowerCase(),see
  renderFoodContexts();
 }
 
-function setReading(value){const mode=value==='huge'?'huge':'large';document.documentElement.dataset.reading=mode;document.querySelectorAll('button[data-reading]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.reading===mode)));safeStorage.setItem('tokyo_reading_size_v1',mode);}
+function setReading(value){const mode=['compact','large','huge'].includes(value)?value:'large';document.documentElement.dataset.reading=mode;document.querySelectorAll('button[data-reading]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.reading===mode)));safeStorage.setItem('tokyo_reading_size_v1',mode);}
 function currentRouteHtml(day){return meaningfulEvents(day).length?`<div class="day-highlights"><strong>今日亮點</strong>${h(dailyTitle(day))}</div>`:'<p class="day-note">行程待補，今天自由安排。</p>';}
 function usefulInfoHtml(event){return '';}
 function updateNavigationMetrics() {

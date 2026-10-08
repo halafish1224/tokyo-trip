@@ -28,3 +28,25 @@ body[data-mode=today] .day-sidebar{display:block;position:static;max-height:none
 
 .decision-references{margin-top:22px;border-top:1px solid #bdc9bb;padding-top:14px}.decision-references>summary{cursor:pointer;min-height:44px;font-weight:800}.decision-reference{padding:12px 0;border-bottom:1px solid #dce5dc}.decision-reference h3{font-size:1rem;margin:0 0 6px}.decision-reference p{font-size:.87rem;margin:0 0 8px}.decision-reference .btn{min-height:44px}
 .decision .btn{min-height:44px}
+
+/* Opt-in compact reading. Keep controls large enough to use on a phone. */
+html[data-reading=compact]{font-size:18px}
+html[data-reading=compact] body{line-height:1.55}
+html[data-reading=compact] .reading-tools{padding:8px 0}
+html[data-reading=compact] .reading-controls{flex-wrap:wrap}
+html[data-reading=compact] .reading-controls .btn{min-width:72px}
+html[data-reading=compact] .btn,html[data-reading=compact] .btn-small{min-height:44px;padding:8px 12px}
+html[data-reading=compact] input,html[data-reading=compact] textarea,html[data-reading=compact] select{min-height:44px}
+html[data-reading=compact] .day-picker{min-height:48px}
+html[data-reading=compact] .panel{padding:15px}
+html[data-reading=compact] .accordion{gap:12px}
+html[data-reading=compact] .accordion-button{padding:12px 14px;min-height:48px}
+html[data-reading=compact] .accordion-body{padding:15px}
+html[data-reading=compact] .event{padding:13px 0 17px}
+html[data-reading=compact] .event-time{margin-bottom:6px}
+html[data-reading=compact] .event-tools{margin:9px 0;gap:7px}
+html[data-reading=compact] .food-card,html[data-reading=compact] .tour-card,html[data-reading=compact] .venue-card{padding:13px}
+html[data-reading=compact] .route-box{padding:12px;line-height:1.6}
+html[data-reading=compact] .day-route-map{padding:12px}
+html[data-reading=compact] .small,html[data-reading=compact] small,html[data-reading=compact] .event-meta{font-size:max(.78rem,14px)}
+@media(max-width:600px){html[data-reading=compact] .panel{padding:13px}html[data-reading=compact] .accordion-body{padding:13px}html[data-reading=compact] .wrap{padding:0 14px}}
