@@ -5,7 +5,7 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'http://localhost:8765/2026/tokyo/'+query,runScripts:'dangerously',resources:new class extends ResourceLoader{fetch(url){return Promise.resolve(fs.readFileSync(root+'/'+new URL(url).pathname.split('/').pop()));}}(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
   const NativeDate=Date;w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[date]));}static now(){return new NativeDate(date).getTime();}};
   w.fetch=async(url,opts)=>{const u=new URL(url,w.location.href);if(u.hostname==='localhost')return new Response(fs.readFileSync(root+'/'+u.pathname.split('/').pop()),{status:200});return new Response('{}',{status:503});};
-  w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.scrollTo=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};w.CompressionStream=CompressionStream;w.DecompressionStream=DecompressionStream;w.TextEncoder=TextEncoder;w.Blob=Blob;w.Response=Response;
+  w.matchMedia=()=>({matches:false,addEventListener(){}});w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.scrollTo=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};w.CompressionStream=CompressionStream;w.DecompressionStream=DecompressionStream;w.TextEncoder=TextEncoder;w.Blob=Blob;w.Response=Response;
  }});
  await new Promise(r=>setTimeout(r,1200));const w=dom.window,d=w.document;
  assert.equal(errors.length,0,errors.join('\n'));assert(w.TokyoTrip,'app not initialized');
@@ -18,6 +18,14 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
   d.querySelector('[data-bus-day=d1]').click();assert.equal(vehicle.style.transform,'translateX(3px)');assert(vehicle.classList.contains('go-left'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d1');
   d.querySelector('#motion-toggle').click();d.querySelector('#day-picker').value='d7';d.querySelector('#day-picker').dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(vehicle.style.transition,'none');assert(!vehicle.classList.contains('is-driving'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d7');
   d.querySelector('#motion-toggle').click();w.eval('viewMode="plan";renderApp();');
+  const card=d.getElementById('d8'),original=card;
+  card.getBoundingClientRect=()=>({top:0,bottom:1000,height:1000});
+  w.dispatchEvent(new w.Event('scroll'));await new Promise(r=>setTimeout(r,30));
+  assert.equal(w.eval('activeDay'),'d8');assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d8');assert.equal(d.getElementById('d8'),original);assert(d.getElementById('date-bus-theme').textContent.startsWith('12/20'));
+  // Explicit full motion must override an OS reduce preference, without disabling control.
+  w.eval("Object.defineProperty(motionQuery || {}, 'matches', {value:true,configurable:true})");
+  w.localStorage.setItem('tokyo_motion_v1','full');w.applyMotion();assert.equal(d.documentElement.dataset.motion,'full');assert.equal(d.getElementById('motion-toggle').disabled,false);
+
  }
  d.querySelector('#motion-toggle').click();assert.equal(d.documentElement.dataset.motion,'reduce');
  const mode=d.body.dataset.mode;

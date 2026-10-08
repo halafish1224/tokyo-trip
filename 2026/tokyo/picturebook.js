@@ -35,8 +35,8 @@ eventHtml=function(e,day){
  return markup;
 };
 const motionQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
-function reducedMotion(){return !!motionQuery?.matches||safeStorage.getItem('tokyo_motion_v1')==='reduce';}
-function applyMotion(){const reduce=reducedMotion();document.documentElement.dataset.motion=reduce?'reduce':'full';const checkbox=$('motion-toggle');checkbox.checked=reduce;checkbox.disabled=!!motionQuery?.matches;checkbox.title=checkbox.disabled?'依裝置的「減少動態效果」設定停用動畫':'僅在此裝置儲存';}
+function reducedMotion(){const preference=safeStorage.getItem('tokyo_motion_v1');return preference==='full'?false:preference==='reduce'?true:!!motionQuery?.matches;}
+function applyMotion(){const reduce=reducedMotion();document.documentElement.dataset.motion=reduce?'reduce':'full';const checkbox=$('motion-toggle');checkbox.checked=reduce;checkbox.disabled=false;checkbox.title='勾選減少動態；取消即可播放動畫。僅在此裝置儲存。';document.dispatchEvent(new Event('tokyo-motion-change'));}
 motionQuery?.addEventListener?.('change',applyMotion);
 $('motion-toggle').addEventListener('change',event=>{safeStorage.setItem('tokyo_motion_v1',event.target.checked?'reduce':'full');applyMotion();});
 function renderCountdown(){
