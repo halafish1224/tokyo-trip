@@ -1,5 +1,5 @@
 /* Cache only this trip's public assets. Private notes never leave localStorage. */
-const VERSION='tokyo-v2-20261008-routes5';
+const VERSION='tokyo-v2-20261008-routes5-market1';
 const CORE=['./','index.html','boot.js','app.js','extra.js','experience.css','trip.json','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg','images/routes/1220-route.svg','images/routes/1221-route.svg','images/routes/1221-sources.json','images/routes/1222-route.svg','images/routes/1222-sources.json','images/routes/1223-route.svg','images/routes/1223-sources.json','images/routes/1224-route.svg','images/routes/1224-sources.json','images/routes/1220-sources.json'];
 const freshRequest=url=>new Request(new URL(url,location.href),{cache:'reload'});
 const FULL=[...CORE,'archive.json',...Array.from({length:14},(_,i)=>`images/covers/12${i+13}.webp`),'images/buy/buy-images.json',...Array.from({length:16},(_,i)=>`images/buy/${String(i+1).padStart(2,'0')}.webp`)];
