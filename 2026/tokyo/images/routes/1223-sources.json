@@ -1,0 +1,81 @@
+{
+  "checked": "2026-10-08",
+  "day": "2026-12-23",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "11:30",
+      "12/23 11:30 叙叙苑 涩谷店 03-5459-8989 預約待確認"
+    ],
+    [
+      "14:30",
+      "LOFT 最大店( 創始總店「澀谷 LoFt」（Shibuya Loft）)"
+    ],
+    [
+      "16:30",
+      "3COINS 旗艦店"
+    ],
+    [
+      "18:00",
+      "青之洞窟"
+    ],
+    [
+      "19:00",
+      "千代田站回"
+    ],
+    [
+      "20:00",
+      "薩莉亞 Saizeriya 日本橋濱町店"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "sources": [
+    "https://www.jojoen.co.jp/shop/jojoen/shibuya/",
+    "https://mapfan.com/spots/S34QI,FJ66,M9S7W",
+    "https://www.loft.co.jp/shop_list/detail.php?shop_id=189",
+    "https://mapfan.com/spots/SCQ5Q,001,R",
+    "https://www.palcloset.jp/addons/pal/shoplist/detail/?brandshop_no=1505",
+    "https://www.palcloset.jp/display/article/detail/?acd=2203313co_you",
+    "https://shibuya-aonodokutsu.jp/",
+    "https://msearch.gsi.go.jp/address-search/AddressSearch"
+  ],
+  "points": {
+    "jojo": [
+      35.65993273,
+      139.69903266
+    ],
+    "loft": [
+      35.6610315,
+      139.6994567
+    ],
+    "coins": [
+      35.666954,
+      139.704422
+    ]
+  },
+  "panels": [
+    {
+      "title": "澀谷 → 原宿方向：候選分店先看方位",
+      "bounds": [
+        139.694,
+        35.657,
+        139.709,
+        35.67
+      ],
+      "pixelsPerMeter": 0.6011774786475925,
+      "scaleBarMeters": 300
+    }
+  ],
+  "coordinateKind": "Approximate venue/address/area centers, not entrances. Route lines are schematic. kaze is orientation only; mori marks the building area, not the restaurant door.",
+  "notes": [
+    "實線只連已定位的澀谷午餐與Loft；原宿本店是候選，不是已選行程。",
+    "青之洞窟未指定2026會場，不畫成已確認景點。",
+    "19:00「千代田站回」不代表某一座已確認車站。20:00 浜町晚餐另查交通。"
+  ]
+}

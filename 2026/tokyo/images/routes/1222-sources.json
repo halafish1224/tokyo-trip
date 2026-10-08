@@ -1,0 +1,117 @@
+{
+  "checked": "2026-10-08",
+  "day": "2026-12-22",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "09:30",
+      "八十八淺草(9點營業)"
+    ],
+    [
+      "10:10",
+      "淺草寺參拜 & 雷門 \n10:50合羽橋買濾紙"
+    ],
+    [
+      "11:00",
+      "漫步往上野"
+    ],
+    [
+      "12:30",
+      "12/22\n12:30 敘敘苑 上野丸井店 03-3833-8989 預約待確認"
+    ],
+    [
+      "14:30",
+      "domremy outlet Ueno Station"
+    ],
+    [
+      "15:00",
+      "上野周邊 OS DRUG"
+    ],
+    [
+      "16:30",
+      "上野阿美橫町採買 (名代宇奈тото / 二木菓子)"
+    ],
+    [
+      "20:00",
+      "薩莉亞 Saizeriya 日本橋濱町店"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "sources": [
+    "https://www.8108kyoto.com/",
+    "https://www.senso-ji.jp/guide/guide01.html",
+    "https://www.kappabashi.or.jp/zh-TW/",
+    "https://mapfan.com/spots/SCC4Y,J,PE",
+    "https://mapfan.com/spots/S5QQC,01EE,6HBHD0",
+    "https://www.jojoen.co.jp/shop/jojoen/marui/",
+    "https://www.domremy.com/outlet/uenoshinobazu/",
+    "https://www.ameyoko.net/shop/307",
+    "https://msearch.gsi.go.jp/address-search/AddressSearch"
+  ],
+  "points": {
+    "tea": [
+      35.714535,
+      139.801468
+    ],
+    "temple": [
+      35.71477,
+      139.79666
+    ],
+    "kapp": [
+      35.7142343,
+      139.7888806
+    ],
+    "ueno": [
+      35.7108511,
+      139.7758221
+    ],
+    "sweet": [
+      35.711048,
+      139.775635
+    ],
+    "os": [
+      35.710835,
+      139.774551
+    ],
+    "ame": [
+      35.71012,
+      139.77452
+    ]
+  },
+  "panels": [
+    {
+      "title": "上午：從淺草往西走到上野",
+      "bounds": [
+        139.77,
+        35.707,
+        139.805,
+        35.722
+      ],
+      "pixelsPerMeter": 0.2908204100709547,
+      "scaleBarMeters": 500
+    },
+    {
+      "title": "上野放大：甜點與採買都在這一帶",
+      "bounds": [
+        139.7725,
+        35.709,
+        139.7775,
+        35.7124
+      ],
+      "pixelsPerMeter": 1.202151719473562,
+      "scaleBarMeters": 100
+    }
+  ],
+  "coordinateKind": "Approximate venue/address/area centers, not entrances. Route lines are schematic. kaze is orientation only; mori marks the building area, not the restaurant door.",
+  "notes": [
+    "八十八地址以品牌官網為準；座標為國土地理院地址定位。",
+    "合羽橋→上野可步行或搭車；連線不是逐街導航。",
+    "16:30 阿美橫町：宇奈とと／二木菓子分店依各站資料確認。20:00 返回浜町用餐。"
+  ]
+}

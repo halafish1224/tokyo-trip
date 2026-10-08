@@ -1,0 +1,82 @@
+{
+  "checked": "2026-10-08",
+  "day": "2026-12-24",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "10:00",
+      "出發 越谷 AEON Mall LakeTown OUTLET (美食街)"
+    ],
+    [
+      "11:30",
+      "一汁五穀"
+    ],
+    [
+      "20:00",
+      "薩莉亞 Saizeriya 日本橋濱町店"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "sources": [
+    "https://mapfan.com/spots/SCH,J,CI2",
+    "https://mapfan.com/spots/SCQ53,J,70",
+    "https://laketown.aeonmall.jp/access",
+    "https://laketown.aeonmall.jp/",
+    "https://www.aeon-laketown.jp/mori/shop/store/food-foo_116.html",
+    "https://msearch.gsi.go.jp/address-search/AddressSearch"
+  ],
+  "points": {
+    "ham": [
+      35.68737667,
+      139.78874815
+    ],
+    "station": [
+      35.8762726,
+      139.8220868
+    ],
+    "outlet": [
+      35.8807814,
+      139.8248974
+    ],
+    "mori": [
+      35.882484,
+      139.828323
+    ]
+  },
+  "panels": [
+    {
+      "title": "跨區總覽：東京往北到埼玉越谷",
+      "bounds": [
+        139.7,
+        35.66,
+        139.91,
+        35.91
+      ],
+      "pixelsPerMeter": 0.02012217031979878,
+      "scaleBarMeters": 5000
+    },
+    {
+      "title": "商場放大：Outlet和mori是不同館",
+      "bounds": [
+        139.819,
+        35.874,
+        139.832,
+        35.885
+      ],
+      "pixelsPerMeter": 0.37157416783733926,
+      "scaleBarMeters": 200
+    }
+  ],
+  "coordinateKind": "Approximate venue/address/area centers, not entrances. Route lines are schematic. kaze is orientation only; mori marks the building area, not the restaurant door.",
+  "notes": [
+    "上圖看東京／越谷遠近，下圖看商場；兩個比例尺不可混用。",
+    "mori標示館區中心；餐廳門口另看樓層圖。",
+    "20:00 浜町晚餐；回程交通與時間請另查。"
+  ]
+}

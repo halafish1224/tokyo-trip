@@ -25,6 +25,8 @@ Venue `availability` rules describe only source-backed opening times or weekly c
 
 ## Offline and state
 
+Geographic route illustrations for December 20–24 are reviewed snapshots in `images/routes/`. They appear below the daily cover, include independent scale bars, and open as local SVGs in a new tab. All five maps and their source records are in CORE. `DAY_ROUTE_MAPS` compares the full date's time/title basis before rendering; changed itineraries suppress the old illustration. Do not call `scripts/build_route_maps.py` in nightly compilation: review its dated coordinates, labels, candidates and route lines before intentionally renewing a snapshot. The December 21 A/B branches are simultaneous; December 23's Harajuku 3COINS is explicitly a candidate, while unannounced illuminations and unspecified return stations remain unpinned. Diagram connections are not road or timetable navigation.
+
 Bump `sw.js` VERSION on any deployment changing application code, data or covers. CORE caches the text handbook and sharing assets; the explicit full-offline action also downloads all 14 covers, notes and local shopping photos. First visit must be online. Storage can be evicted by the OS: users should export a backup.
 
 Weather is a dated seven-day forecast; selected December dates outside that window display no temperature. Cached forecasts show the original update time. Exchange rates are estimates, never bank sell rates.

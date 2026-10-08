@@ -1,0 +1,123 @@
+{
+  "checked": "2026-10-08",
+  "day": "2026-12-21",
+  "basis": [
+    [
+      "07:00",
+      "準時起床 早餐"
+    ],
+    [
+      "08:30",
+      "分流A: 柴又老街 (高木屋)"
+    ],
+    [
+      "09:30",
+      "分流 B: teamLab 豐洲 (壽司大)"
+    ],
+    [
+      "13:30",
+      "神谷町站2號出口匯流"
+    ],
+    [
+      "13:50",
+      "東京鐵塔 (周邊外看內)"
+    ],
+    [
+      "14:00",
+      "永井坂坡道小巷"
+    ],
+    [
+      "15:00",
+      "綠地草坪 35.6558, 139.7490"
+    ],
+    [
+      "16:00",
+      "往三田路"
+    ],
+    [
+      "17:30",
+      "龍翔軒 中華料理"
+    ],
+    [
+      "18:00",
+      "聖誕市集(為了聖誕杯線上購票)"
+    ],
+    [
+      "20:00",
+      "薩莉亞 Saizeriya 日本橋濱町店"
+    ],
+    [
+      "22:00",
+      "浜町住宿據點"
+    ]
+  ],
+  "sources": [
+    "https://www.taishakuten.com/visit-info",
+    "https://www.takagiya.co.jp/access2.html",
+    "https://teamlabplanets.dmm.com/zh_tw/help",
+    "https://mapfan.com/spots/SCH,J,6JT",
+    "https://zh.tokyotower.co.jp/",
+    "https://tokyochristmas.net/shiba/",
+    "https://mapfan.com/spots/SCH,J,KDT"
+  ],
+  "points": {
+    "ham": [
+      35.68737667,
+      139.78874815
+    ],
+    "shiba": [
+      35.75899,
+      139.878
+    ],
+    "planets": [
+      35.649075,
+      139.789525
+    ],
+    "kami": [
+      35.6629335,
+      139.7450324
+    ],
+    "tower": [
+      35.65858,
+      139.74543
+    ],
+    "grass": [
+      35.6558,
+      139.749
+    ],
+    "market": [
+      35.660709,
+      139.7513109
+    ]
+  },
+  "panels": [
+    {
+      "title": "上午：東北的柴又／南邊的豐洲",
+      "bounds": [
+        139.73,
+        35.64,
+        139.9,
+        35.78
+      ],
+      "pixelsPerMeter": 0.03593244699964053,
+      "scaleBarMeters": 5000
+    },
+    {
+      "title": "午後放大：會合後一起走",
+      "bounds": [
+        139.741,
+        35.653,
+        139.756,
+        35.665
+      ],
+      "pixelsPerMeter": 0.34060965385074765,
+      "scaleBarMeters": 300
+    }
+  ],
+  "coordinateKind": "Approximate venue/address/area centers, not entrances. Route lines are schematic. kaze is orientation only; mori marks the building area, not the restaurant door.",
+  "notes": [
+    "A／B 是同時分流，不是先去柴又再去豐洲。",
+    "16:00 往三田、17:30 用餐；18:00 市集在御成門方向，須再往北。",
+    "永井坂與龍翔軒未定位，不畫出假店址。市集只標御成門駅前會場周邊。"
+  ]
+}
