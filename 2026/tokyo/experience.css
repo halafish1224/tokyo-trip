@@ -8,3 +8,13 @@
 .family-mode .toplinks [data-open-section=trip],.family-mode #now-button,.family-mode #check-count{display:none!important}
 
 .day-route-map{margin:1.2rem 0;padding:clamp(12px,3vw,24px);background:#fff9ed;border:2px solid #b8c4ac;border-radius:12px;min-width:0}.day-route-map h3{margin:0 0 .7rem;font-size:1.25rem}.day-route-map>a{display:block}.day-route-map img{display:block;width:100%;height:auto;max-width:760px;margin:auto}.day-route-map figcaption{margin-top:.8rem;line-height:1.6}.day-route-map .btn{min-height:48px;white-space:normal;margin-top:.6rem;border:2px solid #173e32}.route-map-warning{padding:.8rem;border-left:4px solid #a52d3c;background:#fff0df;font-size:1rem}.day-route-map details{margin-top:1rem}.day-route-map details p{overflow-wrap:anywhere}
+
+/* A consistent orange rest cue across day palettes; words and status carry meaning too. */
+.senior-stop{margin:12px 0;border:2px solid #a64d00;border-radius:10px;background:#fff3df;color:#282219;min-width:0;overflow-wrap:anywhere}
+.senior-stop summary{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;min-height:52px;padding:11px 14px;background:#f5a444;color:#242017;cursor:pointer;list-style:none;line-height:1.45}
+.senior-stop summary::-webkit-details-marker{display:none}.senior-stop summary:after{content:'展開資訊 ▾';font-size:.83em;font-weight:700;margin-left:auto;white-space:nowrap}.senior-stop[open] summary:after{content:'收合資訊 ▴'}
+.senior-stop-label{font-weight:900;white-space:nowrap}.senior-stop-name{font-weight:700;min-width:0}.senior-stop-pending summary{background:#f9bf70}
+.senior-stop-body{padding:14px;line-height:1.65}.senior-stop-body>strong{font-size:1.05em}.senior-stop-body p{margin:.45em 0}.senior-stop-caution{border-left:4px solid #9b4b06;padding-left:10px}
+.senior-stop dl{display:grid;grid-template-columns:3.6em minmax(0,1fr);gap:4px 8px;margin:.5em 0}.senior-stop dt{font-weight:800}.senior-stop dd{margin:0;overflow-wrap:anywhere}.senior-stop .btn{min-height:44px;white-space:normal}
+@media(max-width:700px){.senior-stop summary{align-items:flex-start}.senior-stop summary:after{margin-left:0}.senior-stop dl{grid-template-columns:1fr}.senior-stop dd{margin-bottom:5px}}
+.optional-route{margin:22px 0;min-width:0}.optional-route h3{font-size:1.12rem}.optional-route-card{padding:16px;border:2px solid #587189;border-radius:10px;background:#f2f7fa;color:#1e2c38;overflow-wrap:anywhere;line-height:1.6}.optional-route-card h4{font-size:1.2rem;margin:.6em 0 .2em}.optional-route-card p{margin:.6em 0}.optional-route-warning{padding:12px;border-left:5px solid #a34829;background:#fff1e8}.optional-route-card .btn{min-height:44px;white-space:normal}

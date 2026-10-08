@@ -29,7 +29,7 @@ def route_basis(events):
  return hashlib.sha256('\n'.join(titles).encode()).hexdigest()[:16]
 def apply_enrichment(trip,patch):
  # Only public, researched metadata. The private row snapshot is a separate input.
- allowed={'venues','travel','decisions','sources','foods','places','guides','covers'}
+ allowed={'venues','travel','decisions','sources','foods','places','guides','covers','seniorStops','optionalEvents'}
  if not isinstance(patch,dict) or set(patch)-allowed:raise ValueError('Unexpected enrichment keys')
  guides=patch.get('guides',{})
  if set(guides)-set(DATES):raise ValueError('Unexpected guide date')
@@ -46,6 +46,26 @@ def apply_enrichment(trip,patch):
  for day in trip['days']:
   if day['date'] in guides:day['guide']={**day['guide'],**guides[day['date']]}
  return set(guides)
+def validate_senior_stops(trip):
+ events={e['id']:e for d in trip['days'] for e in d['events']}
+ stops=trip.get('seniorStops',[])
+ if not isinstance(stops,list):raise ValueError('Expected seniorStops list')
+ seen=set()
+ for stop in stops:
+  if not isinstance(stop,dict) or not all(str(stop.get(k,'')).strip() for k in ('eventId','anchor','for','name','ja','address','hours','why','source','checked','status')):raise ValueError('Incomplete senior stop')
+  event=events.get(stop['eventId'])
+  if not event or not '2026-12-20'<=stop['eventId'][6:16]<='2026-12-25' or stop['anchor'] not in event['title']:raise ValueError('Senior stop route anchor no longer matches Sheet: '+stop['eventId'])
+  if not stop['source'].startswith('https://') or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',stop['checked']):raise ValueError('Senior stop source/date missing')
+  if stop['status'] not in ('官方已核實','待核對'):raise ValueError('Unexpected senior stop status')
+  key=(stop['eventId'],stop['for'])
+  if key in seen:raise ValueError('Duplicate senior stop: '+stop['eventId'])
+  seen.add(key)
+def validate_optional_events(trip):
+ dates=set(DATES);seen=set()
+ for item in trip.get('optionalEvents',[]):
+  if not isinstance(item,dict) or not all(str(item.get(k,'')).strip() for k in ('id','date','title','ja','address','hours','route','caution','source','checked','status')):raise ValueError('Incomplete optional event')
+  if item['id'] in seen or item['date'] not in dates or item['status']!='官方已核實' or not item['source'].startswith('https://') or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',item['checked']):raise ValueError('Invalid optional event')
+  seen.add(item['id'])
 def check_availability(day,event,venues):
  alerts=[]
  for v in venues:
@@ -123,6 +143,8 @@ def main():
  previous=json.dumps(trip,ensure_ascii=False,separators=(',',':'))
  enriched=apply_enrichment(trip,json.loads(args.enrichment.read_text())) if args.enrichment else set()
  trip=compile_rows(rows,trip,enriched)
+ validate_senior_stops(trip)
+ validate_optional_events(trip)
  # A no-change sync does not manufacture new source verification dates.
  content=json.dumps(trip,ensure_ascii=False,separators=(',',':'))
  if not args.check and content!=previous:
