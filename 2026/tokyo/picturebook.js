@@ -24,7 +24,7 @@ function transportTags(e){
  return tags.length?`<span class="transport-tags" aria-label="原行程提到的交通方式">${tags.slice(0,2).map(([kind,label])=>`<span class="transport-tag ${kind}">${label}</span>`).join('')}</span>`:'';
 }
 const bookBaseCover=dayCoverHtml;
-dayCoverHtml=function(day){const source='images/covers/'+day.date.slice(5).replace('-','')+'-picturebook.svg',kind=BOOK_SCENES[day.date]||'tokyo',route=meaningfulEvents(day).map(e=>e.title).join(' '),match=(BOOK_SCENE_RULES[kind]||[]).every(rule=>rule.test(route));return `<figure class="book-cover"><div class="book-cover-art" data-local-illustration="${source}">${pictureIllustration(kind,match?dailyFeature(day).title+' · 原創氣氛插畫':'前版氣氛插畫，路線更新後待核對')}</div><figcaption>DAY ${String(day.number).padStart(2,'0')} · ${h(day.guide.area)} · ${ext(source,'原創氣氛插畫 ↗')}${match?'':' · 插畫待依新路線更新'}</figcaption></figure><details class="reference-photo"><summary>看看這天的旅景照片</summary>${bookBaseCover(day)}<p class="small">照片作者、來源與授權列於隨身工具的圖片來源。</p></details>`;};
+dayCoverHtml=function(day){const source='images/covers/'+day.date.slice(5).replace('-','')+'-picturebook.svg',kind=BOOK_SCENES[day.date]||'tokyo',route=meaningfulEvents(day).map(e=>e.title).join(' '),match=(BOOK_SCENE_RULES[kind]||[]).every(rule=>rule.test(route));return `<figure class="book-cover"><div class="book-cover-art" data-local-illustration="${source}">${pictureIllustration(kind,match?dailyFeature(day).title+' · 原創氣氛插畫':'前版氣氛插畫，路線更新後待核對')}</div><figcaption>DAY ${String(day.number).padStart(2,'0')} · ${h(day.guide.area)} · ${ext(source,'原創氣氛插畫 ↗')}${match?'':' · 插畫待依新路線更新'}</figcaption></figure><section class="reference-photo" aria-label="當日景點照片">${bookBaseCover(day)}<p class="photo-credit-hint">照片授權見「隨身工具」。</p></section>`;};
 const bookBaseEvent=eventHtml;
 eventHtml=function(e,day){
  let markup=bookBaseEvent(e,day);
@@ -54,7 +54,7 @@ function renderPacking(){
  const target=$('packing-checklist');target.hidden=familyMode;
  if(familyMode){target.innerHTML='';return;}
  const done=PACKING_ITEMS.filter(([id])=>bookState.packing[id]).length;
- target.innerHTML=`<h2>隨身物品待辦 <span class="badge">${done} / ${PACKING_ITEMS.length}</span></h2><p class="small">勾選僅存在此裝置，可隨完整備份或備份碼匯出。</p><ul class="packing-list">${PACKING_ITEMS.map(([id,label])=>`<li><label class="packing-item"><input type="checkbox" data-packing="${id}"${bookState.packing[id]?' checked':''}><span>${label}</span></label></li>`).join('')}</ul>`;
+ target.innerHTML=`<h2>隨身物品待辦 <span class="badge">${done} / ${PACKING_ITEMS.length}</span></h2><p class="small">勾選自動儲存於此裝置。</p><ul class="packing-list">${PACKING_ITEMS.map(([id,label])=>`<li><label class="packing-item"><input type="checkbox" data-packing="${id}"${bookState.packing[id]?' checked':''}><span>${label}</span></label></li>`).join('')}</ul>`;
 }
 function enhanceBook(){document.body.dataset.section=currentSection;renderCountdown();renderFlights();renderPacking();}
 const bookBaseRender=renderApp;
@@ -83,4 +83,8 @@ $('hero-illustration').innerHTML=pictureIllustration('tokyo','東京與湘南的
 // Keep the Tools heading before hotel contact cards.
 if($('hotel-directory'))$('sec-trans').querySelector('.page-heading').insertAdjacentElement('afterend',$('hotel-directory'));
 if($('source-info'))$('sec-trans').append($('source-info'));
+// Put the trip overview before the less frequently consulted flight cards.
+$('overview').insertAdjacentElement('afterend',$('flight-overview'));
+// Keep daily browsing ahead of optional weather/location tools.
+document.querySelector('.filters').insertAdjacentElement('afterend',document.querySelector('.travel-support'));
 applyMotion();renderApp();updateNavigationMetrics();
