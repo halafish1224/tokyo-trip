@@ -1,7 +1,7 @@
 name: Tokyo validated Sheet compiler
 on:
   schedule:
-    - cron: '17 19 * * *' # Taiwan 03:17; content enrichment runs separately around 02:00
+    - cron: '17 19 * * *' # Taiwan 03:17; bidirectional connector sync runs on its existing schedule
   workflow_dispatch:
 permissions:
   contents: write
@@ -38,6 +38,6 @@ jobs:
           PY
           git config user.name "Tokyo trip data updater"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add 2026/tokyo/trip.json 2026/tokyo/sw.js
+          git add 2026/tokyo/trip.json 2026/tokyo/sw.js 2026/tokyo/research/sync-state.json
           git commit -m "Update validated Tokyo trip data from Sheet"
           git push origin HEAD:main

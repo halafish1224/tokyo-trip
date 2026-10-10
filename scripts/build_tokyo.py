@@ -80,6 +80,7 @@ def check_availability(day,event,venues):
  return alerts
 def authorized_rows(rows,config=None):
  config=config if config is not None else json.loads((ROOT/'research/user-schedule.json').read_text())
+ if config.get('mode')=='sheet-source':return rows,config
  head=next((i for i,r in enumerate(rows) if sum(bool(re.search(r'12/\d+',str(x or ''))) for x in r[1:])==14),None)
  if head is None:raise ValueError('Must include complete date header')
  cols=[DATES.index(date)+1 for date in config['dates']]
@@ -118,6 +119,7 @@ def compile_rows(rows,trip,enriched_guides=(),schedule=None):
    if '成田 Terminal' in title or '京成 Access' in title or '班機起飛' in title:nav='成田空港第2ターミナル'
    if title.startswith('成田空港') or '成田機場>' in title:nav='藤沢駅' if '藤澤' in title else '浜町駅'
    event={'id':f'sheet-{day["date"]}-r{ri+1}','time':explicit or time,'title':title,'note':'','map':'','raw':text,'cell':chr(65+ci)+str(ri+1),'inherited':inherited,'slot':time,'explicit':bool(explicit),'origin':'sheet','venueIds':ids,'navigation':nav,'area':areas[ci-1]}
+   event['id']=(schedule or {}).get('sheetEventAliases',{}).get(event['cell'],event['id'])
    alerts=check_availability(day,event,matched)
    if alerts:event['alerts']=alerts
    day['events'].append(event)
@@ -156,6 +158,9 @@ def main():
   with urllib.request.urlopen(request,timeout=30) as r:text=r.read(2000000).decode('utf-8-sig')
   if text.lstrip().startswith('<'):raise SystemExit('Received login/HTML instead of CSV')
   rows=list(csv.reader(io.StringIO(text)))
+ from plan_tokyo_sync import protect_web_edits,sheet_cells,baseline
+ state_path=ROOT/'research/sync-state.json'
+ if state_path.exists():protect_web_edits(rows,trip,json.loads(state_path.read_text()),public_text)
  previous=json.dumps(trip,ensure_ascii=False,separators=(',',':'))
  enriched=apply_enrichment(trip,json.loads(args.enrichment.read_text())) if args.enrichment else set()
  rows,schedule=authorized_rows(rows)
@@ -166,5 +171,9 @@ def main():
  content=json.dumps(trip,ensure_ascii=False,separators=(',',':'))
  if not args.check and content!=previous:
   trip['updatedAt']=datetime.datetime.now(datetime.timezone.utc).isoformat();target=ROOT/'trip.json';temp=target.with_suffix('.tmp');temp.write_text(json.dumps(trip,ensure_ascii=False,separators=(',',':')));temp.replace(target)
+ if not args.check and state_path.exists():
+  state=json.loads(state_path.read_text());cells=baseline(sheet_cells(rows,public_text))
+  if state['cells']!=cells:
+   state.update(cells=cells,observedAt=datetime.datetime.now(datetime.timezone.utc).isoformat());state.pop('verifiedSheetModifiedAt',None);state_path.write_text(json.dumps(state,ensure_ascii=False,indent=2)+'\n')
  print(f'Validated 14 days and {trip["sourceCellCount"]} non-empty cells')
 if __name__=='__main__':main()

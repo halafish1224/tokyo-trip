@@ -4,41 +4,14 @@
     "2026-12-22",
     "2026-12-25"
   ],
-  "sourceBasis": [
-    "edfc142dbcb4c3e8bf910735eed49b5503c4ee24ebf6d77db53220a05b08c7e9",
-    "f5929b45e75e97e4a4c7a4573557e5b363569650a864e8b67f3240ffcd087640"
-  ],
-  "note": "使用者授權手冊對調；Sheet 保持唯讀。原訂位日期保留，需聯絡餐廳改期。",
-  "additions": [
-    {
-      "id": "plan-2026-12-22-honganji",
-      "time": "09:30",
-      "title": "築地本願寺：看建築與動物石雕，免費參觀",
-      "navigation": "築地本願寺 東京都中央区築地3-15-1"
-    },
-    {
-      "id": "plan-2026-12-22-market",
-      "time": "10:15",
-      "title": "築地場外市場慢逛；每段依長輩體力休息",
-      "navigation": "築地場外市場"
-    },
-    {
-      "id": "plan-2026-12-22-lunch",
-      "time": "11:30",
-      "title": "築地午餐：魚河岸食堂（鳥藤／東都グリル二選一）",
-      "navigation": "築地魚河岸 小田原橋棟3F 中央区築地6-26-1"
-    },
-    {
-      "id": "plan-2026-12-22-shrine",
-      "time": "13:00",
-      "title": "可選：波除神社短程參拜；累了直接跳過",
-      "navigation": "波除神社 東京都中央区築地6-20-37"
-    },
-    {
-      "id": "plan-2026-12-22-rest",
-      "time": "13:30",
-      "title": "センリ軒歇腳；之後搭車回浜町休息",
-      "navigation": "センリ軒 築地魚河岸 小田原橋棟3F"
-    }
-  ]
+  "note": "2026/10/10使用者授權已同步至Sheet；不再對調或追加。後續行程雙向同步，依最新可核對修改為準。",
+  "additions": [],
+  "mode": "sheet-source",
+  "sheetEventAliases": {
+    "K6": "plan-2026-12-22-honganji",
+    "K7": "plan-2026-12-22-market",
+    "K8": "plan-2026-12-22-lunch",
+    "K9": "plan-2026-12-22-shrine",
+    "K10": "plan-2026-12-22-rest"
+  }
 }
