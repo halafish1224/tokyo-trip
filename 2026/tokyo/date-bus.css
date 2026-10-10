@@ -1,12 +1,44 @@
-.date-bus{margin:0 0 8px;min-width:0}.date-bus-caption{font-size:.68rem;color:var(--muted);margin:0 0 2px;line-height:1.5}.date-bus-scroll{width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#B9DAA5 #FFFCF6;border-radius:14px;background:var(--paper)}
-.date-bus-track{position:relative;min-width:980px;height:96px}.date-bus-stations{display:flex;width:100%;height:96px;position:relative}.date-bus-road{position:absolute;left:35px;right:35px;top:53px;height:3px;background:var(--ink)}
-.date-bus-stop{flex:1;min-width:70px;min-height:64px;align-self:flex-end;padding:4px 3px 6px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;border:0;background:transparent;color:var(--ink);font-size:.72rem;line-height:1.4;border-radius:12px;cursor:pointer}
-.date-bus-pole{display:block;width:16px;height:16px;border:3px solid var(--ink);border-radius:50%;background:var(--paper);position:relative;z-index:1}.date-bus-stop[aria-current=date]{font-weight:700;background:#E3EFD9}.date-bus-stop[aria-current=date] .date-bus-pole{background:var(--yellow)}.date-bus-stop:hover{background:#F9E7B5}
-.date-bus-vehicle{position:absolute;left:0;top:10px;width:64px;height:44px;z-index:2;pointer-events:none;will-change:transform}.date-bus-vehicle img{display:block;width:64px;height:44px;max-width:none;transform-origin:center}.date-bus-vehicle.go-left img{scale:-1 1}.date-bus-vehicle.is-driving img{animation:date-bus-ride .22s ease-in-out infinite alternate}
-@keyframes date-bus-ride{to{transform:translateY(-1.5px)}}
-html[data-motion=reduce] .date-bus-vehicle{transition:none!important}html[data-motion=reduce] .date-bus-vehicle img{animation:none!important}
-@media(prefers-reduced-motion:reduce){html:not([data-motion=full]) .date-bus-vehicle{transition:none!important}html:not([data-motion=full]) .date-bus-vehicle img{animation:none!important}}
-@media(max-width:600px){.date-bus-caption{font-size:.65rem}.date-bus-scroll{border-radius:10px}.date-bus-stop{font-size:.7rem}}
+.date-bus{margin:0 0 8px;min-width:0}
+.date-bus-caption{font-size:.72rem;color:var(--muted);margin:0 0 3px;line-height:1.5}
+.date-bus-scroll{width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#B9DAA5 #FFFCF6;border-radius:14px;background:var(--paper);isolation:isolate}
+.date-bus-track{position:relative;min-width:1032px;height:112px}
+.date-bus-stations{display:flex;width:100%;height:112px;position:relative;padding-inline:12px}
+.date-bus-road{position:absolute;left:48px;right:48px;top:59px;height:12px;border-block:2px solid var(--ink);border-radius:5px;background:#E7E1D3}
+.date-bus-road::after{content:'';position:absolute;inset:3px 0 auto;height:2px;background:repeating-linear-gradient(90deg,var(--paper) 0 14px,transparent 14px 28px)}
+.date-bus-stop{flex:1;min-width:72px;height:56px;align-self:flex-end;position:relative;padding:22px 2px 5px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--ink);font-size:.76rem;line-height:1.4;border-radius:12px;cursor:pointer}
+.date-bus-pole{position:absolute;top:0;left:calc(50% - 8px);width:16px;height:16px;border:3px solid var(--ink);border-radius:50%;background:var(--paper);z-index:1}
+.date-bus-pole::after{content:'';position:absolute;top:12px;left:4px;width:2px;height:6px;background:var(--ink)}
+.date-bus-stop-date{border:2px solid transparent;border-radius:9px;padding:2px 5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.date-bus-stop[aria-current=date]{font-weight:700}
+.date-bus-stop[aria-current=date] .date-bus-stop-date{background:#E3EFD9;border-color:var(--ink)}
+.date-bus-stop[aria-current=date] .date-bus-pole{background:var(--yellow)}
+.date-bus-stop:hover .date-bus-stop-date{background:#F9E7B5}
+.date-bus-stop:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+.date-bus-vehicle{position:absolute;left:0;top:11px;width:84px;height:56px;z-index:2;pointer-events:none;will-change:transform;--bus-wheel-turn:0deg}
+.date-bus-vehicle::before{content:'';position:absolute;left:14px;right:8px;bottom:0;height:5px;background:#3E3A3926;border-radius:50%}
+.date-bus-direction,.date-bus-direction>img,.date-bus-direction>svg{display:block;width:84px;height:56px;max-width:none}
+.date-bus-direction{transform-origin:center}
+.date-bus-vehicle.go-left .date-bus-direction{transform:scaleX(-1)}
+.date-bus-direction>svg{overflow:visible}
+.date-bus-wheel-rotor{transform-box:view-box;transform:rotate(var(--bus-wheel-turn))}
+.date-bus-wheel-rear{transform-origin:32px 67px}
+.date-bus-wheel-front{transform-origin:95px 67px}
+.date-bus-cabin{transform-box:view-box;transform-origin:60px 65px}
+.date-bus-body{transform-box:view-box;transform-origin:60px 65px}
+.date-bus-door-leaf{transition:transform 120ms ease-out}
+.is-parked .date-bus-door-leaf,.is-arrived .date-bus-door-leaf{transform:translateX(-3px)}
+.is-driving .date-bus-cabin{animation:date-bus-lean var(--bus-travel-time) ease-in-out both}
+.is-driving .date-bus-body,.is-driving .date-bus-direction>img{animation:date-bus-ride 240ms ease-in-out infinite alternate}
+.is-arrived .date-bus-cabin{animation:date-bus-settle 360ms ease-out both}
+@keyframes date-bus-lean{0%,100%{transform:rotate(0)}15%{transform:rotate(-1.2deg)}40%,65%{transform:rotate(0)}85%{transform:rotate(.8deg)}}
+@keyframes date-bus-ride{from{transform:translateY(0)}to{transform:translateY(-.8px)}}
+@keyframes date-bus-settle{0%{transform:translateY(0)}25%{transform:translateY(1px) rotate(.6deg)}60%{transform:translateY(-.4px) rotate(-.3deg)}100%{transform:translateY(0) rotate(0)}}
+html[data-motion=reduce] .date-bus-vehicle,html[data-motion=reduce] .date-bus-vehicle *{transition:none!important;animation:none!important}
+@media(prefers-reduced-motion:reduce){html:not([data-motion=full]) .date-bus-vehicle,html:not([data-motion=full]) .date-bus-vehicle *{transition:none!important;animation:none!important}}
+@media(max-width:600px){.date-bus-scroll{border-radius:10px}.date-bus-stop{font-size:.74rem}}
 @media print{.date-bus{display:none}}
 
-.date-bus-destination{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:10px 16px;border:3px solid var(--ink);border-radius:16px;background:#F9E7B5;font-size:.9rem;font-weight:700;line-height:1.45}.date-bus-destination .day-picker{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.date-bus-destination:focus-within{outline:3px solid var(--ink);outline-offset:3px}#date-bus-theme{overflow-wrap:anywhere}.date-bus-destination>span:last-of-type{flex-shrink:0}
+.date-bus-destination{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px;padding:10px 16px;border:3px solid var(--ink);border-radius:16px;background:#F9E7B5;font-size:.9rem;font-weight:700;line-height:1.45}
+.date-bus-destination .day-picker{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.date-bus-destination:focus-within{outline:3px solid var(--ink);outline-offset:3px}
+#date-bus-theme{overflow-wrap:anywhere}.date-bus-destination>span:last-of-type{flex-shrink:0}

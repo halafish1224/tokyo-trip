@@ -4,7 +4,7 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  const errors=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));vc.on('error',e=>errors.push(String(e)));
  const dom=new JSDOM(fs.readFileSync(root+'/index.html','utf8'),{url:'http://localhost:8765/2026/tokyo/'+query,runScripts:'dangerously',resources:new class extends ResourceLoader{fetch(url){return Promise.resolve(fs.readFileSync(root+'/'+new URL(url).pathname.split('/').pop()));}}(),pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){
   const NativeDate=Date;w.Date=class extends NativeDate{constructor(...args){super(...(args.length?args:[date]));}static now(){return new NativeDate(date).getTime();}};
-  w.fetch=async(url,opts)=>{const u=new URL(url,w.location.href);if(u.hostname==='localhost')return new Response(fs.readFileSync(root+'/'+u.pathname.split('/').pop()),{status:200});return new Response('{}',{status:503});};
+  w.fetch=async(url,opts)=>{const u=new URL(url,w.location.href);if(u.hostname==='localhost')return new Response(fs.readFileSync(root+'/'+u.pathname.replace('/2026/tokyo/','')),{status:200});return new Response('{}',{status:503});};
   w.matchMedia=()=>({matches:false,addEventListener(){}});w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};w.scrollTo=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};w.CompressionStream=CompressionStream;w.DecompressionStream=DecompressionStream;w.TextEncoder=TextEncoder;w.Blob=Blob;w.Response=Response;
  }});
  await new Promise(r=>setTimeout(r,1200));const w=dom.window,d=w.document;
@@ -13,9 +13,14 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  assert.equal(d.querySelector('#source-info').closest('.section').id,'sec-trans');
  if(!query){assert.equal(d.querySelectorAll('[data-bus-day]').length,14);assert.equal(d.querySelector('[data-bus-day]').dataset.busDay,'d1');assert.equal(d.querySelectorAll('[data-bus-day]')[13].dataset.busDay,'d14');assert.equal(d.querySelector('[data-bus-day][aria-current=date]').dataset.busDay,w.eval('activeDay'));}else assert.equal(d.querySelectorAll('[data-bus-day]').length,0);
  if(!query&&date.startsWith('2026-10')){
-  const vehicle=d.querySelector('#date-bus-vehicle');for(const stop of d.querySelectorAll('[data-bus-day]')){Object.defineProperty(stop,'offsetLeft',{get:()=>70*(Number(stop.dataset.busDay.slice(1))-1)});Object.defineProperty(stop,'offsetWidth',{get:()=>70});}
-  w.renderDateBus(false);d.querySelector('[data-bus-day=d14]').click();assert.equal(d.querySelector('#day-picker').value,'d14');assert.equal(vehicle.style.transform,'translateX(913px)');assert(vehicle.classList.contains('is-driving'));assert.equal(d.querySelector('.accordion-item').dataset.date,'2026-12-26');
-  d.querySelector('[data-bus-day=d1]').click();assert.equal(vehicle.style.transform,'translateX(3px)');assert(vehicle.classList.contains('go-left'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d1');
+  const vehicle=d.querySelector('#date-bus-vehicle');assert.equal(vehicle.querySelectorAll('.date-bus-wheel-rotor').length,2);
+  for(const stop of d.querySelectorAll('[data-bus-day]')){Object.defineProperty(stop,'offsetLeft',{get:()=>12+72*(Number(stop.dataset.busDay.slice(1))-1)});Object.defineProperty(stop,'offsetWidth',{get:()=>72});}
+  w.renderDateBus(false);const start=vehicle.dataset.x;
+  d.querySelector('[data-bus-day=d14]').click();assert.equal(d.querySelector('#day-picker').value,'d14');assert.equal(vehicle.dataset.x,start);assert(vehicle.classList.contains('is-driving'));assert.equal(d.querySelector('.accordion-item').dataset.date,'2026-12-26');
+  await new Promise(r=>setTimeout(r,600));const midway=Number(vehicle.dataset.x);assert(midway>Number(start)&&midway<942,JSON.stringify({start,midway,driving:vehicle.classList.contains('is-driving')}));assert(Number.parseFloat(vehicle.style.getPropertyValue('--bus-wheel-turn'))>0);
+  w.renderDateBus();assert(vehicle.classList.contains('is-driving'));assert.equal(Number(vehicle.dataset.x),midway);
+  d.querySelector('[data-bus-day=d1]').click();assert.equal(Number(vehicle.dataset.x),midway);assert(vehicle.classList.contains('go-left'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d1');
+  await new Promise(r=>setTimeout(r,1700));assert.equal(vehicle.style.transform,'translateX(6px)');assert(vehicle.classList.contains('is-parked'));assert(d.getElementById('date-bus-status').textContent.includes('12/13 停靠'));
   d.querySelector('#motion-toggle').click();d.querySelector('#day-picker').value='d7';d.querySelector('#day-picker').dispatchEvent(new w.Event('change',{bubbles:true}));assert.equal(vehicle.style.transition,'none');assert(!vehicle.classList.contains('is-driving'));assert.equal(d.querySelector('[aria-current=date]').dataset.busDay,'d7');
   d.querySelector('#motion-toggle').click();w.eval('viewMode="plan";renderApp();');
   const card=d.getElementById('d8'),original=card;
