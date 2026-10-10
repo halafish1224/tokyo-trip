@@ -127,19 +127,54 @@ function renderFoodContexts(){
  $('all-foods').innerHTML=venues.map(v=>`<details class="venue-details"><summary>${h(v.category)} · ${h(v.ja)}</summary>${venueCard(v)}</details>`).join('')+FOODS.filter(f=>!f.closed&&(c==='all'||foodContext(f)===c)).map(foodCard).join('');
 }
 // Real forecast window: never present October observations as December weather.
+const FORECAST_CODES=new Set([0,1,2,3,45,48,51,53,55,56,57,61,63,65,66,67,71,73,75,77,80,81,82,85,86,95,96,97,99]);
+const weatherInFlight=new Map(),weatherFailures=new Map();
+if(!weatherCache||typeof weatherCache!=='object'||Array.isArray(weatherCache))weatherCache={};
+function forecastInRange(date){
+ const today=todayJapan(),end=new Date(today+'T00:00:00Z');end.setUTCDate(end.getUTCDate()+6);
+ return typeof date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(date)&&date>=today&&date<=end.toISOString().slice(0,10);
+}
+function validForecastRow(row){return row&&forecastInRange(row.date)&&[row.min,row.max,row.code,row.rain].every(Number.isFinite)&&row.min<=row.max&&row.min>=-90&&row.max<=70&&row.rain>=0&&row.rain<=100&&FORECAST_CODES.has(row.code);}
+function forecastForDay(city,date){
+ const cache=weatherCache[city],updated=Date.parse(cache?.updatedAt);
+ const row=Number.isFinite(updated)&&updated<=Date.now()+300000&&Array.isArray(cache?.daily)?cache.daily.find(x=>x?.date===date&&validForecastRow(x)):null;
+ const stale=!!row&&Date.now()-updated>86400000;
+ const status=!row?'尚無預報':stale?'上次預報 · 已過期':!navigator.onLine?'離線快取預報':weatherFailures.has(city)?'更新失敗 · 上次預報':'7日預報';
+ return {row,cache,stale,status};
+}
+function forecastCityForDay(day){return /小田原/.test(day.guide.area)?'odawara':day.number<=6?'fujisawa':'tokyo';}
+function requestDayForecast(day){
+ const city=forecastCityForDay(day),updated=Date.parse(weatherCache[city]?.updatedAt);
+ if(!navigator.onLine||!forecastInRange(day.date)||weatherInFlight.has(city)||Date.now()-(weatherFailures.get(city)||0)<120000)return;
+ if(Number.isFinite(updated)&&updated<=Date.now()+300000&&Date.now()-updated<1800000)return;
+ fetchWeather(city);
+}
 renderWeather=function(){
- const city=WEATHER[weatherCity],cache=weatherCache[weatherCity],date=selectedDay().date,row=cache?.daily?.find(x=>x.date===date);
+ const city=WEATHER[weatherCity],date=selectedDay().date,{row,cache,status}=forecastForDay(weatherCity,date);
  $('weather-temp').textContent=row?`${row.min}–${row.max}°C`:'—';$('weather-condition').textContent=row?`${weatherCode(row.code)[1]} · 降水機率${row.rain}%`:`${date.slice(5)} 尚無可用預報`;
- $('weather-mode').textContent=row?(navigator.onLine?'7日預報':'上次預報'):'預報未發布';
+ $('weather-mode').textContent=status;
  $('weather-tip').textContent=row?(row.min<8?'保暖內層＋防風外套；早晚加圍巾。':'多層穿搭＋防風外套。')+(row.rain>=40?' 帶折傘與防水鞋。':''):city.tip;
- $('weather-status').textContent=row?`${city.name} · 更新 ${formatTimestamp(cache.updatedAt)} · Open-Meteo，非即時保證`:'只查詢未來7日。旅行日期超出範圍時不顯示假溫度；接近出發再更新。';
+ $('weather-status').textContent=row?`${city.name} · 取得 ${formatTimestamp(cache.updatedAt)} · Open-Meteo，非即時保證`:(weatherFailures.has(weatherCity)?'更新失敗，保留上次資料。':'')+'只查詢未來7日；旅行日期超出範圍時不顯示溫度。';
+ $('weather-live').disabled=weatherInFlight.has(weatherCity);
  document.querySelectorAll('[data-weather]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.weather===weatherCity)));
+ document.dispatchEvent(new CustomEvent('tokyo-weather-change'));
 };
-fetchWeather=async function(){
+fetchWeather=async function(requestedCity=weatherCity){
  if(!navigator.onLine){renderWeather();return;}
- const city=weatherCity,d=WEATHER[city],request=++weatherRequest;$('weather-live').disabled=true;
- try{const r=await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lng}&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&forecast_days=7&timezone=Asia%2FTokyo`,{},10000);if(!r.ok)throw new Error();const data=await r.json();if(!Array.isArray(data.daily?.time))throw new Error();const daily=data.daily.time.map((date,i)=>({date,min:data.daily.temperature_2m_min[i],max:data.daily.temperature_2m_max[i],code:data.daily.weather_code[i],rain:data.daily.precipitation_probability_max[i]})).filter(x=>[x.min,x.max,x.code,x.rain].every(Number.isFinite));weatherCache[city]={daily,updatedAt:new Date().toISOString()};writeStore('tokyo_weather_v2',weatherCache);if(request===weatherRequest)renderWeather();}
- catch{$('weather-status').textContent='更新失敗，保留上次預報；日期不在範圍內則不顯示溫度。';}finally{if(request===weatherRequest)$('weather-live').disabled=false;}
+ const city=Object.hasOwn(WEATHER,requestedCity)?requestedCity:weatherCity,d=WEATHER[city];
+ if(weatherInFlight.has(city))return weatherInFlight.get(city);
+ const task=(async()=>{
+  try{
+   const r=await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lng}&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&forecast_days=7&timezone=Asia%2FTokyo`,{},10000);if(!r.ok)throw new Error();
+   const data=await r.json(),raw=data.daily,keys=['temperature_2m_min','temperature_2m_max','weather_code','precipitation_probability_max'];
+   if(!Array.isArray(raw?.time)||raw.time.length!==7||keys.some(k=>!Array.isArray(raw[k])||raw[k].length!==raw.time.length)||new Set(raw.time).size!==7)throw new Error('Incomplete forecast');
+   const daily=raw.time.map((date,i)=>({date,min:raw.temperature_2m_min[i],max:raw.temperature_2m_max[i],code:raw.weather_code[i],rain:raw.precipitation_probability_max[i]}));
+   if(!daily.every(validForecastRow))throw new Error('Invalid forecast');
+   weatherCache[city]={daily,updatedAt:new Date().toISOString()};weatherFailures.delete(city);writeStore('tokyo_weather_v2',weatherCache);
+  }catch{weatherFailures.set(city,Date.now());}
+  finally{weatherInFlight.delete(city);renderWeather();}
+ })();
+ weatherInFlight.set(city,task);$('weather-live').disabled=weatherInFlight.has(weatherCity);return task;
 };
 async function updateExchangeRate(){
  const saved=readStore('tokyo_exchange_v1',{});$('expense-rate').value=currentExchangeRate;
@@ -194,7 +229,7 @@ document.addEventListener('change',e=>{const t=e.target;if(familyMode)return;
  if(t.id==='expense-rate')writeStore('tokyo_exchange_v1',{rate:currentExchangeRate,updatedAt:null});
 });
 const originalClock=refreshClock;
-refreshClock=function(){const today=todayJapan();if(!pinnedDate&&viewMode==='today'){const d=parsed.days.find(x=>x.date===today);if(d&&d.id!==activeDay){activeDay=d.id;renderApp();}}originalClock();$('experience-clock').textContent='日本時間 '+$('japan-clock').textContent;};
+refreshClock=function(){const today=todayJapan();if(!pinnedDate&&viewMode==='today'){const d=parsed.days.find(x=>x.date===today);if(d&&d.id!==activeDay){activeDay=d.id;renderApp();}}originalClock();$('experience-clock').textContent='日本時間 '+$('japan-clock').textContent;renderWeather();};
 // A manually chosen date stays selected until the user requests Japan today.
 document.addEventListener('click',e=>{if(e.target.closest('[data-day-jump],[data-theme-jump]'))pinnedDate=true;if(e.target.closest('#now-button')){pinnedDate=false;viewMode='today';}} ,true);
 window.addEventListener('online',()=>{renderExperience();fetchWeather();updateExchangeRate();});window.addEventListener('offline',()=>{renderExperience();renderMapNotes();});

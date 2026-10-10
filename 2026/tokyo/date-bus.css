@@ -1,5 +1,16 @@
 .date-bus{margin:0 0 8px;min-width:0}
 .date-bus-caption{font-size:.72rem;color:var(--muted);margin:0 0 3px;line-height:1.5}
+.date-bus-weather-status{font-size:.72rem;color:var(--ink);margin:0 0 4px;line-height:1.5;overflow-wrap:anywhere}
+.date-bus-sky{position:absolute;right:-8px;top:-5px;width:34px;height:28px;overflow:visible;z-index:1}
+.date-bus-sky>g>g{display:none}
+[data-sky=default] .bus-sky-sun,[data-sky=sun] .bus-sky-sun,[data-sky=partly] .bus-sky-sun,[data-sky=partly] .bus-sky-cloud,[data-sky=cloud] .bus-sky-cloud,[data-sky=rain] .bus-sky-rain,[data-sky=snow] .bus-sky-snow,[data-sky=fog] .bus-sky-fog{display:block}
+.date-bus-weather-key{font-size:.8rem;margin-top:12px}
+.date-bus-weather-key summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:700}
+.date-bus-weather-key summary::before{content:'＋';margin-right:8px}
+.date-bus-weather-key[open] summary::before{content:'−'}
+.date-bus-weather-key ul{display:flex;flex-wrap:wrap;gap:8px 16px;padding:0;list-style:none}
+.date-bus-weather-key li{display:flex;align-items:center;gap:6px}
+.date-bus-swatch{width:22px;height:16px;border:1.5px solid var(--ink);border-radius:4px;background:var(--swatch);flex-shrink:0}
 .date-bus-scroll{width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#B9DAA5 #FFFCF6;border-radius:14px;background:var(--paper);isolation:isolate}
 .date-bus-track{position:relative;min-width:1032px;height:112px}
 .date-bus-stations{display:flex;width:100%;height:112px;position:relative;padding-inline:12px}

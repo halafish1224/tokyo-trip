@@ -17,7 +17,7 @@ async function pose(page){return page.evaluate(()=>{
  return {x:Number(bus.dataset.x),turn:parseFloat(bus.style.getPropertyValue('--bus-wheel-turn')),driving:bus.classList.contains('is-driving'),left:bus.classList.contains('go-left'),alignment:Math.abs(b.x+b.width/2-s.x-s.width/2),visible:b.x>=rail.x-1&&b.right<=rail.right+1,date:stop.dataset.busDay,overflow:document.documentElement.scrollWidth>innerWidth};
 });}
 async function verify(page){
- await page.waitForFunction(()=>document.querySelector('#date-bus-vehicle svg'));
+ await page.waitForFunction(()=>document.querySelector('#date-bus-vehicle .date-bus-direction svg'));
  await page.evaluate(()=>document.fonts.ready);
  assert.equal(await page.locator('[data-bus-day]').count(),14);
  assert.equal(await page.locator('.date-bus-wheel-rotor').count(),2);
@@ -85,7 +85,7 @@ async function verify(page){
     await page.locator('#offline-save').click();
     await page.waitForFunction(()=>document.getElementById('offline-status').textContent.includes('完整離線手冊已儲存'));
     await context.setOffline(true);await page.reload();
-    await page.waitForFunction(()=>document.querySelector('#date-bus-vehicle svg'));
+    await page.waitForFunction(()=>document.querySelector('#date-bus-vehicle .date-bus-direction svg'));
     await page.evaluate(()=>{localStorage.setItem('tokyo_motion_v1','full');applyMotion();jumpToDay('d14');});await parked(page);
     assert((await pose(page)).alignment<1.1);assert((await pose(page)).visible);
     await context.setOffline(false);

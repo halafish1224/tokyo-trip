@@ -3,13 +3,13 @@
   <g class="date-bus-cabin"><g class="date-bus-body">
    <rect x="33" y="7" width="25" height="12" rx="3" fill="#B9DAA5"/>
    <path d="M42 7V19M51 7V19M39 7V4H52V7" fill="none" stroke-width="1.7"/>
-   <path d="M12 21Q12 17 18 17H92Q103 17 107 32L113 47V62H10V30Q10 24 12 21Z" fill="#F6D27A"/>
+   <path d="M12 21Q12 17 18 17H92Q103 17 107 32L113 47V62H10V30Q10 24 12 21Z" class="date-bus-paint" fill="var(--bus-body-color,#F6D27A)"/>
    <path d="M13 20H90Q99 20 102 24" fill="none" stroke="#FFFCF6" stroke-width="2"/>
    <rect x="18" y="26" width="18" height="20" rx="4" fill="#A8D3E6"/>
    <rect x="42" y="26" width="18" height="20" rx="4" fill="#A8D3E6"/>
    <path d="M94 26H97Q101 29 104 44H94Z" fill="#A8D3E6"/>
    <path d="M21 31V40M45 31V40M96 30L98 37" stroke="#FFFCF6" stroke-width="2"/>
-   <path d="M11 50H112V61H11Z" fill="#EABF61" stroke="none"/>
+   <path d="M11 50H112V61H11Z" fill="var(--bus-stripe-color,#EABF61)" stroke="none"/>
    <path d="M11 50H64M90 50H111" fill="none" stroke-width="1.7"/>
    <rect x="68" y="25" width="20" height="37" rx="2" fill="#3E3A39"/>
    <g class="date-bus-door-leaf">
