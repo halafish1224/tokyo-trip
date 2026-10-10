@@ -1,38 +1,34 @@
 {
   "day": "2026-12-22",
-  "checked": "2026-10-08",
+  "checked": "2026-10-10",
   "basis": [
     [
       "07:00",
       "準時起床 早餐"
     ],
     [
+      "09:00",
+      "築地逛與午餐"
+    ],
+    [
       "09:30",
-      "八十八淺草(9點營業)"
+      "築地本願寺：看建築與動物石雕，免費參觀"
     ],
     [
-      "10:10",
-      "淺草寺參拜與雷門（取消合羽橋）"
+      "10:15",
+      "築地場外市場慢逛；每段依長輩體力休息"
     ],
     [
-      "11:00",
-      "淺草ROX 休息／逛店（2G 2F Komeda可坐；11:40 由田原町站搭銀座線至上野）"
+      "11:30",
+      "築地午餐：魚河岸食堂（鳥藤／東都グリル二選一）"
     ],
     [
-      "12:30",
-      "12/22\n12:30 敘敘苑 上野丸井店 03-3833-8989 預約待確認"
+      "13:00",
+      "可選：波除神社短程參拜；累了直接跳過"
     ],
     [
-      "14:30",
-      "domremy outlet Ueno Station"
-    ],
-    [
-      "15:00",
-      "上野周邊 OS DRUG"
-    ],
-    [
-      "16:30",
-      "上野阿美橫町採買 (名代宇奈тото / 二木菓子)"
+      "13:30",
+      "センリ軒歇腳；之後搭車回浜町休息"
     ],
     [
       "20:00",
@@ -44,35 +40,31 @@
     ]
   ],
   "coordinateKind": "Reviewed approximate venue/address/area centers. North up; local equirectangular metric projection. Not station entrances.",
-  "pixelsPerMeter": 0.16053315786746447,
+  "pixelsPerMeter": 0.22371423798960566,
   "scaleBarMeters": 1000,
-  "insetPixelsPerMeter": 0.22864072001706362,
-  "insetScaleBarMeters": 200,
+  "insetPixelsPerMeter": 0.5779030057832302,
+  "insetScaleBarMeters": 100,
   "insetPoints": [
-    "asakusa",
-    "rox",
-    "ueno"
+    "temple",
+    "food",
+    "shrine"
   ],
   "points": {
     "hotel": [
       35.68737667,
       139.78874815
     ],
-    "asakusa": [
-      35.714535,
-      139.801468
+    "temple": [
+      35.6663605,
+      139.7721824
     ],
-    "rox": [
-      35.712914,
-      139.7927659
+    "food": [
+      35.6650805,
+      139.7714996
     ],
-    "ueno": [
-      35.7108511,
-      139.7758221
-    ],
-    "tokyo": [
-      35.68124,
-      139.76712
+    "shrine": [
+      35.6634848,
+      139.7715569
     ]
   },
   "labels": [
@@ -80,69 +72,68 @@
       "0",
       "hotel",
       "東橫INN 新大橋",
-      "飯店出發"
+      "跨區搭車到築地"
     ],
     [
       "1",
-      "asakusa",
-      "淺草寺周邊",
-      "八十八、雷門／淺草寺"
+      "temple",
+      "築地本願寺",
+      "建築與石雕，免費參觀"
     ],
     [
       "2",
-      "rox",
-      "淺草 ROX",
-      "坐下休息，田原町轉銀座線"
+      "food",
+      "魚河岸小田原橋棟",
+      "市場慢逛／3F熟食午餐"
     ],
     [
-      "3",
-      "ueno",
-      "上野／阿美橫",
-      "午餐、甜點與採買"
+      "?",
+      "shrine",
+      "波除神社",
+      "可選短程參拜，累了略過"
     ],
     [
       "4",
-      "tokyo",
-      "東京站",
-      "JR 回站接駁"
+      "food",
+      "魚河岸食堂",
+      "咖啡歇腳後搭車"
     ],
     [
       "終",
       "hotel",
       "東橫INN 新大橋",
-      "回到同一飯店"
+      "短程計程車回飯店"
     ]
   ],
   "pointSources": {
     "hotel": "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
-    "asakusa": "https://www.senso-ji.jp/guide/guide01.html",
-    "rox": "https://mapfan.com/spots/SCQQA%2CJ%2CG",
-    "ueno": "https://www.jojoen.co.jp/shop/jojoen/marui/",
-    "tokyo": "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf"
+    "temple": "https://mapfan.com/spots/SWQY,J,BI7F0",
+    "food": "https://maps.apple.com/place?_provider=9902&coordinate=35.6650805%2C139.7714996&place-id=I461F028408D3BD82&query=Tsukiji+Fish+Market+Odawarabashi+Building",
+    "shrine": "https://www.namiyoke.or.jp/"
   },
   "paths": [
     [
       "hotel",
-      "asakusa",
+      "temple",
       "out"
     ],
     [
-      "asakusa",
-      "rox",
+      "temple",
+      "food",
       "out"
     ],
     [
-      "rox",
-      "ueno",
-      "out"
+      "food",
+      "shrine",
+      "candidate"
     ],
     [
-      "ueno",
-      "tokyo",
-      "home"
+      "shrine",
+      "food",
+      "candidate"
     ],
     [
-      "tokyo",
+      "food",
       "hotel",
       "home"
     ]
@@ -150,13 +141,10 @@
   "sources": [
     "https://www.toyoko-inn.com/china/search/detail/00176/",
     "https://mapfan.com/spots/A,35.6873766704,139.7887481534",
-    "https://www.toyoko-inn.com/eng/campaign/pickup/tokyo/",
-    "https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf",
-    "https://www.rox.co.jp/access/",
-    "https://mapfan.com/spots/SCQQA%2CJ%2CG",
-    "https://www.senso-ji.jp/guide/guide01.html",
-    "https://www.jojoen.co.jp/shop/jojoen/marui/"
+    "https://tsukijihongwanji.jp/global/zh-hant/guide/",
+    "https://www.tsukiji.or.jp/professional/uogashi/",
+    "https://www.namiyoke.or.jp/"
   ],
-  "note": "ROX 在淺草寺西南，上野更往西；田原町→上野為銀座線，圖線並非鐵道形狀。",
+  "note": "神社可選；主圖為跨區，放大框為築地。線段不是步行路徑；一家大小可短程計程車，不繞東京站。",
   "limits": "Straight arrows indicate order and destination only; no railway alignment, walking length, journey duration, Forest entrance or guaranteed shuttle pickup."
 }

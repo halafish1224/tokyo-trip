@@ -1,4 +1,4 @@
-"""Manually reviewed 12/20–24 geographic transit schematics; never run in nightly build.
+"""Manually reviewed 12/20–25 geographic transit schematics; never run in nightly build.
 
 Point spacing and scale bars share a local metric projection. Straight arrows show
 stop order, not railway alignments, track length, walking distances or timetables.
@@ -22,6 +22,14 @@ JR = 'https://www.jreast.co.jp/e/downloads/pdf/majorrailsub_e.pdf'
 # Points are existing reviewed area/address centers or independently sourced centers.
 # Deliberately avoid asserting an exact gate for the still-candidate Forest event.
 SPECS = {
+ '1222': {
+  'title':'築地本願寺 → 市場午餐', 'scale':1000,
+  'points':{'hotel':HOTEL,'temple':(35.6663605,139.7721824),'food':(35.6650805,139.7714996),'shrine':(35.6634848,139.7715569)},
+  'labels':[('0','hotel','東橫INN 新大橋','跨區搭車到築地'),('1','temple','築地本願寺','建築與石雕，免費參觀'),('2','food','魚河岸小田原橋棟','市場慢逛／3F熟食午餐'),('?','shrine','波除神社','可選短程參拜，累了略過'),('4','food','魚河岸食堂','咖啡歇腳後搭車'),('終','hotel','東橫INN 新大橋','短程計程車回飯店')],
+  'paths':[('hotel','temple','out'),('temple','food','out'),('food','shrine','candidate'),('shrine','food','candidate'),('food','hotel','home')],
+  'sources':[HOTEL_SOURCE,HOTEL_COORD,'https://tsukijihongwanji.jp/global/zh-hant/guide/','https://www.tsukiji.or.jp/professional/uogashi/','https://www.namiyoke.or.jp/'],
+  'note':'神社可選；主圖為跨區，放大框為築地。線段不是步行路徑；一家大小可短程計程車，不繞東京站。'},
+
  '1220': {
   'title':'丸之內 → 銀座 → 新橋', 'scale':1000,
   'points':{'hotel':HOTEL,'tokyo':TOKYO,'ginza':(35.6737227,139.7651379),'clock':(35.66377,139.75976)},
@@ -36,7 +44,7 @@ SPECS = {
   'paths':[('hotel','shibamata','a'),('hotel','toyosu','b'),('shibamata','meeting','a'),('toyosu','meeting','b'),('meeting','grass','out'),('grass','market','out'),('market','tokyo','home'),('tokyo','hotel','home')],
   'sources':[HOTEL_SOURCE,HOTEL_COORD,SHUTTLE,JR,'https://www.taishakuten.com/visit-info','https://teamlabplanets.dmm.com/zh_tw/help','https://mapfan.com/spots/SCC%2CJ%2C2ND0','https://www.city.minato.tokyo.jp/shisetsu/koen/shiba/09.html','https://tokyochristmas.net/shiba/'],
   'note':'A／B 同時分流，草坪與市集在同區但非同一點；東京站線是接駁替代回程，原表亦有御成門→神保町→浜町。'},
- '1222': {
+ '1225': {
   'title':'淺草 → 上野', 'scale':1000,
   'points':{'hotel':HOTEL,'asakusa':(35.714535,139.801468),'rox':(35.712914,139.7927659),'ueno':(35.7108511,139.7758221),'tokyo':TOKYO},
   'labels':[('0','hotel','東橫INN 新大橋','飯店出發'),('1','asakusa','淺草寺周邊','八十八、雷門／淺草寺'),('2','rox','淺草 ROX','坐下休息，田原町轉銀座線'),('3','ueno','上野／阿美橫','午餐、甜點與採買'),('4','tokyo','東京站','JR 回站接駁'),('終','hotel','東橫INN 新大橋','回到同一飯店')],
@@ -62,13 +70,13 @@ SPECS = {
 
 def esc(s): return html.escape(str(s), quote=True)
 
-ZOOMS={'1220':['tokyo','ginza','clock'],'1221':['meeting','grass','market'],
-       '1222':['asakusa','rox','ueno'],'1223':['shibuya','loft','109'],
+ZOOMS={'1222':['temple','food','shrine'],'1220':['tokyo','ginza','clock'],'1221':['meeting','grass','market'],
+       '1225':['asakusa','rox','ueno'],'1223':['shibuya','loft','109'],
        '1224':['station','outlet','mori']}
-POINT_SOURCES={
+POINT_SOURCES={'1222':{'hotel':HOTEL_COORD,'temple':'https://mapfan.com/spots/SWQY,J,BI7F0','food':'https://maps.apple.com/place?_provider=9902&coordinate=35.6650805%2C139.7714996&place-id=I461F028408D3BD82&query=Tsukiji+Fish+Market+Odawarabashi+Building','shrine':'https://www.namiyoke.or.jp/'},
  '1220':{'hotel':HOTEL_COORD,'tokyo':JR,'ginza':'https://www.marronniergate.com/access','clock':'https://www.ntv.co.jp/oo-dokei/'},
  '1221':{'hotel':HOTEL_COORD,'shibamata':'https://www.taishakuten.com/visit-info','toyosu':'https://teamlabplanets.dmm.com/zh_tw/help','meeting':'https://mapfan.com/spots/SCC%2CJ%2C2ND0','grass':'https://www.city.minato.tokyo.jp/shisetsu/koen/shiba/09.html','market':'https://tokyochristmas.net/shiba/','tokyo':JR},
- '1222':{'hotel':HOTEL_COORD,'asakusa':'https://www.senso-ji.jp/guide/guide01.html','rox':'https://mapfan.com/spots/SCQQA%2CJ%2CG','ueno':'https://www.jojoen.co.jp/shop/jojoen/marui/','tokyo':JR},
+ '1225':{'hotel':HOTEL_COORD,'asakusa':'https://www.senso-ji.jp/guide/guide01.html','rox':'https://mapfan.com/spots/SCQQA%2CJ%2CG','ueno':'https://www.jojoen.co.jp/shop/jojoen/marui/','tokyo':JR},
  '1223':{'hotel':HOTEL_COORD,'shibuya':'https://www.jojoen.co.jp/shop/jojoen/shibuya/','loft':'https://www.loft.co.jp/shop_list/detail.php?shop_id=189','109':'https://mapfan.com/spots/SCQQA%2CJ%2CD2','harajuku':'https://mapfan.com/spots/SCH%2CJ%2C800','tokyo':JR},
  '1224':{'hotel':HOTEL_COORD,'tokyo':JR,'station':'https://mapfan.com/spots/SCH%2CJ%2CCI2','outlet':'https://laketown.aeonmall.jp/access','mori':'https://laketown.aeonmall.jp/access'}
 }
@@ -157,7 +165,7 @@ def svg(day,spec):
     if zoom_bar*local_scale>190:zoom_bar=50
     out.append(f'<path d="M88 1235h{zoom_bar*local_scale:.1f}m-{zoom_bar*local_scale:.1f}-6v12m{zoom_bar*local_scale:.1f}-12v12" stroke="#163f37" stroke-width="3" fill="none"/>')
     out.append(text(102+round(zoom_bar*local_scale),1242,f'{zoom_bar} m',17))
-    out += [text(58,1305,'● 飯店：出發與終點　 ━ 去程／同日次序　 ┄ 橘色：東京站接駁回程',17),
+    out += [text(58,1305,'● 飯店：出發與終點　 ━ 去程／同日次序　 ┄ 橘色：'+('搭車回飯店' if stamp=='1222' else '東京站接駁回程'),17),
             text(58,1330,'直線不是軌道／步行距離；車次、出口與活動入口須當日確認。',16),'</svg>']
     return ''.join(out),scale,local_scale,zoom_bar
 
@@ -166,7 +174,7 @@ for stamp,spec in SPECS.items():
     day=next(d for d in TRIP['days'] if d['date']==date)
     svg_text,scale,local_scale,zoom_bar=svg(date,spec)
     (OUT/f'{stamp}-proportional.svg').write_text(svg_text,encoding='utf-8')
-    meta={'day':date,'checked':CHECKED,'basis':[[e['time'],e['title']] for e in day['events']],
+    meta={'day':date,'checked':('2026-10-10' if stamp in ('1222','1225') else CHECKED),'basis':[[e['time'],e['title']] for e in day['events']],
           'coordinateKind':'Reviewed approximate venue/address/area centers. North up; local equirectangular metric projection. Not station entrances.',
           'pixelsPerMeter':scale,'scaleBarMeters':spec['scale'],'insetPixelsPerMeter':local_scale,
           'insetScaleBarMeters':zoom_bar,'insetPoints':ZOOMS[stamp],
@@ -175,4 +183,4 @@ for stamp,spec in SPECS.items():
           'paths':spec['paths'],'sources':spec['sources'],'note':spec['note'],
           'limits':'Straight arrows indicate order and destination only; no railway alignment, walking length, journey duration, Forest entrance or guaranteed shuttle pickup.'}
     (OUT/f'{stamp}-proportional-sources.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-print('Generated five proportional schematics, each with hotel start/end and reviewed source record.')
+print('Generated six proportional schematics, each with hotel start/end and reviewed source record.')

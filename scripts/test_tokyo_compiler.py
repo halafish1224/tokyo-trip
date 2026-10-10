@@ -17,6 +17,21 @@ class CompilerRegression(unittest.TestCase):
     def compile(self, rows=None):
         return b.compile_rows(copy.deepcopy(rows or self.rows), copy.deepcopy(self.trip))
 
+    def test_authorized_swap_and_changed_source_guard(self):
+        import hashlib
+        rows=copy.deepcopy(self.rows)
+        def basis(col):
+            return hashlib.sha256(json.dumps([[i+1,b.public_text(str(r[col]))] for i,r in enumerate(rows[1:],1) if r[col]],ensure_ascii=False).encode()).hexdigest()
+        config={'dates':['2026-12-22','2026-12-25'],'sourceBasis':[basis(10),basis(13)],'additions':[]}
+        swapped,_=b.authorized_rows(rows,config)
+        self.assertEqual(swapped[1][10],rows[1][13])
+        self.assertEqual(swapped[1][13],rows[1][10])
+        again,_=b.authorized_rows(swapped,config)
+        self.assertEqual(again,swapped)
+        self.assertEqual(rows,self.rows)
+        changed=copy.deepcopy(rows);changed[1][10]='changed new route'
+        with self.assertRaises(ValueError):b.authorized_rows(changed,config)
+
     def test_all_dates_and_stable_row_ids(self):
         first = self.compile()
         rows = copy.deepcopy(self.rows)

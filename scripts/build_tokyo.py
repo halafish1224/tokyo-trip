@@ -78,12 +78,27 @@ def check_availability(day,event,venues):
   else:continue
   alerts.append({'venueId':v['id'],'text':text,'source':v['official'],'checked':v['checked']})
  return alerts
-def compile_rows(rows,trip,enriched_guides=()):
+def authorized_rows(rows,config=None):
+ config=config if config is not None else json.loads((ROOT/'research/user-schedule.json').read_text())
+ head=next((i for i,r in enumerate(rows) if sum(bool(re.search(r'12/\d+',str(x or ''))) for x in r[1:])==14),None)
+ if head is None:raise ValueError('Must include complete date header')
+ cols=[DATES.index(date)+1 for date in config['dates']]
+ def basis(col):return hashlib.sha256(json.dumps([[i+1,public_text(str(r[col] or '').strip())] for i,r in enumerate(rows[head+1:],head+1) if len(r)>col and r[col]],ensure_ascii=False).encode()).hexdigest()
+ actual=[basis(col) for col in cols];expected=config['sourceBasis']
+ if actual==expected:
+  rows=[list(r) for r in rows]
+  for r in rows[head+1:]:
+   r.extend(['']*(15-len(r)))
+   r[cols[0]],r[cols[1]]=r[cols[1]],r[cols[0]]
+ elif actual!=expected[::-1]:raise ValueError('Authorized day swap source changed; review new Sheet before publishing')
+ return rows,config
+
+def compile_rows(rows,trip,enriched_guides=(),schedule=None):
  head=next((i for i,r in enumerate(rows) if sum(bool(re.search(r'12/\d+',str(x or ''))) for x in r[1:])==14),None)
  if head is None:raise ValueError('Must include all 14 date columns')
  actual=[f'2026-{int(m[1]):02}-{int(m[2]):02}' if (m:=re.search(r'(\d+)/(\d+)',str(x))) else '' for x in rows[head][1:15]]
  if actual!=DATES:raise ValueError('Unexpected dates; preserving previous bundle')
- areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','丸之內・銀座・新橋','豐洲・柴又・芝公園','淺草・上野','澀谷・代代木','越谷','自由安排','浜町・成田']
+ areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','丸之內・銀座・新橋','豐洲・柴又・芝公園','築地','澀谷・代代木','越谷','淺草・上野','浜町・成田']
  old={d['date']:d for d in trip['days']};days=[{**old[date],'events':[]} for date in DATES];count=0
  for ri,row in enumerate(rows[head+1:],head+1):
   time=normalize_time(row[0] if row else '');lodging=''
@@ -107,6 +122,9 @@ def compile_rows(rows,trip,enriched_guides=()):
    if alerts:event['alerts']=alerts
    day['events'].append(event)
  if count==0:raise ValueError('Empty grid')
+ for item in (schedule or {}).get('additions',[]):
+  day=next(d for d in days if d['date']==schedule['dates'][0])
+  day['events'].append({**item,'note':'使用者追加的手冊規劃；時間為建議，可依體力調整。','map':'','raw':item['title'],'cell':'','inherited':False,'slot':item['time'],'explicit':True,'origin':'user-plan','venueIds':[],'area':'築地'})
  for i,d in enumerate(days):
   d['events'].sort(key=lambda e:int(e['time'][:2])*60+int(e['time'][3:]) if e['time'] else 1440)
   if not d['events'] and i!=12:raise ValueError('A populated day was removed; review manually')
@@ -124,8 +142,6 @@ def compile_rows(rows,trip,enriched_guides=()):
    m=re.match(r'^12/(\d+)\s',e['raw'])
    if m and int(m[1])!=int(d['date'][-2:]):trip['decisions'].append({'id':'date-conflict-'+e['id'],'title':d['date'][5:]+' 預約日期錯置','text':f'原文標記12/{m[1]}，卻放在{d["date"][5:]}欄。請核對分店、預約日期與時間。','level':'risk','day':d['id']})
    for a in e.get('alerts',[]):trip['decisions'].append({'id':'availability-'+e['id']+'-'+a['venueId'],'title':d['date'][5:]+' 開放時段衝突','text':a['text'],'source':a['source'],'checked':a['checked'],'level':'risk','day':d['id']})
- for c,d in zip(trip['covers'],days):
-  if d['number']==13:c['title']='聖誕留白：今天，慢慢來';c['keys']=[]
  trip['sourceCellCount']=count
  return trip
 
@@ -142,7 +158,8 @@ def main():
   rows=list(csv.reader(io.StringIO(text)))
  previous=json.dumps(trip,ensure_ascii=False,separators=(',',':'))
  enriched=apply_enrichment(trip,json.loads(args.enrichment.read_text())) if args.enrichment else set()
- trip=compile_rows(rows,trip,enriched)
+ rows,schedule=authorized_rows(rows)
+ trip=compile_rows(rows,trip,enriched,schedule)
  validate_senior_stops(trip)
  validate_optional_events(trip)
  # A no-change sync does not manufacture new source verification dates.

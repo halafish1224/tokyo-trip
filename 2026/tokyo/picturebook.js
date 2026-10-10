@@ -1,6 +1,6 @@
 /* Display enhancements only. Itinerary data and all existing device keys stay intact. */
-const BOOK_SCENES={'2026-12-13':'flight','2026-12-14':'coast','2026-12-15':'temple','2026-12-16':'castle','2026-12-17':'town','2026-12-18':'coast','2026-12-19':'station','2026-12-20':'ginza','2026-12-21':'park','2026-12-22':'asakusa','2026-12-23':'forest','2026-12-24':'mall','2026-12-25':'rest','2026-12-26':'flight'};
-const BOOK_SCENE_RULES={flight:[/✈/],coast:[/江之島|江ノ島|鎌倉|材木座|腰越/],temple:[/大船|觀音|観音/],castle:[/小田原/],town:[/藤澤|藤沢/],station:[/東京|浜町/],ginza:[/銀座/,/大時計/],park:[/芝公園|草坪/],asakusa:[/淺草|浅草/,/上野/],forest:[/澀谷|渋谷|LOFT/,/Forest of Lights/],mall:[/LakeTown/i],rest:[]};
+const BOOK_SCENES={'2026-12-13':'flight','2026-12-14':'coast','2026-12-15':'temple','2026-12-16':'castle','2026-12-17':'town','2026-12-18':'coast','2026-12-19':'station','2026-12-20':'ginza','2026-12-21':'park','2026-12-22':'tsukiji','2026-12-23':'forest','2026-12-24':'mall','2026-12-25':'asakusa','2026-12-26':'flight'};
+const BOOK_SCENE_RULES={flight:[/✈/],coast:[/江之島|江ノ島|鎌倉|材木座|腰越/],temple:[/大船|觀音|観音/],castle:[/小田原/],town:[/藤澤|藤沢/],station:[/東京|浜町/],ginza:[/銀座/,/大時計/],park:[/芝公園|草坪/],asakusa:[/淺草|浅草/,/上野/],forest:[/澀谷|渋谷|LOFT/,/Forest of Lights/],mall:[/LakeTown/i],tsukiji:[/築地/],rest:[]};
 const PACKING_ITEMS=[['passport','護照與入境資料'],['medicine','常備藥與個人需要的用品'],['warm','保暖外套、圍巾'],['charge','手機、充電線、行動電源'],['water','水壺與輕便雨具'],['wallet','交通卡、錢包與必要票券']];
 function sanitizeBookState(raw){
  const out={version:1,mustGo:{},packing:{}};
