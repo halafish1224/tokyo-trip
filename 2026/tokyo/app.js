@@ -161,7 +161,7 @@ function isPlaceEvent(e){
  const text=String(e.title||'').trim();
  if(!text||e.inherited)return false;
  if(/起床|準時起床|^早餐$|^地址[：:]|^電話|住宿據點$/.test(text))return false;
- if(/東京地鐵乘車券|Tokyo Subway Ticket|PASMO|SUICA|無限搭乘地鐵圖|用IC不用補票|NEX來回票購買|完成退稅/i.test(text))return false;
+ if(/東京地鐵乘車券|Tokyo Subway Ticket|PASMO|SUICA|(?:無限搭乘|可搭乘)地鐵圖|NIPPON SIM|網卡|用IC不用補票|NEX來回票購買|完成退稅/i.test(text))return false;
  if(/✈|班機|航班|電子機票|機場.*報到|Terminal.*報到|退房|入住|大眾交通規劃|分流結束往|午餐後搭|搭地鐵往|優選為搭地鐵|不預設已走完|^京成.*特急往|^御成門站三田線/.test(text))return false;
  if(/^(?:出發(?:到|前往)?|前往|到|抵達).*(?:機場|Terminal)/i.test(text))return false;
  if(/^(?:飯店|車站|商場)?集合$|^(?:飯店|車站)集合[\s：:]|^.*(?:附近晚餐|周邊用餐)$/.test(text))return false;

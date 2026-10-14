@@ -7,6 +7,14 @@ import build_tokyo as b
 
 
 class CompilerRegression(unittest.TestCase):
+    def test_mixed_reservation_names_are_private(self):
+        raw = '12/20 12:00 餐廳 03-1234-5678 TEST PERSON NAME小明訂位'
+        clean = b.public_text(raw)
+        self.assertNotIn('TEST PERSON NAME', clean)
+        self.assertNotIn('小明', clean)
+        self.assertIn('03-1234-5678', clean)
+        self.assertEqual(b.public_text(clean), clean)
+
     def setUp(self):
         self.trip = json.loads((b.ROOT / 'trip.json').read_text())
         self.rows = [

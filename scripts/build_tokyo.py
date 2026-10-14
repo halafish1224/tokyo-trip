@@ -15,6 +15,7 @@ def event_time(value):
 def public_text(text):
  text=re.sub(r'https://docs\.google\.com/\S+','',text)
  text=re.sub(r'[\u4e00-\u9fff]{2,4}(?:已)?訂位','預約待確認',text)
+ text=re.sub(r'\b[A-Z][A-Za-z-]*(?:[ \t]+[A-Z][A-Za-z-]*){1,4}[ \t]*(?=(?:已)?(?:訂位|預約))','',text)
  text=re.sub(r'(訂位碼|訂房碼|預約番号|房號|保險單號)\s*[:：]?\s*[^\s，。\n]+',r'\1：請見私人筆記',text)
  text=re.sub(r'東橫INN藤澤站北口','藤澤住宿據點',text)
  text=re.sub(r'東橫INN東京站新大橋前','浜町住宿據點',text)
