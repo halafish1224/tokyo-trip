@@ -155,6 +155,18 @@ function officialFoodCard(food){return `<article class="food-card"><h4>${h(food.
 function foodSection(day){const foodIds=new Set(day.events.flatMap(e=>getPlaces(e).flatMap(p=>p.food)));const foods=FOODS.filter(f=>ratingEligible(f)&&foodIds.has(f.id));const refs=FOODS.filter(f=>f.provider==='Official'&&f.days?.includes(day.number));const main=refs.filter(f=>!f.backup),more=refs.filter(f=>f.backup);return foods.length||refs.length?`<section class="food-section"><h3>這一帶，吃點什麼？</h3>${refs.length?'<p>一家大小先選熟食；家庭適合度依菜色推估，座位與兒童設備需店家確認。</p>':''}<div class="food-grid">${foods.map(foodCard).join('')}${main.map(officialFoodCard).join('')}</div>${more.length?`<details><summary>壽司備選與歇腳參考（${more.length}家）</summary><div class="food-grid">${more.map(officialFoodCard).join('')}</div></details>`:''}</section>`:'';}
 
 function legacyHtml(day){const old=LEGACY.find(d=>d.id===day.id);if(!old)return '';return `<details class="old-notes"><summary>舊版封存・${old.events.length} 筆（非目前行程）</summary><p class="small muted">僅保留舊景點索引，已不作為本日動線。請以上方 Sheet 行程為準。</p><ul>${old.events.map(e=>`<li>${richText(e.title)} ${e.map?ext(mapUrl(e.map),'舊地圖 ↗'):''}</li>`).join('')}</ul><details><summary>舊版交通參考</summary><p>${h(day.guide.route)}</p><p>${h(day.guide.note)}</p></details></details>`;}
+// Classify the activity itself before venue matching: a transfer can mention attractions.
+// Unrecognised destinations retain their tools; routine reminders and transport do not.
+function isPlaceEvent(e){
+ const text=String(e.title||'').trim();
+ if(!text||e.inherited)return false;
+ if(/起床|準時起床|^早餐$|^地址[：:]|^電話|住宿據點$/.test(text))return false;
+ if(/東京地鐵乘車券|Tokyo Subway Ticket|PASMO|SUICA|無限搭乘地鐵圖|用IC不用補票|NEX來回票購買|完成退稅/i.test(text))return false;
+ if(/✈|班機|航班|電子機票|機場.*報到|Terminal.*報到|退房|入住|大眾交通規劃|分流結束往|午餐後搭|搭地鐵往|優選為搭地鐵|不預設已走完|^京成.*特急往|^御成門站三田線/.test(text))return false;
+ if(/^(?:出發(?:到|前往)?|前往|到|抵達).*(?:機場|Terminal)/i.test(text))return false;
+ if(/^(?:飯店|車站|商場)?集合$|^(?:飯店|車站)集合[\s：:]|^.*(?:附近晚餐|周邊用餐)$/.test(text))return false;
+ return true;
+}
 function eventHtml(e,day){
  const places=getPlaces(e),checked=!familyMode&&!!localState.checks[e.id];
  const map=queryFor(e);
@@ -165,6 +177,7 @@ function eventHtml(e,day){
  if(/久昇/.test(e.raw||e.title))warnings.push('原筆記的久昇已有歇業紀錄，不建議直接前往。');
  if(coord)warnings.push('原表只提供座標，景點名稱尚未確認。');
  if(e.conflict)warnings.push(e.orphan?'這筆原始雲端資料已不在目前網格，本機修改仍保留。':'雲端原文已改變；這張卡仍保留你的本機修改，請對照原文。');
+ if(!isPlaceEvent(e))return `<li class="event event-reminder" id="event-${h(e.id)}" data-date="${h(day.date)}" data-time="${h(e.time)}"><div class="event-when">${dateStampHtml(day.date)}<time class="event-time"${e.time?` datetime="${day.date}T${e.time}:00+09:00"`:''}>${h(e.time||'時間未定')}</time></div><h3>${richText(e.title)}</h3>${e.note?`<p class="event-note">${richText(e.note)}</p>`:''}${warnings.map(w=>`<p class="small itinerary-warning" style="color:#962d38">${h(w)}</p>`).join('')}</li>`;
  return `<li class="event${checked?' checked':''}" id="event-${h(e.id)}" data-date="${h(day.date)}" data-time="${h(e.time)}"><div class="event-when">${dateStampHtml(day.date)}<time class="event-time"${e.time?` datetime="${day.date}T${e.time}:00+09:00"`:''}>${h(e.time||'時間未定')}</time></div><h3>${richText(e.title)}</h3>${e.note?`<p class="event-note">${richText(e.note)}</p>`:''}${isSplit?'<span class="badge badge-note">A／B 同時分流</span>':''}${places.length?`<p class="event-note">${h(places.map(p=>p.route).join(' '))}</p>`:''}${warnings.map(w=>`<p class="small itinerary-warning" style="color:#962d38">${h(w)}</p>`).join('')}<div class="event-tools">${isSplit?ext(mapUrl('teamLab Planets TOKYO'),'A 豐洲地圖','btn btn-small')+ext(mapUrl('柴又帝釈天'),'B 柴又地圖','btn btn-small'):ext(mapUrl(map),coord?'開啟此座標 ↗':'景點地圖 ↗','btn btn-small')}${ext(directionsUrl(map),'交通路線 ↗','btn btn-small btn-quiet')}<button type="button" class="btn btn-small btn-quiet" data-edit="${h(e.id)}" data-day="${day.id}">編輯</button><button type="button" class="btn btn-small check-btn" data-check="${h(e.id)}" aria-pressed="${checked}">${checked?'✓ 已打卡':'打卡'}</button></div>${usefulInfoHtml(e)}${mapNotesHtml(e)}</li>`;
 }
 

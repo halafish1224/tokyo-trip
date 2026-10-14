@@ -68,6 +68,7 @@ function optionalEventHtml(day){
 }
 eventHtml=function(e,day){
  let html=baseEventHtml(e,day);
+ if(!isPlaceEvent(e))return html;
  const venues=(e.venueIds||[]).map(id=>TRIP.venues.find(v=>v.id===id)).filter(Boolean);
  const seniorStops=(TRIP.seniorStops||[]).filter(stop=>stop.eventId===e.id);
  const state=journal[e.id]||{};

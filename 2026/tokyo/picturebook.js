@@ -28,6 +28,7 @@ dayCoverHtml=function(day){const source='images/covers/'+day.date.slice(5).repla
 const bookBaseEvent=eventHtml;
 eventHtml=function(e,day){
  let markup=bookBaseEvent(e,day);
+ if(!isPlaceEvent(e))return markup;
  const must=isMustGo(e),tags=transportTags(e);
  if(tags)markup=markup.replace('</time></div>',`</time>${tags}</div>`);
  if(must)markup=markup.replace('<h3>',`<h3><span class="must-go-badge">★ 必去 · 重點行程</span> `);

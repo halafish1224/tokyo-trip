@@ -9,6 +9,23 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  }});
  await new Promise(r=>setTimeout(r,1200));const w=dom.window,d=w.document;
  assert.equal(errors.length,0,errors.join('\n'));assert(w.TokyoTrip,'app not initialized');
+ // Non-destination entries retain their text/time, without any destination controls.
+ const plainTitles=['出發到桃園機場','準時起床 早餐','東京地鐵乘車券72 (到期)','人形町搭地鐵往築地','KITTE午餐後搭 JR／地鐵到銀座；不安排跨區長走','分流結束往赤羽橋站：A 柴又→京成高砂','飯店集合\n大眾交通規劃:浜町住宿據點>成田機場','完成退稅相關'];
+ for(const title of plainTitles){
+  const event={id:'reminder-test',title,time:'09:30',venueIds:['kitte']};
+  assert.equal(w.isPlaceEvent(event),false,title);
+  const holder=d.createElement('div');holder.innerHTML=w.eventHtml(event,{id:'d1',date:'2026-12-13'});
+  assert.equal(holder.querySelector('h3').textContent,title);
+  assert.equal(holder.querySelector('time.event-time').textContent,'09:30');
+  assert.equal(holder.querySelectorAll('a,button,details,input,select').length,0,title);
+ }
+ for(const title of ['出發 越谷 AEON Mall LakeTown OUTLET (美食街)','赤羽橋站會合→港區立芝公園草坪','Forest 參觀中：園內1.8公里','薩莉亞 Saizeriya 日本橋濱町店','單軌拍照點','出發到東京塔'])assert.equal(w.isPlaceEvent({title}),true,title);
+ for(const day of w.eval('TRIP.days'))for(const event of day.events){
+  const holder=d.createElement('div');holder.innerHTML=w.eventHtml(event,day);
+  if(!w.isPlaceEvent(event))assert.equal(holder.querySelectorAll('.event-tools,.journal-editor,.venue-details,.must-go-badge,[data-must-go]').length,0,event.id);
+  else assert(holder.querySelector('.event-tools a'),event.id);
+ }
+
  assert(d.querySelector('.book-cover-art svg'));assert.equal(d.querySelectorAll('.flight-card').length,3);
  assert.equal(d.querySelector('#source-info').closest('.section').id,'sec-trans');
  if(!query){assert.equal(d.querySelectorAll('[data-bus-day]').length,14);assert.equal(d.querySelector('[data-bus-day]').dataset.busDay,'d1');assert.equal(d.querySelectorAll('[data-bus-day]')[13].dataset.busDay,'d14');assert.equal(d.querySelector('[data-bus-day][aria-current=date]').dataset.busDay,w.eval('activeDay'));}else assert.equal(d.querySelectorAll('[data-bus-day]').length,0);
