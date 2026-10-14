@@ -1,91 +1,91 @@
 {
   "seniorStops": [
     {
-      "eventId": "sheet-2026-12-20-r7",
+      "eventId": "sheet-2026-12-21-r7",
       "anchor": "KITTE",
       "for": "KITTE 丸之內／根室花丸候位",
       "name": "KITTE 1F 茶飲休息",
       "ja": "タリーズコーヒー＆TEA KITTE丸の内店",
       "address": "東京都千代田区丸の内2-7-2 JPタワー KITTE 1F",
-      "hours": "每日 08:00–21:00；12/20 特別營業待核對",
+      "hours": "每日 08:00–21:00；調整後日期 特別營業待核對",
       "why": "同棟有 66 個座位，可讓長者坐著等候或先喝熱茶。",
-      "caution": "需點餐；壽司候位方式另看店內公告。",
+      "caution": "需點餐；壽司候位方式另看店內公告。 已換日，當日營業與集合時間待核對。",
       "source": "https://marunouchi.jp-kitte.jp/shop/index.jsp?bf=1&fmt=6&shopid=1032",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-20-r9",
+      "eventId": "sheet-2026-12-21-r9",
       "anchor": "OS DRUG",
       "for": "銀座 OS DRUG",
       "name": "銀座購物中途坐下",
       "ja": "むさしの森珈琲 マロニエゲート銀座2店",
       "address": "東京都中央区銀座3-2-1 マロニエゲート銀座2 7F",
-      "hours": "每日 09:00–23:00；12/20 特別營業待核對",
+      "hours": "每日 09:00–23:00；調整後日期 特別營業待核對",
       "why": "往下一站的商場內，官方列 116 席、禁菸，能減少額外折返。",
-      "caution": "需點餐；OS DRUG 分店營業仍待核對。",
+      "caution": "需點餐；OS DRUG 分店營業仍待核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.marronniergate.com/shop/index/325",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-20-r10",
+      "eventId": "sheet-2026-12-21-r10",
       "anchor": "MARRONNIER",
       "for": "MARRONNIER GATE GINZA 2／UNIQLO／GU",
       "name": "商場 7F 坐下歇腳",
       "ja": "むさしの森珈琲 マロニエゲート銀座2店",
       "address": "東京都中央区銀座3-2-1 マロニエゲート銀座2 7F",
-      "hours": "每日 09:00–23:00；12/20 特別營業待核對",
+      "hours": "每日 09:00–23:00；調整後日期 特別營業待核對",
       "why": "與購物樓層同棟，官方列 116 席、禁菸。",
-      "caution": "需點餐；尖峰不保證立即有座。",
+      "caution": "需點餐；尖峰不保證立即有座。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.marronniergate.com/shop/index/325",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-20-r12",
+      "eventId": "sheet-2026-12-21-r12",
       "anchor": "無印良品",
       "for": "銀座無印良品：年輕人採買、長輩等候",
       "name": "長輩留前一商場 7F 坐著等",
       "ja": "むさしの森珈琲 マロニエゲート銀座2店",
       "address": "東京都中央区銀座3-2-1 マロニエゲート銀座2 7F",
-      "hours": "每日 09:00–23:00；12/20 特別營業待核對",
-      "why": "年輕人自行到無印；長輩在上一商場有座位的咖啡店等，17:15 原商場會合。",
-      "caution": "需點餐，請在分開前約好咖啡店樓層、電話和重新集合時間。",
+      "hours": "每日 09:00–23:00；調整後日期 特別營業待核對",
+      "why": "年輕人自行到無印；長輩在上一商場有座位的咖啡店等，約定時間 原商場會合。",
+      "caution": "需點餐，請在分開前約好咖啡店樓層、電話和重新集合時間。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.marronniergate.com/shop/index/325",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-20-r14",
+      "eventId": "sheet-2026-12-22-r12",
       "anchor": "宮崎駿",
       "for": "汐留日電大時計",
       "name": "看鐘後進館坐下",
       "ja": "スターバックス コーヒー 日テレプラザ店",
       "address": "東京都港区東新橋1-6-1 日本テレビ 日テレプラザ",
-      "hours": "週日／假日 08:00–20:00；12/20 特別營業待核對",
+      "hours": "週日／假日 08:00–20:00；調整後日期 特別營業待核對",
       "why": "與大時計同一日電廣場，可先看鐘再進室內休息。",
-      "caution": "需點餐；18:00 後請留意 20:00 關店。",
+      "caution": "需點餐；18:00 後請留意 20:00 關店。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.ntv.co.jp/shiodome/shop/starbucks.html",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-21-r4",
+      "eventId": "sheet-2026-12-25-r4",
       "anchor": "柴又",
       "for": "A 線柴又老街／高木屋",
       "name": "參道茶屋（10:00 後）",
       "ja": "髙木屋老舗 喫茶",
       "address": "東京都葛飾区柴又7-7-4",
-      "hours": "喫茶 10:00–16:00；12/21 臨時營業待核對",
+      "hours": "喫茶 10:00–16:00；調整後日期 臨時營業待核對",
       "why": "就在參道，商店街官方列 80 席，適合逛街後坐下吃茶點。",
-      "caution": "原行程 08:30 早於喫茶開門；不可作為到達即坐的休息點，請將休息安排在 10:00 後。",
+      "caution": "原行程 08:30 早於喫茶開門；不可作為到達即坐的休息點，請將休息安排在 10:00 後。 已換日，當日營業與集合時間待核對。",
       "source": "https://shibamata.net/shop/jpg/takagi/takagi.html",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-21-r5",
+      "eventId": "sheet-2026-12-25-r5",
       "anchor": "teamLab",
       "for": "B 線 teamLab Planets 豐洲",
       "name": "館內餐飲休息（10:30 後）",
@@ -93,55 +93,55 @@
       "address": "東京都江東区豊洲6-1-16 teamLab Planets TOKYO 敷地内",
       "hours": "10:30–21:30；拉麵 11:00 起；依展館休館",
       "why": "展館附設餐飲區，完成沉浸式參觀後可坐下用餐。",
-      "caution": "09:30 尚未開門，且官方限定 Planets 入場者；水區可能浸至膝部，可詢問工作人員繞行，不能當作無票者候位室。",
+      "caution": "09:30 尚未開門，且官方限定 Planets 入場者；水區可能浸至膝部，可詢問工作人員繞行，不能當作無票者候位室。 已換日，當日營業與集合時間待核對。",
       "source": "https://vegan-uzu.com/pages/uzu-tokyo",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-21-r11",
+      "eventId": "sheet-2026-12-25-r11",
       "anchor": "芝公園草坪",
       "for": "港區立芝公園草坪",
       "name": "草坪旁長椅與廁所",
       "ja": "港区立芝公園",
       "address": "東京都港区芝公園4-8-4",
-      "hours": "公園開放時段依港區公告；12/21 現場使用狀態待核對",
+      "hours": "公園開放時段依港區公告；調整後日期 現場使用狀態待核對",
       "why": "港區官方列草坪、32 張長椅及廁所，無須點餐，可原地坐下。",
-      "caution": "冬日戶外寒冷，長椅可能被佔；若需室內休息可另看周邊餐飲。",
+      "caution": "冬日戶外寒冷，長椅可能被佔；若需室內休息可另看周邊餐飲。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.city.minato.tokyo.jp/shisetsu/koen/shiba/09.html",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-21-r14",
+      "eventId": "sheet-2026-12-25-r14",
       "anchor": "聖誕市集",
       "for": "御成門站前芝公園聖誕市集",
       "name": "御成門站邊暖身坐席",
       "ja": "エクセルシオール カフェ 御成門駅前店",
       "address": "東京都港区西新橋3-24-8 山内ビル1F",
-      "hours": "週一 06:45–22:00；12/21 臨時營業待核對",
+      "hours": "週一 06:45–22:00；調整後日期 臨時營業待核對",
       "why": "市集官方列御成門 A6 入口，咖啡店在同站附近，有 63 個非吸菸座位。",
-      "caution": "需點餐；進出市集是否可再入場須以票券規則核對，別先離場再回。",
+      "caution": "需點餐；進出市集是否可再入場須以票券規則核對，別先離場再回。 已換日，當日營業與集合時間待核對。",
       "source": "https://shop.doutor.co.jp/doutor/spot/detail?code=5000077",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r5",
+      "eventId": "sheet-2026-12-23-r5",
       "anchor": "八十八",
       "for": "八十八淺草／隅田公園北側",
       "name": "公園案內所椅子與廁所",
       "ja": "隅田公園案内所",
       "address": "東京都台東区立隅田公園 東武鉄橋付近",
-      "hours": "09:30–18:00；12/29–1/3 休",
+      "hours": "09:30–18:00；調整後日期–1/3 休",
       "why": "台東區明列休憩長椅、廁所與無障礙廁所，無須消費。",
-      "caution": "在公園東武鐵橋附近，先按地圖確認從八十八的步行方向；09:30 才開。",
+      "caution": "在公園東武鐵橋附近，先按地圖確認從八十八的步行方向；09:30 才開。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.city.taito.lg.jp/kenchiku/hanamidori/koen/annnaijonogoannnai.html",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r6",
+      "eventId": "sheet-2026-12-23-r6",
       "anchor": "淺草寺",
       "for": "淺草寺／雷門",
       "name": "雷門前公共休息處",
@@ -149,77 +149,77 @@
       "address": "東京都台東区雷門2-18-9 6F",
       "hours": "09:00–20:00；維修或活動可能暫停",
       "why": "雷門正對面，台東區明列平常有椅子、可休息，且免消費。",
-      "caution": "6F 有活動時不可作休息處；進館前可向 1F 案內問。",
+      "caution": "6F 有活動時不可作休息處；進館前可向 1F 案內問。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.city.taito.lg.jp/bunka_kanko/kankoinfo/info/oyakudachi/kankocenter/tamokuteki-space.html",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r10",
+      "eventId": "sheet-2026-12-23-r10",
       "anchor": "domremy",
       "for": "Domremy 上野站前甜點 outlet",
       "name": "上野站內茶室",
       "ja": "アフタヌーンティー・ティールーム アトレ上野店",
       "address": "東京都台東区上野7-1-1 アトレ上野 WEST 1F",
-      "hours": "10:00–21:00；12/22 特別營業待核對",
+      "hours": "10:00–21:00；調整後日期 特別營業待核對",
       "why": "回到上野站一帶可坐下吃點心，官方列 64 席、全席禁菸。",
-      "caution": "需點餐；Outlet 本身是否可內用不要推定。",
+      "caution": "需點餐；Outlet 本身是否可內用不要推定。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.atre.co.jp/ueno/shop/1967/",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r11",
+      "eventId": "sheet-2026-12-23-r11",
       "anchor": "OS DRUG",
       "for": "上野 OS DRUG",
       "name": "採買後室內甘味座",
       "ja": "あんみつ みはし アトレ上野店",
       "address": "東京都台東区上野7-1-1 アトレ上野 WEST 1F",
-      "hours": "10:00–21:00；12/22 特別營業待核對",
+      "hours": "10:00–21:00；調整後日期 特別營業待核對",
       "why": "上野站旁的室內座位；官方列 39 席，可作採買後回程歇腳。",
-      "caution": "需點餐，與藥妝店不是同棟；請沿回程方向使用，避免刻意折返。",
+      "caution": "需點餐，與藥妝店不是同棟；請沿回程方向使用，避免刻意折返。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.atre.co.jp/ueno/shop/2086/",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r12",
+      "eventId": "sheet-2026-12-23-r12",
       "anchor": "阿美橫町",
       "for": "阿美橫町北段／宇奈とと",
       "name": "上野站口甘味茶室",
       "ja": "あんみつ みはし アトレ上野店",
       "address": "東京都台東区上野7-1-1 アトレ上野 WEST 1F",
-      "hours": "10:00–21:00；12/22 特別營業待核對",
+      "hours": "10:00–21:00；調整後日期 特別營業待核對",
       "why": "阿美橫靠上野站一端可坐下，官方列 39 席。",
-      "caution": "需點餐；若已走到御徒町端，請改用同一行程下方的松坂屋選項，不要折返。",
+      "caution": "需點餐；若已走到御徒町端，請改用同一行程下方的松坂屋選項，不要折返。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.atre.co.jp/ueno/shop/2086/",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r12",
+      "eventId": "sheet-2026-12-23-r12",
       "anchor": "二木菓子",
       "for": "二木菓子／阿美橫御徒町端",
       "name": "御徒町端百貨茶室",
       "ja": "カフェコムサ 松坂屋上野店",
       "address": "東京都台東区上野3-29-5 松坂屋上野店 本館2F",
-      "hours": "10:00–19:00（L.O.18:30）；12/22 特別營業待核對",
+      "hours": "10:00–19:00（L.O.18:30）；調整後日期 特別營業待核對",
       "why": "從二木菓子所在的御徒町一端進百貨店，官方列 48 席、禁菸、可輪椅入店。",
-      "caution": "需點餐；不是二木店內座位。",
+      "caution": "需點餐；不是二木店內座位。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.matsuzakaya.co.jp/ueno/restaurant/cafe-commeca.html",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-23-r10",
+      "eventId": "sheet-2026-12-20-r10",
       "anchor": "LOFT",
       "for": "澀谷 Loft",
       "name": "Loft 周邊室內座位",
       "ja": "ON THE CORNER Shibuya（渋谷PARCO）",
       "address": "東京都渋谷区宇田川町15-1 渋谷PARCO B1F",
-      "hours": "11:30–22:00；12/23 特別營業待核對",
+      "hours": "11:30–22:00；調整後日期 特別營業待核對",
       "why": "在 Loft 附近的 PARCO 地下 1F，官方列桌席 24、吧台 6。",
-      "caution": "需點餐；澀谷西武已結束營業，但 Loft 持續營業，請導航至宇田川町18-2。",
+      "caution": "需點餐；澀谷西武已結束營業，但 Loft 持續營業，請導航至宇田川町18-2。 已換日，當日營業與集合時間待核對。",
       "source": "https://shibuya.parco.jp/shop/detail/?cd=025692",
       "checked": "2026-10-08",
       "status": "官方已核實"
@@ -231,81 +231,67 @@
       "name": "Outlet 湖畔室內茶座",
       "ja": "TULLY'S COFFEE &TEA レイクタウンアウトレット店",
       "address": "埼玉県越谷市レイクタウン4-1-1 LAKESIDE DINING 1F [9101]",
-      "hours": "10:00–20:00；12/24 特別營業待核對",
+      "hours": "10:00–20:00；調整後日期 特別營業待核對",
       "why": "在 Outlet 新區域的餐飲棟，先坐下再決定要不要繼續走到 mori。",
-      "caution": "需點餐；OUTLET 與 mori 是不同棟，步行和天氣負擔需留意。",
+      "caution": "需點餐；OUTLET 與 mori 是不同棟，步行和天氣負擔需留意。 已換日，當日營業與集合時間待核對。",
       "source": "https://laketown-outlet.jp/shop/detail/405",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-20-r6",
+      "eventId": "sheet-2026-12-21-r6",
       "anchor": "丸善",
       "for": "丸善 丸之內本店",
       "name": "書店同棟咖啡座",
       "ja": "Cafe 1869 by MARUZEN",
       "address": "東京都千代田区丸の内1-6-4 丸の内オアゾ 3F",
-      "hours": "09:00–21:00（L.O.20:30）；12/20 特別營業待核對",
+      "hours": "09:00–21:00（L.O.20:30）；調整後日期 特別營業待核對",
       "why": "先在東京站旁購書，同棟 3F 官方列 44 席，長輩可坐著等。",
-      "caution": "需點餐；10:30 至 KITTE 12:30 午餐的空檔可按體力縮短。",
+      "caution": "需點餐；10:30 至 KITTE 12:30 午餐的空檔可按體力縮短。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.marunouchi.com/tenants/9729/",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-22-r7",
+      "eventId": "sheet-2026-12-23-r7",
       "anchor": "淺草ROX",
       "for": "淺草ROX 休息與逛店",
       "name": "ROX2G 2F Komeda 坐下喝茶",
       "ja": "珈琲所コメダ珈琲店 浅草ROX2G店",
       "address": "東京都台東区浅草1-24-1 浅草ROX2G 2F",
-      "hours": "07:00–23:00（L.O.22:00）；12/22 特別營業待核對",
+      "hours": "07:00–23:00（L.O.22:00）；調整後日期 特別營業待核對",
       "why": "商場同區的室內桌席，適合長輩購物中途坐下；ROX 官方列無障礙廁所。",
-      "caution": "需點餐；12:30 上野午餐前別坐過久，11:40 左右離開往田原町站。",
+      "caution": "需點餐；12:30 上野午餐前別坐過久，11:40 左右離開往田原町站。 日期移至12/25，當日營業／訂位需再核對。 已換日，當日營業與集合時間待核對。",
       "source": "https://www.rox.co.jp/information/",
       "checked": "2026-10-08",
       "status": "官方已核實"
     },
     {
-      "eventId": "sheet-2026-12-23-r12",
+      "eventId": "sheet-2026-12-20-r12",
       "anchor": "SHIBUYA109",
       "for": "109 前合照後待至 17:30",
       "name": "109 館內 7F café Ma Maison",
       "ja": "カフェ マ・メゾン",
       "address": "東京都渋谷区道玄坂2-29-1 SHIBUYA109 7F",
-      "hours": "11:00–21:00；12/23 特別營業待核對",
+      "hours": "11:00–21:00；調整後日期 特別營業待核對",
       "why": "合照後進同一棟建築坐著等，避免再跨區找店。",
-      "caution": "需點餐且不能保證候位；如 109 前人潮多，勿在車道停留拍照。",
+      "caution": "需點餐且不能保證候位；如 109 前人潮多，勿在車道停留拍照。 已換日，當日營業與集合時間待核對。",
       "source": "https://shibuya109.jp/topics/shops/cafe-ma-maison/",
       "checked": "2026-10-08",
       "status": "官方已核實"
-    },
-    {
-      "eventId": "sheet-2026-12-23-r14",
-      "anchor": "Forest of Lights",
-      "for": "Forest 光之森入場前",
-      "name": "原宿站旁咖啡座（必要時）",
-      "ja": "スターバックス コーヒー WITH HARAJUKU店",
-      "address": "東京都渋谷区神宮前1-14-30 WITH HARAJUKU 1F",
-      "hours": "08:00–22:30；12/23 特別營業待核對",
-      "why": "入口／票面路線確認前可在原宿站旁坐下，減少園外久站。",
-      "caution": "需消費且座位未核實；不能在園內當中途休息點，園內 1.8 公里與退出動線仍待主辦核對。",
-      "source": "https://withharajuku.jp/",
-      "checked": "2026-10-08",
-      "status": "待核對"
     }
   ],
   "optionalEvents": [
     {
       "id": "yoyogi-forest-of-lights-2026",
-      "date": "2026-12-23",
+      "date": "2026-12-20",
       "title": "代代木 Forest of Lights ～光之森～",
       "ja": "ACN presents 代々木フォレスト・オブ・ライツ ～光の森～",
       "address": "東京都渋谷区代々木神園町2-1 代々木公園サイクリングコースエリア",
       "hours": "2026/11/13–2027/1/11，17:30–22:00；最終入場21:00",
       "route": "109 館內咖啡座休息到 17:30 後，建議短程乘車至原宿／代代木公園入口；實際入口、票面入場時段與下車點待購票後核對。",
-      "ticket": "12/23 為聖誕指定日時票，成人 ¥4,600；12月票預定 2026/10/15 10:00 開賣。須預先購票，現場無售票窗口；購後不可任意改期或退款。",
-      "caution": "已排入 Sheet，但 18:30 僅是候選時段，尚未購票。園內約 1.8 公里夜間步行不能保證每段 10 分鐘內；長輩須先評估體力、氣溫與退出動線。主辦允許輪椅但不提供租借，餐飲區座位未核實且不可再入場；回程晚餐可能超過 20:00。",
+      "ticket": "行程已移至12/20，指定日票價、可購時段與是否完成訂票待確認；原12/23票價不適用於本日判定。",
+      "caution": "Sheet 已改排18:00參觀；17:30後由109移動能否趕上入場需核對。園內約1.8公里，長者體力與回程時間另留彈性。",
       "source": "https://www.yoyogiforestoflights.tokyo/en/",
       "ticketSource": "https://l-tike.com/event/mevent/?mid=794806",
       "checked": "2026-10-08",
@@ -314,61 +300,174 @@
     }
   ],
   "guides": {
-    "2026-12-20": {
-      "title": "丸之內書店、銀座分流與全員新橋",
-      "area": "丸之內・銀座・新橋",
-      "route": "東京站／丸善 → KITTE 午餐 → 銀座商場；年輕人無印／長輩商場休息 → 全員銀座線新橋／汐留大時計",
-      "text": "把丸善移到東京站上午，免於看完大時計後再折返。無印良品只有年輕人前往，長輩在 MARRONNIER GATE GINZA 2 7F 咖啡座等候，17:15 回商場會合後大家搭銀座線到新橋。",
-      "note": "18:00 大時計約整點前 3 分鐘開始，請預留汐留站區步行與電梯時間。新橋晚餐或回浜町薩莉亞二選一；分店最後點餐待核對。",
+    "2026-12-13": {
+      "title": "抵達湘南，住進藤澤",
+      "area": "藤澤",
+      "route": "桃園／成田T2 → N’EX → 藤澤 → 湘南GATE",
+      "text": "落地後依序完成入境、N’EX購票與轉乘，再到藤澤入住。17:50抵達後，18:50再到湘南GATE／OK Store補給。",
       "sources": [
-        "shuttle",
-        "kitte",
-        "muji",
-        "clock",
-        "maruzen",
-        "metro"
+        "jr",
+        "fujihotel"
       ],
-      "checked": "2026-10-08"
+      "note": "12:35、17:50均為表內計畫時間，不當成已確認航班或列車班次；若入境延誤，晚餐與採買順延。已歇業店不列推薦。",
+      "checked": "2026-10-06",
+      "routeBasis": "6fe151e81181c6cb"
+    },
+    "2026-12-14": {
+      "title": "江之島洞窟，傍晚轉往鵠沼",
+      "area": "江之島・藤澤",
+      "route": "江之島 → 稚児ヶ淵／岩屋 → 鵠沼海岸Sobanii → MrMax",
+      "text": "藤澤搭小田急至片瀬江ノ島後步行上島；岩屋回程有階梯。17:00再移動至鵠沼海岸用餐，18:00續往辻堂新町MrMax。",
+      "sources": [
+        "odakyu",
+        "iwaya",
+        "sobanii",
+        "mrmax"
+      ],
+      "note": "岩屋依季節與當日公告開放。表內已將蕎麦兄改為17:00，但跨區僅留一小時；當日開店、候位與交通仍需核對。朝日堂／紀之國屋分店待確認。",
+      "checked": "2026-10-06",
+      "routeBasis": "76b0ac37c4dd0f84"
+    },
+    "2026-12-15": {
+      "title": "大船觀音與街區日常",
+      "area": "大船",
+      "route": "大船觀音寺 → 仲通商店街 → 單軌拍照點 → 常楽寺 → BOOKOFF",
+      "text": "藤澤搭JR到大船，先由西口上坡參拜，再返回車站東側商店街；午後串連常楽寺與BOOKOFF。",
+      "sources": [
+        "jr",
+        "ofuna",
+        "bookoff",
+        "cuillere-reference"
+      ],
+      "note": "CALVA已自最新表移除，不再保留休店警示。Cuillere當日營業、單軌拍照點、OS大船與鳴門鯛燒實際分店仍待核對。",
+      "checked": "2026-10-06",
+      "routeBasis": "cb1d99139713dd22"
+    },
+    "2026-12-16": {
+      "title": "小田原城、文學與冬日海岸",
+      "area": "小田原",
+      "route": "小田原城 → 報徳二宮神社 → 魚糕街 → 文學館 → 御幸の浜",
+      "text": "08:30先走城址外圍，9:00後再進展館；下午15:00進文學館，趕在冬季16:00最後入館前，之後依天候前往海岸。",
+      "sources": [
+        "jr",
+        "castle",
+        "uirou",
+        "literature"
+      ],
+      "note": "小田原漁港已自最新表移除，不再提示早川交通。外郎本店12/16週三固定休息；16:00到御幸の浜前確認天色、海風與入口。",
+      "checked": "2026-10-06",
+      "routeBasis": "72faa49170bb23ac"
+    },
+    "2026-12-17": {
+      "title": "藤澤宿的慢步調",
+      "area": "藤澤",
+      "route": "藤澤站 → 藤澤宿",
+      "text": "以步行探索藤澤宿；交流館可作歷史資訊與休息點，保留彈性慢走。",
+      "sources": [
+        "shuku"
+      ],
+      "note": "最新表已移除未定義的「西側方向」，不自動填入舊版景點。",
+      "checked": "2026-10-06",
+      "routeBasis": "8e3455e2cb87b8f9"
+    },
+    "2026-12-18": {
+      "title": "材木座、腰越，再回藤澤",
+      "area": "鎌倉・腰越",
+      "route": "光明寺／材木座 → 腰越漁港 → 遊行寺",
+      "text": "上午走材木座海岸，午後移動至腰越生活圈，再返回藤澤的遊行寺；三段跨區需保留轉乘時間。",
+      "sources": [
+        "jr",
+        "enoden",
+        "komyoji",
+        "koshigoe",
+        "bunza",
+        "yugyoji"
+      ],
+      "note": "文佐食堂在江之島遊艇港附近，非腰越漁港；14:00遊行寺需把前段移動與16:00參拜截止一併納入。海邊咖啡分店仍待確認。",
+      "checked": "2026-10-06",
+      "routeBasis": "dc4dc7256824fab5"
+    },
+    "2026-12-19": {
+      "title": "移動東京，與家人會合",
+      "area": "東京・浜町",
+      "route": "大船 → 東京／家族桃園 → 成田 → 浜町",
+      "text": "獨旅組由大船搭N’EX進東京；家族組依航班抵達成田後前往浜町。兩組分開移動，預先約定浜町集合點。",
+      "sources": [
+        "jr",
+        "keisei",
+        "hotel"
+      ],
+      "note": "表內15:00機場交通仍早於16:35家族抵達，順序衝突；入境、領行李與移動另留時間，18:00晚餐彈性順延。",
+      "checked": "2026-10-06",
+      "routeBasis": "11fedfae76d357f7"
+    },
+    "2026-12-20": {
+      "title": "澀谷購物與代代木夜間散步",
+      "area": "澀谷・代代木",
+      "route": "澀谷午餐 → Loft → SHIBUYA109 → Forest → 浜町",
+      "text": "依 Sheet：11:30 午餐、14:30 Loft、16:00 109 休息、18:00 Forest 行程。19:00 為地鐵券規劃啟用時間，實際起算與到期以票面為準。",
+      "sources": [],
+      "note": "16:00 咖啡座預留至17:30後，再前往18:00 Forest，交通及入場時段需核對；指定日票價與票券尚待確認。",
+      "routeBasis": "94e2e596615f06da"
     },
     "2026-12-21": {
-      "title": "柴又／豐洲分流，芝公園草坪會合",
-      "area": "柴又・豐洲・芝公園",
-      "route": "A 柴又／B 豐洲 → 赤羽橋站會合 → 港區立芝公園草坪 → 御成門站前聖誕市集 → 浜町晚餐",
-      "text": "A 組可由柴又經京成高砂接都營淺草線至大門、轉大江戶線到赤羽橋；B 組由豐洲搭有樂町線至月島、轉大江戶線到赤羽橋。班次、直通與電梯路線出發前核對，15:00 才在草坪會合。",
-      "note": "東京鐵塔入館、永井坂與龍翔軒已刪。草坪在芝公園4-8-4；市集另在御成門 A6 旁，年長者可短程搭計程車，或由赤羽橋搭大江戶線一站到大門、再步行官方標示約10分鐘。回程御成門三田線→神保町轉新宿線→浜町，晚餐回飯店周邊。",
-      "sources": [
-        "keisei",
-        "metro",
-        "toei",
-        "christmas"
-      ],
-      "checked": "2026-10-08"
+      "title": "丸之內・銀座・路線已變更",
+      "area": "丸之內・銀座",
+      "route": "丸善 丸の内本店 → KITTE丸の内 → 回転寿司 根室花まる KITTE丸の内店 → OSドラッグ 銀座店 → マロニエゲート銀座2（UNIQLO／GU）",
+      "text": "路線已依最新表更新；跨區交通與營業時段待重新核對。",
+      "sources": [],
+      "note": "18:15商場會合；涮乃葉分店與價格待確認。地鐵券期限以實際首次使用與票面為準。",
+      "routeBasis": "fe2af18e6da99871"
     },
     "2026-12-22": {
-      "title": "雷門、ROX 坐下休息，再搭車上野",
-      "area": "淺草・上野",
-      "route": "八十八浅草 → 浅草寺／雷門 → 浅草ROX 坐席 → 田原町站銀座線 → 上野午餐／採買",
-      "text": "取消合羽橋與淺草至上野的長距離步行。ROX 2G 2F Komeda 可點飲品坐下；約11:40出發，田原町站搭銀座線到上野，12:30 的午餐訂位保留。",
-      "note": "雷門到 ROX 與 ROX 到田原町站的街道步行時間依實際入口核對；若長輩走不到 10 分鐘就需休息，可改短程計程車。分店與訂位內容仍依私人確認。",
-      "sources": [
-        "metro",
-        "sensoji",
-        "domremy",
-        "os-ueno"
-      ],
-      "checked": "2026-10-08"
+      "title": "築地・汐留・路線已變更",
+      "area": "築地・汐留",
+      "route": "人形町 → 築地本願寺 → 場外市場午餐 → センリ軒 → 汐留大時計 → 晚餐",
+      "text": "上午築地慢逛，11:30午餐，13:30センリ軒歇腳；16:00汐留大時計合照，17:00新橋或浜町晚餐。",
+      "sources": [],
+      "note": "上次路線說明已停用，請逐站核對。",
+      "routeBasis": "19c822a14c6f0e4a"
     },
     "2026-12-23": {
-      "title": "澀谷 Loft、109 合照與代代木光之森",
-      "area": "澀谷・原宿／代代木",
-      "route": "澀谷午餐 → Loft → SHIBUYA109 合照／7F 坐席 → 搭車至代代木 Forest of Lights",
-      "text": "Loft 正址宇田川町18-2；之後回 SHIBUYA109 前合照，進館 7F café Ma Maison 坐至 17:30 後，再依活動票面到代代木公園入口。",
-      "note": "Forest 18:30 是候選票券時段，尚未購票；園內 1.8 公里，無法保證每段 10 分鐘內，也未核實中途退出與座位。原 18:00 青之洞窟、3COINS 與「千代田站回」已取消；回程站依票券入口／出口確認，晚餐順延。",
+      "title": "淺草・上野・路線已變更",
+      "area": "淺草・上野",
+      "route": "八十八浅草 → 浅草寺 → 浅草ROX → 叙々苑 上野マルイ店 → ドンレミーアウトレット上野不忍店 → OSドラッグ 上野店 → アメ横商店街 → 名代 宇奈とと 上野店 → 二木の菓子 第一営業所（候選；表內分館待確認）",
+      "text": "路線已依最新表更新；跨區交通與營業時段待重新核對。",
+      "sources": [],
+      "note": "Sheet已將上野敘敘苑日期改為12/23，但括號仍保留移至12/25候選及原訂位12/22的舊備註；請再確認實際預約。12/23 19:00地鐵券到期為規劃時間，以票面為準。",
+      "routeBasis": "046310489a97bb79"
+    },
+    "2026-12-24": {
+      "title": "越谷 LakeTown 購物日",
+      "area": "越谷",
+      "route": "浜町 → 越谷 LakeTown Outlet → mori 午餐 → 浜町",
+      "text": "10:00 出發，11:30 一汁五穀；Outlet 與 mori 是不同館，請預留跨館時間。",
+      "sources": [],
+      "note": "依 Sheet 使用 PASMO／Suica 或另購車票；集合樓層與餐廳候位需現場核對。",
+      "routeBasis": "f42e376c0ef1f7a1"
+    },
+    "2026-12-25": {
+      "title": "分流探索，芝公園會合",
+      "area": "豐洲・柴又・芝公園",
+      "route": "A 柴又／B 豐洲 → 赤羽橋 → 芝公園草坪 → 御成門市集 → 浜町",
+      "text": "A組08:30柴又，B組09:30豐洲；13:30各自移動，15:00赤羽橋會合後到草坪，18:00聖誕市集。",
+      "sources": [],
+      "note": "teamLab與市集須核對12/25票券、票價及入場時段；草坪與御成門市集是不同位置，依體力安排短程搭車。",
+      "routeBasis": "164d44a58d65ebe6"
+    },
+    "2026-12-26": {
+      "title": "從浜町出發，帶回冬日回憶",
+      "area": "浜町・成田",
+      "route": "浜町飯店取行李 → 東日本橋 → 成田T2",
+      "text": "12:50飯店集合後取行李，依實際交通前往成田T2；15:50完成退稅相關後準備登機。",
       "sources": [
-        "loft",
-        "metro"
+        "keisei",
+        "hotel",
+        "nex-ticket"
       ],
-      "checked": "2026-10-08"
+      "note": "12:50、13:30、14:35、15:50、17:45均是計畫時間，不是確認班次。N’EX來回票不能用於京成Access特急，購票前先決定返程方式。",
+      "checked": "2026-10-06",
+      "routeBasis": "5249da5967fdd496"
     }
   },
   "decisions": [
@@ -393,7 +492,7 @@
       "title": "teamLab Planets 入場預約",
       "text": "確認是豐洲 Planets、日期與入場時段，不能以其他teamLab票券替代。",
       "level": "risk",
-      "day": "d9"
+      "day": "d13"
     },
     {
       "id": "meet",
@@ -404,10 +503,10 @@
     },
     {
       "id": "split",
-      "title": "12/21 A／B 分流與赤羽橋會合",
+      "title": "12/25 A／B 分流與赤羽橋會合",
       "text": "A組柴又、B組豐洲，各自核對票券和轉乘。15:00 赤羽橋站會合後到港區立芝公園草坪；請預先約定延誤時聯絡方式。",
       "level": "risk",
-      "day": "d9",
+      "day": "d13",
       "checked": "2026-10-08"
     },
     {
@@ -447,19 +546,19 @@
     },
     {
       "id": "christmas-venue",
-      "title": "12/21 芝公園市集事前票已開賣",
-      "text": "官方已於10/1 18:00開賣事前票。行程18:00為芝公園（御成門駅前廣場）；12/21平日成人1,000円、小學生500円、未就學免費，成人事前票含芝公園紅色紀念杯。混雜時可能限制當日入場；若要杯或降低撲空風險，請先購買芝公園場票，不要選成新豐洲場。",
+      "title": "12/25 芝公園市集事前票已開賣",
+      "text": "已改為12/25御成門站前廣場芝公園場。指定日票價、入場規定與訂票狀態待核對；原12/21平日價格不可沿用。",
       "level": "risk",
-      "day": "d9",
+      "day": "d13",
       "checked": "2026-10-08",
       "source": "https://tokyochristmas.net/news_1022/"
     },
     {
       "id": "88-opening",
-      "title": "12/22 抹茶店開門時間未核實",
+      "title": "12/23 抹茶店開門時間待核對",
       "text": "八十八浅草官網可核對地址，但未取得分店營業時段與電話；09:30行程須另確認。",
       "level": "risk",
-      "day": "d10",
+      "day": "d11",
       "checked": "2026-10-04",
       "source": "https://www.8108kyoto.com/"
     },
@@ -473,6 +572,15 @@
       "day": "d3"
     },
     {
+      "id": "forest-ticket",
+      "title": "12/20 Forest 指定時段票與長者體力",
+      "text": "已改為12/20 18:00參觀，票面時段、指定日票價與訂票狀態待確認。園內約1.8公里；需核對17:30後由109出發是否趕上入場。",
+      "level": "risk",
+      "day": "d8",
+      "source": "https://www.yoyogiforestoflights.tokyo/en/",
+      "checked": "2026-10-08"
+    },
+    {
       "id": "availability-sheet-2026-12-16-r10-uirou",
       "title": "12-16 開放時段衝突",
       "text": "ういろう本店：此日為官網列示的固定休息日；請調整安排。",
@@ -482,13 +590,11 @@
       "day": "d4"
     },
     {
-      "id": "forest-ticket",
-      "title": "12/23 Forest 指定時段票與長者體力",
-      "text": "18:30 僅是候選時段；12月票預計10/15 10:00 開賣，尚未購票。園內約1.8公里夜間步行，入口、座位與中途退出方式待主辦核對；不能保證每段步行10分鐘內。",
+      "id": "ueno-reservation-note",
+      "title": "上野敘敘苑舊備註待整理",
+      "text": "12/23欄內日期已改為12/23，但括號仍寫移至12/25候選、原訂位12/22及需聯絡改期；實際預約與舊備註需核對。",
       "level": "risk",
-      "day": "d11",
-      "source": "https://www.yoyogiforestoflights.tokyo/en/",
-      "checked": "2026-10-08"
+      "day": "d11"
     }
   ],
   "venues": [
@@ -3157,10 +3263,27 @@
     },
     {
       "date": "2026-12-20",
-      "title": "銀座分流後，全員赴新橋",
+      "title": "澀谷合照，夜行代代木光之森",
+      "caption": "代代木公園樹蔭步道・歷史氣氛照，非本次燈展實景",
+      "file": "A path within Yoyogi park, Tokyo, Japan.jpg",
+      "image": "images/covers/1220.webp",
+      "source": "https://commons.wikimedia.org/wiki/File:A_path_within_Yoyogi_park,_Tokyo,_Japan.jpg",
+      "author": "Joli Rumi",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "keys": [
+        "Forest"
+      ],
+      "width": 960,
+      "height": 960,
+      "position": "50% 50%"
+    },
+    {
+      "date": "2026-12-21",
+      "title": "丸之內書店與銀座採買",
       "caption": "銀座街景・歷史照片（非2026即時景象）",
       "file": "Ginza, le quartier du luxe et des grands magasins (Tokyo) (28826372218).jpg",
-      "image": "images/covers/1220.webp",
+      "image": "images/covers/1221.webp",
       "source": "https://commons.wikimedia.org/wiki/File:Ginza,_le_quartier_du_luxe_et_des_grands_magasins_(Tokyo)_(28826372218).jpg",
       "author": "Jean-Pierre Dalbéra",
       "license": "CC BY 2.0",
@@ -3173,28 +3296,29 @@
       "position": "50% 50%"
     },
     {
-      "date": "2026-12-21",
-      "title": "柴又與豐洲會合：芝公園草坪",
-      "caption": "從芝公園眺望東京塔・歷史照片，並非入塔行程",
-      "file": "Tokyo Tower seen from Shiba Park.jpg",
-      "image": "images/covers/1221.webp",
-      "source": "https://commons.wikimedia.org/wiki/File:Tokyo_Tower_seen_from_Shiba_Park.jpg",
-      "author": "Ymblanter",
+      "date": "2026-12-22",
+      "title": "築地本願寺與市場午餐",
+      "caption": "築地本願寺建築；歷史照片，非當日現況。",
+      "file": "Tsukiji Honganji.jpg",
+      "image": "images/covers/1222.webp",
+      "source": "https://commons.wikimedia.org/wiki/File:Tsukiji_Honganji.jpg",
+      "author": "Christophe95",
       "license": "CC BY-SA 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
       "keys": [
-        "芝公園草坪"
+        "築地本願寺"
       ],
-      "width": 960,
-      "height": 640,
-      "position": "50% 50%"
+      "width": 1400,
+      "height": 1050,
+      "position": "50% 40%",
+      "checked": "2026-10-10"
     },
     {
-      "date": "2026-12-22",
+      "date": "2026-12-23",
       "title": "雷門與 ROX 歇腳，再搭車到上野",
       "caption": "雷門・歷史照片（非2026即時景象）",
       "file": "Kaminarimon Gate of Sensoji Temple.JPG",
-      "image": "images/covers/1222.webp",
+      "image": "images/covers/1223.webp",
       "source": "https://commons.wikimedia.org/wiki/File:Kaminarimon_Gate_of_Sensoji_Temple.JPG",
       "author": "そらみみ (Soramimi)",
       "license": "CC BY-SA 4.0",
@@ -3205,23 +3329,6 @@
       "width": 960,
       "height": 720,
       "position": "50% 40%"
-    },
-    {
-      "date": "2026-12-23",
-      "title": "澀谷合照，夜行代代木光之森",
-      "caption": "代代木公園樹蔭步道・歷史氣氛照，非本次燈展實景",
-      "file": "A path within Yoyogi park, Tokyo, Japan.jpg",
-      "image": "images/covers/1223.webp",
-      "source": "https://commons.wikimedia.org/wiki/File:A_path_within_Yoyogi_park,_Tokyo,_Japan.jpg",
-      "author": "Joli Rumi",
-      "license": "CC BY-SA 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-      "keys": [
-        "Forest of Lights"
-      ],
-      "width": 960,
-      "height": 960,
-      "position": "50% 50%"
     },
     {
       "date": "2026-12-24",
@@ -3242,15 +3349,17 @@
     },
     {
       "date": "2026-12-25",
-      "title": "聖誕留白：今天，慢慢來",
-      "caption": "丸之內歷年點燈氣氛照（當日自由安排，非2026活動保證）",
-      "file": "Marunouchi Illumination 2022 (52646959150).jpg",
+      "title": "柴又與豐洲會合：芝公園草坪",
+      "caption": "從芝公園眺望東京塔・歷史照片，並非入塔行程",
+      "file": "Tokyo Tower seen from Shiba Park.jpg",
       "image": "images/covers/1225.webp",
-      "source": "https://commons.wikimedia.org/wiki/File:Marunouchi_Illumination_2022_(52646959150).jpg",
-      "author": "Dick Thomas Johnson",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-      "keys": [],
+      "source": "https://commons.wikimedia.org/wiki/File:Tokyo_Tower_seen_from_Shiba_Park.jpg",
+      "author": "Ymblanter",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "keys": [
+        "芝公園草坪"
+      ],
       "width": 960,
       "height": 640,
       "position": "50% 50%"
@@ -3283,7 +3392,7 @@
           "宮﨑駿"
         ],
         "title": "大時計：提早等候這一場",
-        "text": "官方列平日演出為 12:00、15:00、18:00、20:00，約在整點前 3 分鐘開始。行程安排的 18:00 場，建議 17:55 先到；如有臨時調整，以現場公告為準。",
+        "text": "先前查證的平日演出時段為12:00、15:00、18:00、20:00；目前Sheet安排12/22 16:00合照，並非上述演出整點。可先拍外觀；若要看演出，另核對官方時段與現場公告。",
         "source": "https://www.ntv.co.jp/oo-dokei/",
         "checked": "2026-10-02"
       },
