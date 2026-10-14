@@ -33,13 +33,22 @@ def latest(a,b):
   return 'sheet' if a>b else 'website' if b>a else None
  except (ValueError,AttributeError):return None
 
+def verified_latest(evidence,sheet_hash,website_hash):
+ # The caller must supply auditable, cell-specific revision evidence tied to values.
+ if not isinstance(evidence,dict):return None
+ if not evidence.get('sheetRevision') or not re.fullmatch(r'[0-9a-f]{40}',evidence.get('websiteCommit','')):return None
+ if evidence.get('sheetHash')!=sheet_hash or evidence.get('websiteHash')!=website_hash:return None
+ return latest(evidence.get('sheet'),evidence.get('website'))
+
 def plan(base,sheet,website,times=None):
  times=times or {};actions=[];conflicts=[]
  for cell in sorted(set(base)|set(sheet)|set(website)):
   s=sheet.get(cell,'');w=website.get(cell,'');sh=digest(s);wh=digest(w);original=base.get(cell,digest(''))
   if sh==wh:continue
+  if original!=digest('') and (not s or not w):
+   conflicts.append({'cell':cell,'reason':'Missing/empty source cell; explicit deletion review required'});continue
   sc=sh!=original;wc=wh!=original
-  source='sheet' if sc and not wc else 'website' if wc and not sc else latest(times.get(cell,{}).get('sheet'),times.get(cell,{}).get('website'))
+  source='sheet' if sc and not wc else 'website' if wc and not sc else verified_latest(times.get(cell,{}),sh,wh)
   if source is None:conflicts.append({'cell':cell,'reason':'Both changed; verified cell-specific timestamps required'})
   else:actions.append({'cell':cell,'from':source,'to':'website' if source=='sheet' else 'sheet','value':s if source=='sheet' else w})
  return {'actions':actions,'conflicts':conflicts}

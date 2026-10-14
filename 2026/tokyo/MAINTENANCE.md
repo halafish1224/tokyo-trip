@@ -1,3 +1,10 @@
+## Current sync review — 2026-10-14
+
+See [SYNC.md](SYNC.md) for current safety rules. Older dated notes below are historical, not confirmation of today's route or successful scheduled runs.
+Current Sheet routes: Dec 20 Shibuya/Harajuku (3COINS, Forest removed); Dec 21 Marunouchi/Ginza; Dec 23 Asakusa/Ueno; Dec 25 Shiba Christmas Market.
+Reservation names are initials; preserve booking status. Official business phone numbers and public venue addresses may remain. Private codes and personal contact details must not be published.
+Market entries are dated optional information, not additional mandatory stops. Their sources and checked dates are stored per entry.
+
 # Tokyo handbook maintenance
 
 This trip uses `index.html` → `boot.js` → one validated `trip.json` → `app.js` → `extra.js` → `illustrations.js` → `picturebook.js`.

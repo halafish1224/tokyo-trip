@@ -158,6 +158,7 @@ function legacyHtml(day){const old=LEGACY.find(d=>d.id===day.id);if(!old)return 
 // Classify the activity itself before venue matching: a transfer can mention attractions.
 // Unrecognised destinations retain their tools; routine reminders and transport do not.
 function isPlaceEvent(e){
+ if(!e.edited&&['place','transit','info','reminder'].includes(e.kind))return e.kind==='place';
  const text=String(e.title||'').trim();
  if(!text||e.inherited)return false;
  if(/起床|準時起床|^早餐$|^地址[：:]|^電話|住宿據點$/.test(text))return false;
@@ -177,6 +178,7 @@ function eventHtml(e,day){
  if(/久昇/.test(e.raw||e.title))warnings.push('原筆記的久昇已有歇業紀錄，不建議直接前往。');
  if(coord)warnings.push('原表只提供座標，景點名稱尚未確認。');
  if(e.conflict)warnings.push(e.orphan?'這筆原始雲端資料已不在目前網格，本機修改仍保留。':'雲端原文已改變；這張卡仍保留你的本機修改，請對照原文。');
+ if(e.summary)return `<li class="event event-summary" id="event-${h(e.id)}"><h3>${richText(e.title)}</h3><p class="small">以下為同一段行程的各站安排</p></li>`;
  if(!isPlaceEvent(e))return `<li class="event event-reminder" id="event-${h(e.id)}" data-date="${h(day.date)}" data-time="${h(e.time)}"><div class="event-when">${dateStampHtml(day.date)}<time class="event-time"${e.time?` datetime="${day.date}T${e.time}:00+09:00"`:''}>${h(e.time||'時間未定')}</time></div><h3>${richText(e.title)}</h3>${e.note?`<p class="event-note">${richText(e.note)}</p>`:''}${warnings.map(w=>`<p class="small itinerary-warning" style="color:#962d38">${h(w)}</p>`).join('')}</li>`;
  return `<li class="event${checked?' checked':''}" id="event-${h(e.id)}" data-date="${h(day.date)}" data-time="${h(e.time)}"><div class="event-when">${dateStampHtml(day.date)}<time class="event-time"${e.time?` datetime="${day.date}T${e.time}:00+09:00"`:''}>${h(e.time||'時間未定')}</time></div><h3>${richText(e.title)}</h3>${e.note?`<p class="event-note">${richText(e.note)}</p>`:''}${isSplit?'<span class="badge badge-note">A／B 同時分流</span>':''}${places.length?`<p class="event-note">${h(places.map(p=>p.route).join(' '))}</p>`:''}${warnings.map(w=>`<p class="small itinerary-warning" style="color:#962d38">${h(w)}</p>`).join('')}<div class="event-tools">${isSplit?ext(mapUrl('teamLab Planets TOKYO'),'A 豐洲地圖','btn btn-small')+ext(mapUrl('柴又帝釈天'),'B 柴又地圖','btn btn-small'):ext(mapUrl(map),coord?'開啟此座標 ↗':'景點地圖 ↗','btn btn-small')}${ext(directionsUrl(map),'交通路線 ↗','btn btn-small btn-quiet')}<button type="button" class="btn btn-small btn-quiet" data-edit="${h(e.id)}" data-day="${day.id}">編輯</button><button type="button" class="btn btn-small check-btn" data-check="${h(e.id)}" aria-pressed="${checked}">${checked?'✓ 已打卡':'打卡'}</button></div>${usefulInfoHtml(e)}${mapNotesHtml(e)}</li>`;
 }
@@ -205,7 +207,7 @@ function dayRouteMapHtml(day){
  return `<figure class="day-route-map"><h3>今天怎麼走</h3><a href="${image}" target="_blank" rel="noopener noreferrer" aria-label="${h(day.date.slice(5))} 路線圖另開分頁放大"><img src="${image}" alt="${h(map.caption)} 北朝上，附比例尺。連線為移動示意，待確認位置不標為確定行程。" width="1100" height="${map.height}" loading="lazy"></a><figcaption>${h(map.caption)}<br><a href="${image}" target="_blank" rel="noopener noreferrer" class="btn btn-small">點開放大路線圖 ↗</a></figcaption><p class="route-map-warning">${h(map.warning)}</p><details><summary>地圖來源與比例</summary><p>北朝上，位置依近似座標配置；主圖與放大框各有比例尺。線條為區域移動示意，實際走法請查各站交通路線。待確認分店、活動會場與回程車站，不代替你選定。</p><p>比對日期：2026/10/08。<a href="images/routes/${map.file}-sources.json" target="_blank" rel="noopener noreferrer">查看地圖依據</a></p></details></figure>`;
 }
 
-function dayCoverHtml(day){const cover=dailyFeature(day);return `<figure class="day-cover"><div class="day-cover-frame"><img src="${h(cover.image)}" alt="${h(cover.caption)}" width="${cover.width}" height="${cover.height}" loading="${day.id===activeDay?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" style="object-position:${h(cover.position)}"><span class="photo-unavailable" hidden>照片暫時無法載入</span></div><figcaption>${h(cover.caption)}</figcaption></figure>`;}
+function dayCoverHtml(day){const cover=dailyFeature(day);if(cover.retired)return '';return `<figure class="day-cover"><div class="day-cover-frame"><img src="${h(cover.image)}" alt="${h(cover.caption)}" width="${cover.width}" height="${cover.height}" loading="${day.id===activeDay?'eager':'lazy'}" decoding="async" referrerpolicy="no-referrer" style="object-position:${h(cover.position)}"><span class="photo-unavailable" hidden>照片暫時無法載入</span></div><figcaption>${h(cover.caption)}</figcaption></figure>`;}
 function renderPhotoCredits(){$('photo-credits').innerHTML=buildDays().map(day=>{const c=dailyFeature(day);return `<li>${h(day.date.slice(5).replace('-','/'))} · ${h(c.author)} — ${ext(c.source,c.file+' ↗')} · ${ext(c.licenseUrl,c.license+' ↗')}</li>`;}).join('');}
 document.addEventListener('error',event=>{if(event.target.matches?.('.day-cover img')){event.target.hidden=true;event.target.style.display='none';event.target.nextElementSibling.hidden=false;}},true);
 function dailyTitle(day){

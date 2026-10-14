@@ -15,6 +15,19 @@ class CompilerRegression(unittest.TestCase):
         self.assertIn('03-1234-5678', clean)
         self.assertEqual(b.public_text(clean), clean)
 
+    def test_initials_preserve_booking_status(self):
+        clean=b.public_text('TEST PERSON NAME網路訂位')
+        self.assertEqual(clean,'T.P.N.網路訂位')
+        self.assertEqual(b.public_text(clean),clean)
+
+    def test_activity_kinds_and_transfer_navigation(self):
+        for text,kind in [('築地逛與午餐','info'),('分流結束往赤羽橋站','transit'),('東京地鐵乘車券72','reminder'),('3COINS 原宿本店','place'),('清淨光寺 散策','place')]:
+            self.assertEqual(b.event_kind(text),kind)
+        self.rows[1][13]='13:30 分流結束往赤羽橋站（柴又出發）'
+        event=self.compile()['days'][12]['events'][0]
+        self.assertEqual(event['navigation'],'赤羽橋駅')
+        self.assertEqual(event['venueIds'],[])
+
     def setUp(self):
         self.trip = json.loads((b.ROOT / 'trip.json').read_text())
         self.rows = [

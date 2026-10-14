@@ -15,7 +15,7 @@ assert.equal(trip.map.notes.filter(n=>n.venueId==='ntv-clock').length,1);
 const rest=trip.seniorStops||[];const restEvents=new Set(rest.map(x=>x.eventId));
 assert(rest.length>=20);
 for(const x of rest){const event=trip.days.flatMap(d=>d.events).find(e=>e.id===x.eventId);assert(event&&event.title.includes(x.anchor));assert(x.source.startsWith('https://')&&/^\d{4}-\d{2}-\d{2}$/.test(x.checked));}
-const forest=(trip.optionalEvents||[]).find(x=>x.id==='yoyogi-forest-of-lights-2026');assert(forest&&trip.days.find(d=>d.date===forest.date).events.some(e=>/Forest/.test(e.title)));
+assert(!(trip.optionalEvents||[]).some(x=>/forest/i.test(x.id)));assert(trip.days[7].events.some(e=>e.title.includes('3COINS')));
 for(const [i,c] of trip.covers.entries()){assert.equal(c.date,dates[i]);assert(c.image.startsWith('images/covers/'));assert(fs.existsSync(path.join(root,c.image)));assert(c.source.startsWith('https://commons.wikimedia.org/'));const route=JSON.stringify({events:trip.days[i].events,guide:trip.days[i].guide});assert(c.keys.length===0||c.keys.some(k=>route.includes(k)),c.date+' cover does not match its route');}
 for(const f of ['boot.js','app.js','extra.js','illustrations.js','picturebook.js','date-bus.js','sw.js'])new vm.Script(fs.readFileSync(path.join(root,f),'utf8'),{filename:f});
 for(const f of ['experience.css','picturebook.css','date-bus.css','images/date-bus.svg','fonts/Huninn-Regular.woff2','fonts/OFL.txt','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg'])assert(fs.existsSync(path.join(root,f)));

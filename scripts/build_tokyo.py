@@ -14,8 +14,9 @@ def event_time(value):
  return normalize_time(re.sub(r'^12/\d{1,2}\s+', '', str(value or '').strip()))
 def public_text(text):
  text=re.sub(r'https://docs\.google\.com/\S+','',text)
- text=re.sub(r'[\u4e00-\u9fff]{2,4}(?:已)?訂位','預約待確認',text)
- text=re.sub(r'\b[A-Z][A-Za-z-]*(?:[ \t]+[A-Z][A-Za-z-]*){1,4}[ \t]*(?=(?:已)?(?:訂位|預約))','',text)
+ # Preserve booking status while replacing Latin reservation names with initials.
+ text=re.sub(r'\b[A-Z][A-Za-z-]*(?:[ \t]+[A-Z][A-Za-z-]*){1,4}[ \t]*(?=(?:[\u4e00-\u9fff]{1,4})?(?:訂位|預約))',lambda m: ''.join(w[0].upper()+'.' for w in m[0].split()),text)
+ text=re.sub(r'(?<![\u4e00-\u9fff])(?!(?:網路|線上|已)訂位)([\u4e00-\u9fff]{2,4})(已)?訂位',lambda m:'姓名略 '+(m[2] or '')+'訂位',text)
  text=re.sub(r'(訂位碼|訂房碼|預約番号|房號|保險單號)\s*[:：]?\s*[^\s，。\n]+',r'\1：請見私人筆記',text)
  text=re.sub(r'東橫INN藤澤站北口','藤澤住宿據點',text)
  text=re.sub(r'東橫INN東京站新大橋前','浜町住宿據點',text)
@@ -23,6 +24,12 @@ def public_text(text):
  text=re.sub(r'[（(][^）)]*久昇[^）)]*[）)]','',text)
  text=re.sub(r'\b[A-Z][a-z]{1,29}(?=英文漫畫)','',text)
  return text.strip()
+def event_kind(title,inherited=False):
+ if inherited:return 'info'
+ if title=='築地逛與午餐':return 'info'
+ if re.search(r'起床|^早餐$|^地址[：:]|^電話|住宿據點$|東京地鐵乘車券|Tokyo Subway Ticket|PASMO|SUICA|地鐵圖|NIPPON SIM|網卡|用IC不用補票|NEX來回票購買|完成退稅',title,re.I):return 'reminder'
+ if re.search(r'✈|班機|航班|電子機票|機場.*報到|Terminal.*報到|退房|入住|大眾交通規劃|分流結束往|午餐後搭|搭地鐵往|優選為搭地鐵|不預設已走完|^京成.*特急往|^御成門站三田線|^返浜町|^飯店集合|^車站集合|^(?:出發(?:到|前往)?|前往|到|抵達).*(?:機場|Terminal)',title,re.I):return 'transit'
+ return 'place'
 def note_key(s):return re.sub(r'\s','',s).lower()
 def route_basis(events):
  # Time corrections do not count as destination changes.
@@ -100,7 +107,7 @@ def compile_rows(rows,trip,enriched_guides=(),schedule=None):
  if head is None:raise ValueError('Must include all 14 date columns')
  actual=[f'2026-{int(m[1]):02}-{int(m[2]):02}' if (m:=re.search(r'(\d+)/(\d+)',str(x))) else '' for x in rows[head][1:15]]
  if actual!=DATES:raise ValueError('Unexpected dates; preserving previous bundle')
- areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','澀谷・代代木','丸之內・銀座','築地・汐留','淺草・上野','越谷','豐洲・柴又・芝公園','浜町・成田']
+ areas=['藤澤','江之島・藤澤','大船','小田原','藤澤','鎌倉・腰越','東京・浜町','澀谷・原宿','丸之內・銀座','築地・汐留','淺草・上野','越谷','豐洲・柴又・芝公園','浜町・成田']
  old={d['date']:d for d in trip['days']};days=[{**old[date],'events':[]} for date in DATES];count=0
  for ri,row in enumerate(rows[head+1:],head+1):
   time=normalize_time(row[0] if row else '');lodging=''
@@ -120,6 +127,11 @@ def compile_rows(rows,trip,enriched_guides=(),schedule=None):
    if '成田 Terminal' in title or '京成 Access' in title or '班機起飛' in title:nav='成田空港第2ターミナル'
    if title.startswith('成田空港') or '成田機場>' in title:nav='藤沢駅' if '藤澤' in title else '浜町駅'
    event={'id':f'sheet-{day["date"]}-r{ri+1}','time':explicit or time,'title':title,'note':'','map':'','raw':text,'cell':chr(65+ci)+str(ri+1),'inherited':inherited,'slot':time,'explicit':bool(explicit),'origin':'sheet','venueIds':ids,'navigation':nav,'area':areas[ci-1]}
+   event['kind']=event_kind(title,inherited)
+   if title=='築地逛與午餐':event['summary']=True
+   if event['kind']=='transit':
+    event['venueIds']=[]
+    if '分流結束往赤羽橋' in title:event['navigation']='赤羽橋駅'
    event['id']=(schedule or {}).get('sheetEventAliases',{}).get(event['cell'],event['id'])
    alerts=check_availability(day,event,matched)
    if alerts:event['alerts']=alerts
