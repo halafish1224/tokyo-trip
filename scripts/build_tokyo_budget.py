@@ -73,6 +73,7 @@ def compile_budget(rows):
                      'activation': None, 'note': '首次使用時間待確認；自啟用起72小時。票券費已於12/20估列一次；僅涵蓋Metro與都營地鐵。',
                      'source': 'https://www.tokyometro.jp/en/ticket/travel/index.html'},
             'sources': [
+                {'label': 'JR東日本 N’EX 票價與套票', 'url': 'https://www.jreast.co.jp/multi/nex/tickets/'},
                 {'label': '京成 Access Express 票價', 'url': 'https://www.keisei.co.jp/keisei/tetudou/skyliner/us/traffic/express_fares.php'},
                 {'label': '匯率估算參考', 'url': 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=JPY&To=TWD'}],
             'note': '一般交通預算，含地鐵券一次；不含SIM、門票、餐飲與計程車。N’EX套票須按實際購買方式調整，避免重複加總。'}
