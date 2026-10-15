@@ -16,6 +16,7 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  for(const total of w.TRIP.budget.summaries)assert(d.getElementById('budget-summary').textContent.includes(total.maxJPY.toLocaleString('zh-TW')));
  const arrival=w.dayBudgetHtml(w.TRIP.days[6]);assert(arrival.includes('P1')&&arrival.includes('P2')&&arrival.includes('1,300'));
  assert(d.getElementById('budget-summary').textContent.includes('15日實價待確認'));
+ if(query){d.querySelector('.day-budget [data-open-section]').click();assert(d.getElementById('sec-trans').classList.contains('active'));assert(d.getElementById('family-budget-summary').textContent.includes('Nippon SIM'));assert(!d.getElementById('sec-account').classList.contains('active'));w.showSection('trip',{scroll:false});}
  // Non-destination entries retain their text/time, without any destination controls.
  const plainTitles=['出發到桃園機場','準時起床 早餐','東京地鐵乘車券72 (到期)','人形町搭地鐵往築地','KITTE午餐後搭 JR／地鐵到銀座；不安排跨區長走','分流結束往赤羽橋站：A 柴又→京成高砂','飯店集合\n大眾交通規劃:浜町住宿據點>成田機場','完成退稅相關'];
  for(const title of plainTitles){
