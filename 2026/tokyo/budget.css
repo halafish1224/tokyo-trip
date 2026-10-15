@@ -1,0 +1,19 @@
+.day-budget{padding:18px;margin:18px 0;background:#f0f4ed;border:1px solid #aabda9;border-left:4px solid var(--journey-ink,#173e32);overflow-wrap:anywhere}
+.budget-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.budget-heading h3{margin:0;font-size:1.05rem}
+.budget-daily-costs,.budget-profile dl{margin:12px 0}
+.budget-daily-costs>div{margin-bottom:12px}
+.budget-daily-costs dt,.budget-profile dt{font-size:.82rem;color:var(--muted);margin-top:12px}
+.budget-daily-costs dd,.budget-profile dd{margin:0}
+.budget-daily-costs dd strong,.budget-profile dd strong{display:block;font-size:1.06rem}
+.budget-profile dd span{display:block}
+.budget-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.budget-profile{padding:18px;border:1px solid #b6c5b0;background:#fbfdf8;min-width:0;overflow-wrap:anywhere}
+.budget-profile h3{margin:0 0 8px}
+.budget-profile details,.budget-assumptions{margin:18px 0 0;border-top:1px dashed #acbaa6;padding-top:12px}
+.budget-profile summary,.budget-assumptions summary{cursor:pointer;font-size:.86rem;font-weight:650}
+.budget-profile details p{font-size:.84rem;margin:12px 0}
+.budget-sim-note{border-top:1px dashed #acbaa6;padding-top:12px;font-size:.86rem}
+.budget-sim-note span{display:block}
+#budget-summary{scroll-margin-top:110px}
+@media(max-width:700px){.budget-profile-grid{grid-template-columns:1fr}.day-budget{padding:14px}.budget-heading{align-items:flex-start}.budget-profile{padding:16px}}

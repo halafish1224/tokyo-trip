@@ -21,6 +21,24 @@ for(const f of ['boot.js','app.js','extra.js','illustrations.js','picturebook.js
 for(const f of ['experience.css','picturebook.css','date-bus.css','images/date-bus.svg','fonts/Huninn-Regular.woff2','fonts/OFL.txt','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg'])assert(fs.existsSync(path.join(root,f)));
 assert(!html.includes('experience.js'));assert(fs.readFileSync(path.join(root,'boot.js'),'utf8').includes("'extra.js'"));
 const app=fs.readFileSync(path.join(root,'app.js'),'utf8'),extra=fs.readFileSync(path.join(root,'extra.js'),'utf8'),sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
+// Budget ranges belong to travelers; a pass purchase is counted once, not per ride.
+const budget=trip.budget;
+assert.equal(budget.version,1);assert.equal(budget.daily.length,14);assert(budget.exchangeRate>0);
+assert.deepEqual(budget.daily.map(d=>d.date),dates);
+for(const traveler of ['p1','p2']){
+ const values=budget.daily.flatMap(d=>d.estimates.filter(e=>e.traveler===traveler));
+ assert.equal(values.length,traveler==='p1'?14:8);
+ const summary=budget.summaries.find(s=>s.traveler===traveler);
+ assert.equal(summary.minJPY,values.reduce((n,e)=>n+e.minJPY,0));
+ assert.equal(summary.maxJPY,values.reduce((n,e)=>n+e.maxJPY,0));
+ for(const e of values)assert(Number.isFinite(e.minJPY)&&e.minJPY>=0&&e.maxJPY>=e.minJPY);
+}
+assert.equal(budget.pass.activation,null);assert.equal(budget.pass.hours,72);
+assert(budget.daily.find(d=>d.date===budget.pass.budgetDate).estimates.every(e=>e.minJPY===budget.pass.priceJPY));
+assert(budget.sims.every(s=>s.allowanceTWD>0&&s.source.startsWith('https://')));
+assert(budget.sims.find(s=>s.traveler==='p1').status.includes('待確認'));
+new vm.Script(fs.readFileSync(path.join(root,'budget.js'),'utf8'),{filename:'budget.js'});
+for(const asset of ['budget.js','budget.css'])assert(sw.includes("'"+asset+"'")&&fs.existsSync(path.join(root,asset)));
 const mapText=app.match(/const DAY_ROUTE_MAPS=(\{.*?\});\nfunction dayRouteMapHtml/s)?.[1];assert(mapText,'route map registry missing');
 const routeMaps=JSON.parse(mapText);
 for(const n of [20,21,23,24,25]){const date=`2026-12-${n}`,day=trip.days[n-13],map=routeMaps[date],stamp=`12${n}`;assert.equal(map.kind,'transit');assert.equal(map.visual,stamp);assert(map.main.length>=3&&map.main[0][0].includes('東橫INN')&&map.home.some(x=>x[0].includes('東京站'))&&map.home.some(x=>x[0].includes('接駁')));assert(map.sources.some(x=>x[1].includes('toyoko-inn.com')));const svg=`images/routes/${stamp}-proportional.svg`,record=`images/routes/${stamp}-proportional-sources.json`;assert(sw.includes(`'${svg}'`)&&sw.includes(`'${record}'`));const graphic=fs.readFileSync(path.join(root,svg),'utf8'),meta=JSON.parse(fs.readFileSync(path.join(root,record),'utf8'));assert(graphic.startsWith('<svg')&&graphic.includes('viewBox="0 0 1100 1380"')&&graphic.includes('局部放大'));assert.deepEqual(meta.basis,map.basis);assert.equal(meta.labels[0][1],'hotel');assert.equal(meta.labels.at(-1)[1],'hotel');assert(meta.paths.some(([a,b])=>a==='tokyo'&&b==='hotel'));assert(meta.pixelsPerMeter>0&&meta.insetPixelsPerMeter>0&&meta.scaleBarMeters>0);assert.deepEqual(Object.keys(meta.pointSources).sort(),Object.keys(meta.points).sort());assert(Object.values(meta.pointSources).every(url=>url.startsWith('https://')));}

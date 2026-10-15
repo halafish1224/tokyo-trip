@@ -179,7 +179,7 @@ fetchWeather=async function(requestedCity=weatherCity){
 };
 async function updateExchangeRate(){
  const saved=readStore('tokyo_exchange_v1',{});$('expense-rate').value=currentExchangeRate;
- const show=()=>{$('exchange-status').textContent=saved.updatedAt?` · 更新${formatTimestamp(saved.updatedAt)}，公開中間價估算`:' · 未連線更新：手動估值0.215';};show();
+ const show=()=>{$('exchange-status').textContent=saved.updatedAt?` · 更新${formatTimestamp(saved.updatedAt)}，公開中間價估算`:` · 目前估值 ${currentExchangeRate}（可修改）`;};show();
  if(!navigator.onLine||saved.updatedAt&&Date.now()-Date.parse(saved.updatedAt)<86400000)return;
  try{const r=await fetchWithTimeout('https://open.er-api.com/v6/latest/JPY',{},10000);if(!r.ok)throw new Error();const data=await r.json(),rate=data.rates?.TWD;if(data.result!=='success'||!Number.isFinite(rate)||rate<=0)throw new Error();currentExchangeRate=rate;saved.rate=rate;saved.updatedAt=new Date().toISOString();writeStore('tokyo_exchange_v1',saved);$('expense-rate').value=rate.toFixed(4);show();renderExpenses();}catch{$('exchange-status').textContent=' · 更新失敗，保留估算值；非銀行賣出匯率';}
 }

@@ -23,7 +23,12 @@ jobs:
         env:
           GOOGLE_SHEET_CSV_URL: ${{ secrets.GOOGLE_SHEET_CSV_URL }}
         run: python scripts/build_tokyo.py
-      - name: Validate page and data
+      - name: Compile budget when its CSV source is configured
+        env:
+          GOOGLE_BUDGET_CSV_URL: ${{ secrets.GOOGLE_BUDGET_CSV_URL }}
+        run: |
+          if [ -n "$GOOGLE_BUDGET_CSV_URL" ]; then python scripts/build_tokyo_budget.py; fi
+      - name: Validate public data
         run: node scripts/check_tokyo.cjs
       - name: Commit only a validated data change
         shell: bash

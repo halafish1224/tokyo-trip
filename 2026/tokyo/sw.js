@@ -1,7 +1,7 @@
 /* Cache only this trip's public assets. Private notes never leave localStorage. */
-const VERSION='tokyo-v2-20261014135734';
+const VERSION='tokyo-v2-20261015-budget-1';
 const CORE=['./','index.html','boot.js','app.js','extra.js','experience.css','picturebook.css','illustrations.js','picturebook.js','date-bus.js','date-bus.css','images/date-bus.svg','fonts/Huninn-Regular.woff2','trip.json','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg','images/routes/1220-proportional.svg','images/routes/1220-proportional-sources.json','images/routes/1221-proportional.svg','images/routes/1221-proportional-sources.json','images/routes/1222-proportional.svg','images/routes/1222-proportional-sources.json','images/routes/1225-proportional.svg','images/routes/1225-proportional-sources.json','images/routes/1223-proportional.svg','images/routes/1223-proportional-sources.json','images/routes/1224-proportional.svg','images/routes/1224-proportional-sources.json'];
-CORE.push(...Array.from({length:14},(_,i)=>`images/covers/12${i+13}-picturebook.svg`));
+CORE.push('budget.js','budget.css',...Array.from({length:14},(_,i)=>`images/covers/12${i+13}-picturebook.svg`));
 const freshRequest=url=>new Request(new URL(url,location.href),{cache:'reload'});
 const FULL=[...CORE,'archive.json',...Array.from({length:14},(_,i)=>`images/covers/12${i+13}.webp`),'images/buy/buy-images.json',...Array.from({length:16},(_,i)=>`images/buy/${String(i+1).padStart(2,'0')}.webp`)];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(VERSION).then(c=>c.addAll(CORE.map(freshRequest))).then(()=>self.skipWaiting()));});

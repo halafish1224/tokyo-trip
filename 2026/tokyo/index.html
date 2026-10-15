@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#193a43">
   <meta name="description" content="2026 東京冬日紀行：12 月 13 至 26 日，14 天湘南、鎌倉與東京行程。Google Sheets 同步、每日時間軸、交通、美食候選與附近景點提醒。">
   <title>東京冬日紀行 2026｜14 天湘南・東京旅行手帳</title>
+  <link rel="stylesheet" href="budget.css">
 
   <style>
     :root{--ink:#193a43;--paper:#f6f3ec;--muted:#5d6c6b;--line:#dcded6;--red:#b7432f;--pale:#e8eee8;--bs-primary:#193a43;--bs-body-color:#193a43;--bs-body-bg:#f6f3ec}
@@ -170,6 +171,7 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
     </section>
     <section id="sec-theme" class="section utility-section" aria-label="景點與美食"><h2 class="page-heading">街區、美食與口袋名單</h2><p class="muted">由完整行程整理，點選即可回到對應日期。</p><label for="theme-search" class="small">搜尋景點與美食</label><input id="theme-search" type="search" placeholder="例如：神社、超市、藤澤" style="width:100%;margin:8px 0 20px"><section id="map-notes-guide" class="panel" style="margin:0 0 24px" aria-labelledby="map-notes-heading"><h2 id="map-notes-heading">📝 我的地圖筆記</h2><p class="small">旅途中想逛、想吃的口袋名單。</p><details class="panel-details"><summary>筆記來源</summary><p class="small muted" id="map-notes-description"></p></details><p class="small muted" id="map-notes-sync" role="status">筆記載入中…</p><div class="filters"><label for="map-notes-search" class="visually-hidden">搜尋我的地圖筆記</label><input type="search" id="map-notes-search" placeholder="搜尋筆記，例如：抹茶、Loft、咖哩…"><label class="visually-hidden" for="map-notes-source">筆記來源清單</label><select id="map-notes-source"><option value="all">兩份清單全部</option value="0">2026二零二六</option><option value="1">東京2026</option></select></div><p id="map-notes-count" class="small muted" role="status"></p><div class="mode-switch"><button class="btn" data-notes-layer="today">今日相關</button><button class="btn" data-notes-layer="nearby">附近</button><button class="btn" data-notes-layer="all">完整口袋名單</button></div><div id="map-notes-list"></div></section><div id="theme-spots-list" class="tour-grid"></div><section id="food-guide" class="panel" style="margin-top:28px"><h2>依用餐情境挑選</h2><p class="small muted">評分是摘錄，非即時 Places；筆記整理日2026-10-02，各評分原查閱日見卡片。</p><p class="small muted">避開用餐尖峰，走累了就找個地方歇腳。</p><select id="food-context" aria-label="用餐情境"><option value="all">全部情境</option><option>預約</option><option>排隊</option><option>當地午餐</option><option>走累歇腳</option><option>避開</option></select><div id="all-foods" class="food-grid"></div></section></section>
         <div id="sec-account" class="section utility-section"><h2 class="page-heading">待購與旅途記帳</h2>
+        <section id="budget-summary" class="acc-section" aria-label="交通與上網行前預算"></section>
         <div class="action-btn-container">
             <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" rel="noopener noreferrer" class="action-card action-card-report">
                 <span>📸</span>

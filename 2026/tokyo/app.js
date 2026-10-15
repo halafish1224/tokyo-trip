@@ -241,6 +241,7 @@ function matchesDay(day){if(filter==='solo'&&day.number>6)return false;if(filter
 function renderNav(){const today=todayJapan();$('day-nav').innerHTML=buildDays().filter(d=>filter==='all'||(filter==='family'?d.number>=7:d.number<=6)).map(d=>`<button type="button" class="day-chip${d.id===activeDay?' active':''}" data-date="${d.date}" data-journey="${d.number<=6?'solo':'family'}" data-day-jump="${d.id}"><span>${d.date.slice(5).replace('-','/')}</span><span>${h(dailyTitle(d))}<small>${d.number>=7?'家族 '+(d.number-6)+'/8':'獨旅 '+d.number+'/6'} · DAY ${String(d.number).padStart(2,'0')}</small></span></button>`).join('');$('day-picker').innerHTML=buildDays().map(d=>`<option value="${d.id}"${d.id===activeDay?' selected':''}>${d.date.slice(5).replace('-','/')} ${d.number>=7?'家族':'獨旅'} · ${h(dailyFeature(d).title)}</option>`).join('');}
 function renderGrid(rows,target){const head=rows.findIndex(r=>r.slice(1).filter(x=>/12\/\d+/.test(toText(x))).length===14);$(target).innerHTML=`<table class="grid-table"><caption>06:00–22:00 網格 · 左右捲動查看全部日期</caption><thead><tr>${rows[head].slice(0,15).map((x,i)=>`<th scope="col">${h(i===0?'時間':x)}</th>`).join('')}</tr></thead><tbody>${rows.slice(head+1).map(r=>`<tr>${Array.from({length:15},(_,i)=>i===0?`<th scope="row">${h(r[i])}</th>`:`<td>${richText(r[i]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
 function renderApp(){
+ renderBudgetSummary();
  renderExperience();
  document.body.dataset.journey=filter==='solo'?'solo':'family';
  const days=buildDays().filter(matchesDay).filter(d=>viewMode!=='today'||d.id===activeDay);renderNav();$('trip-filter').value=filter;document.querySelectorAll('[data-phase]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.phase===filter)));
@@ -332,7 +333,7 @@ function renderThemes(){const q=$('theme-search').value.trim().toLowerCase(),see
 }
 
 function setReading(value){const mode=['compact','large','huge'].includes(value)?value:'large';document.documentElement.dataset.reading=mode;document.querySelectorAll('button[data-reading]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.reading===mode)));safeStorage.setItem('tokyo_reading_size_v1',mode);}
-function currentRouteHtml(day){return meaningfulEvents(day).length?`<div class="day-highlights"><strong>今日亮點</strong>${h(dailyTitle(day))}</div>`:'<p class="day-note">行程待補，今天自由安排。</p>';}
+function currentRouteHtml(day){return (meaningfulEvents(day).length?`<div class="day-highlights"><strong>今日亮點</strong>${h(dailyTitle(day))}</div>`:'<p class="day-note">行程待補，今天自由安排。</p>')+dayBudgetHtml(day);}
 function usefulInfoHtml(event){return '';}
 function updateNavigationMetrics() {
  const root=document.documentElement;
@@ -373,7 +374,7 @@ $('map-notes-search').addEventListener('input',renderMapNotes);$('map-notes-sour
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeImageModal();});
 document.addEventListener('shown.bs.collapse',e=>{if(e.target.classList.contains('accordion-collapse')){activeDay=e.target.id.replace('collapse-','');renderNav();refreshNow();}});
 
-let currentExchangeRate = Number(readStore('tokyo_exchange_v1',{}).rate)||0.215;
+let currentExchangeRate = Number(readStore('tokyo_exchange_v1',{}).rate)||TRIP.budget?.exchangeRate||0.215;
     const BUY_IMAGE_DIR = 'https://travel.itigre.com/2026/tokyo/images/buy/';
     const BUY_IMAGE_MANIFEST = BUY_IMAGE_DIR + 'buy-images.json';
     const BUY_GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRD3xLNcLpXzjHmJ1G76pIIuOcpOthPl58JJ5sACgQdLyUoYhvFQtd1Ym8IjSRgKwOzflgp2kGB_Put/pub?gid=318927826&single=true&output=csv';
