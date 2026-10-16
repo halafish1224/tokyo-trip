@@ -12,6 +12,10 @@ async function test(query='',date='2026-10-03T00:00:00+09:00'){
  // Public estimates render on each visible day and never create actual expenses.
  assert.equal(d.querySelectorAll('.day-budget').length,d.querySelectorAll('.accordion-item').length);
  assert.equal(w.eval('expenses.length'),0);
+ assert(d.getElementById('budget-summary').textContent.includes('TOKIO OMOTENASHI POLICY'));
+ assert(d.getElementById('budget-summary').textContent.includes('規劃預留'));
+ assert(w.dayBudgetHtml(w.TRIP.days[0]).includes('2026-12-14'));
+ assert(w.dayBudgetHtml(w.TRIP.days[6]).includes('2026-12-20'));
  assert.equal(w.eval('currentExchangeRate'),w.TRIP.budget.exchangeRate);
  for(const total of w.TRIP.budget.summaries)assert(d.getElementById('budget-summary').textContent.includes(total.maxJPY.toLocaleString('zh-TW')));
  const arrival=w.dayBudgetHtml(w.TRIP.days[6]);assert(arrival.includes('P1')&&arrival.includes('P2')&&arrival.includes('1,300'));

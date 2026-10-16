@@ -4,7 +4,7 @@ Google Sheet 的「交通與網路費用預估」是預算編輯來源。網站�
 
 ## 更新
 
-1. 透過已授權的 Google Sheets 連接器讀取該分頁 `A1:N20`，以 `UNFORMATTED_VALUE` 取得數值，將 `values` 陣列暫存為 JSON（不要提交原始 Sheet 檔或識別碼）。
+1. 透過已授權的 Google Sheets 連接器讀取該分頁 `A1:N32`，以 `UNFORMATTED_VALUE` 取得數值，將 `values` 陣列暫存為 JSON（不要提交原始 Sheet 檔或識別碼）。
 2. 執行 `python scripts/build_tokyo_budget.py --rows /absolute/path/budget-rows.json`。
 3. 執行 `node scripts/check_tokyo.cjs` 與現有 DOM 檢查，檢視 P1/P2 合計與手機版，再提交公開 bundle 與必要的程式修改。公開 bundle 會保留本次估算日期，不使用行程同步時間冒充價格查核日期。
 4. 更新離線快取版本 `sw.js`，驗證部署的 `trip.json` 與畫面。
@@ -21,3 +21,7 @@ Google Sheet 的「交通與網路費用預估」是預算編輯來源。網站�
 - K6/M6：SIM來源網址；K13：本次資料估算日。
 
 啟用地鐵券的時間仍未知，不固定宣稱12/23 19:00到期。SIM每日攤提只供比較，不會加入每日交通，也不會自動寫入實際記帳。人數、SIM張數未知時僅顯示每人／每張。
+
+## 保險預算
+
+A24:N28存放四筆保險預算，A29:E31為交通＋SIM＋兩份保險的每人合計。國泰金額為規劃預留，非個人報價；TOKIO按入境當日申請、翌日起保估算P1 13天及P2 7天。編譯器核對幣別、天數、匯率與合計，缺少新區塊時停止，避免舊CSV覆蓋保險資料。未代為投保或付款。

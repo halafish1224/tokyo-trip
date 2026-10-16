@@ -23,7 +23,7 @@ assert(!html.includes('experience.js'));assert(fs.readFileSync(path.join(root,'b
 const app=fs.readFileSync(path.join(root,'app.js'),'utf8'),extra=fs.readFileSync(path.join(root,'extra.js'),'utf8'),sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
 // Budget ranges belong to travelers; a pass purchase is counted once, not per ride.
 const budget=trip.budget;
-assert.equal(budget.version,1);assert.equal(budget.daily.length,14);assert(budget.exchangeRate>0);
+assert.equal(budget.version,2);assert.equal(budget.daily.length,14);assert(budget.exchangeRate>0);
 assert.deepEqual(budget.daily.map(d=>d.date),dates);
 for(const traveler of ['p1','p2']){
  const values=budget.daily.flatMap(d=>d.estimates.filter(e=>e.traveler===traveler));
@@ -58,3 +58,14 @@ const sceneText=book.match(/const BOOK_SCENES=(\{[^;]+\});/)[1],rulesText=book.m
 for(const day of trip.days){const kind=vm.runInNewContext('('+sceneText+')[date]',{date:day.date});const matches=vm.runInNewContext('('+rulesText+')[kind].every(r=>r.test(route))',{kind,route:day.events.filter(e=>!e.inherited).map(e=>e.title).join(' ')});assert(matches,day.date+' illustration scene does not match route');const local=fs.readFileSync(path.join(root,'images/covers/'+day.date.slice(5).replace('-','')+'-picturebook.svg'),'utf8').trim();const generated=vm.runInNewContext(art+';pictureIllustration(kind,"原創旅行氣氛插畫")',{kind,h:x=>String(x)});assert.equal(local,generated,day.date+' illustration snapshot stale');assert(!/<text|gradient/i.test(local));}
 assert(trip.days[9].events.some(e=>e.id==='plan-2026-12-22-lunch'&&e.origin==='sheet'&&e.cell==='K8'&&e.title.includes('築地午餐')));assert(trip.days.some(d=>d.events.some(e=>e.title.includes('淺草寺'))));assert.equal(trip.foods.filter(f=>f.provider==='Official'&&f.days.includes(10)).length,4);
 console.log('PASS: 14 days, unique event IDs, local licensed covers, route-anchored rest options, updated family routes, privacy, corrected addresses, source-aligned date-conflict dashboard, scripts and PWA assets');
+
+assert.equal(budget.insurance.length,4);
+for(const total of budget.summaries){
+ const policies=budget.insurance.filter(i=>i.traveler===total.traveler);
+ assert.equal(policies.length,2);
+ const sim=budget.sims.find(i=>i.traveler===total.traveler);
+ const fixed=sim.allowanceTWD+policies.reduce((n,i)=>n+i.amount*(i.currency==='JPY'?budget.exchangeRate:1),0);
+ const combined=budget.combined.find(i=>i.traveler===total.traveler);
+ assert.equal(combined.minTWD,Math.round(total.minJPY*budget.exchangeRate+fixed));
+ assert.equal(combined.maxTWD,Math.round(total.maxJPY*budget.exchangeRate+fixed));
+}

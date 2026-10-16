@@ -67,7 +67,34 @@ def compile_budget(rows):
         if (low, high) != (number(row, 4), number(row, 5)):
             raise ValueError('Sheet summary does not match traveler-specific daily amounts')
         summaries.append({'traveler': traveler, 'minJPY': low, 'maxJPY': high})
-    return {'version': 1, 'checked': checked, 'exchangeRate': rate,
+    if str(cell(24, 1)) != '代號' or str(cell(29, 1)) != '交通＋SIM＋兩種保險':
+        raise ValueError('Insurance block missing; preserve previous budget')
+    insurance = []
+    for row in range(25, 29):
+        traveler, currency = str(cell(row, 3)), str(cell(row, 7))
+        if traveler not in ('p1', 'p2') or currency not in ('JPY', 'TWD'):
+            raise ValueError('Invalid insurance traveler/currency')
+        start, end = str(cell(row, 4)), str(cell(row, 5))
+        days = (datetime.date.fromisoformat(end)-datetime.date.fromisoformat(start)).days+1
+        if days != number(row, 6): raise ValueError('Insurance date/day mismatch')
+        amount = number(row, 8)
+        twd = amount * (rate if currency == 'JPY' else 1)
+        if abs(twd-number(row, 9)) > 0.011: raise ValueError('Insurance conversion mismatch')
+        source = str(cell(row, 12))
+        if not source.startswith('https://'): raise ValueError('Insurance source missing')
+        insurance.append(dict(id=str(cell(row, 1)), name=str(cell(row, 2)), traveler=traveler,
+            start=start, end=end, days=days, currency=currency, amount=amount,
+            status=str(cell(row, 10)), checked=str(cell(row, 11)), source=source,
+            purchaseDate=str(cell(row, 13)), note=str(cell(row, 14))))
+    combined = []
+    for total, row in zip(summaries, (30, 31)):
+        traveler=total['traveler']
+        fixed=next(s['allowanceTWD'] for s in sims if s['traveler']==traveler)+sum(i['amount']*(rate if i['currency']=='JPY' else 1) for i in insurance if i['traveler']==traveler)
+        low, high = (math.floor(total[k]*rate+fixed+0.5) for k in ('minJPY','maxJPY'))
+        if (low,high)!=(number(row,4),number(row,5)): raise ValueError('Combined total mismatch')
+        combined.append(dict(traveler=traveler,minTWD=low,maxTWD=high))
+    return {'version': 2, 'checked': checked, 'exchangeRate': rate,
+            'insurance': insurance, 'combined': combined,
             'unit': '每位成人／每張SIM', 'daily': daily, 'summaries': summaries, 'sims': sims,
             'pass': {'priceJPY': 2000, 'budgetDate': '2026-12-20', 'hours': 72,
                      'activation': None, 'note': '首次使用時間待確認；自啟用起72小時。票券費已於12/20估列一次；僅涵蓋Metro與都營地鐵。',
@@ -80,7 +107,7 @@ def compile_budget(rows):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--rows', type=Path, help='JSON values from the budget tab A1:N20')
+    parser.add_argument('--rows', type=Path, help='JSON values from the budget tab A1:N32')
     args = parser.parse_args()
     if args.rows:
         rows = json.loads(args.rows.read_text())
