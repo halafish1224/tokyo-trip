@@ -1,19 +1,23 @@
-.day-budget{padding:18px;margin:18px 0;background:#f0f4ed;border:1px solid #aabda9;border-left:4px solid var(--journey-ink,#173e32);overflow-wrap:anywhere}
+.day-budget{padding:18px;margin:18px 0;background:#F2F3E9;border:0;border-radius:12px;border-left:4px solid var(--day-accent,#B9DAA5);overflow-wrap:anywhere}
 .budget-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .budget-heading h3{margin:0;font-size:1.05rem}
 .budget-daily-costs,.budget-profile dl{margin:12px 0}
-.budget-daily-costs>div{margin-bottom:12px}
+.budget-daily-costs{display:flex;flex-wrap:wrap;gap:10px 32px}.budget-daily-costs>div{margin-bottom:8px}
 .budget-daily-costs dt,.budget-profile dt{font-size:.82rem;color:var(--muted);margin-top:12px}
 .budget-daily-costs dd,.budget-profile dd{margin:0}
 .budget-daily-costs dd strong,.budget-profile dd strong{display:block;font-size:1.06rem}
 .budget-profile dd span{display:block}
 .budget-profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
-.budget-profile{padding:18px;border:1px solid #b6c5b0;background:#fbfdf8;min-width:0;overflow-wrap:anywhere}
-.budget-profile h3{margin:0 0 8px}
+.budget-profile{padding:18px;border:1px solid var(--line,#D8D2C5);border-top:4px solid #91AC80;border-radius:16px;background:var(--paper,#FFFCF6);min-width:0;overflow-wrap:anywhere}
+.budget-profile h3{margin:0 0 8px}.budget-profile:nth-child(2){border-top-color:#CDB06C}
+.budget-total{padding:18px 0;margin:14px 0;border-block:1px solid var(--line,#D8D2C5)}
+.budget-total span{display:block;color:var(--muted);font-size:.75rem;line-height:1.65}
+.budget-total strong{display:block;font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.5;letter-spacing:-.025em;color:#36513E;margin:5px 0;font-variant-numeric:tabular-nums}
+.insurance-budget{margin-top:22px}.insurance-budget h4{font-size:.92rem;margin-bottom:12px}
 .budget-profile details,.budget-assumptions{margin:18px 0 0;border-top:1px dashed #acbaa6;padding-top:12px}
 .budget-profile summary,.budget-assumptions summary{cursor:pointer;font-size:.86rem;font-weight:650}
 .budget-profile details p{font-size:.84rem;margin:12px 0}
 .budget-sim-note{border-top:1px dashed #acbaa6;padding-top:12px;font-size:.86rem}
 .budget-sim-note span{display:block}
-#budget-summary{scroll-margin-top:110px}
+#budget-summary,#family-budget-summary{scroll-margin-top:calc(var(--topbar-height,90px) + 16px)}
 @media(max-width:700px){.budget-profile-grid{grid-template-columns:1fr}.day-budget{padding:14px}.budget-heading{align-items:flex-start}.budget-profile{padding:16px}}
