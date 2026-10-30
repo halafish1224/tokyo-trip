@@ -21,7 +21,7 @@ for(const f of ['boot.js','app.js','extra.js','illustrations.js','picturebook.js
 for(const f of ['experience.css','picturebook.css','date-bus.css','images/date-bus.svg','fonts/Huninn-Regular.woff2','fonts/OFL.txt','manifest.webmanifest','images/icon-192.png','images/icon-512.png','images/share.jpg'])assert(fs.existsSync(path.join(root,f)));
 assert(!html.includes('experience.js'));assert(fs.readFileSync(path.join(root,'boot.js'),'utf8').includes("'extra.js'"));
 const app=fs.readFileSync(path.join(root,'app.js'),'utf8'),extra=fs.readFileSync(path.join(root,'extra.js'),'utf8'),sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
-// Budget ranges belong to travelers; a pass purchase is counted once, not per ride.
+// Budget ranges belong to travelers; removed passes must not return.
 const budget=trip.budget;
 assert.equal(budget.version,2);assert.equal(budget.daily.length,14);assert(budget.exchangeRate>0);
 assert.deepEqual(budget.daily.map(d=>d.date),dates);
@@ -33,8 +33,8 @@ for(const traveler of ['p1','p2']){
  assert.equal(summary.maxJPY,values.reduce((n,e)=>n+e.maxJPY,0));
  for(const e of values)assert(Number.isFinite(e.minJPY)&&e.minJPY>=0&&e.maxJPY>=e.minJPY);
 }
-assert.equal(budget.pass.activation,null);assert.equal(budget.pass.hours,72);
-assert(budget.daily.find(d=>d.date===budget.pass.budgetDate).estimates.every(e=>e.minJPY===budget.pass.priceJPY));
+assert(!Object.hasOwn(budget,'pass'));
+assert(!/東京地鐵乘車券72|Tokyo Subway Ticket|72\\s*小時/.test(JSON.stringify(trip)));
 assert(budget.sims.every(s=>s.allowanceTWD>0&&s.source.startsWith('https://')));
 assert(budget.sims.find(s=>s.traveler==='p1').status.includes('待確認'));
 new vm.Script(fs.readFileSync(path.join(root,'budget.js'),'utf8'),{filename:'budget.js'});
