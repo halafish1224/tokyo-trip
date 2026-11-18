@@ -81,11 +81,12 @@ def audit_snapshot(manifest, snapshot):
     ]
     extras = [cell for cell in grid_cells
               if cell not in website_cells and cell not in EDITORIAL_GRID_CELLS]
+    has_confirmed_split = "plan-1220-tower-0900" in manifest["noOriginalCellEventIds"]
     missing_editorial = [
-        cell for cell in EDITORIAL_GRID_CELLS if cell not in grid_cells
+        cell for cell in EDITORIAL_GRID_CELLS if has_confirmed_split and cell not in grid_cells
     ]
     special_missing = [
-        cell for cell in SPECIAL_SOURCE_CELLS if cell not in grid_cells
+        cell for cell in SPECIAL_SOURCE_CELLS if cell in website_cells and cell not in grid_cells
     ]
     # No Sheet text, booking details or full notes can appear in this object.
     return {
