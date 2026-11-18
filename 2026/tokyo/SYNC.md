@@ -1,3 +1,15 @@
+# Temporary owner-approved sync direction (effective 2026-11-18)
+
+**2026-11-18 00:00 Asia/Taipei to 2026-11-30 23:59:59:** `travel.itigre.com` as represented by `halafish1224/tokyo-trip/main:2026/tokyo/trip.json` is the **only authoritative itinerary**. The original Google Sheet `1kEuyUBricseI1Ihyz8EGp2JHKD1PWWuHnSS6EWmT5-E` / `工作表1!A1:O100` is an **output target only**. Website changes may be copied TO Sheet after fresh read and preservation of notes; Sheet differences must NEVER update `trip.json` during this period.
+
+**Starting 2026-12-01 00:00 Asia/Taipei:** bidirectional sync is **eligible**, not silently enabled. `research/sync-policy.json` must be explicitly activated after fresh two-sided baseline / per-cell conflict resolution, privacy checks, readback, and commit-bound evidence. Scheduled GitHub Sheet compiler stays gated until that activation; date alone never grants permission.
+
+The live itinerary page has 118 events, of which not every event has a historical Sheet cell. Do not pretend matching cell counts alone equal full synchronization. Before cutover, the Sheet must contain a complete website-event mirror with stable IDs; historical grid cells can be updated only with explicit provenance. Preserve original value in native Sheet notes when replacing old values; do not touch Q:S private notes, formulas, or unverified bookings.
+
+Historical Sheet-first rules below resume only after the bidirectional activation gate has passed; until then this section supersedes their direction of authority.
+
+---
+
 # Sheet-first synchronization
 
 Source: 工作表1 A1:O100. Read the complete bounded range; the API may omit trailing blank rows. Do not equate fewer than 100 returned rows with a failed read. Verify the returned range, all 14 date columns, and fresh target CellData before writing. Q:S notes are outside the itinerary compiler; preserve them.

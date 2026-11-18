@@ -1,3 +1,9 @@
+## Override: 2026-11-18 to 2026-11-30 website → Sheet only
+
+The itinerary owner explicitly changed the authoritative direction: `tokyo-trip/main:2026/tokyo/trip.json` is canonical and Google Sheet `1kEuyUBricseI1Ihyz8EGp2JHKD1PWWuHnSS6EWmT5-E` is a downstream mirror through November 30. On December 1 Asia/Taipei two-way writes may start **only after a verified activation** and reconciliation of prior one-way changes. `scripts/tokyo_sync_mode.py` and `research/sync-policy.json` gate the existing scheduled CSV compiler to prevent regressions. The older Sheet-first statements later in this document are superseded during this window. No other Sheet ID or prior disabled automation should be reused.
+
+---
+
 ## Current sync review — 2026-10-14
 
 See [SYNC.md](SYNC.md) for current safety rules. Older dated notes below are historical, not confirmation of today's route or successful scheduled runs.

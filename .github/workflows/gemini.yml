@@ -4,9 +4,12 @@ on:
     paths:
       - 'scripts/verify_tokyo_route_authority.py'
       - 'scripts/test_tokyo_route_authority.py'
+      - 'scripts/tokyo_sync_mode.py'
+      - 'scripts/test_tokyo_sync_mode.py'
+      - '2026/tokyo/research/sync-policy.json'
       - '.github/workflows/gemini.yml'
   schedule:
-    - cron: '17 19 * * *' # Taiwan 03:17; bidirectional connector sync runs on its existing schedule
+    - cron: '17 19 * * *' # Taiwan 03:17; Sheet->website compilation gated until verified Dec 1 activation
   workflow_dispatch:
 permissions:
   contents: write
@@ -19,12 +22,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Test and verify owner's 12/20 plan without publishing
+      - name: Verify route and sync direction without publishing
         run: |
           python scripts/test_tokyo_route_authority.py
           python scripts/verify_tokyo_route_authority.py
-  compile:
+          python scripts/test_tokyo_sync_mode.py
+  direction-gate:
     if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      sheet_to_site: ${{ steps.mode.outputs.sheet_to_site }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compute sync mode from owner approval and date
+        id: mode
+        run: |
+          python scripts/test_tokyo_sync_mode.py
+          python scripts/tokyo_sync_mode.py
+          echo "sheet_to_site=$(python scripts/tokyo_sync_mode.py --allow-sheet-to-site)" >> "$GITHUB_OUTPUT"
+          echo "Before validated Dec 1 activation, Sheet -> website compiler is intentionally skipped."
+  compile:
+    needs: direction-gate
+    if: github.event_name != 'pull_request' && needs.direction-gate.outputs.sheet_to_site == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
