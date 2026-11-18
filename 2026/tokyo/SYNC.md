@@ -25,6 +25,10 @@ The connected, authorized synchronization operator must separately inspect live 
 
 The `東京行程單向同步` task runs through 11/30; the original old Sheet-first task must remain disabled. After 12/1 the dated cutoff is only eligibility. No Sheet→website write is permitted without explicit, verified dual-sync activation.
 
+**December 1 activation evidence (fail closed):** `bidirectionalEnabled` remains `false` until the independent cutover task has actually compared all 14 days and resolved per-cell conflicts. To enable, the reviewed policy change must supply `activationEvidence`: a complete 40-character `approvedCommit` and matching current `sourceBlobSha`; non-empty `sheetVersion`; `conflictCount:0`; `mirrorVerified:true`, `nativeNotesPreserved:true`, `publicDataSanitized:true`, `approvedByOwner:true`; and `readbackVerifiedAt` with a timezone-aware timestamp after the cutover and no later than the actual verification moment. The mode gate checks **evidence shape and timing**, not external authenticity. At activation, the connected operator and reviewed PR must separately compare the supplied blob SHA against the current website file and verify the live Google revision, CellData, note preservation and approval. After activation, future legitimate website changes are allowed, but **each actual write** must independently compare the current Git HEAD and fresh Sheet revision and stop on conflict; this script alone is not a complete bidirectional writer.
+
+
+
 ---
 
 # Temporary owner-approved sync direction (effective 2026-11-18)

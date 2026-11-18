@@ -3,7 +3,9 @@
 import argparse
 import datetime as dt
 import json
+import re
 from pathlib import Path
+
 
 ROOT=Path(__file__).resolve().parents[1]
 DEFAULT=ROOT/"2026/tokyo/research/sync-policy.json"
@@ -29,11 +31,31 @@ def get_mode(policy,now):
     if policy.get("bidirectionalEnabled") is not True:
         return "bidirectional_pending_verification"
     evidence=policy.get("activationEvidence")
-    if not isinstance(evidence,dict) or not evidence.get("approvedCommit") or not evidence.get("readbackVerifiedAt") or not evidence.get("sheetVersion"):
+    if not isinstance(evidence,dict):
         raise ValueError("bidirectional activation requires verifiable evidence")
-    approved=dt.datetime.fromisoformat(evidence["readbackVerifiedAt"])
-    if approved.tzinfo is None or approved<cutoff:
-        raise ValueError("bidirectional verification must happen after cutover")
+    if not re.fullmatch(r"[0-9a-f]{40}",str(evidence.get("approvedCommit",""))):
+        raise ValueError("bidirectional activation requires a full approved Git commit SHA")
+    if not re.fullmatch(r"[0-9a-f]{40}",str(evidence.get("sourceBlobSha",""))):
+        raise ValueError("bidirectional activation requires a full source Git blob SHA")
+    if not isinstance(evidence.get("sheetVersion"),str) or not evidence["sheetVersion"].strip():
+        raise ValueError("bidirectional activation requires the verified Sheet revision")
+    if type(evidence.get("conflictCount")) is not int or evidence["conflictCount"]!=0:
+        raise ValueError("bidirectional activation requires zero unresolved cell conflicts")
+    for field in ("mirrorVerified","nativeNotesPreserved","publicDataSanitized","approvedByOwner"):
+        if evidence.get(field) is not True:
+            raise ValueError("bidirectional activation requires verified approval: "+field)
+    try:
+        approved=dt.datetime.fromisoformat(evidence["readbackVerifiedAt"])
+    except (ValueError,TypeError,KeyError) as exc:
+        raise ValueError("bidirectional activation requires a valid readback timestamp") from exc
+    if approved.tzinfo is None or approved<cutoff or approved>now:
+        raise ValueError("bidirectional verification must be timestamped after cutover and before now")
+    # This runtime gate validates evidence SHAPE and timing only. A source blob
+    # must be verified against live trip.json when activating, but must not
+    # be permanently pinned here: legitimate bidirectional site changes will
+    # change that blob, and should not implicitly disable all later runs.
+    # The connected writer must independently check live Sheet revision,
+    # Git commit CAS, notes and approval before EACH write.
     return "bidirectional"
 
 def main():
