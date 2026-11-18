@@ -5,7 +5,7 @@ import datetime as dt
 import json
 import re
 from pathlib import Path
-from export_tokyo_site_mirror import git_blob_sha, SOURCE
+
 
 ROOT=Path(__file__).resolve().parents[1]
 DEFAULT=ROOT/"2026/tokyo/research/sync-policy.json"
@@ -37,8 +37,6 @@ def get_mode(policy,now):
         raise ValueError("bidirectional activation requires a full approved Git commit SHA")
     if not re.fullmatch(r"[0-9a-f]{40}",str(evidence.get("sourceBlobSha",""))):
         raise ValueError("bidirectional activation requires a full source Git blob SHA")
-    if git_blob_sha(SOURCE.read_bytes())!=evidence["sourceBlobSha"]:
-        raise ValueError("verified website source blob SHA is stale; re-run cutover audit")
     if not isinstance(evidence.get("sheetVersion"),str) or not evidence["sheetVersion"].strip():
         raise ValueError("bidirectional activation requires the verified Sheet revision")
     if type(evidence.get("conflictCount")) is not int or evidence["conflictCount"]!=0:
@@ -52,9 +50,12 @@ def get_mode(policy,now):
         raise ValueError("bidirectional activation requires a valid readback timestamp") from exc
     if approved.tzinfo is None or approved<cutoff or approved>now:
         raise ValueError("bidirectional verification must be timestamped after cutover and before now")
-    # These are mandatory evidence-shape and exact source-blob checks. Live
-    # Google revision, native CellData/note and owner approval must ALSO be
-    # independently verified before submitting the reviewed activation PR.
+    # This runtime gate validates evidence SHAPE and timing only. A source blob
+    # must be verified against live trip.json when activating, but must not
+    # be permanently pinned here: legitimate bidirectional site changes will
+    # change that blob, and should not implicitly disable all later runs.
+    # The connected writer must independently check live Sheet revision,
+    # Git commit CAS, notes and approval before EACH write.
     return "bidirectional"
 
 def main():
