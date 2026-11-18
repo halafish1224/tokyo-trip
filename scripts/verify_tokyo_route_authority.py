@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Do not regress the owner's confirmed Dec 20 morning split itinerary.
+"""Do not regress confirmed Dec 20 tower split or Dec 26 Keisei airport route.
 
 The Google Sheet still contains an older 14:15 Tokyo Tower route. Until
 its cells are reviewed and reconciled, Sheet-first compilers must not erase
@@ -19,6 +19,7 @@ APPROVED = {
     "plan-1220-shibuya-1330": "13:30",
     "plan-1220-blue-1800": "18:00",
 }
+APPROVED_DEC26 = {"sheet-2026-12-26-r8": "12:50", "sheet-2026-12-26-r9": "13:30"}
 TRIP = Path(__file__).resolve().parents[1] / "2026/tokyo/trip.json"
 
 
@@ -48,6 +49,20 @@ def validate_trip(trip):
     title = by_id["plan-1220-tower-0900"].get("title", "")
     if "長輩" not in title or "澀谷" not in title:
         raise ValueError("Morning climb must preserve the Shibuya/rest split")
+    airport_days = [day for day in days if day.get("date") == "2026-12-26"]
+    if len(airport_days) != 1 or not isinstance(airport_days[0].get("events"), list):
+        raise ValueError("Missing or duplicate 12/26 airport itinerary")
+    airport_by_id = {}
+    for e in airport_days[0]["events"]:
+        if e.get("id") in airport_by_id:
+            raise ValueError("Duplicate 12/26 event ID")
+        airport_by_id[e.get("id")] = e
+        if "Jumbo Taxi" in str(e.get("title", "")):
+            raise ValueError("Old Jumbo Taxi primary route reintroduced")
+    for event_id, expected in APPROVED_DEC26.items():
+        planned = airport_by_id.get(event_id, {})
+        if planned.get("time") != expected or "京成 Access" not in str(planned.get("title", "")):
+            raise ValueError("Owner-confirmed Dec 26 Keisei primary route changed: " + event_id)
     return True
 
 
@@ -56,7 +71,7 @@ def main():
     parser.add_argument("--trip", type=Path, default=TRIP)
     args = parser.parse_args()
     validate_trip(json.loads(args.trip.read_text(encoding="utf-8")))
-    print("Tokyo 2026-12-20 owner-confirmed 09:00 tower / Shibuya split: verified")
+    print("Tokyo owner-approved 12/20 morning tower and 12/26 Keisei primary airport route: verified")
 
 
 if __name__ == "__main__":
