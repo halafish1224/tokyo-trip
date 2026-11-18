@@ -72,11 +72,19 @@ class SyncPolicyTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "full approved Git commit SHA"):
             self.at("2026-12-01T09:00:00+08:00", p)
 
-    def test_reject_outdated_or_fake_website_blob(self):
+    def test_reject_malformed_website_blob_sha(self):
         p = self.activated()
-        p["activationEvidence"]["sourceBlobSha"] = "0" * 40
-        with self.assertRaisesRegex(ValueError, "source blob SHA is stale"):
+        p["activationEvidence"]["sourceBlobSha"] = "short"
+        with self.assertRaisesRegex(ValueError, "full source Git blob SHA"):
             self.at("2026-12-01T09:00:00+08:00", p)
+
+    def test_runtime_does_not_pin_initial_source_blob_after_legitimate_future_site_updates(self):
+        p = self.activated()
+        # Git/Sheet CAS still required from the connected writer per operation.
+        # A later authorized website commit will have a different blob hash;
+        # this evidence-shape gate must not permanently block bidirectional use.
+        p["activationEvidence"]["sourceBlobSha"] = "b" * 40
+        self.assertEqual(self.at("2026-12-02T09:00:00+08:00", p), "bidirectional")
 
     def test_reject_any_unresolved_conflict_or_missing_readback_proof(self):
         for field, value, reason in (
