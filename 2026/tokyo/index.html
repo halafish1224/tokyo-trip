@@ -132,6 +132,18 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
   .day-number { min-width: 36px; padding-right: 4px; font-size: 1.35rem; }
   .accordion-button { gap: 10px; }
 }
+/* Family Insurance Planning Module Styles */
+#insurance-guide { scroll-margin-top: 90px; margin: 24px 0; }
+.ins-table-wrap { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--journey-line); border-radius: 4px; }
+.ins-table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: .86rem; background: #fff; }
+.ins-table th, .ins-table td { border: 1px solid #d5dbd2; padding: 10px 12px; text-align: left; vertical-align: top; line-height: 1.6; }
+.ins-table th { background: var(--journey-pale); color: var(--journey-ink); font-weight: 750; }
+.ins-checklist { list-style: none; padding: 0; margin: 12px 0 0; }
+.ins-checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-bottom: 1px dashed var(--journey-line); font-size: .9rem; }
+.ins-checklist li:last-child { border-bottom: 0; }
+.ins-checklist input[type="checkbox"] { width: 22px; height: 22px; min-height: 22px; margin-top: 4px; flex-shrink: 0; accent-color: var(--journey-ink); }
+.ins-card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.ins-url-backup { display: block; font-size: .74rem; color: var(--muted); margin-top: 6px; word-break: break-all; }
 </style>
 <meta name="robots" content="noindex,nofollow,noarchive">
 <link rel="canonical" href="https://travel.itigre.com/2026/tokyo/">
@@ -173,6 +185,7 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
     <section id="sec-theme" class="section utility-section" aria-label="景點與美食"><h2 class="page-heading">街區、美食與口袋名單</h2><p class="muted">由完整行程整理，點選即可回到對應日期。</p><label for="theme-search" class="small">搜尋景點與美食</label><input id="theme-search" type="search" placeholder="例如：神社、超市、藤澤" style="width:100%;margin:8px 0 20px"><section id="map-notes-guide" class="panel" style="margin:0 0 24px" aria-labelledby="map-notes-heading"><h2 id="map-notes-heading">📝 我的地圖筆記</h2><p class="small">旅途中想逛、想吃的口袋名單。</p><details class="panel-details"><summary>筆記來源</summary><p class="small muted" id="map-notes-description"></p></details><p class="small muted" id="map-notes-sync" role="status">筆記載入中…</p><div class="filters"><label for="map-notes-search" class="visually-hidden">搜尋我的地圖筆記</label><input type="search" id="map-notes-search" placeholder="搜尋筆記，例如：抹茶、Loft、咖哩…"><label class="visually-hidden" for="map-notes-source">筆記來源清單</label><select id="map-notes-source"><option value="all">兩份清單全部</option value="0">2026二零二六</option><option value="1">東京2026</option></select></div><p id="map-notes-count" class="small muted" role="status"></p><div class="mode-switch"><button class="btn" data-notes-layer="today">今日相關</button><button class="btn" data-notes-layer="nearby">附近</button><button class="btn" data-notes-layer="all">完整口袋名單</button></div><div id="map-notes-list"></div></section><div id="theme-spots-list" class="tour-grid"></div><section id="food-guide" class="panel" style="margin-top:28px"><h2>依用餐情境挑選</h2><p class="small muted">評分是摘錄，非即時 Places；筆記整理日2026-10-02，各評分原查閱日見卡片。</p><p class="small muted">避開用餐尖峰，走累了就找個地方歇腳。</p><select id="food-context" aria-label="用餐情境"><option value="all">全部情境</option><option>預約</option><option>排隊</option><option>當地午餐</option><option>走累歇腳</option><option>避開</option></select><div id="all-foods" class="food-grid"></div></section></section>
         <div id="sec-account" class="section utility-section"><h2 class="page-heading">待購與旅途記帳</h2>
         <section id="budget-summary" class="acc-section" aria-label="交通、上網與保險行前預算"></section>
+        <div style="margin: 0 0 18px"><a class="btn btn-small btn-quiet" href="#insurance-guide" data-open-section="trans">🛡️ 查看 12/19–12/26 家族旅平險＋日本醫療險投保攻略與連結</a></div>
         <div class="action-btn-container">
             <a href="https://forms.gle/N8fV9HE6vQMLGUTp7" target="_blank" rel="noopener noreferrer" class="action-card action-card-report">
                 <span>📸</span>
@@ -233,15 +246,178 @@ body[data-journey="solo"] .hero-art svg g[fill="#9a303a"] { fill: var(--journey-
                 🗺️ 東京2026 總地圖清單
                 <span>包含所有景點、餐廳與備用方案</span>
             </a>
-            <a href="https://vjw-lp.digital.go.jp/zh-hant/" target="_blank" rel="noopener noreferrer" class="prep-link">
-                🛂 Visit Japan Web (VJW) 填寫
-                <span>入境資料與可用功能，請查看官方說明</span>
+            <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" rel="noopener noreferrer" class="prep-link">
+                🛂 Visit Japan Web (VJW) 官方入口
+                <span>入境審查、海關申報與抵日當天點選下方「旅遊保險」投保</span>
             </a>
-            <a href="https://tokiomarinenichido.jp/zh-hant/china2/?srsltid=AfmBOorqZbUIUHkKzIDtEwL9Izd5Ce-RW-4uLIdW9zhHOuJSdWS5XaI_" target="_blank" rel="noopener noreferrer" class="prep-link">
-                🛡️ 東京海上日動 (旅遊保險)
-                <span>TOKIO 保險連結</span>
+            <a href="https://tokiomarinenichido.jp/zh-hant/china2/" target="_blank" rel="noopener noreferrer" class="prep-link">
+                🛡️ 東京海上日動 (TOKIO OMOTENASHI POLICY 繁中官網)
+                <span>12/19 落地入境後當天線上投保（保期 12/20–12/26，享 1,000 萬日圓免代墊醫療＋中文口譯）</span>
+            </a>
+            <a href="#insurance-guide" class="prep-link">
+                📋 跳至「12/19–12/26 家族雙保單規劃與國內產險投保連結」 ↓
+                <span>含 3 位未滿 15 歲孩童、1 位 70 歲以上長輩投保眉角與檢核表</span>
             </a>
         </div>
+
+        <section id="insurance-guide" class="panel" aria-labelledby="insurance-heading">
+            <div class="weather-top" style="flex-wrap:wrap;margin-bottom:12px">
+                <h2 id="insurance-heading" style="margin:0">🛡️ 12/19–12/26 家族旅遊「台日雙保單」規劃與投保入口</h2>
+                <span class="badge badge-note">成人＋3位未滿15歲＋1位70歲以上｜無滑雪</span>
+            </div>
+
+            <div class="route-box">
+                <strong>💡 核心互補策略：台灣保「基本醫療＋完整不便險」，日本保「高額無現金醫療」</strong>
+                入境日本後會投保 <strong>TOKIO OMOTENASHI POLICY</strong>，因此台灣旅平險的海外突發疾病保額<strong>可以適度調降至 30 萬～50 萬台幣</strong>（省下重複保費），但<strong>絕對不能不保或低於 30 萬</strong>：
+                <br>1. <strong>【補首日空窗期】</strong>日本保單規定入境後申請、<strong>「投保隔日 00:00（即 12/20）」才生效</strong>，因此 <strong>12/19 抵達當天</strong>必須全靠台灣旅平險支撐。
+                <br>2. <strong>【保門急診比例】</strong>台灣海外突發疾病門診限額通常為總保額 0.5%～5%，保留 30～50 萬才夠支應首日或返台追蹤看診。
+                <br>3. <strong>【補高齡缺口與不便險】</strong>日本保單<strong>完全無年齡上限</strong>（70+ 長輩同享 1,000 萬日圓免代墊直付＋中文口譯），但<strong>不含旅遊不便險、意外身故與個人賠償責任險</strong>，這三項由台灣保單完整負責。
+            </div>
+
+            <h3>一、全家 8 天保額與險種配置表（台灣端保期：12/19 00:00 ～ 12/26 24:00）</h3>
+            <div class="ins-table-wrap">
+                <table class="ins-table">
+                    <thead>
+                        <tr>
+                            <th>保障項目</th>
+                            <th>成人（父母等）</th>
+                            <th>3 位未滿 15 歲孩童</th>
+                            <th>1 位 70 歲以上長輩</th>
+                            <th>規劃重點說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>意外身故／失能</strong></td>
+                            <td>500 萬～1,000 萬</td>
+                            <td><strong>69 萬</strong><br><span class="small muted">（若已有舊保單則選 0 元）</span></td>
+                            <td>200 萬～500 萬<br><span class="small muted">（依年齡上限）</span></td>
+                            <td>未滿 15 歲喪葬費累計上限 69 萬，若孩子已有壽險／意外險，請選<strong>「無身故保額（純醫療＋不便險）」</strong>方案以免退件。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>海外突發疾病</strong></td>
+                            <td><strong>30 萬～50 萬</strong></td>
+                            <td><strong>30 萬～50 萬</strong></td>
+                            <td><strong>20 萬～50 萬</strong></td>
+                            <td><strong>務必勾選「含法定傳染病」</strong>，支應 12/19 入境首日空窗期及返台後門診追蹤。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>意外傷害醫療</strong></td>
+                            <td>30 萬～50 萬</td>
+                            <td>30 萬～50 萬</td>
+                            <td>20 萬～50 萬</td>
+                            <td>應對 12/19 首日或台灣往返機場期間的意外跌倒、擦挫傷。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>旅遊不便險</strong></td>
+                            <td><strong>必保（高規格）</strong></td>
+                            <td><strong>必保（同成人）</strong></td>
+                            <td><strong>必保（同成人）</strong></td>
+                            <td>12 月下旬逢聖誕假期與日本冬季氣候，<strong>班機延誤（4小時定額）、旅程更改</strong>必備。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>個人賠償責任險</strong></td>
+                            <td>建議附加</td>
+                            <td><strong>強烈建議附加</strong></td>
+                            <td>建議附加</td>
+                            <td>3 位孩童同行，防範在飯店或商店不慎損壞物品、弄髒地毯的賠償責任。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>二、台灣端｜國內產險投保與試算連結（建議 12/10～12/12 前完成）</h3>
+            <p class="small muted">7～14 歲孩童與家人多人投保需走「回傳親簽要保書」流程（約需 3～5 個工作天人工核保），請勿拖到出發前一天才網投。</p>
+            <div class="tour-grid">
+                <article class="tour-card">
+                    <div class="tour-date"><span class="badge">首選推薦</span><span class="badge badge-score">兒童 0 身故方案</span></div>
+                    <h3>1. 富邦產險（理賠最省心）</h3>
+                    <p class="small">提供<strong>「無身故保額（純醫療＋不便險）」兒童方案</strong>，直接避開 69 萬超額退件地雷；班機延誤、行李延誤與損失採<strong>定額給付</strong>（免收集日用品收據）。</p>
+                    <p class="small muted">📌 操作重點：點選頁面中「回傳要保區（一次可保 1～10 人）」，提前至少 5 個工作天申請並於 3 天內回傳親簽要保書（長輩若逾 79 歲改洽分支機構臨櫃）。</p>
+                    <div class="ins-card-actions">
+                        <a class="btn btn-small btn-primary" href="https://www.fubon.com/insurance/b2c/content/main/new04.html" target="_blank" rel="noopener noreferrer">開啟富邦產險投保專區 ↗</a>
+                    </div>
+                    <span class="ins-url-backup">https://www.fubon.com/insurance/b2c/content/main/new04.html</span>
+                </article>
+
+                <article class="tour-card">
+                    <div class="tour-date"><span class="badge">冬季不便險最強</span><span class="badge badge-note">限 1～70 歲線上要保</span></div>
+                    <h3>2. 新光產險（尊爵／日本方案）</h3>
+                    <p class="small">班機延誤每滿 4 小時賠 6,000 元（單次最高 1.2 萬、保期可賠 2 次），旅程取消／更改額度高（6～8 萬）；含法定傳染病，門急診限額皆為住院額度 5%。</p>
+                    <p class="small muted">📌 操作重點：支援 1～70 歲家人線上要保回傳（需提前 5 天）；若同行長輩已滿 71 歲以上，線上系統會擋件，需改洽客服或臨櫃辦理。</p>
+                    <div class="ins-card-actions">
+                        <a class="btn btn-small btn-primary" href="https://www.sk858.com.tw/products/ta/default" target="_blank" rel="noopener noreferrer">開啟新光產險投保專區 ↗</a>
+                    </div>
+                    <span class="ins-url-backup">https://www.sk858.com.tw/products/ta/default</span>
+                </article>
+
+                <article class="tour-card">
+                    <div class="tour-date"><span class="badge">高齡與兒童友善</span><span class="badge badge-score">最高承保至 84 歲</span></div>
+                    <h3>3. 安達產物 Chubb</h3>
+                    <p class="small">含法定傳染病，海外急難援助最高 12 萬美金；針對未滿 15 歲孩童可提供較高醫療保額（最高 50 萬），且高齡長輩最高可承保至 <strong>84 歲</strong>。</p>
+                    <p class="small muted">📌 操作重點：網路試算僅限 18～75 歲本人；若長輩為 76～84 歲或幫未滿 15 歲孩童投保，請在專頁點選傳真／臨櫃要保通道（提前 5 個工作天）。</p>
+                    <div class="ins-card-actions">
+                        <a class="btn btn-small btn-primary" href="https://www.chubb.com/tw-zh/personal/personal-travel-insurance.html" target="_blank" rel="noopener noreferrer">安達旅平險專頁 ↗</a>
+                        <a class="btn btn-small btn-quiet" href="https://www.chubbtravelinsurance.com.tw/cti/tw-zh/home.html" target="_blank" rel="noopener noreferrer">網路試算平台 ↗</a>
+                    </div>
+                    <span class="ins-url-backup">https://www.chubb.com/tw-zh/personal/personal-travel-insurance.html</span>
+                </article>
+
+                <article class="tour-card">
+                    <div class="tour-date"><span class="badge">家庭整合度高</span><span class="badge badge-note">0～79 歲拍照上傳</span></div>
+                    <h3>4. 國泰產險（海外旅遊險）</h3>
+                    <p class="small">含法定傳染病，旅程更改最高 12 萬、含信用卡盜刷保障；試算時選「我與家人」走回傳要保書流程，即可一次涵蓋 <strong>0～79 歲</strong> 子女與父母。</p>
+                    <p class="small muted">📌 操作重點：簽名完成後可直接在國泰會員中心拍照上傳要保書，免跑傳真機。</p>
+                    <div class="ins-card-actions">
+                        <a class="btn btn-small btn-primary" href="https://www.cathay-ins.com.tw/INSEBWeb/travel-insurance/travel-insurance-oversea/prompt" target="_blank" rel="noopener noreferrer">國泰線上直接試算 ↗</a>
+                        <a class="btn btn-small btn-quiet" href="https://www.cathay-ins.com.tw/cathayins/personal/travel/oversea/" target="_blank" rel="noopener noreferrer">方案說明頁 ↗</a>
+                    </div>
+                    <span class="ins-url-backup">https://www.cathay-ins.com.tw/INSEBWeb/travel-insurance/travel-insurance-oversea/prompt</span>
+                </article>
+
+                <article class="tour-card">
+                    <div class="tour-date"><span class="badge">東京海上集團</span><span class="badge badge-note">含個人賠償責任</span></div>
+                    <h3>5. 新安東京海上產險</h3>
+                    <p class="small">保費 CP 值高，提供定額型或實支實付型（最高 5 萬）不便險可選；含法定傳染病與個人賠償責任險。</p>
+                    <p class="small muted">📌 操作重點：18 歲以上成人出發前 1 小時可快速網投；幫孩童或高齡長輩一起投保請點選頁面內「網路要保」回傳要保書。</p>
+                    <div class="ins-card-actions">
+                        <a class="btn btn-small btn-primary" href="https://www.tmnewa.com.tw/ec/travel/overseas/" target="_blank" rel="noopener noreferrer">開啟新安東京海上投保 ↗</a>
+                    </div>
+                    <span class="ins-url-backup">https://www.tmnewa.com.tw/ec/travel/overseas/</span>
+                </article>
+
+                <article class="tour-card">
+                    <div class="tour-date"><span class="badge badge-score">12/19 抵日當天辦</span><span class="badge">無年齡上限</span></div>
+                    <h3>6. 日本端｜TOKIO OMOTENASHI POLICY</h3>
+                    <p class="small">保期設定 <strong>12/20 ～ 12/26（共 7 天）</strong>，享 1,000 萬日圓醫療＋醫療專機。<strong>台灣 IP 無法投保</strong>，請於 12/19 落地日本連網後，由 1 位大人幫全家一起申請。</p>
+                    <p class="small muted">🚨 就醫鐵則：下載 <code>TOKIO MARINE Safety Information</code> APP 綁定保單；在日看診前<strong>務必先透過 APP 聯繫中文客服安排醫院</strong>，才能啟動「免代墊現金直付」與三方醫療口譯！</p>
+                    <div class="ins-card-actions">
+                        <a class="btn btn-small btn-red" href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/" target="_blank" rel="noopener noreferrer">由 VJW 入境後投保 ↗</a>
+                        <a class="btn btn-small btn-quiet" href="https://tokiomarinenichido.jp/zh-hant/china2/" target="_blank" rel="noopener noreferrer">繁中說明預覽 ↗</a>
+                    </div>
+                    <span class="ins-url-backup">https://tokiomarinenichido.jp/zh-hant/china2/</span>
+                </article>
+            </div>
+
+            <div class="day-note" style="margin-top:20px;margin-bottom:0">
+                <strong>✅ 家族投保 3 階段行動 Check-list（可直接點擊勾選確認）</strong>
+                <ul class="ins-checklist">
+                    <li>
+                        <input type="checkbox" id="ins-chk-1">
+                        <label for="ins-chk-1"><strong>11 月底前｜確認孩童年齡與既有保單：</strong>確認 3 位未滿 15 歲孩童實足年齡（滿 7～14 歲需親簽要保書），並確認名下是否已有滿 69 萬身故保單（若有則鎖定富邦等「0 身故保額」兒童方案）。</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="ins-chk-2">
+                        <label for="ins-chk-2"><strong>12/10 ～ 12/12 前｜完成台灣端全家投保：</strong>設定保期 <code>2026/12/19 00:00 ～ 2026/12/26 24:00</code>（足 8 天），確認勾選「海外突發疾病含法定傳染病」＋「旅遊不便險」＋「個人賠償責任險」，並完成親簽要保書回傳核保。</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="ins-chk-3">
+                        <label for="ins-chk-3"><strong>12/19 抵日當天｜機場連網投保日本端醫療險：</strong>過海關連上日本網路後，開啟 Visit Japan Web 下方「旅遊保險」由 1 位大人幫全家（含 3 孩童＋70 歲以上長輩）投保 TOKIO OMOTENASHI POLICY（保期 <code>12/20 ～ 12/26</code>），下載官方 APP 並將保單號碼分享給同行大人備份。</label>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
         <div>
             <div>🛒 日本比價情報中心</div>
             <div>
