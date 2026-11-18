@@ -1,3 +1,32 @@
+## Website → Google Sheet mirror integrity (2026-11-19)
+
+Use the website JSON as the only authoritative snapshot through **2026-11-30**. To prepare an **inspectable, read-only** mapping for the existing daily sync automation:
+
+```bash
+python scripts/test_tokyo_site_mirror.py
+python scripts/export_tokyo_site_mirror.py \
+  --compare-sha "$(git hash-object 2026/tokyo/trip.json)" \
+  --output /tmp/tokyo-website-mirror.json
+```
+
+To audit a fresh connected Google Sheet read **without sending its private contents into Git**, obtain two complete, bounded range reads: `工作表1!A1:O100` and `網站同步!A4:I{N+4}` (where `N` is the current website event count). Keep the JSON wrapper `{"spreadsheetId":"…","grid":{"range":"…","values":[]},"mirror":{"range":"…","values":[]}}` outside this repository, then run:
+
+```bash
+python scripts/audit_tokyo_sheet_mirror.py \
+  --compare-sha "$(git hash-object 2026/tokyo/trip.json)" \
+  --snapshot /private/tokyo-readback.json
+```
+
+The audit outputs **only mismatched event IDs and cell coordinates**, never full private Sheet values. It separately lists existing approved human-edited `I3`/`I8`/`O8` wording and `I5`/`I9`/`I12`/`I13`/`I14`/`I15` layout exceptions for independent CellData/note checks. Its successful read-only comparison does **not** authorize a write, prove current Google version IDs or replace explicit 12/1 two-way activation.
+
+The exporter does **not** call Google Sheets or publish the travel site. It verifies all 14 date columns, the exact Git-blob SHA of the source, unique event IDs, valid dates/times, one-to-one original Sheet cell provenance, and **includes every event in the mirror**, even those without an original grid cell. The JSON contains public website titles and notes, not private original Sheet contents. Do not put private Sheet snapshots into Git.
+
+The connected, authorized synchronization operator must separately inspect live Google Sheet CellData (values, native notes, formulas, validation and chip fields) for `工作表1!A1:O100`, verify the `網站同步` tab, and compare **source SHA immediately before writing**. Preserve the confirmed 12/20 split in I5 and 12/26 Keisei route in O8/O9; do not guess a grid location for the 12/20 editorial group events. Carry prior replaced Sheet values forward in native notes. Read back the touched **and untouched** cells, update the audit tab truthfully, and treat errors or partial API responses as failed synchronization. `Q:S` contains private notes and remains untouched.
+
+The `東京行程單向同步` task runs through 11/30; the original old Sheet-first task must remain disabled. After 12/1 the dated cutoff is only eligibility. No Sheet→website write is permitted without explicit, verified dual-sync activation.
+
+---
+
 # Temporary owner-approved sync direction (effective 2026-11-18)
 
 **2026-11-18 00:00 Asia/Taipei to 2026-11-30 23:59:59:** `travel.itigre.com` as represented by `halafish1224/tokyo-trip/main:2026/tokyo/trip.json` is the **only authoritative itinerary**. The original Google Sheet `1kEuyUBricseI1Ihyz8EGp2JHKD1PWWuHnSS6EWmT5-E` / `工作表1!A1:O100` is an **output target only**. Website changes may be copied TO Sheet after fresh read and preservation of notes; Sheet differences must NEVER update `trip.json` during this period.
