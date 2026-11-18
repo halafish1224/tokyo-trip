@@ -10,12 +10,15 @@
   "bidirectionalEarliest": "2026-12-01T00:00:00+08:00",
   "bidirectionalEnabled": false,
   "activationRequires": [
-    "latest 14-day website and Sheet snapshots",
-    "separate source-cell reconciliation",
-    "verified conflict resolution",
-    "read-before-write and readback check",
-    "fresh Git main commit compare-and-swap",
-    "preservation of reservation privacy, notes and Q:S"
+    "explicit owner-approved GitHub PR / reviewedCommit full 40-character SHA",
+    "current trip.json Git blob SHA matching the verified source snapshot",
+    "fresh 14-day website and Sheet snapshots with stable IDs",
+    "Google Sheet revision reference with native notes preserved",
+    "zero unresolved per-cell conflicts",
+    "full website mirror verified against latest Sheet readback",
+    "public data and booking privacy sanitization checked",
+    "timezone-aware readback timestamp on or after 2026-12-01, not in the future",
+    "fresh Git main compare-and-swap plus post-write deployment verification"
   ],
   "writeBehaviorBeforeCutover": "website_to_sheet_only",
   "writeBehaviorAfterCutoverUntilActivated": "bidirectional_pending_verification",
