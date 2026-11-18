@@ -30,7 +30,7 @@ jobs:
           if [ -n "$GOOGLE_BUDGET_CSV_URL" ]; then python scripts/build_tokyo_budget.py; fi
       - name: Preserve owner-confirmed Dec 20 morning group route
         run: |
-          python -m unittest scripts/test_tokyo_route_authority.py
+          python scripts/test_tokyo_route_authority.py
           python scripts/verify_tokyo_route_authority.py
       - name: Validate public data
         run: node scripts/check_tokyo.cjs
