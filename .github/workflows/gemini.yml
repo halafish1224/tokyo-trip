@@ -6,6 +6,8 @@ on:
       - 'scripts/test_tokyo_route_authority.py'
       - 'scripts/tokyo_sync_mode.py'
       - 'scripts/test_tokyo_sync_mode.py'
+      - 'scripts/export_tokyo_site_mirror.py'
+      - 'scripts/test_tokyo_site_mirror.py'
       - '2026/tokyo/research/sync-policy.json'
       - '.github/workflows/gemini.yml'
   schedule:
@@ -27,6 +29,8 @@ jobs:
           python scripts/test_tokyo_route_authority.py
           python scripts/verify_tokyo_route_authority.py
           python scripts/test_tokyo_sync_mode.py
+          python scripts/test_tokyo_site_mirror.py
+          python scripts/export_tokyo_site_mirror.py --compare-sha "$(git hash-object 2026/tokyo/trip.json)"
   direction-gate:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
@@ -38,6 +42,8 @@ jobs:
         id: mode
         run: |
           python scripts/test_tokyo_sync_mode.py
+          python scripts/test_tokyo_site_mirror.py
+          python scripts/export_tokyo_site_mirror.py --compare-sha "$(git hash-object 2026/tokyo/trip.json)"
           python scripts/tokyo_sync_mode.py
           echo "sheet_to_site=$(python scripts/tokyo_sync_mode.py --allow-sheet-to-site)" >> "$GITHUB_OUTPUT"
           echo "Before validated Dec 1 activation, Sheet -> website compiler is intentionally skipped."
