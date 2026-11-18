@@ -1,0 +1,30 @@
+{
+  "schema": "tokyo-sync-direction-v1",
+  "timezone": "Asia/Taipei",
+  "websiteRepository": "halafish1224/tokyo-trip",
+  "websitePath": "2026/tokyo/trip.json",
+  "sheetId": "1kEuyUBricseI1Ihyz8EGp2JHKD1PWWuHnSS6EWmT5-E",
+  "sheetTab": "工作表1",
+  "sheetRange": "A1:O100",
+  "websiteAuthoritativeUntil": "2026-12-01T00:00:00+08:00",
+  "bidirectionalEarliest": "2026-12-01T00:00:00+08:00",
+  "bidirectionalEnabled": false,
+  "activationRequires": [
+    "latest 14-day website and Sheet snapshots",
+    "separate source-cell reconciliation",
+    "verified conflict resolution",
+    "read-before-write and readback check",
+    "fresh Git main commit compare-and-swap",
+    "preservation of reservation privacy, notes and Q:S"
+  ],
+  "writeBehaviorBeforeCutover": "website_to_sheet_only",
+  "writeBehaviorAfterCutoverUntilActivated": "bidirectional_pending_verification",
+  "rules": [
+    "Do not overwrite trip.json from Sheet before cutover",
+    "Do not infer station/platform times from planning",
+    "Never write public trip.json from a private Sheet cell directly",
+    "Keep original Sheet cell text in native note when replacing conflicting values",
+    "Preserve user-authored Q:S and adjacent non-itinerary data",
+    "Never change approved 12/20 tower and 12/26 Keisei routes from stale Sheet"
+  ]
+}
