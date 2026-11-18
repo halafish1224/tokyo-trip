@@ -61,7 +61,12 @@ def validate_trip(trip):
             raise ValueError("Old Jumbo Taxi primary route reintroduced")
     for event_id, expected in APPROVED_DEC26.items():
         planned = airport_by_id.get(event_id, {})
-        if planned.get("time") != expected or "京成 Access" not in str(planned.get("title", "")):
+        title = str(planned.get("title", ""))
+        if planned.get("time") != expected:
+            raise ValueError("Owner-confirmed Dec 26 Keisei primary route changed: " + event_id)
+        if event_id.endswith("-r8") and "飯店集合" not in title:
+            raise ValueError("Owner-confirmed Dec 26 airport assembly changed: " + event_id)
+        if event_id.endswith("-r9") and "京成 Access" not in title:
             raise ValueError("Owner-confirmed Dec 26 Keisei primary route changed: " + event_id)
     return True
 
