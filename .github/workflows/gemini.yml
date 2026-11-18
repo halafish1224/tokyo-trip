@@ -1,5 +1,10 @@
 name: Tokyo validated Sheet compiler
 on:
+  pull_request:
+    paths:
+      - 'scripts/verify_tokyo_route_authority.py'
+      - 'scripts/test_tokyo_route_authority.py'
+      - '.github/workflows/gemini.yml'
   schedule:
     - cron: '17 19 * * *' # Taiwan 03:17; bidirectional connector sync runs on its existing schedule
   workflow_dispatch:
@@ -9,7 +14,17 @@ concurrency:
   group: tokyo-data-update
   cancel-in-progress: false
 jobs:
+  route-authority-pr-check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test and verify owner's 12/20 plan without publishing
+        run: |
+          python scripts/test_tokyo_route_authority.py
+          python scripts/verify_tokyo_route_authority.py
   compile:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
