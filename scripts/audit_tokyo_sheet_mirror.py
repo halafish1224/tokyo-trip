@@ -26,7 +26,7 @@ GRID_RANGE = "'工作表1'!A1:O100"
 MIRROR_TAB = "網站同步"
 # These are human-reviewed website-authoritative *layout exceptions*, not
 # blanket permissions to overwrite/delete their original Google Sheet value.
-SPECIAL_SOURCE_CELLS = frozenset({"I8", "O8"})
+SPECIAL_SOURCE_CELLS = frozenset({"I3", "I8", "O8"})
 EDITORIAL_GRID_CELLS = frozenset({"I5", "I9", "I12", "I13", "I14", "I15"})
 
 
