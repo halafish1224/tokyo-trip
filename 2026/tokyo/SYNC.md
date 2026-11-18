@@ -9,6 +9,16 @@ python scripts/export_tokyo_site_mirror.py \
   --output /tmp/tokyo-website-mirror.json
 ```
 
+To audit a fresh connected Google Sheet read **without sending its private contents into Git**, obtain two complete, bounded range reads: `工作表1!A1:O100` and `網站同步!A4:I{N+4}` (where `N` is the current website event count). Keep the JSON wrapper `{"spreadsheetId":"…","grid":{"range":"…","values":[]},"mirror":{"range":"…","values":[]}}` outside this repository, then run:
+
+```bash
+python scripts/audit_tokyo_sheet_mirror.py \
+  --compare-sha "$(git hash-object 2026/tokyo/trip.json)" \
+  --snapshot /private/tokyo-readback.json
+```
+
+The audit outputs **only mismatched event IDs and cell coordinates**, never full private Sheet values. It separately lists existing approved human-edited `I3`/`I8`/`O8` wording and `I5`/`I9`/`I12`/`I13`/`I14`/`I15` layout exceptions for independent CellData/note checks. Its successful read-only comparison does **not** authorize a write, prove current Google version IDs or replace explicit 12/1 two-way activation.
+
 The exporter does **not** call Google Sheets or publish the travel site. It verifies all 14 date columns, the exact Git-blob SHA of the source, unique event IDs, valid dates/times, one-to-one original Sheet cell provenance, and **includes every event in the mirror**, even those without an original grid cell. The JSON contains public website titles and notes, not private original Sheet contents. Do not put private Sheet snapshots into Git.
 
 The connected, authorized synchronization operator must separately inspect live Google Sheet CellData (values, native notes, formulas, validation and chip fields) for `工作表1!A1:O100`, verify the `網站同步` tab, and compare **source SHA immediately before writing**. Preserve the confirmed 12/20 split in I5 and 12/26 Keisei route in O8/O9; do not guess a grid location for the 12/20 editorial group events. Carry prior replaced Sheet values forward in native notes. Read back the touched **and untouched** cells, update the audit tab truthfully, and treat errors or partial API responses as failed synchronization. `Q:S` contains private notes and remains untouched.
