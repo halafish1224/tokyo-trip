@@ -31,6 +31,10 @@ showSection=function(section,options={}){
  $('journal-view').hidden=section!=='trip'||viewMode!=='journal';
 };
 function selectedDay(){return buildDays().find(d=>d.id===activeDay)||buildDays()[0];}
+function guideSourceLink(entry) {
+ const source = Array.isArray(entry) ? {name: entry[0], url: entry[1]} : SOURCES[entry];
+ return source?.url && source.name ? ext(source.url, source.name + ' ↗') : '';
+}
 function renderExperience(){
  document.body.dataset.mode=viewMode;
  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===viewMode)));
@@ -41,7 +45,7 @@ function renderExperience(){
  document.querySelector('.experience').hidden=currentSection!=='trip';$('decision-board').hidden=currentSection!=='trans';$('overview').hidden=currentSection!=='trip'||viewMode!=='plan';$('journal-view').hidden=currentSection!=='trip'||viewMode!=='journal';
  const events=day.events.filter(e=>!e.inherited&&!/住宿據點$/.test(e.title));
  const next=events.find(e=>(familyMode||!localState.checks[e.id])&&(!isToday||timeMinutes(e.time)>=japanMinutes()));
- $('next-stop').innerHTML=viewMode==='today'?`<div class="next-card"><span class="badge">下一站 · 行程計畫時間</span><h3>${next?h(next.time+' '+next.title):'今天的計畫已到尾聲'}</h3><p>${h(day.guide.text)}</p><p class="small">班次請以鐵路官網為準。</p><div class="source-links">${day.guide.sources.map(k=>SOURCES[k]?ext(SOURCES[k].url,SOURCES[k].name+' ↗'):'').join('')}</div></div>`:'';
+ $('next-stop').innerHTML=viewMode==='today'?`<div class="next-card"><span class="badge">下一站 · 行程計畫時間</span><h3>${next?h(next.time+' '+next.title):'今天的計畫已到尾聲'}</h3><p>${h(day.guide.text)}</p>${day.guide.note ? `<p>${h(day.guide.note)}</p>` : ''}<p class="small">班次請以鐵路官網為準。</p><div class="source-links">${day.guide.sources.map(guideSourceLink).join('')}</div></div>`:'';
  $('share-day').hidden=viewMode==='journal';
  document.querySelector('.travel-support').open=viewMode==='today';
  document.querySelector('[data-section="trip"] .nav-label').textContent=viewMode==='today'?'Today 今天':'每日行程';
