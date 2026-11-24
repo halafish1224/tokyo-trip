@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>東京冬日紀行 2026｜A5 旅行手帳</title>
+<style>
+:root{--ink:#193a43;--accent:#a33d2f;--soft:#e6eee9;--line:#bac9c4;--paper:#fffdfa}
+*{box-sizing:border-box}body{margin:0;background:#e8edea;color:var(--ink);font:12pt/1.45 "Noto Sans TC","Microsoft JhengHei","Hiragino Sans",sans-serif}
+.controls{max-width:850px;margin:16px auto;padding:16px;background:white;border-radius:12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}.controls h1{font-size:18pt;width:100%;margin:0}.controls label{display:flex;align-items:center;gap:6px}button,select{font:inherit;padding:7px 10px}button{background:#193a43;color:white;border:0;border-radius:5px;cursor:pointer}button:disabled{opacity:.45;cursor:default}a{color:inherit}.status{width:100%;font-size:10pt;margin:0}.book{display:grid;justify-content:center;gap:14px;padding:10px 0 32px}
+.page{width:148mm;height:210mm;background:var(--paper);position:relative;display:flex;flex-direction:column;padding:12mm 12mm 13mm 15mm;overflow:hidden;box-shadow:0 2px 9px #0002;break-after:page;page-break-after:always}.page:nth-child(even){padding-left:12mm;padding-right:15mm}.page:last-child{break-after:auto;page-break-after:auto}.page-content{flex:1;min-height:0;overflow:visible}.foot{font-size:8pt;border-top:0.3mm solid var(--line);padding-top:2mm;display:flex;justify-content:space-between;position:absolute;bottom:6mm;left:12mm;right:12mm}.eyebrow{font-size:10pt;letter-spacing:.14em;color:var(--accent);font-weight:700}.date{font-size:24pt;font-weight:800;margin:0;color:var(--accent);line-height:1.2}h1,h2,h3,p{margin:0 0 3mm}h1{font:700 32pt/1.2 Georgia,"Noto Serif TC",serif}h2{font-size:17pt;line-height:1.3}h3{font-size:13pt;line-height:1.35}p,li{overflow-wrap:anywhere}ul{padding-left:5mm;margin:2mm 0 3mm}.cover{background:var(--soft);justify-content:center}.cover .page-content{display:flex;flex-direction:column;justify-content:center}.cover .hero{font-size:70pt;color:var(--accent);line-height:1.2;letter-spacing:.06em}.cover .sub{font-size:15pt;margin-top:5mm}.cover .rule{width:28mm;height:1.5mm;background:var(--accent);margin:5mm 0}.cover .edition{font-size:12pt;letter-spacing:.08em}.intro-block{border-top:.3mm solid var(--line);padding:3mm 0}.toc{display:grid;gap:1mm}.toc-row{display:grid;grid-template-columns:17mm 1fr 10mm;gap:2mm;align-items:baseline;padding:1.4mm 0;border-bottom:.2mm solid var(--line);font-size:10.5pt}.toc-row span:last-child{text-align:right;font-variant-numeric:tabular-nums}.event{display:grid;grid-template-columns:18mm 1fr;gap:2mm;border-bottom:.25mm solid var(--line);padding:2mm 0;break-inside:avoid}.event .time{font-size:13pt;color:var(--accent);font-weight:800;font-variant-numeric:tabular-nums}.event h3{font-size:12pt;margin:0 0 1mm}.event p{font-size:10.5pt;margin:0 0 1mm}.flag{font-size:10pt;color:var(--accent);font-weight:bold}.route{border-left:1mm solid var(--accent);padding:2mm 3mm;background:var(--soft);font-weight:650;margin-bottom:3mm;font-size:12pt}.photo{width:100%;height:41mm;object-fit:contain;display:block;background:var(--soft)}.credit{font-size:8pt;line-height:1.3;margin:1mm 0 3mm}.detail{border-top:.25mm solid var(--line);padding-top:2mm;margin-top:2mm;font-size:10.5pt}.detail h3{font-size:12pt;margin-bottom:1mm}.notes{margin:2mm 0}.notes div{height:8mm;border-bottom:.25mm solid var(--line)}.muted{font-size:10pt}.mono{--ink:#111;--accent:#222;--soft:#fff;--line:#aaa;--paper:#fff}.mono .photo{filter:grayscale(1)}.mono .cover{background:white}.mono .route{background:white}.warning{color:#8f3024}
+@media screen and (max-width:570px){.controls{margin:8px}.book{display:block;overflow-x:auto}.page{margin:0 auto 14px}}
+@page{size:A5 portrait;margin:0}
+@media print{html,body{margin:0;background:white}.controls{display:none!important}.book{display:block;padding:0}.page{margin:0;box-shadow:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header class="controls">
+<h1>東京冬日紀行｜旅行手帳試印版</h1>
+<label>版本 <select id="edition"><option value="family">8 天家族版</option><option value="all">14 天完整版</option></select></label>
+<label>樣式 <select id="style"><option value="color">冬季全彩</option><option value="mono">省墨黑白</option></select></label>
+<label><input id="notes" type="checkbox" checked>額外筆記頁</label>
+<button id="print" disabled>列印／儲存 PDF</button>
+<a href="../">回行程網站</a>
+<p id="status" class="status" role="status">讀取行程中…</p>
+</header>
+<main id="book" class="book"></main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const book=$("book"), status=$("status"), print=$("print");
+let data;
+const el=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=String(value);return n};
+const add=(p,tag,cls,value)=>{const n=el(tag,cls,value);p.append(n);return n};
+const shortDate=d=>d.slice(5).replace("-","/");
+const weekday=d=>new Intl.DateTimeFormat("zh-TW",{weekday:"long",timeZone:"UTC"}).format(new Date(d+"T00:00:00Z"));
+const chunks=(items,n)=>Array.from({length:Math.ceil(items.length/n)},(_,i)=>items.slice(i*n,i*n+n));
+function page(label,cls=""){
+ const p=add(book,"section","page "+cls), content=add(p,"div","page-content");
+ const f=add(p,"footer","foot");add(f,"span","",label);add(f,"span","",String(book.children.length));return content;
+}
+function heading(p,d,label){add(p,"p","eyebrow",label);add(p,"p","date",shortDate(d.date)+" "+weekday(d.date));add(p,"h2","",d.guide?.title||d.header)}
+function lines(p,n){const box=add(p,"div","notes");for(let i=0;i<n;i++)add(box,"div","")}
+function optional(e){return /候選|備案|待核對|待確認|未確認|自由安排|待預約|未預約/.test([e.title,e.note,e.status].join(" "))}
+function coverPhoto(p,d){
+ const c=data.covers?.find(c=>c.date===d.date);
+ if(!c||!/^images\/covers\/[a-zA-Z0-9._-]+$/.test(c.image||""))return;
+ const img=add(p,"img","photo");img.src="../"+c.image;img.alt=c.caption||"歷史景點照片";
+ add(p,"p","credit",[c.caption,c.author,c.license,c.file?"Wikimedia Commons："+c.file:""].filter(Boolean).join("｜"));
+}
+function routePage(d){
+ const p=page(shortDate(d.date)+"・動線");heading(p,d,"ROUTE / 路線與提醒");
+ coverPhoto(p,d);
+ if(d.guide?.route)add(p,"p","route",d.guide.route);
+ if(d.guide?.text)add(p,"p","",d.guide.text);
+ if(d.guide?.note){add(p,"h3","","出發前確認");add(p,"p","muted",d.guide.note)}
+ add(p,"p","muted","以上為行程順序示意，非按比例地圖。");
+}
+function detailPages(d){
+ const ids=new Set(d.events.flatMap(e=>e.venueIds||[]));
+ const venues=(data.venues||[]).filter(v=>ids.has(v.id)&&(v.address||v.exit)).map(v=>({title:v.ja||v.id,text:[v.address,v.exit||"出口待核對"].filter(Boolean).join("｜")}));
+ const eventIds=new Set(d.events.map(e=>e.id));
+ const stops=(data.seniorStops||[]).filter(s=>eventIds.has(s.eventId)).map(s=>({title:"休息："+s.name,text:[s.address,s.hours,s.why,s.caution].filter(Boolean).join("｜")}));
+ const details=[...venues,...stops];
+ for(const group of chunks(details,3)){
+   const p=page(shortDate(d.date)+"・導航與休息");heading(p,d,"ACCESS / 車站出口與休憩");
+   for(const item of group){const block=add(p,"section","detail");add(block,"h3","",item.title);add(block,"p","",item.text)}
+ }
+}
+function notesPage(d){
+ const p=page(shortDate(d.date)+"・筆記");heading(p,d,"MEMO / 旅行筆記");
+ add(p,"h3","","今日集合地點／時間（手寫）");lines(p,2);add(p,"h3","","想記下來的事");lines(p,10);
+}
+function render(){
+ print.disabled=true;book.replaceChildren();book.classList.toggle("mono",$("style").value==="mono");
+ const days=data.days.filter(d=>$("edition").value==="all"||d.date>="2026-12-19");
+ const title=$("edition").value==="all"?"湘南・東京 14 天完整版":"東京 8 天家族版";
+ const c=page("ITIGRE / 2026","cover");add(c,"p","eyebrow","ITIGRE TRAVEL JOURNAL");add(c,"p","hero","冬");add(c,"h1","","東京冬日紀行");add(c,"div","rule");add(c,"p","sub",title);add(c,"p","edition",shortDate(days[0].date)+" — "+shortDate(days.at(-1).date)+" / 2026");add(c,"p","muted","試印版｜出發前重新核對");
+ const intro=page("使用說明");add(intro,"p","eyebrow","BEFORE THE TRIP");add(intro,"h2","","出發前・旅途中");
+ for(const [title,desc] of [["時間與集合","所有時間為行程規劃，不代表訂位或交通班次已確認。集合、航班、營業時間與臨時變更需出發前核對。"],["長輩優先","安排坐下休息、確認電梯與無障礙出口；不必為趕行程急行。"],["離線使用","每日時間、路線及既有導航資料皆直接印在紙上。可另下載離線地圖。"],["緊急協助","日本警察 110；消防與救護 119。"],["資料版本","網站行程資料："+(data.updatedAt||"未標示")]]){const b=add(intro,"section","intro-block");add(b,"h3","",title);add(b,"p","",desc)}
+ const toc=page("目錄");add(toc,"p","eyebrow","CONTENTS");add(toc,"h2","","每日行程");const list=add(toc,"div","toc");
+ for(const d of days){
+   const start=book.children.length+1;
+   const entry=add(list,"div","toc-row");add(entry,"span","",shortDate(d.date));add(entry,"span","",d.guide?.title||d.header);add(entry,"span","",start);
+   const groups=chunks(d.events,5);
+   groups.forEach((events,i)=>{
+     const p=page(shortDate(d.date)+"・時間軸");heading(p,d,"DAY "+d.number+" / 行程 "+(i+1)+"-"+groups.length);
+     for(const e of events){const row=add(p,"article","event");add(row,"div","time",e.time||"—");const b=add(row,"div","");add(b,"h3","",e.title||"未命名");if(e.note)add(b,"p","",e.note);if(optional(e))add(b,"p","flag","備案或待確認｜依當日狀況");if(e.navigation&&e.navigation!==e.title)add(b,"p","muted","導航："+e.navigation)}
+   });
+   routePage(d);detailPages(d);
+   if($("notes").checked)notesPage(d);
+   if((book.children.length-start+1)%2!==0){const p=page(shortDate(d.date)+"・備忘");heading(p,d,"MEMO / 追加紀錄");lines(p,12)}
+ }
+ while((book.children.length+1)%4!==0){const p=page("備忘");add(p,"h2","","旅行備忘");lines(p,15)}
+ const back=page("ITIGRE / 2026","cover");add(back,"p","eyebrow","ITIGRE TRAVEL JOURNAL");add(back,"h2","","旅程未完，故事待續。");add(back,"p","muted","travel.itigre.com｜2026 東京冬日紀行");
+ checkLayout();
+}
+async function checkLayout(){
+ await Promise.allSettled([...book.querySelectorAll("img")].map(i=>i.decode()));
+ if(document.fonts)await document.fonts.ready;
+ const pages=[...book.querySelectorAll(".page-content")];
+ const bad=pages.map((p,i)=>p.scrollHeight>p.clientHeight+2?i+1:null).filter(Boolean);
+ const broken=[...book.querySelectorAll("img")].filter(i=>!i.naturalWidth).length;
+ status.textContent="共 "+pages.length+" 頁（A5，4 的倍數）"+(bad.length?"；版面溢出："+bad.join("、")+" 頁，請勿印刷":"；螢幕版面檢查通過")+(broken?"；圖片載入失敗 "+broken+" 張":"")+"。試印後仍需檢查 PDF 分頁與字型。";
+ print.disabled=!!(bad.length||broken);
+}
+for(const id of ["edition","style","notes"])$(id).addEventListener("change",()=>{if(data)render()});
+print.addEventListener("click",()=>window.print());
+fetch("../trip.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(j=>{
+ if(!Array.isArray(j.days)||j.days.length!==14||!j.days.every((d,i)=>d.date==="2026-12-"+(13+i)&&Array.isArray(d.events)))throw new Error("行程資料日期或格式不符");
+ data=j;render();
+}).catch(e=>{status.textContent="無法建立手帳："+e.message;print.disabled=true});
+</script>
+</body>
+</html>
