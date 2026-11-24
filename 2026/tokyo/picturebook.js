@@ -1,6 +1,6 @@
 /* Display enhancements only. Itinerary data and all existing device keys stay intact. */
 const BOOK_SCENES={'2026-12-13':'flight','2026-12-14':'coast','2026-12-15':'temple','2026-12-16':'castle','2026-12-17':'town','2026-12-18':'coast','2026-12-19':'station','2026-12-20':'shopping','2026-12-21':'station','2026-12-22':'tsukiji','2026-12-23':'asakusa','2026-12-24':'mall','2026-12-25':'town','2026-12-26':'flight'};
-const BOOK_SCENE_RULES={flight:[/✈/],coast:[/江之島|江ノ島|鎌倉|材木座|腰越/],temple:[/大船|觀音|観音/],castle:[/小田原/],town:[/藤澤|藤沢/],station:[/東京|浜町/],ginza:[/銀座/,/KITTE/],park:[/芝公園|草坪/],asakusa:[/淺草|浅草/,/上野/],shopping:[/澀谷|渋谷|LOFT/,/3COINS/],mall:[/LakeTown/i],tsukiji:[/築地/],rest:[]};
+const BOOK_SCENE_RULES={flight:[/✈|航班起飛/],coast:[/江之島|江ノ島|鎌倉|材木座|腰越/],temple:[/大船|觀音|観音/],castle:[/小田原/],town:[/藤澤|藤沢|柴又/],station:[/東京|浜町/],ginza:[/銀座/,/KITTE/],park:[/芝公園|草坪/],asakusa:[/淺草|浅草/,/上野/],shopping:[/澀谷|渋谷/,/LOFT|百貨|3COINS/i],mall:[/LakeTown/i],tsukiji:[/築地/],rest:[]};
 const PACKING_ITEMS=[['passport','護照與入境資料'],['medicine','常備藥與個人需要的用品'],['warm','保暖外套、圍巾'],['charge','手機、充電線、行動電源'],['water','水壺與輕便雨具'],['wallet','交通卡、錢包與必要票券']];
 function sanitizeBookState(raw){
  const out={version:1,mustGo:{},packing:{}};
@@ -24,7 +24,7 @@ function transportTags(e){
  return tags.length?`<span class="transport-tags" aria-label="原行程提到的交通方式">${tags.slice(0,2).map(([kind,label])=>`<span class="transport-tag ${kind}">${label}</span>`).join('')}</span>`:'';
 }
 const bookBaseCover=dayCoverHtml;
-dayCoverHtml=function(day){const source='images/covers/'+day.date.slice(5).replace('-','')+'-picturebook.svg',kind=BOOK_SCENES[day.date]||'tokyo',route=meaningfulEvents(day).map(e=>e.title).join(' '),match=(BOOK_SCENE_RULES[kind]||[]).every(rule=>rule.test(route));return `<figure class="book-cover"><div class="book-cover-art" data-local-illustration="${source}">${pictureIllustration(kind,match?dailyFeature(day).title+' · 原創氣氛插畫':'前版氣氛插畫，路線更新後待核對')}</div><figcaption>DAY ${String(day.number).padStart(2,'0')} · ${h(day.guide.area)} · ${ext(source,'原創氣氛插畫 ↗')}${match?'':' · 插畫待依新路線更新'}</figcaption></figure><section class="reference-photo" aria-label="當日景點照片">${bookBaseCover(day)}<p class="photo-credit-hint">照片授權見「隨身工具」。</p></section>`;};
+dayCoverHtml=function(day){const source='images/covers/'+day.date.slice(5).replace('-','')+'-picturebook.svg',kind=BOOK_SCENES[day.date]||'tokyo',route=meaningfulEvents(day).map(e=>e.title).join(' '),match=(BOOK_SCENE_RULES[kind]||[]).every(rule=>rule.test(route));return `<figure class="book-cover"><div class="book-cover-art" data-local-illustration="${source}">${pictureIllustration(kind,match?dailyFeature(day).title+' · 原創氣氛插畫':'前版氣氛插畫，路線更新後待核對')}</div><figcaption>DAY ${String(day.number).padStart(2,'0')} · ${h(day.guide.area)} · ${ext(source,'原創氣氛插畫 ↗')}${match?'':' · 插畫待依新路線更新'}</figcaption></figure>${dailyFeature(day).retired?'':`<section class="reference-photo" aria-label="當日景點照片">${bookBaseCover(day)}<p class="photo-credit-hint">照片授權見「隨身工具」。</p></section>`}`;};
 const bookBaseEvent=eventHtml;
 eventHtml=function(e,day){
  let markup=bookBaseEvent(e,day);
@@ -45,9 +45,9 @@ function renderCountdown(){
  $('departure-countdown').innerHTML=days>0?`<span class="countdown-caption">距離出發</span><strong class="countdown-number">${days}</strong><span class="countdown-caption">天</span><span class="countdown-date">12/13（日）出發 · 依日本日期</span>`:today<=end?`<span class="countdown-caption">旅程第</span><strong class="countdown-number">${1-days}</strong><span class="countdown-caption">天 / 14 天</span>`:'<span class="countdown-caption">旅程已珍藏，回來看看那些足跡。</span>';
 }
 function renderFlights(){
- const flights=TRIP.days.flatMap(day=>day.events.filter(e=>/✈|CI\d{3}/.test(e.title)).map(e=>({day,event:e})));
+ const flights=TRIP.days.flatMap(day=>day.events.filter(e=>/✈|CI\s?\d{3}|航班起飛/.test(e.title)).map(e=>({day,event:e})));
  $('flight-cards').innerHTML=flights.map(({day,event:e})=>{
-  const returning=/回台/.test(e.title),flight=e.title.match(/CI\s?\d{3}/)?.[0]||'班號待核對';
+  const returning=/回台/.test(e.title)||day.date===TRIP.days.at(-1).date,flight=e.title.match(/CI\s?\d{3}/)?.[0]||'班號待核對';
   return `<article class="flight-card">${dateStampHtml(day.date)}<h3>${returning?'回家航班':day.date==='2026-12-19'?'家族出發':'湘南旅程出發'} · ${h(flight)}</h3><p class="flight-route">${returning?'成田 → 桃園':'桃園 → 成田'}<br><span class="small">T2 → T2 · 依行程表，航廈待機票核對</span></p><strong class="flight-time">${h(e.time||'未定')} <span class="small">計畫起飛</span></strong><span class="badge badge-note">行程表計畫 · 未核實班次</span><p class="small">機票時間依當地時區；不換算抵達時間。</p><button type="button" class="btn btn-small" data-day-jump="${h(day.id)}">查看 ${h(day.date.slice(5).replace('-','/'))} 行程</button></article>`;
  }).join('');
 }
